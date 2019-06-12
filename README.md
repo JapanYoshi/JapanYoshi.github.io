@@ -1,0 +1,1 @@
+# JapanYoshi.github.io
