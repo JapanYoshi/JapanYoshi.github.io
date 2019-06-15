@@ -1,0 +1,212 @@
+<head>
+    <title>FL Studio Master Pitch Tuner</title>
+    <meta property="og:title" value="FL Studio Master Pitch Tuner">
+    <meta name="twitter:title" value="FL Studio Master Pitch Tuner">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description" content="This helps you tune your FL Studio project in Hz!">
+    <meta property="og:description" content="This helps you tune your FL Studio project in Hz!">
+    <meta name="twitter:description" content="This helps you tune your FL Studio project in Hz!">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,FL Studio">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/pitch.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/pitch.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Cuprum&display=swap');
+
+        body {
+            font-family: "Cuprum", sans-serif;
+            background: #596267;
+            color: #d9e1e5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #main {
+            width: 360px;
+            height: 360px;
+            border: 2px solid #434c51;
+            margin: 0 auto;
+        }
+
+        #dial-border {
+            position: relative;
+            background: #bccbd2;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            margin: 18px;
+            overflow: hidden;
+            border: 2px solid #2c353a;
+        }
+
+        .dial-mask {
+            width: 160px;
+            height: 320px;
+            background: #333c41;
+            display: block;
+            position: absolute;
+            margin: 0;
+            padding: 0;
+        }
+
+        #dial-mask-left {
+            left: 0px;
+            transform-origin: right;
+        }
+
+        #dial-mask-right {
+            right: 0px;
+            transform-origin: left;
+        }
+
+        #dial-knob {
+            width: 280px;
+            height: 280px;
+            left: 18px;
+            top: 18px;
+            background: #3f484d;
+            position: absolute;
+            border: 2px solid #2c353a;
+            border-radius: 50%;
+            color: #9ba8af;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        #control {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 4px;
+            padding: 4px;
+            border: 4px solid black;
+            background: #bbc3c8;
+            font-family: "Segoe UI", "San Francisco Text", "Helvetica Neue", "Nimbus Sans", "TeX Gyre Heros", "Helvetica", sans-serif;
+            color: black;
+        }
+
+        .header {
+            background: #949ea5;
+            color: #bbc3c8;
+            padding: 2px;
+        }
+
+        .option {
+            margin-top: 2px;
+            padding: 2px;
+            padding-left: 12px;
+        }
+
+        .option:hover {
+            background: #5d6c75;
+            color: #bbc3c8;
+        }
+
+        input {
+            background: inherit;
+            color: inherit;
+            font-family: inherit;
+            border: none;
+            font-size: inherit;
+        }
+
+        hr {
+            border: 0px solid;
+            border-top: 2px solid #949ea5;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        #output {
+            padding-left: 8px;
+            padding-right: 8px;
+            display: inline-block;
+            border: 2px solid #86959c;
+        }
+    </style>
+</head>
+
+<body>
+    <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
+    <h1>Master pitch</h1>
+    <div id="main">
+        <div id="dial-border">
+            <div id="dial-mask-left" class="dial-mask"></div>
+            <div id="dial-mask-right" class="dial-mask"></div>
+            <div id="dial-knob">
+                ・
+            </div>
+        </div>
+    </div>
+    <div id="control">
+        <div class="header">Value</div>
+        <form>
+            <div class="option">A = <input type="number" name="hz" id="hz" value="440" min="220" max="880"
+                    novalidate></input>Hz</div>
+        </form>
+        <div id="set" class="option">Set...</div>
+        <hr>
+        <div class="option">Copy and paste this value: <span id="output">0.5</span></div>
+        <div class="header">About</div>
+        <div class="option">Coded by Haley Halcyon</div>
+        <a href="https://redd.it/arunjy">
+            <div class="option">Learn more (Reddit)</div>
+        </a>
+        <div class="option" id="help">Help</div>
+    </div>
+    <script>
+        var tuning = 440;
+        var value = 0.5;
+
+        document.getElementById("help").addEventListener("click", function () {
+            alert("1/7 Have you ever wanted to tune your FL Studio projects to anything that isn't 440Hz?");
+            alert("2/7 Even if you haven't, this tool will help you do so.");
+            alert("3/7 First, set your tuning right under the \"Value\" heading.");
+            alert("4/7 Then, copy the value that appears in the box underneath.");
+            alert("5/7 On FL Studio, locate the knob labeled \"Master pitch\". It should look like a tiny version of the knob on the page. Right-click it and click \"Paste value\".");
+            alert("6/7 Voilà, your project should now be tuned!");
+            alert("7/7 One important note is: While all stock plugins support master pitch, some third-party ones may not. Test if your plugin supports master pitch by first testing it with a very high or very low master pitch value.")
+        });
+
+        function animateKnob() {
+            var rotAngle = (value - 0.5) * 360;
+            document.getElementById("dial-knob").style.transform =
+                "rotate(" + rotAngle + "deg)";
+            if (value < 0.5) {
+                document.getElementById("dial-mask-left").style.transform =
+                    "rotate(" + rotAngle + "deg)";
+                document.getElementById("dial-mask-right").style.transform =
+                    "rotate(0deg)";
+            } else {
+                document.getElementById("dial-mask-left").style.transform =
+                    "rotate(0deg)";
+                document.getElementById("dial-mask-right").style.transform =
+                    "rotate(" + rotAngle + "deg)";
+            }
+        }
+
+        function turnKnob() {
+            var val = Number(document.getElementById("hz").value);
+            if (val > 880 || val < 220 || isNaN(val)) {//it's weird, it should be NaN if the input doesn't parse to a number, but it's returning 0.
+                document.getElementById("output").innerHTML = "Invalid; Enter tuning between 220 and 880 inclusive.";
+            } else {
+                tuning = document.getElementById("hz").value;
+                value = Math.log(tuning / 440) / Math.log(2) * 0.5 + 0.5;
+                animateKnob();
+                document.getElementById("output").innerHTML = value;
+            }
+        }
+
+        document.getElementById("set").addEventListener("click", turnKnob);
+        document.getElementById("hz").addEventListener("input", turnKnob);
+    </script>
+</body>
