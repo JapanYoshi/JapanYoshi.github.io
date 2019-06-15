@@ -9,8 +9,7 @@
     <meta name="twitter:site" content="@ItsSpelledHALEY">
     <meta name="twitter:creator" content="@ItsSpelledHALEY">
     <!-- page metadata -->
-    <meta name="description"
-        content="Play around with the Golden Spiral. Change its rotation, color, and angle.">
+    <meta name="description" content="Play around with the Golden Spiral. Change its rotation, color, and angle.">
     <meta property="og:description"
         content="Play around with the Golden Spiral. Change its rotation, color, and angle.">
     <meta name="twitter:description"
@@ -23,256 +22,262 @@
     <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/gold.png">
     <style>
         body {
-    background: #000;
-    margin: 0;
-    overflow: hidden;
-}
-#canvas1 {
-    background: #000;
-}
-.slideContainer{
-    width: calc(100vw / 3 - 1px);
-    height: 64px;
-    font-size: 16px;
-    line-height: 32px;
-    display: block;
-    float: left;
-    overflow: hidden;
-}
-.slideCaption {
-    width: 100%;
-    height: 32px;
-    color: white;
-}
-.slider {
-    margin: 0;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 75%;
-    height: 24px;
-    background: #505050;
-    outline: none;
-    opacity: 0.8;
-    transition: opacity .2s;
-}
+            background: #000;
+            margin: 0;
+            overflow: hidden;
+        }
 
-.slider:hover {
-    opacity: 1;
-}
+        #canvas1 {
+            background: #000;
+        }
 
-.slideValue {
-    display: inline-block;
-    width: 25%;
-    height: 24%;
-    color: white;
-    overflow: visible;
-    text-align: right;
-    float: right;
-}
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 4px;
-    height: 32px;
-    border-radius: 0px;
-}
-.slider::-moz-range-thumb {
-    width: 4px;
-    height: 32px;
-    border-radius: 0px;
-}
+        .slideContainer {
+            width: calc(100vw / 3 - 1px);
+            height: 64px;
+            font-size: 16px;
+            line-height: 32px;
+            display: block;
+            float: left;
+            overflow: hidden;
+        }
+
+        .slideCaption {
+            width: 100%;
+            height: 32px;
+            color: white;
+        }
+
+        .slider {
+            margin: 0;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 75%;
+            height: 24px;
+            background: #505050;
+            outline: none;
+            opacity: 0.8;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slideValue {
+            display: inline-block;
+            width: 25%;
+            height: 24%;
+            color: white;
+            overflow: visible;
+            text-align: right;
+            float: right;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 4px;
+            height: 32px;
+            border-radius: 0px;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 4px;
+            height: 32px;
+            border-radius: 0px;
+        }
     </style>
 </head>
 
 <body>
     <canvas id="canvas1"></canvas>
-<div id="control">
-    <form>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Spiral Angle Adjust
+    <div id="control">
+        <form>
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Spiral Angle Adjust
+                </div>
+                <input type="range" min="-10" max="10" step="1" value="0" class="slider" id="rot">
+                <div class="slideValue" id="outRot">0</div>
             </div>
-            <input type="range" min="-10" max="10" step="1" value="0" class="slider" id="rot">
-            <div class="slideValue" id="outRot">0</div>
-        </div>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Rotation Speed
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Rotation Speed
+                </div>
+                <input type="range" min="-20" max="20" step="1" value="5" class="slider" id="rotS">
+                <div class="slideValue" id="outRotS">5</div>
             </div>
-            <input type="range" min="-20" max="20" step="1" value="5" class="slider" id="rotS">
-            <div class="slideValue" id="outRotS">5</div>
-        </div>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Color Width
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Color Width
+                </div>
+                <input type="range" min="0" max="10" step="0.1" value="5" class="slider" id="colW">
+                <div class="slideValue" id="outColW">5</div>
             </div>
-            <input type="range" min="0" max="10" step="0.1" value="5" class="slider" id="colW">
-            <div class="slideValue" id="outColW">5</div>
-        </div>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Color Cycle Speed
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Color Cycle Speed
+                </div>
+                <input type="range" min="-20" max="20" step="0.05" value="5" class="slider" id="colS">
+                <div class="slideValue" id="outColS">5</div>
             </div>
-            <input type="range" min="-20" max="20" step="0.05" value="5" class="slider" id="colS">
-            <div class="slideValue" id="outColS">5</div>
-        </div>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Spiral Resolution
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Spiral Resolution
+                </div>
+                <input type="range" min="10" max="200" step="10" value="100" class="slider" id="spiS">
+                <div class="slideValue" id="outSpiS">100</div>
             </div>
-            <input type="range" min="10" max="200" step="10" value="100" class="slider" id="spiS">
-            <div class="slideValue" id="outSpiS">100</div>
-        </div>
-        <div class="slideContainer">
-            <div class="slideCaption">
-                Color Mode
+            <div class="slideContainer">
+                <div class="slideCaption">
+                    Color Mode
+                </div>
+                <input type="range" min="0" max="2" step="1" value="0" class="slider" id="colM">
+                <div class="slideValue" id="outColM">0</div>
             </div>
-            <input type="range" min="0" max="2" step="1" value="0" class="slider" id="colM">
-            <div class="slideValue" id="outColM">0</div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
     <script>
         const canvas = document.getElementById("canvas1");
 
-var offsetX = 0;
-var offsetY = 0;
-var dotsize = 4;
-var dotOffset = 16;
-var maxR = 0;
-var spiralScale = 1;
+        var offsetX = 0;
+        var offsetY = 0;
+        var dotsize = 4;
+        var dotOffset = 16;
+        var maxR = 0;
+        var spiralScale = 1;
 
-var colorMode = 0;
-var colorTable = [];
-for (var i = 0; i < 72; i++) {
-    const gamma = 1 / 2.5;
-    if (i == 0) {
-        colorTable[i] = "#FF0000";
-    } else if (i < 24) {
-        var r = Math.floor(Math.pow((24 - i)/24, gamma) * 255);
-        var g = Math.floor(Math.pow((i)/24, gamma) * 255);
-        colorTable[i] = "#" + r.toString(16) + g.toString(16) + "00";
-    } else if (i == 24) {
-        colorTable[i] = "#00FF00";
-    } else if (i < 48) {
-        var g = Math.floor(Math.pow((48 - i)/24, gamma) * 255);
-        var b = Math.floor(Math.pow((i - 24)/24, gamma) * 255);
-        colorTable[i] = "#00" + g.toString(16) + b.toString(16);
-    } else if (i == 48) {
-        colorTable[i] = "#0000FF";
-    } else {
-        var b = Math.floor(Math.pow((72 - i)/24, gamma) * 255);
-        var r = Math.floor(Math.pow((i - 48)/24, gamma) * 255);
-        colorTable[i] = "#" + r.toString(16) + "00" + b.toString(16);
-    }
-}
+        var colorMode = 0;
+        var colorTable = [];
+        for (var i = 0; i < 72; i++) {
+            const gamma = 1 / 2.5;
+            if (i == 0) {
+                colorTable[i] = "#FF0000";
+            } else if (i < 24) {
+                var r = Math.floor(Math.pow((24 - i) / 24, gamma) * 255);
+                var g = Math.floor(Math.pow((i) / 24, gamma) * 255);
+                colorTable[i] = "#" + r.toString(16) + g.toString(16) + "00";
+            } else if (i == 24) {
+                colorTable[i] = "#00FF00";
+            } else if (i < 48) {
+                var g = Math.floor(Math.pow((48 - i) / 24, gamma) * 255);
+                var b = Math.floor(Math.pow((i - 24) / 24, gamma) * 255);
+                colorTable[i] = "#00" + g.toString(16) + b.toString(16);
+            } else if (i == 48) {
+                colorTable[i] = "#0000FF";
+            } else {
+                var b = Math.floor(Math.pow((72 - i) / 24, gamma) * 255);
+                var r = Math.floor(Math.pow((i - 48) / 24, gamma) * 255);
+                colorTable[i] = "#" + r.toString(16) + "00" + b.toString(16);
+            }
+        }
 
-function getColor(n){
-    if (n === undefined) {
-        return "#808080";
-    }
-    if (colorMode == 0) {
-        return colorTable[Math.floor(n)];
-    } else if (colorMode == 1) {
-        var brightness = Math.floor(256 * Math.abs(n-36) / 36);
-        return "#" + brightness.toString(16).padStart(2, "0") + brightness.toString(16).padStart(2, "0") + brightness.toString(16).padStart(2, "0");
-    } else {
-        return "#ffffff";
-    }
-}
+        function getColor(n) {
+            if (n === undefined) {
+                return "#808080";
+            }
+            if (colorMode == 0) {
+                return colorTable[Math.floor(n)];
+            } else if (colorMode == 1) {
+                var brightness = Math.floor(256 * Math.abs(n - 36) / 36);
+                return "#" + brightness.toString(16).padStart(2, "0") + brightness.toString(16).padStart(2, "0") + brightness.toString(16).padStart(2, "0");
+            } else {
+                return "#ffffff";
+            }
+        }
 
-var phiRad = 2.4; // how many radians to turn per step
-var rotSpeed = 0.001; // how much does the spiral rotate each frame?
-var rotOffset = 0; // changed by the rotSpeed variable
-var colSpeed = 1; // how much does the color shift each frame? (color has 72 steps in total)
-var colScale = 10; // how fast the color change is (i recommend 10)
-var colOffset = 0; // changed by the colSpeed variable
+        var phiRad = 2.4; // how many radians to turn per step
+        var rotSpeed = 0.001; // how much does the spiral rotate each frame?
+        var rotOffset = 0; // changed by the rotSpeed variable
+        var colSpeed = 1; // how much does the color shift each frame? (color has 72 steps in total)
+        var colScale = 10; // how fast the color change is (i recommend 10)
+        var colOffset = 0; // changed by the colSpeed variable
 
-const resizeCanvas = (func) => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - 128; // leave space below for controls
-    offsetX = Math.floor(canvas.width / 2); // x coord of center of the spiral
-    offsetY = Math.floor(canvas.height / 2); // y coord of center of the spiral
-    maxR = Math.min(offsetX, offsetY); // max radius of the spiral
-    dotsize = Math.round(maxR * 0.01 / spiralScale); // size of each point
-    dotOffset = (maxR * 0.04 / spiralScale); // offset between each point (skips a certain number of radius distances without skipping the rotation)
-}
+        const resizeCanvas = (func) => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - 128; // leave space below for controls
+            offsetX = Math.floor(canvas.width / 2); // x coord of center of the spiral
+            offsetY = Math.floor(canvas.height / 2); // y coord of center of the spiral
+            maxR = Math.min(offsetX, offsetY); // max radius of the spiral
+            dotsize = Math.round(maxR * 0.01 / spiralScale); // size of each point
+            dotOffset = (maxR * 0.04 / spiralScale); // offset between each point (skips a certain number of radius distances without skipping the rotation)
+        }
 
-resizeCanvas();
+        resizeCanvas();
 
-const debounce = (func) => {
-    let timer
-    return (event) => {
-        if (timer) { clearTimeout(timer) }
-        timer = setTimeout(func, 100, event)
-    }
-}
+        const debounce = (func) => {
+            let timer
+            return (event) => {
+                if (timer) { clearTimeout(timer) }
+                timer = setTimeout(func, 100, event)
+            }
+        }
 
-window.addEventListener('resize', debounce(() => {
-    resizeCanvas();
-}))
+        window.addEventListener('resize', debounce(() => {
+            resizeCanvas();
+        }))
 
-const c = canvas.getContext("2d", false);
-function animate(){
-    // call again next frame
-    requestAnimationFrame(animate);
-    // clear the board
-    c.clearRect(0, 0, canvas.width, canvas.height);
+        const c = canvas.getContext("2d", false);
+        function animate() {
+            // call again next frame
+            requestAnimationFrame(animate);
+            // clear the board
+            c.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (var i = 0; i < maxR * maxR * spiralScale; i += dotOffset) {
-        c.fillStyle = getColor(((i / dotOffset) * colScale + colOffset) % 72);
-        var r = Math.sqrt(i / spiralScale);
-        var theta = phiRad * (i / dotOffset);
-        c.fillRect(Math.round(offsetX + (r * Math.cos(theta + rotOffset)) - (dotsize / 2)), Math.round(offsetY + (r * Math.sin(theta + rotOffset)) - (dotsize / 2)), dotsize, dotsize);
-    }
+            for (var i = 0; i < maxR * maxR * spiralScale; i += dotOffset) {
+                c.fillStyle = getColor(((i / dotOffset) * colScale + colOffset) % 72);
+                var r = Math.sqrt(i / spiralScale);
+                var theta = phiRad * (i / dotOffset);
+                c.fillRect(Math.round(offsetX + (r * Math.cos(theta + rotOffset)) - (dotsize / 2)), Math.round(offsetY + (r * Math.sin(theta + rotOffset)) - (dotsize / 2)), dotsize, dotsize);
+            }
 
-    rotOffset = (rotOffset + rotSpeed) % (2 * Math.PI);
-    colOffset = (72 + colOffset + colSpeed) % 72;
-}
-animate();
+            rotOffset = (rotOffset + rotSpeed) % (2 * Math.PI);
+            colOffset = (72 + colOffset + colSpeed) % 72;
+        }
+        animate();
 
-// input handling
-var sliderRot = document.getElementById("rot");
-var outRot = document.getElementById("outRot");
-sliderRot.oninput = function(){
-    outRot.innerHTML = this.value;
-    phiRad = 2.4 + (Number(this.value) / 10000);
-}
+        // input handling
+        var sliderRot = document.getElementById("rot");
+        var outRot = document.getElementById("outRot");
+        sliderRot.oninput = function () {
+            outRot.innerHTML = this.value;
+            phiRad = 2.4 + (Number(this.value) / 10000);
+        }
 
-var sliderRotS = document.getElementById("rotS");
-var outRotS = document.getElementById("outRotS");
-sliderRotS.oninput = function(){
-    outRotS.innerHTML = this.value;
-    rotSpeed = Number(this.value) / 5000;
-}
+        var sliderRotS = document.getElementById("rotS");
+        var outRotS = document.getElementById("outRotS");
+        sliderRotS.oninput = function () {
+            outRotS.innerHTML = this.value;
+            rotSpeed = Number(this.value) / 5000;
+        }
 
-var sliderColW = document.getElementById("colW");
-var outColW = document.getElementById("outColW");
-sliderColW.oninput = function(){
-    outColW.innerHTML = this.value;
-    colScale = Math.pow(5, Number(this.value) - 5) * 10;
-}
+        var sliderColW = document.getElementById("colW");
+        var outColW = document.getElementById("outColW");
+        sliderColW.oninput = function () {
+            outColW.innerHTML = this.value;
+            colScale = Math.pow(5, Number(this.value) - 5) * 10;
+        }
 
-var sliderColS = document.getElementById("colS");
-var outColS = document.getElementById("outColS");
-sliderColS.oninput = function(){
-    outColS.innerHTML = this.value;
-    colSpeed = Math.sign(this.value) * Math.pow(Math.abs(Number(this.value)) * 0.1, 2);
-}
+        var sliderColS = document.getElementById("colS");
+        var outColS = document.getElementById("outColS");
+        sliderColS.oninput = function () {
+            outColS.innerHTML = this.value;
+            colSpeed = Math.sign(this.value) * Math.pow(Math.abs(Number(this.value)) * 0.1, 2);
+        }
 
-var sliderSpiS = document.getElementById("spiS");
-var outSpiS = document.getElementById("outSpiS");
-sliderSpiS.oninput = function(){
-    outSpiS.innerHTML = this.value;
-    spiralScale = Number(this.value) / 100;
-    resizeCanvas();
-}
+        var sliderSpiS = document.getElementById("spiS");
+        var outSpiS = document.getElementById("outSpiS");
+        sliderSpiS.oninput = function () {
+            outSpiS.innerHTML = this.value;
+            spiralScale = Number(this.value) / 100;
+            resizeCanvas();
+        }
 
-var sliderColM = document.getElementById("colM");
-var outColM = document.getElementById("outColM");
-sliderColM.oninput = function(){
-    outColM.innerHTML = this.value;
-    colorMode = Number(this.value);
-}
+        var sliderColM = document.getElementById("colM");
+        var outColM = document.getElementById("outColM");
+        sliderColM.oninput = function () {
+            outColM.innerHTML = this.value;
+            colorMode = Number(this.value);
+        }
     </script>
 </body>
