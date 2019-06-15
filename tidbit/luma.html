@@ -1,235 +1,310 @@
 <head>
-  <title>Luminance Calculator and Auto Text Color Demo</title>
-  <meta property="og:title" value="Luminance Calculator and Auto Text Color Demo">
-  <meta name="twitter:title" value="Luminance Calculator and Auto Text Color Demo">
-  <!-- boilerplate -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
-  <meta name="twitter:site" content="@ItsSpelledHALEY">
-  <meta name="twitter:creator" content="@ItsSpelledHALEY">
-  <!-- page metadata -->
-  <meta name="description" content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
-  <meta property="og:description" content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
-  <meta name="twitter:description" content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
-  <meta name="keywords" content="HTML,CSS,JavaScript,code demo,luminance,brightness,color theory">
-  <meta name="author" content="Haley Wakamatsu">
-  <!-- sharable image -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:image" content="http://japanyoshi.github.io/tidbit/luma.png">
-  <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/luma.png">
-  <style>
-body {
-    font-family: "Helvetica Neue", "Nimbus Sans", "TeX Gyre Heros", "Helvetica", sans-serif;
-}
-form {
-    font-size: 16px;
-    line-height: 20px;
-}
-input {
-    font-family: monospace;
-}
-label {
-    margin-right: 2px;
-}
-.byte {
-    width: 3em;
-}
-.hex {
-    width: 5em;
-}
-.separator {
-    display: inline-block;
-    width: 1px;
-    height: 20px;
-    background: black;
-    margin: 0 4px;
-}
+    <title>Luminance Calculator and Auto Text Color Demo</title>
+    <meta property="og:title" value="Luminance Calculator and Auto Text Color Demo">
+    <meta name="twitter:title" value="Luminance Calculator and Auto Text Color Demo">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description"
+        content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
+    <meta property="og:description"
+        content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
+    <meta name="twitter:description"
+        content="Calculates luminance for a given color, then determines if black text or white text would look better with that.">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,luminance,brightness,color theory">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/luma.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/luma.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Nunito:300,900&display=swap');
 
-#preview1 {
-    padding: 8px;
-    text-align: center;
-    margin-bottom: 8px;
-}
-#preview2 {
-    padding: 8px;
-    text-align: center;
-}
-  </style>
+        body {
+            font-family: "Nunito", sans-serif;
+            font-weight: 300;
+            font-size: 20px;
+            line-height: 24px;
+            overflow: hidden;
+        }
+
+        #wrapper {
+            background: #fff;
+            height: 100vh;
+            overflow: auto;
+        }
+
+        h3 {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid black;
+            font-weight: 900;
+        }
+
+        hr {
+            border: 1px solid black;
+        }
+
+        input {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        label {
+            margin-right: 2px;
+        }
+
+        .byte {
+            width: 64px;
+        }
+
+        .hex {
+            width: 128px;
+        }
+
+
+        .preview {
+            padding: 8px;
+            text-align: center;
+            margin-top: 8px;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        
+        .separator {
+                display: block;
+                width: 100%;
+                height: 1px;
+                background: black;
+                margin: 2px 0;
+            }
+
+        @media screen and (min-width: 480px) {
+            /* 2-column layout */
+            .preview {
+                display: inline-block;
+                width: calc(50% - 28px);
+            }
+
+            #preview1 {
+                float: left;
+            }
+
+            #preview2 {
+                float: right;
+            }
+            
+            .separator {
+                display: inline-block;
+                width: 1px;
+                height: 20px;
+                background: black;
+                margin: 0 4px;
+            }
+        }
+        @media screen and (min-width: 768px) {
+            /* max width */
+            body {
+                background: #444;
+            }
+            #wrapper {
+                width: 760px;
+                margin: 0 auto;
+                padding: 0 4px;
+                box-shadow: 0px 1px 4px black;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <form>
-        <label>R</label><input class="byte" id="r" type="number" min="0" max="255" value="127">
-        <label>G</label><input class="byte" id="g" type="number" min="0" max="255" value="127">
-        <label>B</label><input class="byte" id="b" type="number" min="0" max="255" value="127">
-        <span class="separator"></span>
-        <label>Color picker</label><input id="picker" type="color">
-        <span class="separator"></span>
-        <label>Hex</label><input id="hex" class="hex" type="text" pattern="^#?[a-fA-F\d]{3}([a-fA-F\d]{3})?$" value="#7F7F7F"/>
-        <hr>
-        <label>thres</label><input class="byte" id="thres" type="number" min="0" max="255" value="127">
-        <hr>
-        <label>Luminance formula</label><br>
-        <input type="radio" name="luma" id="luma1" checked>Fast: 0.25r + 0.65g + 0.1b</input><br>
-        <input type="radio" name="luma" id="luma2">Wikipedia: &radic;(0.2126r&sup2; + 0.7152g&sup2; + 0.0722b&sup2;)</input> <a href="https://en.wikipedia.org/wiki/Relative_luminance">*</a><br>
-        <input type="radio" name="luma" id="luma3">HSP: &radic;(0.299r&sup2; + 0.587g&sup2; + 0.114b&sup2;)</input> <a href="http://alienryderflex.com/hsp.html">*</a>
-    </form>
-    <h3><span id="br">?</span> - use <span id="bg">?</span> text or background</h3>
-    <div id="preview1">
-        Lorem ipsum dolor sit amet, consectetuer adipscing elit.
+    <div id="wrapper">
+        <form>
+            <h3>Color</h3>
+            <label>R</label><input class="byte" id="r" type="number" min="0" max="255" value="127">
+            <label>G</label><input class="byte" id="g" type="number" min="0" max="255" value="127">
+            <label>B</label><input class="byte" id="b" type="number" min="0" max="255" value="127">
+            <span class="separator"></span>
+            <label>Color picker</label><input id="picker" type="color">
+            <span class="separator"></span>
+            <label>Hex</label><input id="hex" class="hex" type="text" pattern="^#?[a-fA-F\d]{3}([a-fA-F\d]{3})?$"
+                value="#7F7F7F" />
+            <hr>
+            <h3>Threshold</h3>
+            <input class="byte" id="thres" type="number" min="0" max="255" value="144">
+            <hr>
+            <h3>Luminance formula</h3>
+            <input type="radio" name="luma" id="luma1">Fast: 0.25r + 0.65g + 0.1b</input><br>
+            <input type="radio" name="luma" id="luma2">Wikipedia: &radic;(0.2126r&sup2; + 0.7152g&sup2; +
+            0.0722b&sup2;)</input> <a href="https://en.wikipedia.org/wiki/Relative_luminance">*</a><br>
+            <input type="radio" name="luma" id="luma3" checked>HSP: &radic;(0.299r&sup2; + 0.587g&sup2; + 0.114b&sup2;)</input>
+            <a href="http://alienryderflex.com/hsp.html">*</a>
+        </form>
+        <h3><span id="br">?</span> - use <span id="bg">?</span> text or background</h3>
+        <div id="previewWrapper">
+            <div id="preview1" class="preview">
+                Lorem ipsum dolor sit amet, consectetuer adipscing elit.
+            </div>
+            <div id="preview2" class="preview">
+                Lorem ipsum dolor sit amet, consectetuer adipscing elit.
+            </div>
+            <div style="clear:both;height:8px;">
+        </div>
     </div>
-    <div id="preview2">
-        Lorem ipsum dolor sit amet, consectetuer adipscing elit.
-    </div>
-  <script>
-const elems = [
-    document.getElementById("r"), // 0
-    document.getElementById("g"), // 1
-    document.getElementById("b"), // 2
-    document.getElementById("thres"), // 3
-    document.getElementById("picker"), // 4
-    document.getElementById("hex") // 5
-];
+    <script>
+        const elems = [
+            document.getElementById("r"), // 0
+            document.getElementById("g"), // 1
+            document.getElementById("b"), // 2
+            document.getElementById("thres"), // 3
+            document.getElementById("picker"), // 4
+            document.getElementById("hex") // 5
+        ];
 
-const radioButtons = [
-    document.getElementById("luma1"),
-    document.getElementById("luma2"),
-    document.getElementById("luma3")
-];
+        const radioButtons = [
+            document.getElementById("luma1"),
+            document.getElementById("luma2"),
+            document.getElementById("luma3")
+        ];
 
-const preview1 = document.getElementById("preview1");
-const preview2 = document.getElementById("preview2");
-var lumaMode = 0;
+        const preview1 = document.getElementById("preview1");
+        const preview2 = document.getElementById("preview2");
+        var lumaMode = 2;
 
-const luma = (r, g, b) => {
-    switch (lumaMode) {
-        case 0:
-            return 0.25 * r + 0.65 * g + 0.1 * b;
-        case 1:
-            return Math.sqrt(
-                (0.2126 * r * r) +
-                (0.7152 * g * g) +
-                (0.0722 * b * b)
-            );
-        case 2:
-            return Math.sqrt(
-                (0.299 * r * r) +
-                (0.587 * g * g) +
-                (0.114 * b * b)
-            );
-    }
-};
+        const luma = (r, g, b) => {
+            switch (lumaMode) {
+                case 0:
+                    return 0.25 * r + 0.65 * g + 0.1 * b;
+                case 1:
+                    return Math.sqrt(
+                        (0.2126 * r * r) +
+                        (0.7152 * g * g) +
+                        (0.0722 * b * b)
+                    );
+                case 2:
+                    return Math.sqrt(
+                        (0.299 * r * r) +
+                        (0.587 * g * g) +
+                        (0.114 * b * b)
+                    );
+            }
+        };
 
-const comp = (c) => {
-    console.log("comp");
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-};
+        const comp = (c) => {
+            console.log("comp");
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        };
 
-const toHex = vals => {
-    console.log("toHex");
-    return "#" + comp(vals[0]) + comp(vals[1]) + comp(vals[2]);
-};
+        const toHex = vals => {
+            console.log("toHex");
+            return "#" + comp(vals[0]) + comp(vals[1]) + comp(vals[2]);
+        };
 
-const fromHex = str => {
-    console.log("fromHex");
-    str = str.replace("#", "");
-    n = str.length / 3;
-    multiplier = n == 1 ? 17 : 1;
-    return [
-        parseInt(str.slice(0, n), 16) * multiplier,
-        parseInt(str.slice(n, 2*n), 16) * multiplier,
-        parseInt(str.slice(2*n, 3*n), 16) * multiplier
-    ];
-};
+        const fromHex = str => {
+            console.log("fromHex");
+            str = str.replace("#", "");
+            n = str.length / 3;
+            multiplier = n == 1 ? 17 : 1;
+            return [
+                parseInt(str.slice(0, n), 16) * multiplier,
+                parseInt(str.slice(n, 2 * n), 16) * multiplier,
+                parseInt(str.slice(2 * n, 3 * n), 16) * multiplier
+            ];
+        };
 
-const recalc = () => {
-    console.log("recalc");
-    vals = [];
-    for (var i = 0; i < 4; i++) {
-        vals[i] = +elems[i].value;
-    }
-    console.log(vals);
-    updateFields(vals, 0);
-    update(vals);
-};
+        const recalc = () => {
+            console.log("recalc");
+            vals = [];
+            for (var i = 0; i < 4; i++) {
+                vals[i] = +elems[i].value;
+            }
+            console.log(vals);
+            updateFields(vals, 0);
+            update(vals);
+        };
 
-const recalcFromPicker = () => {
-    console.log("recalcFromPicker");
-    vals = fromHex(elems[4].value);
-    vals[3] = +elems[3].value;
-    updateFields(vals, 1);
-    update(vals);
-};
+        const recalcFromPicker = () => {
+            console.log("recalcFromPicker");
+            vals = fromHex(elems[4].value);
+            vals[3] = +elems[3].value;
+            updateFields(vals, 1);
+            update(vals);
+        };
 
-const recalcFromHex = () => {
-    console.log("recalcFromHex");
-    vals = fromHex(elems[5].value);
-    vals[3] = +elems[3].value;
-    updateFields(vals, 1);
-    update(vals);
-};
+        const recalcFromHex = () => {
+            console.log("recalcFromHex");
+            vals = fromHex(elems[5].value);
+            vals[3] = +elems[3].value;
+            updateFields(vals, 1);
+            update(vals);
+        };
 
-const updateFields = (newVals, id) => {
-    console.log("updateFields " + newVals + " " + id);
-    if (id != 0) {
+        const updateFields = (newVals, id) => {
+            console.log("updateFields " + newVals + " " + id);
+            if (id != 0) {
+                for (var i = 0; i < 3; i++) {
+                    elems[i].value = newVals[i];
+                }
+            }
+            if (id != 1) {
+                elems[4].value = toHex(newVals);
+            }
+            if (id != 2) {
+                elems[5].value = toHex(newVals);
+            }
+        };
+
+        const update = vals => {
+            console.log("update " + vals);
+            theme = "rgba(" + vals[0] + "," + vals[1] + "," + vals[2] + ", 1)";
+            thisLuma = luma(vals[0], vals[1], vals[2]);
+
+            dark = thisLuma < vals[3];
+            comparator = dark ? " &lt; " : " &ge; ";
+            document.getElementById("br").innerHTML =
+                thisLuma.toPrecision(3) + comparator + String(vals[3]);
+            document.getElementById("bg").innerHTML = dark ? "light" : "dark";
+
+            preview1.style.color = theme;
+            preview1.style.border = "4px solid " + theme;
+            preview1.style.background = dark ? "#fff" : "#000";
+
+            preview2.style.color = dark ? "#fff" : "#000";
+            preview2.style.border = dark ? "4px solid #fff" : "4px solid #000";
+            preview2.style.background = theme;
+        };
+
+        const changeLumaMode = () => {
+            for (var i = 0; i < 2; i++) {
+                if (radioButtons[i].checked) {
+                    lumaMode = i;
+                    break;
+                }
+            }
+            recalc();
+        }
+
+        recalc();
+
+        for (var i = 0; i < 6; i++) {
+            console.log("ael " + i);
+            if (elems[i].classList.contains("byte")) {
+                elems[i].addEventListener("change", recalc);
+            } else if (elems[i].type == "color") {
+                elems[i].addEventListener("change", recalcFromPicker);
+            } else {
+                elems[i].addEventListener("change", recalcFromHex);
+            }
+        }
         for (var i = 0; i < 3; i++) {
-            elems[i].value = newVals[i];
+            radioButtons[i].addEventListener("change", changeLumaMode);
         }
-    }
-    if (id != 1) {
-        elems[4].value = toHex(newVals);
-    }
-    if (id != 2) {
-        elems[5].value = toHex(newVals);
-    }
-};
 
-const update = vals => {
-    console.log("update " + vals);
-    theme = "rgba(" + vals[0] + "," + vals[1] + "," + vals[2] + ", 1)";
-    thisLuma = luma(vals[0], vals[1], vals[2]);
-
-    dark = thisLuma < vals[3];
-    comparator = dark ? " &lt; " : " &ge; ";
-    document.getElementById("br").innerHTML =
-        thisLuma.toPrecision(3) + comparator + String(vals[3]);
-    document.getElementById("bg").innerHTML = dark ? "light" : "dark";
-
-    preview1.style.color = theme;
-    preview1.style.border = "4px solid " + theme;
-    preview1.style.background = dark ? "#fff" : "#000";
-
-    preview2.style.color = dark ? "#fff" : "#000";
-    preview2.style.border = dark ? "4px solid #fff" : "4px solid #000";
-    preview2.style.background = theme;
-};
-    
-const changeLumaMode = () => {
-    for (var i = 0; i < 2; i++) {
-        if (radioButtons[i].checked) {
-            lumaMode = i;
-            break;
-        }
-    }
-    recalc();
-}
-
-recalc();
-
-for (var i = 0; i < 6; i++) {
-    console.log("ael " + i);
-    if (elems[i].classList.contains("byte")) {
-        elems[i].addEventListener("change", recalc);
-    } else if (elems[i].type == "color") {
-        elems[i].addEventListener("change", recalcFromPicker);
-    } else {
-        elems[i].addEventListener("change", recalcFromHex);
-    }
-}
-for (var i = 0; i < 3; i++) {
-    radioButtons[i].addEventListener("change", changeLumaMode);
-}
-
-  </script>
+    </script>
 </body>
