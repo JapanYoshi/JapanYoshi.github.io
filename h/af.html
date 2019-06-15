@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>Open this.</title>
+    <meta name="charset" value="UTF-8">
+    <style>
+#hide {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
+
+#hide.loaded {
+  height: 0vh;
+  transition: height 0.8s ease-out;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  background: #ccc;
+  color: #000;
+  font-family: sans-serif;
+  transition: background 50ms;
+  font-size: 24px;
+}
+body.down {
+  background: #000;
+  color: #ccc;
+}
+#text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 25vw;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+#text.animating {
+  animation-name: fade;
+  animation-duration: 200ms;
+}
+@keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+#text.finish{
+    opacity: 1;
+}
+#text.start {
+   opacity: 1;
+   font-size: 12vw;
+   line-height: 90%;
+}
+    </style>
+  </head>
+  <body>
+    <div id="hide"></div>
+    <span id="text" class="start"></span>
+    <form id="config">
+       <label>
+          <u>S</u>tarting interval (ms)
+          <input name="interval" type="number" min="50" value="1000">
+       </label><br>
+       <label>
+          Multiplier (decimal) (<u>x</u>)
+          <input name="multiplier" type="number" min="0.85" max="1" value="0.98">
+       </label><br>
+       <label>
+          <u>M</u>inimum interval (ms)
+          <input name="min" type="number" min="50" value="50">
+       </label><br>
+       <label>
+          <u>D</u>uration (seconds, use 0 for forever)
+          <input name="end" type="number" min="0" value="300">
+       </label><br>
+       <button id="start">Start</button>
+    </form>
+    <script>
+// init values from query strings,
+// start if all present
+var urlParams = new URLSearchParams(window.location.search);
+/*
+console.log(urlParams.has('post')); // true
+console.log(urlParams.get('action')); // "edit"
+console.log(urlParams.getAll('action')); // ["edit"]
+console.log(urlParams.toString()); // "?post=1234&action=edit"
+console.log(urlParams.append('active', '1')); // "?post=1234
+*/
+var interval = 1000;
+var multiplier = 0.99;
+var min = 50;
+var end = 300; //sec
+var hasParams = true
+if (urlParams.has('s')) {
+  interval = -+-urlParams.get('s');
+} else {
+  hasParams = false;
+}
+if (urlParams.has('x')) {
+  multiplier = -+-urlParams.get('x');
+} else {
+  hasParams = false;
+}
+if (urlParams.has('m')) {
+  min = -+-urlParams.get("m");
+} else {
+  hasParams = false;
+}
+if (urlParams.has('d')) {
+  end = -+-urlParams.get("d");
+} else {
+  hasParams = false;
+}
+
+var stopped = false;
+const body = document.getElementsByTagName("body")[0];
+const text = document.getElementById("text");
+
+function update(up) {
+   text.innerHTML = up ? "up" : stopped ? "stop" : "down";
+   console.log(interval.toPrecision(4), up ? "up" : stopped ? "report" : "down");
+   body.classList.toggle("down");
+   text.classList.remove("animating");
+   void text.offsetWidth;
+   text.classList.add(stopped ? "finish" : "animating");
+   interval = interval < min ? min : interval * multiplier;
+   if (!stopped) {
+      setTimeout(up ? updateDown : updateUp, interval);
+   }
+   return;
+}
+function updateDown() {
+   update(false);
+}
+function updateUp() {
+   update(true);
+}
+function start() {
+   text.classList.remove("start");
+   update(false);
+   if (end != 0) {
+      setTimeout(function(){stopped = true;}, end * 1000);   
+   }
+}
+document.getElementById("start").addEventListener("click", function(){
+   const config = document.getElementById("config");
+   interval = +(config.elements[0].value);
+   multiplier = +(config.elements[1].value);
+   min = +(config.elements[2].value);
+   end = +(config.elements[3].value);
+   config.style.display = "none";
+   text.innerHTML = "empty<br>into<br>nothing";
+   setTimeout(start, 2700);
+})
+if (hasParams) {
+   document.getElementById("config").style.display = "none";
+   setTimeout(start, 500);
+}
+setTimeout(function(){document.getElementById("hide").classList.add("loaded")}, 500);
+    </script>
+  </body>
+</html>
