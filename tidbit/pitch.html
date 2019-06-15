@@ -162,6 +162,7 @@
             <div class="option">Learn more (Reddit)</div>
         </a>
         <div class="option" id="help">Help</div>
+        <div class="option" id="note">Note on Master Pitch support</div>
     </div>
     <script>
         var tuning = 440;
@@ -175,6 +176,14 @@
             alert("5/7 On FL Studio, locate the knob labeled \"Master pitch\". It should look like a tiny version of the knob on the page. Right-click it and click \"Paste value\".");
             alert("6/7 Voilà, your project should now be tuned!");
             alert("7/7 One important note is: While all stock plugins support master pitch, some third-party ones may not. Test if your plugin supports master pitch by first testing it with a very high or very low master pitch value.")
+        });
+
+        document.getElementById("note").addEventListener("click", function () {
+            alert("1/5 Not all plugins support the Master Pitch knob.");
+            alert("2/5 To test if a plugin supports it, try tweaking the Master Pitch knob, and see if the pitch sounds any different.");
+            alert("3/5 It's a good idea to compare it with a plugin that you know supports the Master Pitch knob.");
+            alert("4/5 If it doesn't, follow these steps:\n1) Change the pitch range to 12\n2) Set the plugin's pitch knob to your desired value");
+            alert("5/5 It may be a good idea to automate Master Pitch, and link the automation pattern to the plugin's pitch knob too.");
         });
 
         function animateKnob() {
