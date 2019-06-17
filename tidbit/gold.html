@@ -22,17 +22,40 @@
     <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/gold.png">
     <style>
         body {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
             background: #000;
             margin: 0;
             overflow: hidden;
+        }
+
+        main {
+            display: inline-block;
+            text-align: left;
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            font-size: 1em;
+            line-height: 1.5em;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
 
         #canvas1 {
             background: #000;
         }
 
+        #control {
+            position: absolute;
+            height: 128px;
+            bottom: 0;
+        }
+
         .slideContainer {
-            width: calc(100vw / 3 - 1px);
+            width: 33.3333%;
             height: 64px;
             font-size: 16px;
             line-height: 32px;
@@ -42,8 +65,8 @@
         }
 
         .slideCaption {
+            display: inline-block;
             width: 100%;
-            height: 32px;
             color: white;
         }
 
@@ -52,7 +75,7 @@
             -webkit-appearance: none;
             appearance: none;
             width: 75%;
-            height: 24px;
+            height: 16px;
             background: #505050;
             outline: none;
             opacity: 0.8;
@@ -64,79 +87,107 @@
         }
 
         .slideValue {
-            display: inline-block;
-            width: 25%;
+            display: inline;
             height: 24%;
             color: white;
             overflow: visible;
             text-align: right;
-            float: right;
         }
 
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 4px;
-            height: 32px;
+            height: 24px;
             border-radius: 0px;
         }
 
         .slider::-moz-range-thumb {
             width: 4px;
-            height: 32px;
+            height: 24px;
             border-radius: 0px;
+        }
+        @media screen and (min-aspect-ratio: 5/4) {
+            main {
+                width: 125vh;
+            }
+            #control {
+                width: 125vh;
+                left: 50vw;
+                transform: translateX(-50%);
+            }
+        }
+        @media screen and (max-aspect-ratio: 4/5) {
+            main {
+                height: 125vw;
+            }
+            #control {
+                position: fixed;
+                bottom: 0;
+            }
+        }
+        @media screen and (max-aspect-ratio: 5/8) {
+            #control {
+                height: 192px;
+            }
+            .slideContainer {
+                width: 50%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <canvas id="canvas1"></canvas>
-    <div id="control">
-        <form>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Spiral Angle Adjust
-                </div>
-                <input type="range" min="-10" max="10" step="1" value="0" class="slider" id="rot">
-                <div class="slideValue" id="outRot">0</div>
+    <main>
+        <canvas id="canvas1"></canvas>
+    </main>
+            <div id="control">
+                <form>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Spiral Angle Adjust
+                        </div>
+                        <input type="range" min="-10" max="10" step="1" value="0" class="slider" id="rot">
+                        <div class="slideValue" id="outRot">0</div>
+                    </div>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Rotation Speed
+                        </div>
+                        <input type="range" min="-20" max="20" step="0.05" value="0" class="slider" id="rotS">
+                        <div class="slideValue" id="outRotS">0</div>
+                    </div>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Color Width
+                        </div>
+                        <input type="range" min="0" max="10" step="0.05" value="5" class="slider" id="colW">
+                        <div class="slideValue" id="outColW">5</div>
+                    </div>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Color Cycle Speed
+                        </div>
+                        <input type="range" min="-20" max="20" step="0.05" value="0" class="slider" id="colS">
+                        <div class="slideValue" id="outColS">0</div>
+                    </div>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Spiral Resolution
+                        </div>
+                        <input type="range" min="10" max="200" step="10" value="100" class="slider" id="spiS">
+                        <div class="slideValue" id="outSpiS">100</div>
+                    </div>
+                    <div class="slideContainer">
+                        <div class="slideCaption">
+                            Color Mode
+                        </div>
+                        <input type="range" min="0" max="2" step="1" value="0" class="slider" id="colM">
+                        <div class="slideValue" id="outColM">0</div>
+                    </div>
+                </form>
             </div>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Rotation Speed
-                </div>
-                <input type="range" min="-20" max="20" step="1" value="5" class="slider" id="rotS">
-                <div class="slideValue" id="outRotS">5</div>
-            </div>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Color Width
-                </div>
-                <input type="range" min="0" max="10" step="0.1" value="5" class="slider" id="colW">
-                <div class="slideValue" id="outColW">5</div>
-            </div>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Color Cycle Speed
-                </div>
-                <input type="range" min="-20" max="20" step="0.05" value="5" class="slider" id="colS">
-                <div class="slideValue" id="outColS">5</div>
-            </div>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Spiral Resolution
-                </div>
-                <input type="range" min="10" max="200" step="10" value="100" class="slider" id="spiS">
-                <div class="slideValue" id="outSpiS">100</div>
-            </div>
-            <div class="slideContainer">
-                <div class="slideCaption">
-                    Color Mode
-                </div>
-                <input type="range" min="0" max="2" step="1" value="0" class="slider" id="colM">
-                <div class="slideValue" id="outColM">0</div>
-            </div>
-        </form>
-    </div>
+
     <script>
         const canvas = document.getElementById("canvas1");
 
@@ -187,20 +238,29 @@
         }
 
         var phiRad = 2.4; // how many radians to turn per step
-        var rotSpeed = 0.001; // how much does the spiral rotate each frame?
+        var rotSpeed = 0; // how much does the spiral rotate each frame?
         var rotOffset = 0; // changed by the rotSpeed variable
-        var colSpeed = 1; // how much does the color shift each frame? (color has 72 steps in total)
+        var colSpeed = 0; // how much does the color shift each frame? (color has 72 steps in total)
         var colScale = 10; // how fast the color change is (i recommend 10)
         var colOffset = 0; // changed by the colSpeed variable
 
         const resizeCanvas = (func) => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight - 128; // leave space below for controls
+            var aspectRatio = window.innerWidth / window.innerHeight;
+            if (aspectRatio <= 0.8) {
+                canvas.width = Math.floor(window.innerWidth * 0.5) * 2;
+                canvas.height = canvas.width; // leave space below for controls
+            } else if (aspectRatio >= 1.25) {
+                canvas.width = Math.floor(window.innerWidth * 0.625) * 2;
+                canvas.height = Math.floor(window.innerHeight * 0.5 - 64) * 2;
+            } else {
+                canvas.width = Math.floor(window.innerWidth * 0.5) * 2;
+                canvas.height = Math.floor(window.innerHeight * 0.5 - 64) * 2; // leave space below for controls
+            }
             offsetX = Math.floor(canvas.width / 2); // x coord of center of the spiral
             offsetY = Math.floor(canvas.height / 2); // y coord of center of the spiral
             maxR = Math.min(offsetX, offsetY); // max radius of the spiral
-            dotsize = Math.round(maxR * 0.01 / spiralScale); // size of each point
-            dotOffset = (maxR * 0.04 / spiralScale); // offset between each point (skips a certain number of radius distances without skipping the rotation)
+            dotsize = maxR * 0.011 / spiralScale; // size of each point
+            dotOffset = maxR * 0.04 / spiralScale; // offset between each point (skips a certain number of radius distances without skipping the rotation)
         }
 
         resizeCanvas();
@@ -248,21 +308,21 @@
         var outRotS = document.getElementById("outRotS");
         sliderRotS.oninput = function () {
             outRotS.innerHTML = this.value;
-            rotSpeed = Number(this.value) / 5000;
+            rotSpeed = 0.01 * Math.sign(this.value) * Math.pow(Math.abs(Number(this.value)) * 0.1, 1.5);
         }
 
         var sliderColW = document.getElementById("colW");
         var outColW = document.getElementById("outColW");
         sliderColW.oninput = function () {
             outColW.innerHTML = this.value;
-            colScale = Math.pow(5, Number(this.value) - 5) * 10;
+            colScale = Math.pow(4, Number(this.value) - 5) * 10;
         }
 
         var sliderColS = document.getElementById("colS");
         var outColS = document.getElementById("outColS");
         sliderColS.oninput = function () {
             outColS.innerHTML = this.value;
-            colSpeed = Math.sign(this.value) * Math.pow(Math.abs(Number(this.value)) * 0.1, 2);
+            colSpeed = 5 * Math.sign(this.value) * Math.pow(Math.abs(Number(this.value)) * 0.1, 1.5);
         }
 
         var sliderSpiS = document.getElementById("spiS");
