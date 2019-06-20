@@ -29,10 +29,26 @@
             text-align: center;
             font-size: 18vw;
             line-height: 18vw;
+            width: 9vw;
+        }
+
+        .inactive {
+            color: #666;
+        }
+
+        .am {
+            width: auto;
         }
 
         .anim {
             animation-name: changed;
+            animation-duration: 200ms;
+            animation-timing-function: ease-out;
+            animation-iteration-count: 1;
+        }
+
+        .inactive.anim {
+            animation-name: changed-inactive;
             animation-duration: 200ms;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
@@ -55,7 +71,29 @@
             }
 
             to {
-                color: #ddd;
+                color: #ccc;
+                text-shadow: 0 0 0 white,
+                    0 0 0 white,
+                    0 0 0 white,
+                    0 0 0 white,
+                    0 0 0 white;
+            }
+        }
+
+        
+
+        @keyframes changed-inactive {
+            from {
+                color: #fff;
+                text-shadow: 0 0 2vw white,
+                    0.2vw 0 2vw white,
+                    0 0.2vw 2vw white,
+                    -0.2vw 0 2vw white,
+                    0 -0.2vw 2vw white;
+            }
+
+            to {
+                color: #666;
                 text-shadow: 0 0 0 white,
                     0 0 0 white,
                     0 0 0 white,
@@ -68,15 +106,15 @@
 
 <body>
     <div id="clock">
-        <div id="t_h1" class="digit">0</div>
-        <div id="t_h0" class="digit">0</div>
+        <div id="t_h1" class="digit">?</div>
+        <div id="t_h0" class="digit">?</div>
         <div id="colon1" class="divider">:</div>
-        <div id="t_m1" class="digit">0</div>
-        <div id="t_m0" class="digit">0</div>
+        <div id="t_m1" class="digit">?</div>
+        <div id="t_m0" class="digit">?</div>
         <div id="colon0" class="divider">:</div>
-        <div id="t_s1" class="digit">0</div>
-        <div id="t_s0" class="digit">0</div>
-        <div id="t_am" class="am">AM</div>
+        <div id="t_s1" class="digit">?</div>
+        <div id="t_s0" class="digit">?</div>
+        <div id="t_am" class="am">?M</div>
     </div>
 
     <script>
@@ -105,6 +143,13 @@
                     elems[i].classList.remove("anim");
                     void elems[i].offsetWidth; // reflow to retrigger animation
                     elems[i].classList.add("anim");
+                    if (i === 0) {
+                        if (digits[0] === "0") {
+                            elems[i].classList.add("inactive");
+                        } else {
+                            elems[i].classList.remove("inactive");
+                        }
+                    }
                 }
             }
             setTimeout(updateTime, (1000 - now.getMilliseconds()));
