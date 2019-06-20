@@ -128,7 +128,7 @@ const box = document.getElementById("msgBox");
 const template = document.getElementById("template").getElementsByClassName("msg")[0];
 const capacity = 3;
 
-var msgId = 0;
+var msgId = strings.length - capacity + 1;
 const updateText = () => {
     if (box.childElementCount != 0) {
         box.firstChild.classList.remove("new");
