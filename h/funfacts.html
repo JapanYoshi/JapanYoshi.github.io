@@ -45,15 +45,18 @@ body {
 .msgBody {
     height: calc(50vh - 16px);
     color: #5f464e;
-    font-size: 20px;
+    font-size: 24px;
     line-height: calc(50vh - 16px);
     display: block;
-    bottom: 0;
+    position: relative;
 }
 
 .msgWrapper {
-    display: inline-block;
-    line-height: 24px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 120%;
 }
 
 .msgNumber {
