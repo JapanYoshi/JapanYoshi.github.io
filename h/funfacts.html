@@ -93,6 +93,35 @@ em.casesensitive {
         height: calc(50vh - 16px);
     }
 }
+
+.ribbon {
+    display: inline-block;
+    font-style: normal;
+    color: #ff4080;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 24px;
+    position: relative;
+    top: 2px;
+}
+
+.ribbon:before {
+    content: "🎀";
+    color: rgba(0,0,0,0);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url("./ribbon.svg");
+    background-size: 24px 24px;
+    position: relative;
+    top: 0px;
+}
+
+code {
+    font-family: "Hack";
+    font-weight: 700;
+    font-size: 16px;
+}
     </style>
 </head>
 
@@ -117,12 +146,13 @@ em.casesensitive {
 
     <script>
 const strings = [
-    "Keep watching to collect <em>Ribbons</em>.",
+    "Keep watching to collect <em>Ribbons</em>.<br><i class='ribbon'>1</i>/10min",
     "<em>Engage in chat</em> or <em>click on Treasure Chests</em> to gain Ribbons faster.",
     "Ribbons can be traded in for <em>rewards</em>!",
-    "Twitter: <em>@PlsHugHaley</em>",
-    "Discord: <em>https://discord.gg/</em><em class=\"casesensitive\">gY3JP8K</em>",
-    "How am I doing?"
+    "Twitter: <em>@PlsHugHaley</em><br>Discord: <em>https://discord.gg/</em><em class=\"casesensitive\">gY3JP8K</em>",
+    "<i class='ribbon'>5</i> - <em>Make me say any line</em><br><code>!redeem say [line]</code>",
+    "<i class='ribbon'>5</i> - <em>Make me say a joke</em><br><code>!redeem joke [topic]</code>",
+    "Any more reward ideas? Ask me!"
 ];
 const box = document.getElementById("msgBox");
 const template = document.getElementById("template").getElementsByClassName("msg")[0];
