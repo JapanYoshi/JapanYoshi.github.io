@@ -192,7 +192,7 @@ var colors = [
         "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/green-heart_1f49a.png"
     },
     {
-        "name": "Mindless Blue",
+        "name": "Brain Drain Blue",
         "color": "#5dadec",
         "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/blue-heart_1f499.png"
     },
@@ -437,10 +437,10 @@ document.getElementById("names").addEventListener("click", function(){
 document.getElementById("name").addEventListener("click", function(){
     var mult;
     if (sort[0] === "name" && !sort[1]) {
-        mult = -1;
+        mult = 1;
         sort = ["name", true];
     } else {
-        mult = 1;
+        mult = -1;
         sort = ["name", false];
     }
     colors.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? -mult : (a.name.toLowerCase() === b.name.toLowerCase() ? 0 : mult)));
