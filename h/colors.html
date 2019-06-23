@@ -1,0 +1,471 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+@import url('https://fonts.googleapis.com/css?family=BenchNine&display=swap');
+
+body {
+    font-family: "BenchNine";
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+    background-color: #000;
+}
+#bar {
+    position:fixed;
+    text-align: center;
+    z-index: 2;
+    top: 0;
+    background: white;
+    width: 100vw;
+    font-size:20px;
+    line-height:24px;
+    height: 48px;
+}
+button {
+    display: inline-block;
+    font-size: inherit;
+    font-family: inherit;
+    padding-inline-end: 0;
+    padding-inline-start: 0;
+    border: none;
+    line-height: inherit;
+}
+#names {
+    width: 100%;
+}
+#container {
+    font-size: 20px;
+    line-height: 24px;
+    max-width: 720px;
+    background-color: #36393f;
+    padding-top: 52px;
+    margin: 0 auto;
+}
+.color {
+    width: 192px;
+    height: 48px;
+    margin: 2px;
+    padding: 4px;
+    display: inline-block;
+    background-color: #36393f;
+    border-radius: 4px;
+    position: relative;
+    border-width: 4px;
+    border-style: solid;
+    overflow: hidden;
+}
+.color.unnamed {
+    font-weight: bold;
+}
+.hide .color {
+    padding: 0;
+    border-width: 8px;
+}
+.emote {
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    float: left;
+    color: transparent;
+}
+.hide .color .emote {
+    display: none;
+}
+.name {
+    width: calc(100% - 56px);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.hide .color .name {
+    display: none;
+}
+.color .clear {
+    clear: both;
+    border: none;
+    height: 0;
+}
+.hide .color .clear {
+    height: 72px;
+}
+.number {
+    display: none;
+}
+.hide .number {
+    display: inline;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+#template{
+    display: none;
+}
+@media screen and (max-width: 319px) {
+    /* narrow mobile layout */
+    .color {
+        width: calc(100% - 20px);
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    /* mobile layout */
+    .color {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 719px) {
+    /* narrow browser */
+    .color {
+        width: 220px;
+    }
+    #container {
+        width: 480px;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .color {
+        width: 220px;
+    }
+    #container {
+        width: 720px;
+    }
+}
+html {
+    scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+    width: 0px;  /* Safari/Chrome: Remove scrollbar space */
+    background: transparent;  /* Safari/Chrome: just make scrollbar invisible */
+}
+    </style>
+</head>
+
+<body>
+    <div id="bar">
+        <button id="names">toggle names</button><br>
+        sort by <button id="hue">hue</button> <button id="sat">vividness</button> <button id="luma">brightness</button>
+    </div>
+    <div id="container" class="">
+        <hr>
+    </div>
+
+    <div id="template">
+    <div class="color">
+        <div class="emote" style="background-image: url(https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/heavy-black-heart_2764.png);"></div>
+        <div class="name">Sample Color Name</div>
+        <div class="clear"></div>
+        <span class="number">0</span>
+    </div>
+</div>
+    <script>
+var colors = [
+    {
+        "name": "Lustful Red",
+        "color": "#f44248",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/heavy-black-heart_2764.png"
+    },
+    {
+        "name": "Trance Tangerine",
+        "color": "#f7c815",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/orange-heart_1f9e1.png"
+    },
+    {
+        "name": "Electric Yellow",
+        "color": "#f8f068",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/yellow-heart_1f49b.png"
+    },
+    {
+        "name": "Paige Green",
+        "color": "#21e679",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/green-heart_1f49a.png"
+    },
+    {
+        "name": "Mindless Blue",
+        "color": "#5dadec",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/blue-heart_1f499.png"
+    },
+    {
+        "name": "Evie Purple",
+        "color": "#aa85d6",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/purple-heart_1f49c.png"
+    },
+    {
+        "name": "Femmy Pink",
+        "color": "#f4abba",
+        "emote": "https://cdn.discordapp.com/emojis/355323716290215940.png"
+    },
+    {
+        "name": "Bimbofied Pink",
+        "color": "#f24fec",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/kiss-mark_1f48b.png"
+    },
+    {
+        "name": "Porcelain Doll",
+        "color": "#ffe6db",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/emoji-modifier-fitzpatrick-type-1-2_1f3fb.png"
+    },
+    {
+        "name": "Giggly Yellow",
+        "color": "#ffffe2",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/twitter/185/crescent-moon_1f319.png"
+    },
+    {
+        "name": "Squishy Green",
+        "color": "#d8ffc3",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/teacup-without-handle_1f375.png"
+    },
+    {
+        "name": "Foggy Blue",
+        "color": "#d3ebff",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/cloud_2601.png"
+    },
+    {
+        "name": "Lilac Fumes",
+        "color": "#eedbff",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/dash-symbol_1f4a8.png"
+    },
+    {
+        "name": "Bunny Pink",
+        "color": "#ffdbf9",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/cherry-blossom_1f338.png"
+    },
+    {
+        "name": "Technodrone Orange",
+        "color": "#ffa000",
+        "emote": "https://cdn.discordapp.com/emojis/436179283484868608.png"
+    },
+    {
+        "name": "Listless Lime",
+        "color": "#b6f74a",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/twitter/185/pistol_1f52b.png"
+    },
+    {
+        "name": "Hypnogas Green",
+        "color": "#24dbc5",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/twitter/185/tennis-racquet-and-ball_1f3be.png"
+    },
+    {
+        "name": "Trigger Play Teal",
+        "color": "#5afaff",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/185/gem-stone_1f48e.png"
+    },
+    {
+        "name": "Machine Mind Blue",
+        "color": "#4050ff",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/robot-face_1f916.png"
+    },
+    {
+        "name": "Spellbound Violet",
+        "color": "#cb45ed",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/crystal-ball_1f52e.png"
+    },
+    {
+        "name": "Hot & Bothered Pink",
+        "color": "#f9489f",
+        "emote": null
+    },
+    {
+        "name": "Vampire's Eye",
+        "color": "#c7143d",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/syringe_1f489.png"
+    },
+    {
+        "name": "Obedient Ochre",
+        "color": "#d6a26a",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/emoji-modifier-fitzpatrick-type-5_1f3fe.png"
+    },
+    {
+        "name": "Malleable Clay",
+        "color": "#946655",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/emoji-modifier-fitzpatrick-type-6_1f3ff.png"
+    },
+    {
+        "name": "Relaxing Fields",
+        "color": "#38854c",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/deciduous-tree_1f333.png"
+    },
+    {
+        "name": "Casey Blue",
+        "color": "#3c5f9e",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/jeans_1f456.png"
+    },
+    {
+        "name": "Faceless Indigo",
+        "color": "#120039",
+        "emote": "https://cdn.discordapp.com/emojis/398739308225363969.png"
+    },
+    {
+        "name": "Blank White",
+        "color": "#e4e4e0",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/white-large-square_2b1c.png"
+    },
+    {
+        "name": "Emotionless Silver",
+        "color": "#a9a79d",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/nut-and-bolt_1f529.png"
+    },
+    {
+        "name": "Robotized Gray",
+        "color": "#6b7b8f",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/gear_2699.png"
+    },
+    {
+        "name": "99% Pure Black",
+        "color": "#010101",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/waving-black-flag_1f3f4.png"
+    },
+    {
+        "name": "Invisible Name",
+        "color": "#36393e",
+        "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/cross-mark_274c.png"
+    }
+];
+var sort = ["none", false];
+
+const box = document.getElementById("container");
+const template = document.getElementById("template").firstElementChild;
+
+const luma = (r, g, b) => Math.sqrt((0.299 * r * r) + (0.587 * g * g) + (0.114 * b * b));
+const lumaHex = (hex) => {
+    if (hex[0] === "#") {
+        hex = hex.substr(1, 6);
+    }
+    return luma(parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16))
+};
+
+const hue = (r, g, b) => {
+    var max, minV;
+    if (r > g) {
+        if (r > b) {
+            if (g > b) {
+                // r > g > b
+                max = 0;
+                minV = b;
+            } else {
+                // r > b > g
+                max = 0;
+                minV = g;
+            }
+        } else {
+            // b > r > g
+            max = 2;
+            minV = g;
+        }
+    } else {
+        if (r > b) {
+            // g > r > b
+            max = 1;
+            minV = b;
+        } else {
+            if (g > b) {
+                // g > b > r
+                max = 1;
+                minV = r;
+            } else {
+                // b > g > r
+                max = 2;
+                minV = r;
+            }
+        }
+    }
+    switch (max) {
+        case 0:
+            return (6 + (g - b) / (r - minV)) % 6;
+        case 1:
+            return 2 + (b - r) / (g - minV);
+        case 2:
+            return 4 + (r - g) / (b - minV);
+    }
+};
+const hueHex = (hex) => {
+    if (hex[0] === "#") {
+        hex = hex.substr(1, 6);
+    }
+    return hue(parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16))
+};
+
+const saturation = (r, g, b) => {
+    var min = Math.min(r, g, b);
+    var max = Math.max(r, g, b);
+    console.log("sat" + max + "..." + min)
+    return (max - min) / (max + min) * luma(r,g,b);
+};
+const satHex = (hex) => {
+    if (hex[0] === "#") {
+        hex = hex.substr(1, 6);
+    }
+    return saturation(parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16))
+};
+
+const populate = () => {
+    while (box.lastChild) {
+        box.removeChild(box.lastChild);
+    }
+    for (var i = 0; i < colors.length; i++) {
+        var node = template.cloneNode(true);
+        const name = colors[i].name !== null ? colors[i].name : "unnamed";
+        const dark =  lumaHex(colors[i].color) < 144;
+        const emote = colors[i].emote !== null ? colors[i].emote : "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/black-question-mark-ornament_2753.png";
+        node.style = "border-color: " + colors[i].color + "; color: " + colors[i].color;
+        node.getElementsByClassName("emote")[0].style = "background-image: url(" + emote + ")";
+        if (colors[i].name === null) {
+            node.classList.add("unnamed");
+        }
+        node.getElementsByClassName("name")[0].innerText = name;
+        node.getElementsByClassName("name")[0].style = "color: " + (dark ? "white" : colors[i].color);
+        node.getElementsByClassName("clear")[0].style = "background: " + colors[i].color + ";";
+        node.getElementsByClassName("number")[0].innerText = colors[i].color;
+        node.getElementsByClassName("number")[0].style = "color:" + (dark ? "white" : "black");
+        box.appendChild(node);
+    }
+}
+document.getElementById("names").addEventListener("click", function(){
+    box.classList.toggle("hide");
+});
+document.getElementById("luma").addEventListener("click", function(){
+    var mult;
+    if (sort[0] === "luma" && !sort[1]) {
+        mult = -1;
+        sort = ["luma", true];
+    } else {
+        mult = 1;
+        sort = ["luma", false];
+    }
+    colors.sort((a, b) => (lumaHex(a.color) > lumaHex(b.color) ? -mult : (lumaHex(a.color) === lumaHex(b.color) ? 0 : mult)));
+    populate();
+});
+document.getElementById("hue").addEventListener("click", function(){
+    var mult;
+    if (sort[0] === "hue" && !sort[1]) {
+        mult = 1;
+        sort = ["hue", true];
+    } else {
+        mult = -1;
+        sort = ["hue", false];
+    }
+    colors.sort((a, b) => (hueHex(a.color) > hueHex(b.color) ? -mult : (hueHex(a.color) === hueHex(b.color) ? 0 : mult)));
+    populate();
+});
+document.getElementById("sat").addEventListener("click", function(){
+    var mult;
+    if (sort[0] === "sat" && !sort[1]) {
+        mult = -1;
+        sort = ["sat", true];
+    } else {
+        mult = 1;
+        sort = ["sat", false];
+    }
+    colors.sort((a, b) => (satHex(a.color) > satHex(b.color) ? -mult : (satHex(a.color) === satHex(b.color) ? 0 : mult)));
+    populate();
+});
+
+populate();
+// make the emotes load
+setTimeout(function(){box.classList.add("hide")}, 100);
+    </script>
+</body>
