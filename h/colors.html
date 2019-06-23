@@ -154,7 +154,7 @@ html::-webkit-scrollbar {
 
 <body>
     <div id="bar">
-        <button id="names">toggle names</button><br>
+        <button id="names">show names and emotes</button><br>
         sort by <button id="name">name</button> <button id="hue">hue</button> <button id="sat">vividness</button> <button id="luma">brightness</button>
     </div>
     <div id="container" class="">
@@ -232,7 +232,7 @@ var colors = [
         "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/cloud_2601.png"
     },
     {
-        "name": "Lilac Fumes",
+        "name": "Pheromone Violet",
         "color": "#eedbff",
         "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/dash-symbol_1f4a8.png"
     },
@@ -433,6 +433,11 @@ const populate = () => {
 }
 document.getElementById("names").addEventListener("click", function(){
     box.classList.toggle("hide");
+    if (box.classList.contains("hide")){
+        document.getElementById("names").innerText="show names and emotes";
+    } else {
+        document.getElementById("names").innerText="show color codes";
+    }
 });
 document.getElementById("name").addEventListener("click", function(){
     var mult;
