@@ -401,7 +401,6 @@ const hueHex = (hex) => {
 const saturation = (r, g, b) => {
     var min = Math.min(r, g, b);
     var max = Math.max(r, g, b);
-    console.log("sat" + max + "..." + min)
     return (max - min) / (max + min) * luma(r,g,b);
 };
 const satHex = (hex) => {
@@ -412,24 +411,32 @@ const satHex = (hex) => {
 };
 
 const populate = () => {
-    while (box.lastChild) {
-        box.removeChild(box.lastChild);
-    }
+    //while (box.lastChild) {
+    //    box.removeChild(box.lastChild);
+    //}
     for (var i = 0; i < colors.length; i++) {
         var node = template.cloneNode(true);
-        const name = colors[i].name !== null ? colors[i].name : "unnamed";
-        const dark =  lumaHex(colors[i].color) < 144;
-        const emote = colors[i].emote !== null ? colors[i].emote : "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/black-question-mark-ornament_2753.png";
-        node.style = "border-color: " + colors[i].color + "; color: " + colors[i].color;
-        node.getElementsByClassName("emote")[0].style = "background-image: url(" + emote + ")";
-        if (colors[i].name === null) {
-            node.classList.add("unnamed");
+        const existing = document.getElementById("color_" + (colors[i].color).substr(1,6));
+        if (existing) {
+            // exists
+            node = existing;
+        } else {
+            // make new
+            const name = colors[i].name !== null ? colors[i].name : "unnamed";
+            const dark =  lumaHex(colors[i].color) < 144;
+            const emote = colors[i].emote !== null ? colors[i].emote : "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/black-question-mark-ornament_2753.png";
+            node.id = "color_" + (colors[i].color).substr(1,6);
+            node.style = "border-color: " + colors[i].color + "; color: " + colors[i].color;
+            node.getElementsByClassName("emote")[0].style = "background-image: url(" + emote + ")";
+            if (colors[i].name === null) {
+                node.classList.add("unnamed");
+            }
+            node.getElementsByClassName("name")[0].innerText = name;
+            node.getElementsByClassName("name")[0].style = "color: " + (dark ? "white" : colors[i].color);
+            node.getElementsByClassName("clear")[0].style = "background: " + colors[i].color + ";";
+            node.getElementsByClassName("number")[0].innerText = colors[i].color;
+            node.getElementsByClassName("number")[0].style = "color:" + (dark ? "white" : "black");   
         }
-        node.getElementsByClassName("name")[0].innerText = name;
-        node.getElementsByClassName("name")[0].style = "color: " + (dark ? "white" : colors[i].color);
-        node.getElementsByClassName("clear")[0].style = "background: " + colors[i].color + ";";
-        node.getElementsByClassName("number")[0].innerText = colors[i].color;
-        node.getElementsByClassName("number")[0].style = "color:" + (dark ? "white" : "black");
         box.appendChild(node);
     }
 }
