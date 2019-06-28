@@ -81,7 +81,7 @@ function gameLoop() {
         var y = gp.axes[2*i+1]
         sticks[i].style.transform =
         "translate(" + (x * stick_radius).toFixed(0) + "px, " + (y * stick_radius).toFixed(0) + "px)";
-        if (Math.sqrt(x*x+y*y) > 0.02) {
+        if (Math.sqrt(x*x+y*y) > 0.05) {
             sticks[i].classList.add("active");
         } else {
             sticks[i].classList.remove("active");
