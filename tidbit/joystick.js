@@ -55,8 +55,8 @@ const btns = [
     document.getElementById("btn_sys")
 ];
 const sticks = [
-    document.getElementById("lstick"),
-    document.getElementById("rstick")
+    document.getElementById("lstick").firstElementChild,
+    document.getElementById("rstick").firstElementChild
 ];
 const stick_radius = 25;
 function gameLoop() {
@@ -77,8 +77,15 @@ function gameLoop() {
     }
     // sticks
     for (var i = 0; i < gp.axes.length / 2; i++) {
-        sticks[i].firstElementChild.style.transform =
-        "translate(" + (gp.axes[2*i] * stick_radius).toFixed(0) + "px, " + (gp.axes[2*i+1] * stick_radius).toFixed(0) + "px)";
+        var x = gp.axes[2*i];
+        var y = gp.axes[2*i+1]
+        sticks[i].style.transform =
+        "translate(" + (x * stick_radius).toFixed(0) + "px, " + (y * stick_radius).toFixed(0) + "px)";
+        if (Math.sqrt(x*x+y*y) > 0.02) {
+            sticks[i].classList.add("active");
+        } else {
+            sticks[i].classList.remove("active");
+        }
     }
     start = requestAnimationFrame(gameLoop);
 }
