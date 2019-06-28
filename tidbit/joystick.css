@@ -1,0 +1,256 @@
+#btn_over, #base, #btn_under {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#base {
+    width: 512px;
+    height: 320px;
+    background-image: url("./joystick/base/base.png");
+    background-size: contain;
+    z-index: 2;
+}
+
+#btn_over {
+    z-index: 3;
+}
+
+#btn_under {
+    z-index: 1;
+}
+
+#btn_a,
+#btn_b,
+#btn_x,
+#btn_y,
+#btn_sta,
+#btn_sel,
+#btn_sys,
+#btn_up,
+#btn_down,
+#btn_left,
+#btn_right,
+#btn_l3,
+#btn_r3,
+#lstick,
+#rstick,
+#btn_lb,
+#btn_lt,
+#btn_rt,
+#btn_rb {
+    position: absolute;
+}
+
+/* buttons that disappear when they are inactive */
+#btn_a,
+#btn_b,
+#btn_x,
+#btn_y,
+#btn_sta,
+#btn_sel,
+#btn_sys,
+#btn_up,
+#btn_down,
+#btn_left,
+#btn_right,
+#btn_l3,
+#btn_r3 {
+    opacity: 0;
+}
+
+#btn_a.active,
+#btn_b.active,
+#btn_x.active,
+#btn_y.active,
+#btn_sta.active,
+#btn_sel.active,
+#btn_sys.active,
+#btn_up.active,
+#btn_down.active,
+#btn_left.active,
+#btn_right.active,
+#btn_l3.active,
+#btn_r3.active {
+    opacity: 1;
+}
+
+#btn_a,
+#btn_b,
+#btn_x,
+#btn_y,
+#btn_sys {
+    width: 52px;
+    height: 52px;
+}
+
+#btn_a {
+    left: 386px;
+    top: 146px;
+    background-image: url("./joystick/on/a.png");
+}
+
+#btn_b {
+    left: 426px;
+    top: 106px;
+    background-image: url("./joystick/on/b.png");
+}
+
+#btn_x {
+    left: 346px;
+    top: 106px;
+    background-image: url("./joystick/on/x.png");
+}
+
+#btn_y {
+    left: 386px;
+    top: 66px;
+    background-image: url("./joystick/on/y.png");
+}
+
+#btn_sys {
+    left: 230px;
+    top: 70px;
+    background-image: url("./joystick/on/system.png");
+}
+
+#btn_sel,
+#btn_sta {
+    width: 36px;
+    height: 36px;
+    top: 78px;
+}
+
+#btn_sel {
+    left: 182px;
+    background-image: url("./joystick/on/select.png");
+}
+
+#btn_sta {
+    left: 294px;
+    background-image: url("./joystick/on/start.png");
+}
+
+#btn_l3,
+#btn_r3 {
+    width: 96px;
+    height: 96px;
+    background-image: url("./joystick/on/stick-press.png");
+}
+
+#btn_l3 {
+    left: 52px;
+    top: 76px;
+}
+#btn_r3 {
+    left: 272px;
+    top: 166px;
+}
+
+#btn_up,
+#btn_left,
+#btn_down,
+#btn_right {
+    width: 108px;
+    height: 108px;
+    left: 138px;
+    top: 160px;
+    background-image: url("./joystick/on/dpad-up.png");
+}
+
+#btn_left {
+    transform: rotate(-90deg);
+}
+
+#btn_down {
+    transform: rotate(180deg);
+}
+
+#btn_right {
+    transform: rotate(90deg);
+}
+
+/* buttons that change background when they are inactive */
+#btn_lb,
+#btn_rb {
+    width: 120px;
+    height: 76px;
+}
+
+#btn_lt,
+#btn_rt {
+    width: 80px;
+    height: 44px;
+}
+
+#btn_lb {
+    left: 36px;
+    top: 10px;
+    background-image: url("./joystick/off/lb.png");
+}
+
+#btn_lb.active {
+    background-image: url("./joystick/on/lb.png");
+}
+
+#btn_lt {
+    left: 164px;
+    top: 2px;
+    background-image: url("./joystick/off/lt.png");
+}
+
+#btn_lt.active {
+    background-image: url("./joystick/on/lt.png");
+}
+
+#btn_rb {
+    left: 356px;
+    top: 10px;
+    background-image: url("./joystick/off/rb.png");
+}
+
+#btn_rb.active {
+    background-image: url("./joystick/on/rb.png");
+}
+
+#btn_rt {
+    left: 268px;
+    top: 2px;
+    background-image: url("./joystick/off/rt.png");
+}
+
+#btn_rt.active {
+    background-image: url("./joystick/on/rt.png");
+}
+
+/* sticks */
+.xbox-analog-wrapper {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+.xbox-analog {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+    background-image: url("./joystick/off/stick.png");
+}
+
+.xbox-analog.active {
+    background-image: url("./joystick/on/stick.png");
+}
+
+#lstick {
+    left: 50px;
+    top: 74px;
+}
+
+#rstick {
+    left: 270px;
+    top: 164px;
+}
