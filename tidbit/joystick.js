@@ -3,6 +3,11 @@ window.addEventListener("gamepadconnected", function (e) {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
         gp.index, gp.id,
         gp.buttons.length, gp.axes.length);
+    document.getElementsByClassName("theme")[0].classList.remove("disconnected");
+});
+window.addEventListener("gamepaddisconnected", function (e) {
+    console.log("Gamepad disconnected.");
+    document.getElementsByClassName("theme")[0].classList.add("disconnected");
 });
 
 // poll the input
@@ -62,6 +67,7 @@ const stick_radius = 25;
 function gameLoop() {
     var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
     if (!gamepads) {
+        console.log("!gamepads");
         return;
     }
     var gp = gamepads[0];

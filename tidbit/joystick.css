@@ -1,3 +1,12 @@
+.theme {
+    width: 512px;
+    height: 320px;
+}
+
+.theme.disconnected {
+    opacity: 0.25;
+}
+
 #btn_over, #base, #btn_under {
     position: absolute;
     top: 0;
@@ -57,6 +66,7 @@
 #btn_l3,
 #btn_r3 {
     opacity: 0;
+    animation: release 150ms ease-out;
 }
 
 #btn_a.active,
@@ -73,6 +83,7 @@
 #btn_l3.active,
 #btn_r3.active {
     opacity: 1;
+    animation: none;
 }
 
 #btn_a,
@@ -155,19 +166,22 @@
     height: 108px;
     left: 138px;
     top: 160px;
+}
+
+#btn_up {
     background-image: url("./joystick/on/dpad-up.png");
 }
 
 #btn_left {
-    transform: rotate(-90deg);
+    background-image: url("./joystick/on/dpad-left.png");
 }
 
 #btn_down {
-    transform: rotate(180deg);
+    background-image: url("./joystick/on/dpad-down.png");
 }
 
 #btn_right {
-    transform: rotate(90deg);
+    background-image: url("./joystick/on/dpad-right.png");
 }
 
 /* buttons that change background when they are inactive */
@@ -175,12 +189,26 @@
 #btn_rb {
     width: 120px;
     height: 76px;
+    transition: transform 100ms;
 }
 
 #btn_lt,
 #btn_rt {
     width: 80px;
     height: 44px;
+    transition: transform 100ms;
+}
+
+#btn_lb.active,
+#btn_lt.active {
+    transform: translateY(6px) rotate(-2deg);
+    transition: 0s;
+}
+
+#btn_rb.active,
+#btn_rt.active {
+    transform: translateY(6px) rotate(2deg);
+    transition: 0s;
 }
 
 #btn_lb {
@@ -253,4 +281,19 @@
 #rstick {
     left: 270px;
     top: 164px;
+}
+
+@keyframes release {
+    from {
+        transform: scale(1, 1);
+        opacity: 0.7;
+    }
+    to {
+        transform: scale(0.9, 0.9);
+        opacity: 0;
+    }
+}
+
+#about {
+    top: 360px;
 }

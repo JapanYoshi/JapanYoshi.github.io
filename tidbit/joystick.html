@@ -1,37 +1,51 @@
 <head>
-  <link rel="stylesheet" type="text/css" href="./joystick.css">
+    <link rel="stylesheet" type="text/css" href="./joystick.css">
 </head>
+
 <body>
-  <div class="theme">
-    <div id="btn_over">
-        <div id="btn_a" class="active"></div>
-        <div id="btn_b" class="active"></div>
-        <div id="btn_x" class="active"></div>
-        <div id="btn_y" class="active"></div>
-        <div id="btn_sta" class="active"></div>
-        <div id="btn_sel" class="active"></div>
-        <div id="btn_sys" class="active"></div>
-        <div id="btn_up" class="active"></div>
-        <div id="btn_down" class="active"></div>
-        <div id="btn_left" class="active"></div>
-        <div id="btn_right" class="active"></div>
-        <div id="btn_l3" class="active"></div>
-        <div id="btn_r3" class="active"></div>
-        <div id="lstick" class='xbox-analog-wrapper'>
-            <div ojd-directional='0' class='xbox-analog active'></div>
+    <div class="theme disconnected">
+        <div id="btn_over">
+            <div id="btn_a" class="active"></div>
+            <div id="btn_b" class="active"></div>
+            <div id="btn_x" class="active"></div>
+            <div id="btn_y" class="active"></div>
+            <div id="btn_sta" class="active"></div>
+            <div id="btn_sel" class="active"></div>
+            <div id="btn_sys" class="active"></div>
+            <div id="btn_up" class="active"></div>
+            <div id="btn_down" class="active"></div>
+            <div id="btn_left" class="active"></div>
+            <div id="btn_right" class="active"></div>
+            <div id="btn_l3" class="active"></div>
+            <div id="btn_r3" class="active"></div>
+            <div id="lstick" class='xbox-analog-wrapper'>
+                <div ojd-directional='0' class='xbox-analog active'></div>
+            </div>
+            <div id="rstick" class='xbox-analog-wrapper'>
+                <div ojd-directional='1' class='xbox-analog active'></div>
+            </div>
         </div>
-        <div id="rstick" class='xbox-analog-wrapper'>
-            <div ojd-directional='1' class='xbox-analog active'></div>
+        <div id="base"></div>
+        <div id="btn_under">
+            <div id="btn_lb" class="active"></div>
+            <div id="btn_lt" class="active"></div>
+            <div id="btn_rt" class="active"></div>
+            <div id="btn_rb" class="active"></div>
         </div>
     </div>
-    <div id="base"></div>
-    <div id="btn_under">
-        <div id="btn_lb" class="active"></div>
-        <div id="btn_lt" class="active"></div>
-        <div id="btn_rt" class="active"></div>
-        <div id="btn_rb" class="active"></div>
+    <div id="about">
+        <h3>This section will hide when viewed from your streaming software.</h3>
+        <p>To test this out, simply connect your controller to your computer, and if it is already connected, press any button or tilt any stick. This can only detect the joystick with ID #0, which means if the right controller is not detected, you should disconnect all controllers, then reconnect your desired one.</p>
+        <p>This overlay is compatible with Haley's Xbox One controller, and is expected to be compatible with other major controllers.</p>
+        <p>To use this in your stream, simply add this page as a Browser Source with these settings:</p>
+        <ul>
+            <li>Width: 512px</li>
+            <li>Height: 320px</li>
+            <li>Use custom framerate: you decide, I don't even know what this does</li>
+            <li>Custom CSS: Default should be enough. In fact, you probably don't need any custom CSS.</li>
+        </ul>
+        <p>Alternatively, if you have separate computers playing vs. processing, you can use the port for Open Joystick Display: <a href="../h/OJD_Haley.7z">Download</a></p>
     </div>
-</div>
-<div id="gamepadInfo"></div>
+    <div id="gamepadInfo"></div>
     <script src="joystick.js"></script>
 </body>
