@@ -1,221 +1,10 @@
-const songData = [
-    {
-        song: "Raise Your Hands",
-        artist: "Ummet Ozcan",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Spacecats",
-        artist: "Ummet Ozcan",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Where's the Party At?",
-        artist: "Mosh 'n' Smash",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Handz Up",
-        artist: "FЯEED",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "On the Floor Like",
-        artist: "Bassjackers & Joe Ghost ft. MOTi",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "BLOW UP",
-        artist: "R3DS",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Butterfly",
-        artist: "kors k ft. Starbitz",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Don't Stop!!",
-        artist: "BEMANI Sound Team \"Sota F.\"",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "DOWNER & UPPER",
-        artist: "BEMANI Sound Team \"DJ TOTTO\"",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Wicked",
-        artist: "Hommarju",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Saturday Night Love -Phunk Disco Mix-",
-        artist: "Sota Fujimori",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Disco Nights",
-        artist: "RELECT",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "DAWN OF FALCON",
-        artist: "L.E.D.-G",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Gimme a Big Beat",
-        artist: "kors k",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Crystarium",
-        artist: "BlackY",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Luminous Pajama",
-        artist: "BEMANI Sound Team \"SYUNN\"",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "FLOWER (STARDOM Remix)",
-        artist: "BEMANI Sound Team \"DJ TOTTO\"",
-        diff: 0,
-        lv: 9
-    },
-    {
-        song: "FLOWER (STARDOM Remix)",
-        artist: "BEMANI Sound Team \"DJ TOTTO\"",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Impress",
-        artist: "BEMANI Sound Team \"SYUNN\"",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "RISING FIRE HAWK",
-        artist: "L.E.D.-G",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Midnight Amaretto",
-        artist: "Camellia",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "THE SAFARI (STARDOM Remix)",
-        artist: "BEMANI Sound Team \"SYUNN\"",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "DUB I DUB",
-        artist: "kors k feat. Starbitz",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "take me higher",
-        artist: "KOTONOHOUSE",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "BEYOND THE EARTH (STARDOM Remix)",
-        artist: "BEMANI Sound Team \"Sota F.\"",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Catch Our Fire! (STARDOM Remix)",
-        artist: "kors k",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Love 2 Shuffle",
-        artist: "BEMANI Sound Team \"Sota F.\" feat. Starbitz",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Shiva",
-        artist: "Relect",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Crazy Shuffle",
-        artist: "Yooh",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Dual Bladez",
-        artist: "Omoshiro Sangokushi",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Raw Crawler",
-        artist: "Masayoshi Iimori",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Bad Boy Birdwatch",
-        artist: "HyperJuice",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Garuda",
-        artist: "kors k",
-        diff: 0,
-        lv: 9
-    },
-    {
-        song: "Garuda",
-        artist: "kors k",
-        diff: 1,
-        lv: 10
-    },
-    {
-        song: "Second Heaven -Samba, Samba, Somebody MIX-",
-        artist: "DJ YOSHITAKA",
-        diff: 1,
-        lv: 9
-    },
-    {
-        song: "Hastur",
-        artist: "USAO",
-        diff: 1,
-        lv: 10
-    }
-];
+const songData = [];
+fetch('songs.json').then(response => {
+    console.log(response.status);
+    response.json().then(userInfo => {
+        console.log(userInfo);
+    })
+});
 
 class Elo {
     constructor(data, minRating = 1000, maxRating = 2000, m = 400, k = 32) {
@@ -231,7 +20,6 @@ class Elo {
 
     addData(data) {
         data.forEach(obj => {
-            console.log(obj);
             if (!obj.rating) {
                 obj.rating = this.startRating;
             }
@@ -239,6 +27,7 @@ class Elo {
                 obj.games = 0;
             }
             this.data.push(obj);
+            console.log(`Added ${obj.song} Lv. ${obj.lv}`);
         })
     }
 
@@ -293,51 +82,68 @@ class Elo {
     }
 }
 
-var elo = new Elo(songData, 0, 1000);
-const diffs = ["Easy", "Normal"];
-var total = songData.length;
-console.log("How many questions would you like to answer? ");
-var questions
-while (!questions) {
-    var raw = window.prompt("How many questions?", undefined);
-    try {
-        questions = parseInt(raw);
-    } catch {
-        // nothing, just repeat
-    }
-}
-while (questions) {
-    var index1 = parseInt(Math.random() * total);
-    var index2 = parseInt(Math.random() * total - 1);
-    if (index2 >= index1) {
-        index2++;
-    }
-    var song1 = elo.get(index1);
-    var song2 = elo.get(index2);
-    var response;
-    while (!response) {
-        var raw = window.prompt(`Which is harder?\nA: ${song1.name} ${diffs[song1.diff]} Lv. ${song1.lv}\nvs.\nB: ${song2.name} ${diffs[song2.diff]} Lv. ${song2.lv}\n1: A is harder.\n2: B is harder.\n3: They're about the same.\n0: Pass (I haven't played both, or I'm not sure)`, undefined);
+document.addEventListener("DOMContentLoaded", function() {
+
+    var elo = new Elo(songData, 0, 1000);
+    const diffs = ["Easy", "Normal"];
+    var total = songData.length;
+    var questions = undefined;
+    console.log("prepared");
+    while (!questions) {
+        console.log("asking");
+        var raw = window.prompt("How many questions?", "NONE");
+        if (raw === "NONE") {
+            console.log("Prompts are turned off");
+            throw "Prompts are turned off.";
+        } 
         try {
-            response = parseInt(raw, 10);
+            questions = parseInt(raw);
         } catch {
             // nothing, just repeat
         }
     }
-    switch (response) {
-        case 1:
-            questions--;
-            elo.game(index1, index2);
-            return
-        case 2:
-            questions--;
-            elo.game(index2, index1);
-            return
-        case 3:
-            questions--;
-            elo.game(index1, index2, true);
-            return
-        default:
-            return
+    console.log(elo.getAll());
+    while (questions) {
+        var index1 = parseInt(Math.random() * total);
+        var index2 = parseInt(Math.random() * total - 1);
+        if (index2 >= index1) {
+            index2++;
+        }
+        console.log(questions + " " + index1 + " " + index2);
+        var song1 = elo.get(index1);
+        var song2 = elo.get(index2);
+        var response = undefined;
+        while (response === undefined) {
+            var raw = window.prompt(`${questions} question${questions == 1 ? "" : "s"} left\nWhich is harder?\nA: ${song1.song} ${diffs[song1.diff]} (Rating ${song1.rating}) Lv. ${song1.lv}\nvs.\nB: ${song2.song} ${diffs[song2.diff]} Lv. ${song2.lv} (Rating ${song2.rating})\n1: A is harder.\n2: B is harder.\n3: They're about the same.\n0: Pass (I haven't played both, or I'm not sure)`, undefined);
+            try {
+                response = parseInt(raw, 10);
+            } catch {
+                // nothing, just repeat
+            }
+        }
+        switch (response) {
+            case 1:
+                questions--;
+                elo.game(index1, index2);
+                break
+            case 2:
+                questions--;
+                elo.game(index2, index1);
+                break
+            case 3:
+                questions--;
+                elo.game(index1, index2, true);
+                break
+            case 0:
+            default:
+                break
+        }
+        delete response;
     }
-}
-console.log(elo.getAll());
+    console.log(elo.getAll(true));
+    fs.writeFile("songs.json", elo.getAll(true), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+}, false);
