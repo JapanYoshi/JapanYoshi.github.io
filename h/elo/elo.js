@@ -1,8 +1,9 @@
-const songData = [];
+var songData = [];
 fetch('songs.json').then(response => {
     console.log(response.status);
     response.json().then(userInfo => {
         console.log(userInfo);
+        songData = userInfo;
     })
 });
 
@@ -141,9 +142,5 @@ document.addEventListener("DOMContentLoaded", function() {
         delete response;
     }
     console.log(elo.getAll(true));
-    fs.writeFile("songs.json", elo.getAll(true), function(err) {
-        if (err) {
-            console.log(err);
-        }
-    });
+    window.alert("The new database has been printed to the console.");
 }, false);
