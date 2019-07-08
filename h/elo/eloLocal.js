@@ -18,7 +18,7 @@ const l10n = {
         "start": "スタート",
         "labelQuestionNumber": "{{1}}問中{{0}}問",
         "labelHarder": "どっちが難しい？",
-        "formatSong": "{{SONG}} - {{ARTIST}}",
+        "formatSong": "<b>{{SONG}}</b>{{ARTIST}}",
         "formatChart": "{{DIFF}} Lv. {{LV}}",
         "diffs": ["かんたん", "ふつう"],
         "labelSame": "同じ",
@@ -118,29 +118,30 @@ var elo;
 var lang = "en";
 
 function setLang(){
-        console.log("lang " + lang);
-        console.log(l10n[lang]);
-        const keys = Object.keys(l10n["en"]);
-        console.log(keys);
-        for (var i = 0; i < keys.length; i++) {
-            console.log(keys[i]);
-            switch (keys[i]) {
-                case "formatSong":
-                case "formatChart":
-                case "diffs":
-                    // reformat the song
-                    break;
-                default:
-                    try {
-                        document.getElementById(keys[i]).innerText = l10n[lang].hasOwnProperty(keys[i]) ? l10n[lang][keys[i]] : l10n["en"][keys[i]];
-                    } catch(err) {
-                        console.log(err);
-                        alert(err + " " + keys[i]);
-                    }
-                    break;
-            }
+    console.log("lang " + lang);
+    console.log(l10n[lang]);
+    initOptions();
+    const keys = Object.keys(l10n["en"]);
+    console.log(keys);
+    for (var i = 0; i < keys.length; i++) {
+        console.log(keys[i]);
+        switch (keys[i]) {
+            case "formatSong":
+            case "formatChart":
+            case "diffs":
+                // reformat the song
+                break;
+            default:
+                try {
+                    document.getElementById(keys[i]).innerText = l10n[lang].hasOwnProperty(keys[i]) ? l10n[lang][keys[i]] : l10n["en"][keys[i]];
+                } catch(err) {
+                    console.log(err);
+                    alert(err + " " + keys[i]);
+                }
+                break;
         }
-        console.log("setLang");
+    }
+    console.log("setLang");
 }
 
 function addLanguageChangers(){
@@ -162,23 +163,31 @@ function resetRadios() {
     }
 }
 
-var questions;
-var qAsked;
+var questions = 0;
+var qAsked = 0;
+var gameData = [];
+
+function initOptions(){
+    document.getElementById("labelQuestionNumber").innerText = l10n[lang]["labelQuestionNumber"].replace("{{0}}", qAsked+1).replace("{{1}}", questions);
+    if (gameData.length === 4) {
+        var cards = [document.getElementById("card1"), document.getElementById("card2")];
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].getElementsByClassName("song")[0].innerHTML = l10n[lang]["formatSong"].replace("{{SONG}}", gameData[i+2].song).replace("{{ARTIST}}", gameData[i+2].artist);
+            cards[i].getElementsByClassName("chart")[0].innerHTML = l10n[lang]["formatChart"].replace("{{DIFF}}", l10n[lang]["diffs"][gameData[i+2].diff]).replace("{{LV}}", gameData[i+2].lv);
+            cards[i].getElementsByClassName("chart")[0].classList.add(`diff${gameData[i+2].diff}`);
+            cards[i].getElementsByClassName("chart")[0].classList.remove(`diff${1 - gameData[i+2].diff}`);
+            cards[i].getElementsByClassName("rating")[0].innerText = gameData[i+2].rating.toString()
+        }
+    }
+}
 
 function ask() {
     if (qAsked < questions) {
         resetRadios();
-        document.getElementById("labelQuestionNumber").innerText = l10n[lang]["labelQuestionNumber"].replace("{{0}}", qAsked+1).replace("{{1}}", questions);
-    
-        const data = elo.generateGame();
-        var cards = [document.getElementById("card1"), document.getElementById("card2")];
-        for (var i = 0; i < cards.length; i++) {
-            cards[i].getElementsByClassName("song")[0].innerHTML = l10n[lang]["formatSong"].replace("{{SONG}}", data[i+2].song).replace("{{ARTIST}}", data[i+2].artist);
-            cards[i].getElementsByClassName("chart")[0].innerHTML = l10n[lang]["formatChart"].replace("{{DIFF}}", l10n[lang]["diffs"][data[i+2].diff]).replace("{{LV}}", data[i+2].lv);
-            cards[i].getElementsByClassName("chart")[0].classList.add(`diff${data[i+2].diff}`);
-            cards[i].getElementsByClassName("chart")[0].classList.remove(`diff${1 - data[i+2].diff}`);
-        }
-        document.getElementById("btnSubmit").addEventListener("click", function(){answer(data[0], data[1])}, {"once": true});
+        
+        gameData = elo.generateGame();
+        initOptions();
+        document.getElementById("btnSubmit").addEventListener("click", function(){answer(gameData[0], gameData[1])}, {"once": true});
     } else {
         document.getElementById("jsonArea").value = JSON.stringify(elo.getAll(true));
         document.body.classList.remove("asking");
