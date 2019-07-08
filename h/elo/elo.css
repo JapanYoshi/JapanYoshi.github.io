@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+}
+.asking #initialize {
+    display: none;
+}
+#question {
+    max-height: 0;
+    overflow: hidden;
+}
+.asking #question {
+    max-height: none;
+}
+
+input[type="radio"]+label {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 8px;
+    background: #ccc;
+    border: 2px solid #888;
+    color: black;
+    text-align: center;
+}
+
+input[type="radio"]+label .song {
+    display: block;
+}
+
+input[type="radio"]+label .song b {
+    display: block;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked+label {
+    background: yellow;
+    color: brown;
+    border-color: olive;
+}
+
+.diff0 {
+    background: green;
+    color: white;
+}
+
+.diff1 {
+    background: orangered;
+    color: yellow;
+}

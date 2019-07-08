@@ -1,10 +1,268 @@
 <head>
+    <meta charset="utf-8">
     <title>DRS song rating test</title>
+    <link rel="stylesheet" type="text/css" href="elo.css">
 </head>
 <body>
-    <h1>Please wait for the prompts.</h1>
-    <h3></h3>
-    <p></p>
-    <div id="options"></div>
-    <script src="elo.js"></script>
+    <form id="language">
+        <button type="button" id="langEn">English</button><button type="button" id="langJa">日本語</button>
+    </form>
+    <form id="initialize">
+        <label id="labelJsonArea" for="json"></label>
+        <textarea id="jsonArea" name="json">[
+    {
+        "song": "Raise Your Hands",
+        "artist": "Ummet Ozcan",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Spacecats",
+        "artist": "Ummet Ozcan",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Where's the Party At?",
+        "artist": "Mosh 'n' Smash",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Handz Up",
+        "artist": "FЯEED",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "On the Floor Like",
+        "artist": "Bassjackers & Joe Ghost ft. MOTi",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "BLOW UP",
+        "artist": "R3DS",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Butterfly",
+        "artist": "kors k ft. Starbitz",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Don't Stop!!",
+        "artist": "BEMANI Sound Team \"Sota F.\"",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "DOWNER & UPPER",
+        "artist": "BEMANI Sound Team \"DJ TOTTO\"",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Wicked",
+        "artist": "Hommarju",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Saturday Night Love -Phunk Disco Mix-",
+        "artist": "Sota Fujimori",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Disco Nights",
+        "artist": "RELECT",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "DAWN OF FALCON",
+        "artist": "L.E.D.-G",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Gimme a Big Beat",
+        "artist": "kors k",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Crystarium",
+        "artist": "BlackY",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Luminous Pajama",
+        "artist": "BEMANI Sound Team \"SYUNN\"",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "FLOWER (STARDOM Remix)",
+        "artist": "BEMANI Sound Team \"DJ TOTTO\"",
+        "diff": 0,
+        "lv": 9
+    },
+    {
+        "song": "FLOWER (STARDOM Remix)",
+        "artist": "BEMANI Sound Team \"DJ TOTTO\"",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Impress",
+        "artist": "BEMANI Sound Team \"SYUNN\"",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "RISING FIRE HAWK",
+        "artist": "L.E.D.-G",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Midnight Amaretto",
+        "artist": "Camellia",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "THE SAFARI (STARDOM Remix)",
+        "artist": "BEMANI Sound Team \"SYUNN\"",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "DUB I DUB",
+        "artist": "kors k feat. Starbitz",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "take me higher",
+        "artist": "KOTONOHOUSE",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "BEYOND THE EARTH (STARDOM Remix)",
+        "artist": "BEMANI Sound Team \"Sota F.\"",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Catch Our Fire! (STARDOM Remix)",
+        "artist": "kors k",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Love 2 Shuffle",
+        "artist": "BEMANI Sound Team \"Sota F.\" feat. Starbitz",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Shiva",
+        "artist": "Relect",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Crazy Shuffle",
+        "artist": "Yooh",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Dual Bladez",
+        "artist": "Omoshiro Sangokushi",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Raw Crawler",
+        "artist": "Masayoshi Iimori",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Bad Boy Birdwatch",
+        "artist": "HyperJuice",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Garuda",
+        "artist": "kors k",
+        "diff": 0,
+        "lv": 9
+    },
+    {
+        "song": "Garuda",
+        "artist": "kors k",
+        "diff": 1,
+        "lv": 10
+    },
+    {
+        "song": "Second Heaven -Samba, Samba, Somebody MIX-",
+        "artist": "DJ YOSHITAKA",
+        "diff": 1,
+        "lv": 9
+    },
+    {
+        "song": "Hastur",
+        "artist": "USAO",
+        "diff": 1,
+        "lv": 10
+    }
+]</textarea>
+        <label id="labelQuestions" for="questions"></label><input id="questions" name="questions" type="number" min="1" max="100" value="30"></input>
+        <button id="start" type="button">Start</button>
+    </form>
+    <form id="question">
+        <div id="title">
+            <span id="labelQuestionNumber"></span>
+            <span id="labelHarder"></span>
+        </div>
+        <input id="option0" class="radio" type="radio" name="opinion" value="0" style="display: none;" checked>
+        <input id="option1" class="radio" type="radio" name="opinion" value="1">
+        <label for="option1">
+            <div id="card1" class="cardSong">
+                <span class="song"></span>
+                <span class="chart"></span>
+            </div>
+        </label>
+        <input id="option2" class="radio" type="radio" name="opinion" value="2">
+        <label for="option2">
+            <div id="card2" class="cardSong">
+                <span class="song"></span>
+                <span class="chart"></span>
+            </div>
+        </label>
+        <input id="option3" class="radio" type="radio" name="opinion" value="3">
+        <label for="option3">
+            <div id="card3" class="cardText">
+                <span id="labelSame"></span>
+            </div>
+        </label>
+        <input id="option4" class="radio" type="radio" name="opinion" value="4">
+        <label for="option4">
+            <div id="card4" class="cardText">
+                <span id="labelPass"></span>
+            </div>
+        </label>
+        <button type="button" id="btnSubmit"></button>
+    </form>
+    <script src="eloLocal.js"></script>
 </body>
