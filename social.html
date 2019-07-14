@@ -1,0 +1,245 @@
+<head>
+    <title>Haley Halcyon’s Social Links</title>
+    <meta property="og:title" value="Haley Halcyon’s Social Links">
+    <meta name="twitter:title" value="Haley Halcyon’s Social Links">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description" content="Where am I? Here!">
+    <meta property="og:description"
+        content="Where am I? Here!">
+    <meta name="twitter:description"
+        content="Where am I? Here!">
+    <meta name="keywords" content="HTML,CSS">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="">
+    <meta name="twitter:image" content="">
+    <style>
+@font-face {
+    font-family: "Mikado_";
+    font-weight: bold;
+    src:
+        /*local("Mikado Bold"),*/
+        url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadobold-webfont.ttf") format("ttf"),
+        url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadobold-webfont.woff") format("woff");
+}
+
+body {
+    margin: 0;
+    font-family: "Mikado_", sans-serif;
+    font-weight: bold;
+    background-image: url("./resource/bg.png");
+    font-size: 16px;
+    line-height: 120%;
+}
+
+header {
+    box-sizing: border-box;
+    margin: 0 8px 8px;
+    background-color: #ffb0f0;
+    border: 8px solid #ff4080;
+    border-top-width: 0;
+    border-radius: 0px 0px 24px 24px;
+}
+
+img.header {
+    width: 128px;
+    height: 128px;
+    float: left;
+    margin-right: 16px;
+}
+
+h1, h2 {
+    color: white;
+    text-shadow: 0px 0px 2px #ff4080;
+    margin: 0;
+    font-size: 30px;
+    line-height: 140%;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+.clearfix {
+    width: 100%;
+    height: 0px;
+    clear: both;
+}
+
+#body {
+    margin: 0 16px;
+    text-align: center;
+}
+
+.box {
+    display: inline-block;
+    position: relative;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    border-radius: 64px;
+    background-color: rgba(176, 240, 255, 0);
+    border: 4px solid rgba(67, 175, 255, 0);
+    transition: 200ms ease-out;
+    color: #43afff;
+}
+
+.box .icon {
+    width: 128px;
+    height: auto;
+    float: left;
+    z-index: 3;
+}
+
+.box.active {
+    width: 264px;
+    height: 192px;
+    border-radius: 64px 8px 8px 64px;
+    background-color: rgba(176, 240, 255, 1);
+    border: 4px solid rgba(67, 175, 255, 1);
+}
+
+a {
+    color: #ff4080;
+    text-shadow: 0px 0px 2px #43afff;
+    display: inline;
+    text-decoration: none;
+    transition: 100ms ease-out;
+}
+
+a:hover {
+    color: white;
+    text-shadow: 0px 0px 2px #ff4080;
+    transition: 100ms ease-out;
+}
+
+.box_content {
+    position: absolute;
+    width: 136px;
+    top: 50%;
+    left: 128px;
+    transform: translateY(-50%);
+    opacity: 0;
+    z-index: 2;
+    transition: 200ms ease-out;
+}
+
+.box.active .box_content {
+    opacity: 1;
+}
+
+.small_text {
+    font-size: 100%;
+    line-height: 100%;
+}
+
+@media screen and (min-width: 450px) {
+    body {
+        font-size: 24px;
+        transition: font-size 0.5ms ease;
+    }
+
+    .box.active {
+        width: 400px;
+        height: 128px;
+    }
+
+    .box_content {
+        width: 264px;
+    }
+
+    .small_text {
+        font-size: 75%;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
+        <h1>Haley Halcyon</h1>
+        <h2>Social Link Go!</h2>
+        <div class="clearfix"></div>
+    </header>
+    <div id="body">
+        <div class="box active">
+            <img class="icon" src="./resource/twitter.png" alt="Twitter">
+            <div class="box_content">
+                Personal: <a href="https://twitter.com/ItsSpelledHALEY">@Its&shy;Spelled&shy;HALEY</a><br>
+                Gaming: <a href="https://twitter.com/PlsHugHaley">@Pls&shy;Hug&shy;Haley</a>
+            </div>            
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/instagram.png" alt="Instagram">
+            <div class="box_content">
+                Cosplay: <a href="https://instagram.com/itsspelledhaley">@Its&shy;Spelled&shy;HALEY</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/discord.png" alt="Discord">
+            <div class="box_content">
+                General: <a href="https://discord.gg/gY3JP8K">gY3JP8K</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/youtube.png" alt="YouTube">
+            <div class="box_content small_text">
+                General: <a href="https://www.youtube.com/channel/UCv_O6_zoQSREWzQTqv9eYDQ">“Haley Halcyon’s shit&shy;posts and non-games” </a><br>
+                Gaming: <a href="https://www.youtube.com/channel/UCB7xUJmWyUjfEDaU59gOGkw">“Haley Halcyon - Gaming Chan&shy;nel”</a><br>
+                Music: <a href="https://www.youtube.com/channel/UCASynRAyklDXclMPgIUxOFA">“Akira Sora & Szistirra – Music Channel”</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/soundcloud.png" alt="SoundCloud">
+            <div class="box_content">
+                A&shy;ki&shy;ra So&shy;ra: <a href="https://soundcloud.com/sora-akira-edm">so&ZeroWidthSpace;ra-a&ZeroWidthSpace;ki&ZeroWidthSpace;ra-edm</a><br>
+                Szis&shy;tir&shy;ra: <a href="https://soundcloud.com/szistirra">szis&ZeroWidthSpace;tir&ZeroWidthSpace;ra</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/twitch.png" alt="Twitch">
+            <div class="box_content">
+                <a href="https://twitch.tv/haleyhalcyon">Haley&shy;Halcyon</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/streamlabs.png" alt="Streamlabs">
+            <div class="box_content">
+                <a href="https://streamlabs.com/haleyhalcyon">Haley&shy;Halcyon</a>
+            </div>
+        </div>
+        <div class="box">
+            <img class="icon" src="./resource/facebook.png" alt="Facebook">
+            <div class="box_content">
+                exclusive to people I meet in person
+            </div>
+        </div>
+    </div>
+    <script>
+const boxes = document.getElementsByClassName("box");
+for (var i = boxes.length; i > 0; i--){
+    const box = boxes[i-1];
+    box.addEventListener("click", () => {
+        const nowActive = document.getElementsByClassName("active");
+        console.log(nowActive);
+        if (nowActive.length){
+            if (nowActive[0] === box){
+                box.classList.remove("active");
+            } else {
+                nowActive[0].classList.remove("active");
+                box.classList.add("active")
+            }
+        } else {
+            box.classList.add("active");
+        }
+    });
+}
+    </script>
+</body>
