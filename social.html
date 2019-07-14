@@ -172,14 +172,14 @@ a:hover {
         <div class="box active">
             <img class="icon" src="./resource/twitter.png" alt="Twitter">
             <div class="box_content">
-                Personal: <a href="https://twitter.com/ItsSpelledHALEY">@Its&shy;Spelled&shy;HALEY</a><br>
-                Gaming: <a href="https://twitter.com/PlsHugHaley">@Pls&shy;Hug&shy;Haley</a>
+                Personal: <a href="https://twitter.com/ItsSpelledHALEY">@Its&ZeroWidthSpace;Spelled&ZeroWidthSpace;HALEY</a><br>
+                Gaming: <a href="https://twitter.com/PlsHugHaley">@Pls&ZeroWidthSpace;Hug&ZeroWidthSpace;Haley</a>
             </div>            
         </div>
         <div class="box">
             <img class="icon" src="./resource/instagram.png" alt="Instagram">
             <div class="box_content">
-                Cosplay: <a href="https://instagram.com/itsspelledhaley">@Its&shy;Spelled&shy;HALEY</a>
+                Cosplay: <a href="https://instagram.com/itsspelledhaley">@Its&ZeroWidthSpace;Spelled&ZeroWidthSpace;HALEY</a>
             </div>
         </div>
         <div class="box">
@@ -193,7 +193,7 @@ a:hover {
             <div class="box_content small_text">
                 General: <a href="https://www.youtube.com/channel/UCv_O6_zoQSREWzQTqv9eYDQ">“Haley Halcyon’s shit&shy;posts and non-games” </a><br>
                 Gaming: <a href="https://www.youtube.com/channel/UCB7xUJmWyUjfEDaU59gOGkw">“Haley Halcyon - Gaming Chan&shy;nel”</a><br>
-                Music: <a href="https://www.youtube.com/channel/UCASynRAyklDXclMPgIUxOFA">“Akira Sora & Szistirra – Music Channel”</a>
+                Music: <a href="https://www.youtube.com/channel/UCASynRAyklDXclMPgIUxOFA">“A&shy;ki&shy;ra So&shy;ra & Szis&shy;tir&shy;ra – Music Channel”</a>
             </div>
         </div>
         <div class="box">
@@ -233,7 +233,8 @@ a:hover {
 const boxes = document.getElementsByClassName("box");
 for (var i = boxes.length; i > 0; i--){
     const box = boxes[i-1];
-    box.addEventListener("click", () => {
+    box.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent body event
         const nowActive = document.getElementsByClassName("active");
         console.log(nowActive);
         if (nowActive.length){
@@ -245,6 +246,13 @@ for (var i = boxes.length; i > 0; i--){
             }
         } else {
             box.classList.add("active");
+        }
+    });
+    document.body.addEventListener("click", () => {
+        const nowActive = document.getElementsByClassName("active");
+        console.log(nowActive);
+        if (nowActive.length){
+            nowActive[0].classList.remove("active");
         }
     });
 }
