@@ -257,7 +257,9 @@
                         box.classList.remove("active");
                     } else {
                         nowActive[0].classList.remove("active");
-                        box.classList.add("active")
+                        document.setTimeout(() => {
+                            box.classList.add("active")
+                        }, 250);
                     }
                 } else {
                     box.classList.add("active");
