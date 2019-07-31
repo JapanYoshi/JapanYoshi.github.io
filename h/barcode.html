@@ -47,7 +47,7 @@
 
         .button {
             margin: 8px;
-            padding: 16px;
+            padding: 4px 16px;
             border: 2px solid black;
         }
 
@@ -60,6 +60,11 @@
             background: slateblue;
             color: white;
         }
+@media (max-width:480px){
+body {
+font-size: 16px;
+}
+}
     </style>
 </head>
 
@@ -85,7 +90,7 @@
         </div>
         <div class="label">
             <span>Barcode</span>
-            <textarea id="barcode"></textarea>
+            <textarea id="barcode" onClick="this.setSelectionRange(0, this.value.length)"></textarea>
         </div>
     </form>
     <script src="./barcode.js"></script>
