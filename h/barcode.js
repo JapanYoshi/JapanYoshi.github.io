@@ -1,5 +1,5 @@
 const stripes = "Il|\u01C0\u01C1\u0399\u0406\u04C0\u04CF\u0964\u0965\u2016\u2223\u239C\u239F\u23A2\u23A5\u23AA\u23AE\u23B8\u23B9\u2502\u2503\u2551\u2588\u258A\u258C\u25AE\u2758\u2759\u275A\u2AF4\u2AFC\uFE31\uFF5C\uFFE8";
-const charset = "0123456789ABCDEF" + "GHIJKLMNOPQRSTUV" + "WXYZ -/'.,!?()[]" + "<>&*+#$%^_=|`~\"\n";
+const charset = "0123456789ABCDEF" + "GHIJKLMNOPQRSTUV" + "WXYZ -/'.,!?()[]" + "<>&*:;#$%^_=|~\"\n";
 
 const filterOut = (str) => {
     out = "";
