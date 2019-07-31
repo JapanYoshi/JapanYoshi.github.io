@@ -86,7 +86,7 @@ font-size: 16px;
         </div>
         <div class="label">
             <span>Barcode</span>
-            <textarea id="barcode"></textarea>
+            <textarea id="barcode" onClick="this.setSelectionRange(0, this.value.length)"></textarea>
         </div>
     </form>
     <script src="./barcode.js"></script>
