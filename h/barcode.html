@@ -68,6 +68,8 @@
             margin: 2px;
             padding: 8px 16px;
             border: 2px solid black;
+            font-size: 12px;
+            line-height: 12px;
         }
 
         .button:hover {
@@ -103,19 +105,40 @@
         <div class="label wrap">
             <div class="label-inner">
                 <div class="button" id="encode">
-                    ↓Encode↓
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" />
+                    </svg>
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M2,6H4V18H2V6M5,6H6V18H5V6M7,6H10V18H7V6M11,6H12V18H11V6M14,6H16V18H14V6M17,6H20V18H17V6M21,6H22V18H21V6Z" />
+                    </svg>
+                    Encode
                 </div>
                 <div class="button" id="decode">
-                    ↑Decode↑
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" />
+                    </svg>
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z" />
+                    </svg>
+                    Decode
                 </div>
                 <div class="button" id="validate" onclick="validate()">
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M14,10H2V12H14V10M14,6H2V8H14V6M2,16H10V14H2V16M21.5,11.5L23,13L16,20L11.5,15.5L13,14L16,17L21.5,11.5Z" />
+                    </svg>
                     Validate
                 </div>
                 <div class="button" id="trim" onclick="trim()">
-                    Trim
+                    <svg alt="Trim" style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M5.5,7A1.5,1.5 0 0,1 4,5.5A1.5,1.5 0 0,1 5.5,4A1.5,1.5 0 0,1 7,5.5A1.5,1.5 0 0,1 5.5,7M21.41,11.58L12.41,2.58C12.05,2.22 11.55,2 11,2H4C2.89,2 2,2.89 2,4V11C2,11.55 2.22,12.05 2.59,12.41L11.58,21.41C11.95,21.77 12.45,22 13,22C13.55,22 14.05,21.77 14.41,21.41L21.41,14.41C21.78,14.05 22,13.55 22,13C22,12.44 21.77,11.94 21.41,11.58Z" />
+                    </svg>
+                    Trim name
                 </div>
                 <div class="button" id="copy" onclick="clipboard()">
-                    Copy BC
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="#000000" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
+                    </svg>
+                    Copy
                 </div>
             </div>
         </div>
