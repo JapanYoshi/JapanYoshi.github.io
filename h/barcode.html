@@ -22,6 +22,10 @@
             flex-direction: row;
             justify-content: center;
         }
+        
+        div.label.wrap {
+            flex-wrap: wrap;
+        }
 
         div.label span {
             margin-right: 8px;
@@ -65,7 +69,7 @@
             <span>Name</span>
             <textarea id="name"></textarea>
         </div>
-        <div class="label">
+        <div class="label wrap">
             <div class="button" id="validate" onclick="validate()">
                 Validate
             </div>
