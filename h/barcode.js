@@ -83,3 +83,10 @@ document.getElementById("decode").addEventListener("click", function(){
     }
     document.getElementById("name").value = output.trim();
 })
+
+const clipboard = () => {
+    var copyText = document.getElementById("barcode");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied barcode!\n" + copyText.value);
+}

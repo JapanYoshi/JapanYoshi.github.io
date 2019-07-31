@@ -11,19 +11,38 @@
     <meta name="twitter:description" content="Generate a toy barcode from your previous human name.">
     <meta name="keywords" content="HTML,CSS,JavaScript,code demo">
     <!-- sharable image -->
-    <style>
+    <style>        
         body {
+            margin: 0;
             font-family: sans-serif;
             font-size: 24px;
+            line-height: 24px;
         }
+
+        #form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
         div.label {
             width: 100%;
+            flex-grow: 1;
+        }
+
+        div.label > div.label-inner {
             display: flex;
             flex-direction: row;
             justify-content: center;
+            height: 100%;
         }
-        
+
         div.label.wrap {
+            flex-grow: 0;
+        }
+
+        div.label.wrap > div.label-inner {
             flex-wrap: wrap;
         }
 
@@ -33,12 +52,12 @@
         }
 
         div.label textarea {
+            flex-grow: 1;
+            width: 0px;
             font-family: inherit;
             font-size: inherit;
-            flex-grow: 1;
-            word-break: break-word;
-            line-height: 24px;
-            height: 128px;
+            line-height: inherit;
+            align-items: stretch;
         }
 
         #name {
@@ -46,8 +65,8 @@
         }
 
         .button {
-            margin: 8px;
-            padding: 4px 16px;
+            margin: 2px;
+            padding: 8px 16px;
             border: 2px solid black;
         }
 
@@ -60,38 +79,52 @@
             background: slateblue;
             color: white;
         }
-@media (max-width:480px){
-body {
-font-size: 16px;
-}
-}
+
+        @media (max-width:480px) {
+            body {
+                font-size: 16px;
+                line-height: 16px;
+            }
+            .button {
+                padding: 4px 8px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <form>
+    <div id="form">
         <div class="label">
-            <span>Name</span>
-            <textarea id="name"></textarea>
+            <div class="label-inner">
+                <span>Name</span>
+                <textarea id="name"></textarea>
+            </div>
         </div>
         <div class="label wrap">
-            <div class="button" id="validate" onclick="validate()">
-                Validate
-            </div>
-            <div class="button" id="validate" onclick="trim()">
-                Trim nickname
-            </div>
-            <div class="button" id="encode">
-                ↓ Encode ↓
-            </div>
-            <div class="button" id="decode">
-                ↑ Decode ↑
+            <div class="label-inner">
+                <div class="button" id="encode">
+                    ↓Encode↓
+                </div>
+                <div class="button" id="decode">
+                    ↑Decode↑
+                </div>
+                <div class="button" id="validate" onclick="validate()">
+                    Validate
+                </div>
+                <div class="button" id="trim" onclick="trim()">
+                    Trim
+                </div>
+                <div class="button" id="copy" onclick="clipboard()">
+                    Copy BC
+                </div>
             </div>
         </div>
         <div class="label">
-            <span>Barcode</span>
-            <textarea id="barcode" onClick="this.setSelectionRange(0, this.value.length)"></textarea>
+            <div class="label-inner">
+                <span>Barcode</span>
+                <textarea id="barcode" onClick="this.setSelectionRange(0, this.value.length)"></textarea>
+            </div>
         </div>
-    </form>
+    </div>
     <script src="./barcode.js"></script>
 </body>
