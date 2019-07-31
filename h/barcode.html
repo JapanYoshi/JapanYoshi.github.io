@@ -28,9 +28,17 @@
             flex-grow: 0;
         }
 
-        div.label input {
-            flex-grow: 1;
+        div.label textarea {
+            font-family: inherit;
             font-size: inherit;
+            flex-grow: 1;
+            word-break: break-word;
+            line-height: 24px;
+            height: 128px;
+        }
+
+        #name {
+            text-transform: uppercase;
         }
 
         .button {
@@ -44,7 +52,7 @@
             border-color: slateblue;
         }
 
-        .button:ative {
+        .button:active {
             background: slateblue;
             color: white;
         }
@@ -55,11 +63,14 @@
     <form>
         <div class="label">
             <span>Name</span>
-            <input id="name">
+            <textarea id="name"></textarea>
         </div>
         <div class="label">
             <div class="button" id="validate" onclick="validate()">
-                Validate text
+                Validate
+            </div>
+            <div class="button" id="validate" onclick="trim()">
+                Trim nickname
             </div>
             <div class="button" id="encode">
                 ↓ Encode ↓
@@ -70,7 +81,7 @@
         </div>
         <div class="label">
             <span>Barcode</span>
-            <input id="barcode">
+            <textarea id="barcode"></textarea>
         </div>
     </form>
     <script src="./barcode.js"></script>

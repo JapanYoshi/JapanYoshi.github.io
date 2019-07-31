@@ -1,11 +1,12 @@
 const stripes = "Il|\u01C0\u01C1\u0399\u0406\u04C0\u04CF\u0964\u0965\u2016\u2223\u239C\u239F\u23A2\u23A5\u23AA\u23AE\u23B8\u23B9\u2502\u2503\u2551\u2588\u258A\u258C\u25AE\u2758\u2759\u275A\u2AF4\u2AFC\uFE31\uFF5C\uFFE8";
-const charset = "0123456789ABCDEF" + "GHIJKLMNOPQRSTUV" + "WXYZ -/'.,!?()[]" + "<>&*+#$%^_=|`~\"\\";
+const charset = "0123456789ABCDEF" + "GHIJKLMNOPQRSTUV" + "WXYZ -/'.,!?()[]" + "<>&*+#$%^_=|`~\"\n";
 
 const filterOut = (str) => {
     out = "";
     for (var i = 0; i < str.length; i++) {
-        if (charset.indexOf(str.slice(i, i+1) !== -1) ) {
-            out += str.slice(i, i+1);
+        console.log(str[i]);
+        if (charset.indexOf(str[i]) !== -1 ) {
+            out += str[i];
         }
     }
     return out;
@@ -13,12 +14,17 @@ const filterOut = (str) => {
 
 const validate = () => {
     const name = document.getElementById("name").value.toUpperCase();
-    document.getElementById("name").value = filterOut(name).slice(0, 25);
+    document.getElementById("name").value = filterOut(name);
 };
+
+const trim = () => {
+    const name = document.getElementById("name").value.toUpperCase();
+    document.getElementById("name").value = filterOut(name).slice(0, 25);
+}
 
 document.getElementById("encode").addEventListener("click", function(){
     var name = document.getElementById("name").value.toUpperCase();
-    input = filterOut(name).slice(0, 25);
+    input = filterOut(name);
     document.getElementById("name").value = input;
     if (input.length % 5 !== 0) {
         input += "     ".slice(input.length % 5);
