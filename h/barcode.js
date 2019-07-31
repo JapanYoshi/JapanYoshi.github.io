@@ -11,9 +11,15 @@ const filterOut = (str) => {
     return out;
 }
 
+const validate = () => {
+    const name = document.getElementById("name").value.toUpperCase();
+    document.getElementById("name").value = filterOut(name).slice(0, 25);
+};
+
 document.getElementById("encode").addEventListener("click", function(){
     var name = document.getElementById("name").value.toUpperCase();
     input = filterOut(name).slice(0, 25);
+    document.getElementById("name").value = input;
     if (input.length % 5 !== 0) {
         input += "     ".slice(input.length % 5);
     }

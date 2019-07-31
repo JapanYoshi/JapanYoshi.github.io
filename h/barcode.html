@@ -33,10 +33,20 @@
             font-size: inherit;
         }
 
-        #encode, #decode {
+        .button {
             margin: 8px;
             padding: 16px;
             border: 2px solid black;
+        }
+
+        .button:hover {
+            color: slateblue;
+            border-color: slateblue;
+        }
+
+        .button:ative {
+            background: slateblue;
+            color: white;
         }
     </style>
 </head>
@@ -45,12 +55,16 @@
     <form>
         <div class="label">
             <span>Name</span>
-            <input id="name"></div>
+            <input id="name">
+        </div>
         <div class="label">
-            <div id="encode">
+            <div class="button" id="validate" onclick="validate()">
+                Validate text
+            </div>
+            <div class="button" id="encode">
                 ↓ Encode ↓
             </div>
-            <div id="decode">
+            <div class="button" id="decode">
                 ↑ Decode ↑
             </div>
         </div>
