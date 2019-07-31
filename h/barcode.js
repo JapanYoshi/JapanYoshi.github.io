@@ -41,7 +41,10 @@ document.getElementById("encode").addEventListener("click", function(){
 const decodeBarcode = (str) => {
     out = [];
     for (var i = 0; i < str.length; i++) {
-        out.push(stripes.indexOf(str[i]));
+        id = stripes.indexOf(str[i]);
+        if (id !== -1) {
+            out.push(id);
+        }
     }
     return out;
 }
