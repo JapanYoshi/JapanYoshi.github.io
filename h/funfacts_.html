@@ -1,0 +1,181 @@
+<head>
+    <style>
+html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Mikado";
+    font-weight: 500;
+}
+
+#msgShadow {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border-radius: 12px;
+    background: #40b0ff;
+    padding: 2px 6px 6px 2px;
+}
+
+#msgBox {
+    position: absolute;
+    overflow: hidden;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border-radius: 8px;
+    margin: 0px;
+    background: #b0f0ff;
+    transform: rotateX(180deg);
+}
+
+.msg {
+    padding: 8px;
+    text-align: center;
+    overflow: hidden;
+    transform: rotateX(180deg);
+}
+
+.new {
+    animation: slide-in 1s ease-out;
+}
+
+.msgBody {
+    height: calc(50vh - 16px);
+    color: #5f464e;
+    font-size: 20px;
+    line-height: calc(50vh - 16px);
+    display: block;
+    position: relative;
+}
+
+.msgWrapper {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 120%;
+}
+
+.msgNumber {
+    display: block;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: right;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+em {
+    color: #ff4080;
+    font-weight: 700;
+    font-style: normal;
+    font-variant: small-caps;
+}
+
+em.casesensitive {
+    font-variant: normal;
+}
+
+#template {
+    display: none;
+}
+
+@keyframes slide-in {
+    0% {
+        height: 0;
+    }
+    
+    100% {
+        height: calc(50vh - 16px);
+    }
+}
+
+.ribbon {
+    display: inline-block;
+    font-style: normal;
+    color: #ff4080;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 24px;
+    position: relative;
+    top: 2px;
+}
+
+.ribbon:before {
+    content: "🎀";
+    color: rgba(0,0,0,0);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url("./ribbon.svg");
+    background-size: 24px 24px;
+    position: relative;
+    top: 0px;
+}
+
+code {
+    font-family: "Hack";
+    font-weight: 700;
+    font-size: 16px;
+}
+    </style>
+</head>
+
+<body>
+    <div id="msgShadow">
+        <div id="msgBox">
+            
+        </div>
+    </div>
+    <div id="template">
+        <div class="msg new">
+            <div class="msgBody">
+                <div class="msgWrapper">
+                    REPLACE ME!!!
+                </div>
+                <span class="msgNumber">
+                    0/0
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const strings = [
+    "You can <em>choose my music</em>!",
+    "Step 1: Join my Discord server <em>https://discord.gg/</em><em class=\"casesensitive\">gY3JP8K</em>",
+    "Step 2: Join the Streaming voice channel, then use Groovy to play songs.",
+    "Do note that I have the right to veto songs."
+];
+const box = document.getElementById("msgBox");
+const template = document.getElementById("template").getElementsByClassName("msg")[0];
+const capacity = 3;
+
+var msgId = strings.length - capacity + 1;
+const updateText = () => {
+    if (box.childElementCount != 0) {
+        box.firstChild.classList.remove("new");
+    }
+    var clone = template.cloneNode(true);
+    clone.getElementsByClassName("msgWrapper")[0].innerHTML = strings[msgId];
+    clone.getElementsByClassName("msgNumber")[0].innerHTML = msgId + 1 + "/" + strings.length;
+    box.insertBefore(clone, box.firstChild);
+    console.log(box.childElementCount);
+    if (box.childElementCount > capacity) {
+        for (var i = box.childElementCount; i > box.capacity; i++) {
+            box.children[i-1].removeNode(true);
+        }
+    }
+    msgId = (++msgId % strings.length);
+}
+
+setInterval(updateText, 5000);
+for (var i = 0; i < capacity; i++){
+    updateText();
+}
+    </script>
+</body>
