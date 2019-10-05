@@ -22,6 +22,7 @@
 html {
   background: black;
   color: white;
+  font-family: sans-serif;
 }
 
 body {
@@ -170,12 +171,6 @@ a {
 a:visited {
   color: lightgray;
 }
-
-textarea {
-  color: unset;
-  background: unset;
-  border: 1px solid lavender;
-}
     </style>
 </head>
 
@@ -245,6 +240,7 @@ textarea {
     <div class="header-rule"></div>
     <div class="btn-wrapper wrapper">
       <div class="button" id="btnGo">WallFit!</div>
+      <h3 style="display: inline;">This tool is NOT compatible with Chrome for Android!</h3>
     </div>
   </div>
   <div class="header-rule"></div>
@@ -583,17 +579,11 @@ function thenDoThis() {
     content.appendChild(result);
     var link = document.createElement("a");
     link.innerText = "Download";
-    link.href = "";
     link.href = data;
     link.download = "wallfit.png";
     content.appendChild(link);
-    var link2 = document.createElement("a");
-    link2.innerText = "Download (fallback)";
-    link2.target = "_blank"
-    link2.href = `https://onlinepngtools.com/convert-data-uri-to-png?input=${encodeURIComponent(data)}`;
-    content.appendChild(link2);
     var post = document.createElement("div");
-    post.innerHTML = "<p>Download not working? Copy-paste the contents of the following textarea into a <a href='https://onlinepngtools.com/convert-data-uri-to-png'>Data URI to PNG converter.</p><textarea id='base64' onfocus='blah()'>" + data + "</textarea>";
+    post.innerHTML = "<p>Download not working? Stop using Chrome for Android.";
     content.appendChild(post);
   } catch (err) {
     showError(
