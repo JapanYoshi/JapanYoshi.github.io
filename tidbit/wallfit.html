@@ -283,12 +283,41 @@ function modeChange(e) {
 
 // add listeners
 document.addEventListener("DOMContentLoaded", function () {
+  // detect Chrome for Android
+  var ua = navigator.userAgent;
+  if (/Android/i.test(ua)) {
+    if (/Chrome/i.test(ua)) {
+      window.alert("This tool is NOT compatible with Chrome for Android! Please use another browser to use this tool. This has been successfully tested on Firefox.");
+    }
+  }
+
   // listen for changes on radio buttons
   var mc = document.getElementById("modeChoice").children;
   for (var i = 0; i < mc.length; i++) {
     mc[i].addEventListener("change", modeChange);
   }
   document.getElementById("btnGo").addEventListener("click", startEditing);
+  
+  imgElement.addEventListener("change", function(){
+    var preview = document.getElementById('preview');
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {
+      if (reader.result.startsWith("data:image/")) {
+        imgLoaded = true;
+        imgURI = reader.result;
+        preview.src = imgURI;
+      } else {
+        alert("not an image");
+        return;
+      }
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  });
 });
 
 function undoGamma(value) {
@@ -373,26 +402,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-imgElement.addEventListener("change", function(){
-  var preview = document.getElementById('preview');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
-
-  reader.addEventListener("load", function () {
-    if (reader.result.startsWith("data:image/")) {
-      imgLoaded = true;
-      imgURI = reader.result;
-      preview.src = imgURI;
-    } else {
-      alert("not an image");
-      return;
-    }
-  }, false);
-
-  if (file) {
-    reader.readAsDataURL(file);
-  }
-});
 
 function startEditing(event) {
   updateStatus("Starting...");
