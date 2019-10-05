@@ -1,0 +1,620 @@
+<head>
+    <title>WallFit: Wallpaper Fitter and Notch Hider</title>
+    <meta property="og:title" value="WallFit: Wallpaper Fitter and Notch Hider">
+    <meta name="twitter:title" value="WallFit: Wallpaper Fitter and Notch Hider">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description" content="Have a nice wallpaper, but your phone screen all wonky and misshapen? This can help!">
+    <meta property="og:description" content="Have a nice wallpaper, but your phone screen all wonky and misshapen? This can help!">
+    <meta name="twitter:description" content="Have a nice wallpaper, but your phone screen all wonky and misshapen? This can help!">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,wallpaper,image edit,notch">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/wallfit.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/wallfit.png">
+    <style>
+html {
+  background: black;
+  color: white;
+}
+
+body {
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.wrapper {
+  margin-right: 0.25em;
+}
+
+.btn-wrapper {
+  overflow: hidden;
+  position: relative;
+  float: left;
+  margin: 0;
+  line-height: 1.5em;
+}
+
+.btn-wrapper input[type=file] {
+  position: absolute;
+  opacity: 0;
+  background: black;
+  font-size: 500%;
+  left: 0;
+  top: 0;
+}
+
+.button, button {
+  font-size: unset;
+  display: inline-block;
+  background: purple;
+  line-height: 1.5em;
+  padding: 4px;
+  border: 1px solid lavender;
+  color: unset;
+}
+
+.input-wrapper {
+  display: inline-block;
+  border-left: 1px solid purple;
+  margin: 0;
+  float: left;
+  height: 1.5em;
+  line-height: 1.5em;
+  padding: 4px;
+}
+
+input:not([type=image]) {
+  width: 4em;
+  background: unset;
+  color: unset;
+  border: 1px solid lavender;
+}
+
+canvas {
+  width: auto;
+  max-height: 80vh;
+}
+
+.header-rule {
+  clear: both;
+  width: 100%;
+  border-bottom: 2px solid purple;
+  margin-bottom: 4px;
+  padding-top: 4px;
+}
+
+.radio-wrapper {
+  display: inline-block;
+  border: 1px solid purple;
+  margin: 0;
+  float: left;
+  line-height: 1.5em;
+  padding: 4px;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+.radio-wrapper label {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 2px;
+}
+
+.radio-wrapper input[type=radio]:checked + label {
+  background: purple;
+  color: lavender;
+}
+
+#mode-selector > .mode-content {
+  display: none;
+}
+
+#mode-selector.mode1 > #mode1.mode-content,
+#mode-selector.mode2 > #mode1.mode-content,
+#mode-selector.mode2 > #mode2.mode-content {
+  display: block;
+}
+
+#content {
+  padding-bottom: 1.5em;
+}
+
+.result {
+  max-width: 100vw;
+  max-height: 75vh;
+  float: right;
+}
+
+#status {
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: black;
+  color: white;
+  width: 100vw;
+  height: 1.5em;
+  line-height: 1.5em;
+}
+
+#preview {
+  position: absolute;
+  max-width: 4em;
+  max-height: 4em;
+  left: 2em;
+  top: 2em;
+  transform: translate(-50%, -50%);
+}
+
+#preview-wrapper {
+  position: relative;
+  width: 4em;
+  height: 4em;
+  display: inline-block;
+  background: #222;
+}
+
+a {
+  color: aqua;
+}
+
+a:visited {
+  color: lightgray;
+}
+
+textarea {
+  color: unset;
+  background: unset;
+  border: 1px solid lavender;
+}
+    </style>
+</head>
+
+<body>
+<form>
+  <div class="btn-wrapper wrapper">
+    <input type="file" name="source" id="source">
+    <button>Set source image</button>
+  </div>
+  Source preview:
+  <div id="preview-wrapper">
+    <img id="preview">
+  </div>
+  <div class="header-rule"></div>
+  <div class="input-wrapper wrapper">
+    <label for="width">Width</label>
+    <input name="width" id="width" type="number" min="1" value="1080"></input>px
+  </div>
+  <div class="input-wrapper wrapper">
+    <label for="height">Height</label>
+    <input name="height" id="height" type="number" min="1" value="2340"></input>px
+  </div>
+  <div class="input-wrapper wrapper">
+    <label for="topbar">Status bar</label>
+    <input name="topbar" id="topbar" type="number" min="0" value="83"></input>px
+  </div>
+  <div class="input-wrapper wrapper">
+    <label for="height">Navbar</label>
+    <input name="navbar" id="navbar" type="number" min="0" value="126"></input>px
+  </div>
+  <div class="input-wrapper wrapper">
+    Bar color
+    <input name="bar" id="bar" type="color"></input>
+  </div>
+  <div class="header-rule"></div>
+  <div id="modeChoice">
+    <div class="radio-wrapper">
+      <input type="radio" id="radioMode0" name="radioMode" value="0">
+      <label for="radioMode0">Fill entire content area</label>
+      <input type="radio" id="radioMode1" name="radioMode" value="1">
+      <label for="radioMode1">Fit content area, solid background</label>
+      <input type="radio" id="radioMode2" name="radioMode" value="2" checked>
+      <label for="radioMode2">Fit content area, blurred background</label>
+    </div>
+  </div>
+  <div id="mode-selector" class="mode2">
+    <div class="mode-content" id="mode1">
+      <div class="input-wrapper wrapper">
+        BG color (CSS)
+        <input name="bg" id="bg" type="color"></input>
+      </div>
+    </div>
+    <div class="mode-content" id="mode2">
+      <div class="input-wrapper wrapper">
+        <label for="blurRadius">BG blur radius</label>
+        <input name="blurRadius" id="blurRadius" type="number" min="0" max="20" value="5"></input>% of width
+      </div>
+      <div class="input-wrapper wrapper">
+        <label for="bgOpacity">BG image opacity</label>
+        <input name="bgOpacity" id="bgOpacity" type="number" min="0" max="1" step="0.05" value="0.8"></input>/1
+      </div>
+      <div class="input-wrapper wrapper">
+        <label for="gamma">Gamma</label>
+        <input name="gamma" id="gamma" type="number" min="1" max="3" step="0.05" value="2.2"></input>
+      </div>
+    </div>
+    <div class="header-rule"></div>
+    <div class="btn-wrapper wrapper">
+      <div class="button" id="btnGo">WallFit!</div>
+    </div>
+  </div>
+  <div class="header-rule"></div>
+</form>
+<div id="status">Status: <span id="statusContent">Not started</span></div>
+<div id="content"></div>
+<script>
+const content = document.getElementById("content");
+const imgElement = document.getElementById("source");
+const statusContent = document.getElementById("statusContent");
+const modeSelector = document.getElementById("mode-selector");
+var imgLoaded = false;
+var imgURI = "";
+var canvas;
+var ctx;
+var imgCanvas;
+var imgCtx;
+var wpWidth = 0;
+var wpHeight = 0;
+var wpTop = 0;
+var wpBottom = 0;
+var wpContent = 0;
+var color = "black";
+var barColor = "black";
+var blurRadius = 0.1; // not pixels, but proportion of width
+var bgOpacity = 1;
+var gamma = 2.2;
+var img = new Image();
+var mode = 2;
+/** mode 0 is cover
+    mode 1 is fit and blur
+    mode 2 is fit and solid fill **/
+function modeChange(e) {
+  console.log("modechangeevent", e);
+  mode = +e.target.value;
+  console.log(mode);
+  modeSelector.classList.remove("mode0", "mode1", "mode2");
+  modeSelector.classList.add(`mode${mode}`);
+}
+
+// add listeners
+document.addEventListener("DOMContentLoaded", function () {
+  // listen for changes on radio buttons
+  var mc = document.getElementById("modeChoice").children;
+  for (var i = 0; i < mc.length; i++) {
+    mc[i].addEventListener("change", modeChange);
+  }
+  document.getElementById("btnGo").addEventListener("click", startEditing);
+});
+
+function undoGamma(value) {
+  var ratio = value / 255;
+  return 255 * Math.round(Math.pow(gamma, value));
+}
+
+function applyGamma(value) {
+  var ratio = value / 255;
+  return 255 * Math.round(Math.pow(1 / gamma, value));
+}
+
+function updateStatus(content) {
+  statusContent.innerText = content;
+}
+
+function showError(content) {
+  window.alert(content);
+  updateStatus("Not started");
+}
+
+function rd(number) {
+  return Math.round(number);
+}
+
+function fill(width, height) {
+  // wider is larger
+  if (width / height > wpWidth / wpContent) {
+    // wider than tall
+    return {
+      width: rd(wpContent * width / height),
+      height: wpContent
+    };
+  } else {
+    // taller than wide, or same aspect ratio
+    return {
+      width: wpWidth,
+      height: rd(wpWidth * height / width)
+    };
+  }
+}
+function fit(width, height) {
+  // wider is larger
+  if (width / height < wpWidth / wpContent) {
+    // taller than wide
+    return {
+      width: rd(wpContent * width / height),
+      height: wpContent
+    };
+  } else {
+    // wider than tall, or same aspect ratio
+    return {
+      width: wpWidth,
+      height: rd(wpWidth * height / width)
+    };
+  }
+}
+
+function updateMetrics() {
+  updateStatus("Loading metrics");
+  wpWidth = document.getElementById("width").value;
+  wpHeight = document.getElementById("height").value;
+  wpTop = document.getElementById("topbar").value;
+  wpBottom = document.getElementById("navbar").value;
+  wpContent = wpHeight - wpTop - wpBottom;
+  console.log("size", wpWidth, wpHeight, wpTop, wpBottom);
+  if (wpContent <= 0) {
+    showError(
+      "The sum of your status bar and navbar is greater than the screen height. Did you add a couple of extra zeros somewhere?"
+    );
+    return;
+  }
+  barColor = document.getElementById("bar").value;
+  color = document.getElementById("bg").value;
+  blurRadius = +document.getElementById("blurRadius").value / 100;
+  bgOpacity = +document.getElementById("bgOpacity").value;
+  gamma = document.getElementById("gamma").value;
+  console.log("metrics", color, blurRadius + 1 - 1, bgOpacity + 1 - 1);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+imgElement.addEventListener("change", function(){
+  var preview = document.getElementById('preview');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    if (reader.result.startsWith("data:image/")) {
+      imgLoaded = true;
+      imgURI = reader.result;
+      preview.src = imgURI;
+    } else {
+      alert("not an image");
+      return;
+    }
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+});
+
+function startEditing(event) {
+  updateStatus("Starting...");
+  event.preventDefault(); // prevent the form from submitting
+  updateMetrics();
+  if (imgLoaded) {
+    thenDoThis();
+  } else {
+    showError("Please load an image before you start.");
+  }
+}
+
+function fuck(evt) {
+  updateStatus("FileReader error");
+  showError("FileReader error: " + evt.message);
+  reader.abort();
+}
+
+function thenDoThis() {
+  try {
+    img = new Image();
+    img.src = imgURI;
+    var w = img.width;
+    var h = img.height;
+    if (w * h == 0) {
+      showError(
+        "The image seems to be blank!"
+      );
+      updateStatus('Error: empty image');
+      return;
+    }
+    updateStatus("Editing image");
+    imgCanvas = document.createElement("canvas");
+    imgCtx = imgCanvas.getContext("2d");
+    imgCanvas.width = w;
+    imgCanvas.height = h;
+    imgCtx.drawImage(img, 0, 0, w, h);
+    canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    ctx = canvas.getContext("2d");
+    // edit that image
+    var newSize = fill(w, h);
+    console.log(newSize);
+    canvas.width = wpWidth;
+    canvas.height = wpContent;
+    if (mode) {
+      updateStatus("Filling background");
+      // solid fill
+      ctx.fillStyle = color;
+      ctx.rect(0, 0, wpWidth, wpContent);
+      ctx.fill();
+      if (mode == 2) {
+        updateStatus("Preparing blurry background");
+        // blurry background
+        // we use this to opacify the edges of the blurred image.
+        var canvasContent = document.createElement("canvas");
+        var canvasCtx = canvasContent.getContext("2d");
+        canvasContent.width = newSize.width;
+        canvasContent.height = newSize.height;
+        canvasCtx.clearRect(0, 0, newSize.width, newSize.height);
+        // undo gamma before blur
+        var imgData = imgCtx.getImageData(0, 0, w, h);
+        for (var i = 0; i < imgData.length; i += 4) {
+          imgData[i] = undoGamma(imgData[i]);
+          imgData[i + 1] = undoGamma(imgData[i + 1]);
+          imgData[i + 2] = undoGamma(imgData[i + 2]);
+        }
+        // paste blurry image
+        canvasCtx.filter = `blur(${wpWidth * blurRadius}px)`;
+        canvasCtx.drawImage(imgCanvas, 0, 0, newSize.width, newSize.height);
+        canvasCtx.filter = "none";
+        // redo gamma after blur
+        var contentData = canvasCtx.getImageData(0, 0, w, h);
+        for (var i = 0; i < contentData.length; i += 4) {
+          contentData[i] = applyGamma(contentData[i]);
+          contentData[i + 1] = applyGamma(contentData[i + 1]);
+          contentData[i + 2] = applyGamma(contentData[i + 2]);
+        }
+        // draw over and over until it's completely opaque
+        // we can duplicate the image onto itself until the alpha is 254, at which point rounding prevents us from getting 255 alpha
+        var itself = document.createElement("canvas");
+        var itselfCtx = itself.getContext("2d");
+        itself.width = canvasContent.width;
+        itself.height = canvasContent.height;
+        test = 128; // quit out after 128 iterations
+        if (blurRadius) {
+          // only make the background opaque when blur is applied
+          updateStatus("Making the background opaque");
+          while (contentData.data[3] < 254) {
+            test--;
+            if (!test) {
+              break;
+            }
+            console.log("alpha:", contentData.data[3]);
+            // draw onto itself
+            itselfCtx.drawImage(
+              canvasContent,
+              0,
+              0,
+              canvasContent.width,
+              canvasContent.height
+            );
+            canvasCtx.drawImage(
+              itself,
+              0,
+              0,
+              canvasContent.width,
+              canvasContent.height
+            );
+            contentData = canvasCtx.getImageData(0, 0, w, h);
+          }
+          for (var i = 0; i < contentData.data.length; i += 4) {
+            contentData[i + 3] = 255;
+          }
+        }
+        updateStatus("Finishing blurred background");
+        ctx.globalAlpha = bgOpacity;
+        ctx.drawImage(
+          canvasContent,
+          (newSize.width - wpWidth) / 2,
+          (newSize.height - wpContent) / 2,
+          wpWidth,
+          wpContent,
+          0,
+          0,
+          wpWidth,
+          wpContent
+        );
+        ctx.globalAlpha = 1;
+      }
+      updateStatus("Pasting original image");
+      newSize = fit(img.width, img.height);
+      ctx.drawImage(
+        img,
+        (wpWidth - newSize.width) / 2,
+        (wpContent - newSize.height) / 2,
+        newSize.width,
+        newSize.height
+      );
+    } else {
+      updateStatus("Cropping and pasting image");
+      ctx.drawImage(
+        img,
+        (wpWidth - newSize.width) / 2,
+        (wpContent - newSize.height) / 2,
+        newSize.width,
+        newSize.height
+      );
+    }
+    updateStatus("Adding top bar and navbar");
+    var finalCanvas = document.createElement("canvas");
+    var finalCtx = finalCanvas.getContext("2d");
+    // copy this image to finalCanvas, resize the original canvas, then paste it back in
+    finalCanvas.width = wpWidth;
+    finalCanvas.height = wpContent;
+    finalCtx.drawImage(canvas, 0, 0, wpWidth, wpContent);
+    canvas.height = wpHeight;
+    // solid fill
+    ctx.fillStyle = barColor;
+    ctx.rect(0, 0, wpWidth, wpHeight);
+    ctx.fill();
+    // paste back
+    ctx.drawImage(
+      finalCanvas,
+      0,
+      0,
+      wpWidth,
+      wpContent,
+      0,
+      wpTop,
+      wpWidth,
+      wpContent
+    );
+    // done!
+    updateStatus("Finished");
+    for (var i = content.children.length; i > 0; i--) {
+      content.removeChild(content.children[i - 1]);
+    }
+    var data = canvas.toDataURL("image/png");
+    var result = new Image();
+    result.src = data;
+    result.classList.add("result");
+    content.appendChild(result);
+    var link = document.createElement("a");
+    link.innerText = "Download";
+    link.href = "";
+    link.href = data;
+    link.download = "wallfit.png";
+    content.appendChild(link);
+    var link2 = document.createElement("a");
+    link2.innerText = "Download (fallback)";
+    link2.target = "_blank"
+    link2.href = `https://onlinepngtools.com/convert-data-uri-to-png?input=${encodeURIComponent(data)}`;
+    content.appendChild(link2);
+    var post = document.createElement("div");
+    post.innerHTML = "<p>Download not working? Copy-paste the contents of the following textarea into a <a href='https://onlinepngtools.com/convert-data-uri-to-png'>Data URI to PNG converter.</p><textarea id='base64' onfocus='blah()'>" + data + "</textarea>";
+    content.appendChild(post);
+  } catch (err) {
+    showError(
+      "An exception happened while running this program:\n" + err.message
+    );
+  }
+}
+function blah(){
+  /* Get the text field */
+  var copyText = document.getElementById("base64");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value.substring(0, 64) + "...");
+}
+
+</script>
+</body>
