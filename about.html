@@ -156,13 +156,14 @@ function getAgeText(lang){
       break;
   }
   switch (lang){
+    case "ja":
+      return `（${age}歳）`;
     case "en":
     case "en-US":
     case "en-GB":
     case "en-AU":
+    default:
       return ` (${age} years old)`;
-    case "ja":
-      return `（${age}歳）`;
   }
 }
 
