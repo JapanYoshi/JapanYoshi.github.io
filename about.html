@@ -1,0 +1,204 @@
+<head>
+    <title>About Me</title>
+    <meta property="og:title" value="About Me">
+    <meta name="twitter:title" value="About Me">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description" content="Nice to meet you!">
+    <meta property="og:description" content="Nice to meet you!">
+    <meta name="twitter:description" content="Nice to meet you!">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,wallpaper,image edit,notch">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/wallfit.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/wallfit.png">
+    <!-- multilingual -->
+    <link rel="canonical" href="http://japanyoshi.github.io/about"/>
+    <link rel="alternate" href="http://japanyoshi.github.io/about?lang=en-US" hreflang="en"/>
+    <link rel="alternate" href="http://japanyoshi.github.io/about?lang=en-US" hreflang="en-US"/>
+    <link rel="alternate" href="http://japanyoshi.github.io/about?lang=en-GB" hreflang="en-GB"/>
+    <link rel="alternate" href="http://japanyoshi.github.io/about?lang=ja" hreflang="ja"/>
+    <link rel="stylesheet" href="haley.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <header>
+    <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
+    <h1>About Me</h1>
+    <div id="lang-toggle"><ul><li><a href="?lang=en-US">English (US)</a></li><li><a href="?lang=en-GB">English (UK)</li><li><a href="?lang=ja">日本語</a></li></ul></div>
+  </header>
+<div id="body">
+</div>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+var userLang = urlParams.has('lang') ? urlParams.get('lang') : navigator.language || navigator.userLanguage;
+
+var obj = {
+  getLocalStrings: langCode => {
+    switch (langCode) {
+      case "ja":
+        return [
+          ["h1", "プロフィール"],
+          "ざっと見",
+          ["名前", "はるるちゃん（イントネーションは「バタコさん」と同じ）"],
+          ["誕生日", "1999-02-05"],
+          ["性別", "女性"],
+          ["出身", "日本"],
+          ["SNS", "<a href='social'>こちら</a>"],
+          ["心的外傷", "スティーブン・ユニバース（重度），ホームスタック（軽度）"],
+          "詳しく",
+          ["学科","コンピューター科学"],
+          ["趣味", "ゲーム，コスプレ，グラフィックデザイン，音ゲー，EDM作成，お絵かき，ダンス，声の演技"],
+          ["好きな食べ物", "日本のお寿司，カレー（日本風とインド風両方），餃子，トマトソースを使ったイタリア料理"],
+          ["好きなゲーム", "ぷよぷよ，テトリス，ダンスラッシュ，パンプイットアップ，You Don't Know Jack"],
+          ["好きな色", "パステルのピンク、青、紫"],
+          ["好きなシリーズ", "ダンスラッシュ，パンプイットアップ，ダンガンロンパ，ぷよぷよ"],
+          ["宗教", "象徴的サタニズム"],
+          ["身長", "166&nbsp;cm"],
+          "おふざけ",
+          ["似てるキャラ", "『デビルメイクライ』のレディー"],
+          ["D&Dの属性（アラインメント）", "混沌にして善"],
+          ["D&Dの能力値", "筋力 9, 知力 17, 判断力 9, 敏捷力 10, 耐久力 9, 魅力 7"],
+          ["星座", "みずがめ座"],
+          ["ホグワーツの寮", "レイブンクロー（JKロウリングくそくらえだけど）"],
+          ["血液型", "A型"],
+          ["政治思想", "リベラル、左派"],
+          ["七つの大罪、影響が強い順", "【とても強い】色欲，【強い】怠惰，【中くらい】怒り，高慢，物欲，貪食，【弱い】嫉妬 （色欲のスコアが高いのは、たぶんポリアモリーを支持するから）"],
+          "個人的なの",
+          ["性的指向", "パンセクシャル"],
+          ["交際状況", "独身"],
+          ["ポリアモリー", "OK"],
+        ];
+        break;
+      default:
+        const en_us = [
+        ["h1", "About Me"],
+        "Basics",
+        ["name", "Haley"],
+        ["birthday", "1999-02-05"],
+        ["gender", "female"],
+        ["pronouns", "feminine or singular they"],
+        ["ancestry", "Japanese"],
+        ["social media", "<a href='social'>see here</a>"],
+        ["triggers", "Steven Universe (severe), Homestuck (minor)"],
+        "Details",
+        ["studying","computer science"],
+        ["hobbies", "gaming, cosplay, graphic design, rhythm games, EDM production, drawing, dancing, amateur voice acting"],
+        ["favorite foods", "authentic sushi, Japanese or Indian curry, gy&omacr;za dumplings, tomato-based pasta or pizza"],
+        ["favorite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don't Know Jack"],
+        ["favorite colors", "pastel pink, blue, and purple"],
+        ["fandoms", "Dance Rush, Pump It Up, Danganronpa, Puyo Puyo"],
+        ["religion", "atheistic satanism"],
+        ["height", "166&nbsp;cm"],
+        "Silly stuff",
+        ["I look like", "Lady from Devil May Cry"],
+        ["D&D alignment", "chaotic good"],
+        ["D&D stats", "STR 9, INT 17, WIS 9, DEX 10, CON 9, CHR 7"],
+        ["astrology sign", "Aquarius"],
+        ["Hogwarts house from Harry Potter", "Ravenclaw (fuck JK Rowling btw)"],
+        ["MBTI", "ffs this goddamn pseudoscience test has to stop pretending that it's science"],
+        ["political compass", "libertarian left (-8.0, -7.64)"],
+        ["7 Deadly Sins, in order", "[very high] lust, [high] sloth, [medium] wrath, pride greed, gluttony, [low] envy (The high rating for &ldquot;lust&rdquot; is probably because of my openness to polyamory)"],
+        "Personal stuff",
+        ["sexual orientation", "pansexual"],
+        ["relationship status", "single"],
+        ["opinion on polyamory", "open to it"],
+      ];
+      if (langCode != "en-GB" && langCode != "en-AU") {
+        return en_us;
+      } else {      
+        const britify = (string) => string.replace(/favorite/g, 'favourite').replace(/color/g, 'colour');
+        for (var i = 0; i < en_us.length; i++) {
+          if (typeof en_us[i] == "string") {
+            en_us[i] = britify(en_us[i]);
+          } else {
+            for (var j = 0; j < en_us[i].length; j++) {
+              en_us[i][j] = britify(en_us[i][j]);
+            }
+          }
+        }
+        return en_us;
+      }
+    }
+  }
+};
+
+const localStrings = obj.getLocalStrings(userLang);
+obj = undefined;
+
+function getLocalDateText(){
+  var d = new Date(1999, 1, 5); // months are 0-indexed
+  return d.toLocaleDateString(d);
+}
+
+function getAgeText(lang){
+  var d = new Date();
+  var age;
+  switch (d.getMonth()){
+    case 1:
+      age = d.getFullYear() - 1999;
+      break;
+    case 2:
+      if (d.getDate() < 4){
+        age = d.getFullYear() - 1999;
+      } else {
+        age = d.getFullYear() - 1998;
+      }
+      break;
+    default:
+      age = d.getFullYear() - 1998;
+      break;
+  }
+  switch (lang){
+    case "en":
+    case "en-US":
+    case "en-GB":
+    case "en-AU":
+      return ` (${age} years old)`;
+    case "ja":
+      return `（${age}歳）`;
+  }
+}
+
+function buildList() {
+  const content = document.getElementById("body");
+  for (var i = 0; i < localStrings.length; i++) {
+    var node;
+    var section;
+    var list;
+    if (typeof localStrings[i] == "string") {
+      section = document.createElement("div");
+      section.classList.add("section");
+      node = document.createElement("h3");
+      node.innerHTML = localStrings[i];
+      section.appendChild(node);
+      list = document.createElement("ul");
+      section.appendChild(list);
+      content.appendChild(section);
+    } else if (localStrings[i][0] == "h1") {
+      document.getElementsByTagName("h1")[0].innerHTML = localStrings[i][1];      
+    } else {
+      console.log(localStrings[i]);
+      node = document.createElement("li");
+      var strong = document.createElement("strong");
+      strong.innerHTML = localStrings[i][0];
+      if (localStrings[i][1] == "1999-02-05") {
+        localStrings[i][1] = getLocalDateText() + getAgeText(userLang);
+      }
+      var text = document.createElement("span");
+      text.innerHTML = localStrings[i][1];
+      node.appendChild(strong);
+      node.appendChild(text);
+      list.appendChild(node);
+    }
+  }
+};
+buildList();
+</script>
+</body>
