@@ -142,17 +142,17 @@ function getAgeText(lang){
   var age;
   switch (d.getMonth()){
     case 1:
-      age = d.getFullYear() - 1999;
+      age = d.getFullYear() - 2000;
       break;
     case 2:
       if (d.getDate() < 4){
-        age = d.getFullYear() - 1999;
-      } else {
         age = d.getFullYear() - 2000;
+      } else {
+        age = d.getFullYear() - 1999;
       }
       break;
     default:
-      age = d.getFullYear() - 2000;
+      age = d.getFullYear() - 1999;
       break;
   }
   switch (lang){
