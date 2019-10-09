@@ -12,7 +12,7 @@
     <meta name="description" content="Nice to meet you!">
     <meta property="og:description" content="Nice to meet you!">
     <meta name="twitter:description" content="Nice to meet you!">
-    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,wallpaper,image edit,notch">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,profile,introduction,about me">
     <meta name="author" content="Haley Wakamatsu">
     <!-- sharable image -->
     <meta name="twitter:card" content="summary_large_image">
@@ -26,16 +26,8 @@
     <link rel="alternate" href="http://japanyoshi.github.io/about?lang=ja" hreflang="ja"/>
     <link rel="stylesheet" href="haley.css">
     <link rel="stylesheet" href="about.css">
-</head>
-<body>
-  <header>
-    <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
-    <h1>About Me</h1>
-    <div id="lang-toggle"><ul><li><a href="?lang=en-US">English (US)</a></li><li><a href="?lang=en-GB">English (UK)</li><li><a href="?lang=ja">日本語</a></li></ul></div>
-  </header>
-<div id="body">
-</div>
 <script>
+document.addEventListener("DOMContentLoaded",buildList);
 const urlParams = new URLSearchParams(window.location.search);
 var userLang = urlParams.has('lang') ? urlParams.get('lang') : navigator.language || navigator.userLanguage;
 
@@ -158,10 +150,6 @@ function getAgeText(lang){
   switch (lang){
     case "ja":
       return `（${age}歳）`;
-    case "en":
-    case "en-US":
-    case "en-GB":
-    case "en-AU":
     default:
       return ` (${age} years old)`;
   }
@@ -200,6 +188,14 @@ function buildList() {
     }
   }
 };
-buildList();
 </script>
+</head>
+<body>
+  <header>
+    <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
+    <h1>About Me</h1>
+    <div id="lang-toggle"><ul><li><a href="?lang=en-US">English (US)</a></li><li><a href="?lang=en-GB">English (UK)</li><li><a href="?lang=ja">日本語</a></li></ul></div>
+  </header>
+<div id="body">
+</div>
 </body>
