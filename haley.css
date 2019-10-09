@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "Mikado_";
+    font-weight: bold;
+    src: 
+    local("Mikado Black"),
+    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.ttf") format("ttf"),
+    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.woff") format("woff");
+}
+@font-face {
+    font-family: "Mikado_";
+    font-weight: 500;
+    src: 
+    local("Mikado Medium"),
+    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadomedium-webfont.ttf?raw=true") format("ttf"),
+    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadomedium-webfont.woff?raw=true") format("woff");
+}
+body {
+    margin: 0;
+    font-family: "Mikado_", "FOT-RodinWanpaku Pro", "けいふぉんと", "りいポップ角", "Yu Gothic", sans-serif;
+    font-weight: 500;
+    background-image: url("./resource/bg.png");
+    font-size: 16px;
+    line-height: 120%;
+}
+header {
+    box-sizing: border-box;
+    margin: 0 8px 8px;
+    background-color: #ffb0f0;
+    border: 8px solid #ff4080;
+    border-top-width: 0;
+    border-radius: 0px 0px 24px 24px;
+    color: white;
+    text-shadow: 0px 0px 2px #ff4080;
+}
+img.header {
+    width: 128px;
+    height: 128px;
+    float: left;
+    margin-right: 16px;
+}
+h1, h2 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 140%;
+}
+h2 {
+    font-size: 22px;
+}
+.clearfix {
+    width: 100%;
+    height: 0px;
+    clear: both;
+}
+#body {
+    margin: 0 16px;
+}
+a {
+    color: #ff4080;
+    text-shadow: 0px 0px 2px #43afff;
+    display: inline;
+    text-decoration: none;
+    transition: 100ms ease-out;
+}
+a:hover {
+    color: white;
+    text-shadow: 0px 0px 2px #ff4080;
+    transition: 100ms ease-out;
+}
