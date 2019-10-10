@@ -12,7 +12,7 @@
     <meta name="description" content="Nice to meet you!">
     <meta property="og:description" content="Nice to meet you!">
     <meta name="twitter:description" content="Nice to meet you!">
-    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,wallpaper,image edit,notch">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,profile,introduction,about me">
     <meta name="author" content="Haley Wakamatsu">
     <!-- sharable image -->
     <meta name="twitter:card" content="summary_large_image">
@@ -26,16 +26,8 @@
     <link rel="alternate" href="http://japanyoshi.github.io/about?lang=ja" hreflang="ja"/>
     <link rel="stylesheet" href="haley.css">
     <link rel="stylesheet" href="about.css">
-</head>
-<body>
-  <header>
-    <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
-    <h1>About Me</h1>
-    <div id="lang-toggle"><ul><li><a href="?lang=en-US">English (US)</a></li><li><a href="?lang=en-GB">English (UK)</li><li><a href="?lang=ja">日本語</a></li></ul></div>
-  </header>
-<div id="body">
-</div>
 <script>
+document.addEventListener("DOMContentLoaded",buildList);
 const urlParams = new URLSearchParams(window.location.search);
 var userLang = urlParams.has('lang') ? urlParams.get('lang') : navigator.language || navigator.userLanguage;
 
@@ -91,7 +83,7 @@ var obj = {
         ["studying","computer science"],
         ["hobbies", "gaming, cosplay, graphic design, rhythm games, EDM production, drawing, dancing, amateur voice acting"],
         ["favorite foods", "authentic sushi, Japanese or Indian curry, gy&omacr;za dumplings, tomato-based pasta or pizza"],
-        ["favorite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don't Know Jack"],
+        ["favorite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don&rsquo;t Know Jack"],
         ["favorite colors", "pastel pink, blue, and purple"],
         ["fandoms", "Dance Rush, Pump It Up, Danganronpa, Puyo Puyo"],
         ["religion", "atheistic satanism"],
@@ -102,9 +94,9 @@ var obj = {
         ["D&D stats", "STR 9, INT 17, WIS 9, DEX 10, CON 9, CHR 7"],
         ["astrology sign", "Aquarius"],
         ["Hogwarts house from Harry Potter", "Ravenclaw (fuck JK Rowling btw)"],
-        ["MBTI", "ffs this goddamn pseudoscience test has to stop pretending that it's science"],
+        ["MBTI", "ffs this goddamn pseudoscience test has to stop pretending that it&rsquo;s science"],
         ["political compass", "libertarian left (-8.0, -7.64)"],
-        ["7 Deadly Sins, in order", "[very high] lust, [high] sloth, [medium] wrath, pride greed, gluttony, [low] envy (The high rating for &ldquot;lust&rdquot; is probably because of my openness to polyamory)"],
+        ["7 Deadly Sins, in order", "[very high] lust, [high] sloth, [medium] wrath, pride, greed, gluttony, [low] envy (The high rating for &ldquo;lust&rdquo; is probably because of my openness to polyamory)"],
         "Personal stuff",
         ["sexual orientation", "pansexual"],
         ["relationship status", "single"],
@@ -142,27 +134,24 @@ function getAgeText(lang){
   var age;
   switch (d.getMonth()){
     case 1:
-      age = d.getFullYear() - 1999;
+      age = d.getFullYear() - 2000;
       break;
     case 2:
       if (d.getDate() < 4){
-        age = d.getFullYear() - 1999;
-      } else {
         age = d.getFullYear() - 2000;
+      } else {
+        age = d.getFullYear() - 1999;
       }
       break;
     default:
-      age = d.getFullYear() - 2000;
+      age = d.getFullYear() - 1999;
       break;
   }
   switch (lang){
-    case "en":
-    case "en-US":
-    case "en-GB":
-    case "en-AU":
-      return ` (${age} years old)`;
     case "ja":
       return `（${age}歳）`;
+    default:
+      return ` (${age} years old)`;
   }
 }
 
@@ -199,6 +188,14 @@ function buildList() {
     }
   }
 };
-buildList();
 </script>
+</head>
+<body>
+  <header>
+    <img class="header" src="./resource/profilepic.png" alt="Profile Pic">
+    <h1>About Me</h1>
+    <div id="lang-toggle"><ul><li><a href="?lang=en-US">English (US)</a></li><li><a href="?lang=en-GB">English (UK)</li><li><a href="?lang=ja">日本語</a></li></ul></div>
+  </header>
+<div id="body">
+</div>
 </body>
