@@ -1,62 +1,94 @@
-.body {
-    text-align: center;
+#body {
+  width: 136px;
+  margin: 0 auto;
 }
 
 .box {
-    display: inline-block;
-    position: relative;
-    width: 128px;
-    height: 128px;
-    overflow: hidden;
-    border-radius: 68px;
-    background-color: rgba(176, 240, 255, 0);
-    border: 4px solid rgba(67, 175, 255, 0);
-    transition: 200ms ease-out;
-    color: #43afff;
+  display: inline-block;
+  position: relative;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  border-radius: 68px;
+  background-color: rgba(176, 240, 255, 0);
+  border: 4px solid rgba(67, 175, 255, 0);
+  transition: 100ms ease-out;
+  color: #43afff;
+  margin: 0;
 }
+
 .box .icon {
-    width: 128px;
-    height: auto;
-    float: left;
-    z-index: 3;
+  width: 128px;
+  margin-left: 0px;
+  margin-top: 0px;
+  height: auto;
+  float: left;
+  z-index: 3;
 }
+
 .box.active {
-    width: 264px;
-    height: 192px;
-    border-radius: 68px 8px 8px 68px;
-    background-color: rgba(176, 240, 255, 1);
-    border: 4px solid rgba(67, 175, 255, 1);
+  width: 264px;
+  height: 128px;
+  border-radius: 68px 8px 8px 68px;
+  background-color: rgba(176, 240, 255, 1);
+  border: 4px solid rgba(67, 175, 255, 1);
+  z-index: 4;
 }
+
 .box_content {
-    position: absolute;
-    width: 136px;
-    top: 50%;
-    left: 128px;
-    transform: translateY(-50%);
-    opacity: 0;
-    z-index: 2;
-    transition: 200ms ease-out;
+  position: absolute;
+  width: 136px;
+  top: 50%;
+  left: 128px;
+  transform: translateY(-50%);
+  opacity: 0;
+  z-index: 2;
+  transition: 100ms ease-out;
 }
+
 .box.active .box_content {
-    opacity: 1;
+  opacity: 1;
 }
+
 .small_text {
-    font-size: 100%;
-    line-height: 100%;
+  font-size: 100%;
+  line-height: 100%;
 }
-@media screen and (min-width: 450px) {
-    body {
-        font-size: 20px;
-        transition: font-size 0.5ms ease;
-   }
-    .box.active {
-        width: 400px;
-        height: 128px;
-   }
-    .box_content {
-        width: 264px;
-   }
-    .small_text {
-        font-size: 75%;
-   }
+
+@media screen and (min-width: 136px) {
+  #body {
+    width: 136px;
+  }
+}
+
+@media screen and (min-width: 272px) {
+  #body {
+    width: 272px;
+  }
+}
+
+@media screen and (min-width: 408px) {
+  #body {
+    width: 408px;
+  }
+}
+
+@media screen and (min-width: 544px) {
+  #body {
+    width: 544px;
+  }
+  body {
+    font-size: 20px;
+    transition: font-size 0.5ms ease;
+  }
+  .box.active {
+    width: 400px;
+    height: 128px;
+  }
+  .box_content {
+    width: 240px;
+  }
+  .small_text {
+    font-size: 75%;
+  }
 }
