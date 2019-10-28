@@ -1,6 +1,7 @@
 var params = {}; // persistent data will be stored in here
 var episode_data = {};
 var bgm_data = {};
+var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
 const MAX_PLAYER_COUNT = 8;
@@ -14,6 +15,18 @@ const bgm_names = [
   "signup_base",
   "signup_extra"
 ];
+const sfx_names = [
+  "option_correct",
+  "option_highlight",
+  "option_show",
+  "option_wrong",
+  "point_gain",
+  "question_leave",
+  "question_show",
+  "time_up",
+  "title_leave",
+  "title_show"
+];
 for (const name of bgm_names) {
   var sound = new Howl({
     src: [
@@ -23,6 +36,17 @@ for (const name of bgm_names) {
     loop: true
   });
   bgm_data[name] = sound;
+}
+
+for (const name of sfx_names) {
+  var sound = new Howl({
+    src: [
+      ROOT + "audio/sfx/" + name + ".ogg",
+      ROOT + "audio/sfx/" + name + ".wav"
+    ],
+    loop: true
+  });
+  sfx_data[name] = sound;
 }
 
 function playMusic(bgm, bgmExtra, bgmStartVol, bgmExtraStartVol){
@@ -40,55 +64,61 @@ function playMusic(bgm, bgmExtra, bgmStartVol, bgmExtraStartVol){
   }
   bgm_sound.volume(bgmStartVol);
   bgm_sound_extra.volume(bgmExtraStartVol);
+  bgmLoaded = false;
   bgm_sound.play();
   bgm_sound_extra.play();
 }
 function setExtraVolume(vol) {
   bgm_sound_extra.fade(bgm_sound_extra.volume(), vol, 500);
 }
-// to test, we'll try playing music
-playMusic("signup_base", "signup_extra", 0.8, 0);
+function playSFX(sfx) {
+  if (sfx_data[sfx]) {
+    sfx_data[sfx].stop().play();
+  } else {
+    console.log("playSFX error: the sound effect " + sfx + " does not exist.");
+  }
+}
 /* end howler.js setup stuff */
 
 function sys(keycode) {
   var playerID = 0;
   var keyID = 0;
   switch (keycode) {
-    case 49: // 1
+    case 81: // q
     case 70: // f
-    case 56: // 8
+    case 85: // u
     case 103: // numpad 7
     case 27: // esc
       keyID = 1;
       break;
-    case 50: // 2
+    case 87: // w
     case 71: // g
-    case 57: // 9
+    case 73: // i
     case 104: // numpad 8
     case 32: // space
       keyID = 2;
       break;
-    case 51: // 3
+    case 69: // e
     case 72: // h
-    case 48: // 0
+    case 79: // o
     case 105: // numpad 9
       keyID = 3;
       break;
-    case 81: // q
+    case 65: // a
     case 86: // v
-    case 73: // i
+    case 74: // j
     case 100: // numpad 4
       keyID = 4;
       break;
-    case 87: // w
+    case 83: // s
     case 66: // b
-    case 79: // o
+    case 75: // k
     case 101: // numpad 5
       keyID = 5;
       break;
-    case 69: // e
+    case 68: // d
     case 78: // n
-    case 80: // p
+    case 76: // l
     case 102: // numpad 6
     case 13: // return
       keyID = 6;
@@ -98,12 +128,12 @@ function sys(keycode) {
     return 0;
   }
   switch (keycode) {
-    case 49: // 1
-    case 50: // 2
-    case 51: // 3
     case 81: // q
     case 87: // w
     case 69: // e
+    case 65: // a
+    case 83: // s
+    case 68: // d
       playerID = 1;
       break;
     case 70: // f
@@ -114,12 +144,12 @@ function sys(keycode) {
     case 78: // n
       playerID = 2;
       break;
-    case 56: // 8
-    case 57: // 9
-    case 48: // 0
+    case 85: // u
     case 73: // i
     case 79: // o
-    case 80: // p
+    case 74: // j
+    case 75: // k
+    case 76: // l
       playerID = 3;
       break;
     case 103: // numpad 7
@@ -407,5 +437,11 @@ document.addEventListener("DOMContentLoaded", function(){
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
   }, 3000);
-  activateModal(["#Warning", "*Keyboard layout", "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.", "*Keybind", "Each player uses a 3x2 array of keys, represented as ↖, ↑, ↗, ←, ↓, and →. For player 1, they are 1, 2, 3, Q, W, and E. Other players use other places of the keyboard.", "Navigate using ↑ and ↓, and confirm by →.", "*Audio", "This program has audio. Please check your audio volume.", "This program is for up to 4 players, but one player must use the numpad.", "#Browser compatibility", "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.", "[6] Start!"]);
+  playMusic("signup_base", "signup_extra", 0.8, 0);
+  activateModal(["#Warning", "*Keyboard layout", "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.", "*Keybind", "Each player uses a 3x2 array of keys, represented as ↖, ↑, ↗, ←, ↓, and →; basically WASD/IJKL with up-left and up-right added.",
+  "Player 1: Q W E A S D",
+  "Player 2: F G H V B N",
+  "Player 3: U I O J K L",
+  "Player 4: 7 8 9 4 5 6 (Numpad)",
+  "Navigate using ↑ and ↓, and confirm by →.", "*Audio", "This program has audio. Please check your audio volume.", "This program is for up to 4 players, but one player must use the numpad.", "#Browser compatibility", "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.", "[6] Start!"]);
 });
