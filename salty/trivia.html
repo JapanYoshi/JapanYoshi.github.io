@@ -1,0 +1,232 @@
+<head>
+  <title>Salty Trivia with Candy Barr: Pilot Episode</title>
+  <link rel="stylesheet" href="trivia.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
+  <script src="trivia.js"></script>
+</head>
+<body>
+  <link
+    href="https://fonts.googleapis.com/css?family=Domine:400,700|Margarine|Poppins:400,700&display=swap&subset=latin-ext"
+    rel="stylesheet">
+  <div id="splash_screen"
+    style="left: 0; top: 0; background: #000; width: 100vw; height: 100vh; position: fixed; z-index: 1024; text-align: center;">
+    <div id="splash_screen_content" style="position: absolute; left: 50vw; top: 50vh; transform: translate(-50%, -50%)">
+      made with love by
+      <img src="https://japanyoshi.github.io/resource/profilepic.png"
+        style="display: block; width: 20vmin; height: auto; margin: 1rem auto;"> HaleyHalcyon
+    </div>
+  </div>
+  <div id="modal" class="modal">
+    <div class="scroll-tip">
+      Use any player's <span class="key">↑</span> and <span class="key">↓</span> to scroll
+    </div>
+    <div class="modal-box">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  <div id="screen">
+    <section id="s_title">
+      <div class="section-bg">
+      </div>
+      <div class="section-content">
+        <div>
+          <div id="title_box">
+            <div id="title_salty">
+              <span>
+                Salty
+              </span>
+            </div>
+            <div id="title_trivia">
+              <span id="title_dropcap">T</span>rivia
+            </div>
+            <div id="title_subtitle">
+              with Candy Barr
+            </div>
+            <h1>the Pilot Episode</h1>
+          </div>
+          <div id="title_option_box">
+            <div id="button_start" class="button sel">Start</div>
+            <div id="button_rules" class="button">Rules</div>
+            <div id="button_about" class="button">About “Salty Trivia”</div>
+            <div id="button_about" class="button">Credits</div>
+            <div id="button_creator" class="button">More Haley Halcyon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="s_signup">
+      <div class="section-bg">
+
+      </div>
+      <div class="section-content">
+        <div>
+          <div class="button floating-back-button">
+            <div class="key">←</div>Cancel
+          </div>
+          <div class="button floating-func-button">
+            <div class="key">→</div>Start!
+          </div>
+          <div class="section-title">Player signup</div>
+          <div id="signup-box">
+            <div class="signup-row">
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>No entry</h2>
+                    <div class="button">
+                      <div class="key">
+                        W
+                      </div>
+                      Join
+                    </div>
+                  </div>
+                  <div class="signup-full">
+                    <h2>Player 1</h2>
+                    <div class="button">
+                      <div class="key">
+                        2
+                      </div>
+                      Leave
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>No entry</h2>
+                    <div class="button">
+                      <div class="key">
+                        B
+                      </div>
+                      Join
+                    </div>
+                  </div>
+                  <div class="signup-full">
+                    <h2>Player 2</h2>
+                    <div class="button">
+                      <div class="key">
+                        G
+                      </div>
+                      Leave
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>No entry</h2>
+                    <div class="button">
+                      <div class="key">
+                        O
+                      </div>
+                      Join
+                    </div>
+                  </div>
+                  <div class="signup-full">
+                    <h2>Player 3</h2>
+                    <div class="button">
+                      <div class="key">
+                        9
+                      </div>
+                      Leave
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>No entry</h2>
+                    <div class="button">
+                      <div class="key numpad">
+                        #5
+                      </div>
+                      Join
+                    </div>
+                  </div>
+                  <div class="signup-full">
+                    <h2>Player 4</h2>
+                    <div class="button">
+                      <div class="key numpad">
+                        #8
+                      </div>
+                      Leave
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="signup-row">
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>Not supported</h2>
+                    Gamepads are not yet supported.
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>Not supported</h2>
+                    Gamepads are not yet supported.
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>Not supported</h2>
+                    Gamepads are not yet supported.
+                  </div>
+                </div>
+              </div>
+              <div class="signup">
+                <div class="signup-flex">
+                  <div class="signup-empty">
+                    <h2>Not supported</h2>
+                    Gamepads are not yet supported.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="s_game_title">
+      <div class="section-bg">
+
+      </div>
+      <div class="section-content">
+        <div id="game-logo">
+          <div id="title_salty">
+            <span>
+              Salty
+            </span>
+          </div>
+          <div id="title_trivia">
+            <span id="title_dropcap">T</span>rivia
+          </div>
+          <div id="title_subtitle">
+            with Candy Barr
+          </div>
+          <h1>the Pilot Episode</h1>
+        </div>
+
+      </div>
+    </section>
+    <section id="s_question">
+      <div class="section-bg">
+
+      </div>
+      <div class="section-content">
+
+      </div>
+    </section>
+  </div>
+</body>

@@ -1,0 +1,595 @@
+/* Chrome hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+/* Firefox hide scrollbar */
+* {
+scrollbar-width: none;
+}
+
+html {
+font-size: calc(100vw / 64);
+/* screen will be 64rem x 36rem*/
+}
+
+#splash_screen.gone {
+-webkit-animation: hide_splash_screen 1s linear;
+        animation: hide_splash_screen 1s linear;
+-webkit-animation-delay: 0s;
+        animation-delay: 0s;
+-webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+}
+
+body, p {
+font-family: "Poppins", "Century Gothic", sans-serif;
+font-weight: 400;
+}
+
+body {
+background: #000;
+color: #fff;
+font-size: 1.5rem;
+overflow: hidden;
+}
+
+p {
+font-size: 1.2rem;
+}
+
+#screen {
+position: absolute;
+z-index: 1;
+margin: 0 auto;
+left: 50vw;
+top: 50vh;
+-webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+width: 64rem;
+height: 36rem;
+overflow: hidden;
+}
+
+section {
+opacity: 0;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 1;
+width: 64rem;
+height: 36rem;
+overflow: hidden;
+-webkit-transition: opacity 200ms linear;
+transition: opacity 200ms linear;
+/* disables clicking or selecting everything, except the elemnets I explicitly enable it for */
+pointer-events: none;
+-webkit-user-select: none;
+   -moz-user-select: none;
+    -ms-user-select: none;
+        user-select: none;
+}
+
+body.state_title section#s_title,
+body.state_signup section#s_signup,
+body.state_game_title section#s_game_title,
+body.state_ingame section#s_ingame {
+opacity: 1;
+}
+
+@media (min-aspect-ratio: 16/9) {
+html {
+  font-size: calc(100vh / 36);
+  /* screen will be 64rem x 36rem */
+}
+section {
+  margin: 0 auto;
+}
+}
+
+.section-bg {
+position: absolute;
+z-index: 1;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url("https://i.imgur.com/fQhWWKR.jpg");
+background-size: cover;
+-webkit-animation: breathe 2.5s linear 0s infinite alternate;
+        animation: breathe 2.5s linear 0s infinite alternate;
+-webkit-filter: hue-rotate(-100deg) saturate(30%) contrast(80%) brightness(80%);
+        filter: hue-rotate(-100deg) saturate(30%) contrast(80%) brightness(80%);
+}
+
+section#s_title > .section-bg {
+background-image: url("https://wallpapershome.com/images/wallpapers/lines-1920x1080-pink-purple-abstract-hd-15571.jpg");
+-webkit-filter: blur(2px) hue-rotate(-120deg) saturate(30%);
+        filter: blur(2px) hue-rotate(-120deg) saturate(30%);
+}
+
+section#s_signup > .section-bg {
+-webkit-filter: saturate(10%) contrast(80%) brightness(50%);
+        filter: saturate(10%) contrast(80%) brightness(50%);
+}
+
+.section-content {
+z-index: 2;
+width: 100%;
+height: 100%;
+position: absolute;
+}
+
+.section-content > div {
+position: relative;
+width: 100%;
+height: 100%;
+/* to enable position:absolute; on contents */
+}
+
+h1,
+h2,
+h3,
+#title_trivia,
+.question,
+.section-title {
+font-family: "Orelega", "Domine";
+font-weight: bold;
+margin: 0;
+padding: 0;
+}
+p {
+margin: 0 0 0.5rem;
+padding: 0;
+}
+.button {
+display: block;
+text-align: left;
+padding: 0.2rem;
+font-size: 1.5rem;
+line-height: 2rem;
+border-radius: 0.5rem;
+background-color: #348041;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#5aa945), to(#348041));
+background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
+pointer-events: initial;
+}
+.button + .button {
+margin-top: 0.5rem;
+}
+.button.sel, .signup-full .button {
+background-color: #80345c;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#bc56a2), to(#80345c));
+background-image: linear-gradient(to bottom, #bc56a2 0%, #80345c 100%);
+}
+.button:active {
+background: -webkit-gradient(linear, left top, left bottom, from(#ff90d6), to(#fb4777));
+background: linear-gradient(to bottom, #ff90d6 0%, #fb4777 100%);
+}
+
+.key {
+display: inline-block;
+background: black;
+text-align: center;
+font-weight: 700;
+width: 2rem;
+height: 2rem;
+border-radius: 25%;
+line-height: 2rem;
+}
+
+.key.numpad {
+font-size: 1rem;
+}
+
+.button > .key {
+float: left;
+margin: 0 0.25rem 0.25rem 0;
+}
+
+h1 {
+display: inline-block;
+width: 100%;
+font-size: 2rem;
+text-align: center;
+}
+#title_salty,
+section.candy > .section_content {
+font-family: "Mikado", "Margarine", sans-serif;
+font-weight: bold;
+}
+
+#title_box {
+position: absolute;
+width: 60%;
+left: 50%;
+top: 30%;
+-webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+line-height: 4rem;
+text-align: center;
+-webkit-filter: drop-shadow(0.1rem 0rem #000) drop-shadow(0rem 0.1rem #000)
+  drop-shadow(-0.1rem 0rem #000) drop-shadow(0rem -0.1rem #000);
+        filter: drop-shadow(0.1rem 0rem #000) drop-shadow(0rem 0.1rem #000)
+  drop-shadow(-0.1rem 0rem #000) drop-shadow(0rem -0.1rem #000);
+}
+
+#title_salty {
+position: relative;
+left: -7rem;
+top: 4rem;
+-webkit-animation: anim_salty 0.4s ease-in-out 0s infinite alternate;
+        animation: anim_salty 0.4s ease-in-out 0s infinite alternate;
+z-index: 15;
+}
+#title_salty span {
+background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #ff90d6), color-stop(75%, #fb4777));
+background: linear-gradient(to bottom, #ff90d6 25%, #fb4777 75%);
+-webkit-background-clip: text;
+        background-clip: text;
+color: transparent;
+position: relative;
+line-height: 5rem;
+margin: 0;
+font-weight: bold;
+font-size: 4rem;
+-webkit-transform: rotate(-15deg) translate(-7.5rem, 1.5rem);
+        transform: rotate(-15deg) translate(-7.5rem, 1.5rem);
+}
+#title_trivia {
+position: relative;
+line-height: 8rem;
+font-weight: bold;
+font-size: 8rem;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #82f420), color-stop(75%, #08ac33));
+background: linear-gradient(to bottom, #82f420 25%, #08ac33 75%);
+-webkit-background-clip: text;
+        background-clip: text;
+color: transparent;
+}
+#title_dropcap {
+background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #82f420), color-stop(75%, #08ac33));
+background: linear-gradient(to bottom, #82f420 25%, #08ac33 75%);
+-webkit-background-clip: text;
+        background-clip: text;
+color: transparent;
+position: relative;
+display: inline-block;
+-webkit-transform: rotate(-15deg) translate(0%, 25%);
+        transform: rotate(-15deg) translate(0%, 25%);
+}
+#title_subtitle {
+width: 100%;
+margin-top: -2.2rem;
+padding-left: 9rem;
+position: relative;
+font-weight: bold;
+text-align: left;
+font-size: 1.5rem;
+-webkit-transform: translate(5rem, 0);
+        transform: translate(5rem, 0);
+}
+#title_option_box {
+position: absolute;
+width: 50%;
+left: 25%;
+bottom: 5%;
+}
+
+#modal {
+opacity: 0;
+position: fixed;
+z-index: 25;
+width: 100vw;
+height: 100vh;
+top: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.3);
+-webkit-backdrop-filter: blur(0) brightness(100%);
+        backdrop-filter: blur(0) brightness(100%);
+-webkit-animation: hide 700ms ease-out;
+        animation: hide 700ms ease-out;
+overflow: auto;
+}
+
+#modal.active {
+/* these three properties... */
+display: block;
+opacity: 1;
+-webkit-backdrop-filter: blur(1rem) brightness(120%);
+        backdrop-filter: blur(1rem) brightness(120%);
+/* are managed by this animation */
+-webkit-animation: show 700ms ease-out 0s;
+        animation: show 700ms ease-out 0s;
+}
+
+.scroll-tip {
+position: absolute;
+top: calc(50vh - 18rem);
+width: 100vw;
+opacity: 0;
+text-align: center;
+font-size: 1.5rem;
+color: rgba(255,255,255,0.75);
+}
+
+#modal.overflowing .scroll-tip {
+opacity: 1;
+}
+
+.modal-box {
+width: 48rem;
+max-height: 32rem;
+position: absolute;
+left: 50%;
+top: 50%;
+-webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+background-color: rgba(0,0,0,0.5);
+border-radius: 1rem;
+overflow: auto;
+scroll-behavior: smooth;
+}
+
+.modal-content {
+padding: 1rem;
+}
+
+.floating-back-button {
+width: 10rem;
+height: 2rem;
+position: absolute;
+top: 0;
+left: 0;
+margin-top: 0.5rem;
+margin-left: 0.5rem;
+}
+.floating-func-button {
+width: 10rem;
+height: 2rem;
+position: absolute;
+top: 0;
+right: 0;
+margin-top: 0.5rem;
+margin-right: 0.5rem;
+}
+
+.section-title {
+font-size: 3rem;
+text-align: center;
+line-height: 4rem;
+width: 24rem;
+height: 4rem;
+margin: 0 auto;
+}
+
+#signup-box {
+display: table;
+width: 64rem;
+height: 32rem;
+text-align: center;
+border-spacing: 0.5rem;
+}
+.signup-row {
+display: table-row;
+height: 15rem;
+}
+.signup {
+background: rgba(0,0,0,0.5);
+display: table-cell;
+padding: 0.5rem;
+vertical-align: top;
+margin-bottom: 0.5rem;
+border-radius: 0.5rem;
+-webkit-transition: background-color 500ms ease-in-out;
+transition: background-color 500ms ease-in-out;
+}
+
+.signup.on {
+background-color: rgba(64,192,96,0.5);
+-webkit-transition: background-color 200ms ease-in-out;
+transition: background-color 200ms ease-in-out;
+}
+
+.signup-flex {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
+}
+
+.signup-empty, .signup-full {
+-webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+        flex-grow: 1;
+-ms-flex-preferred-size: auto;
+    flex-basis: auto;
+overflow: hidden;
+-webkit-transition: height 500ms ease-out;
+transition: height 500ms ease-out;
+height: 14rem;
+}
+
+.signup.on .signup-empty, .signup-full {
+height: 0rem;
+-webkit-transition: height 500ms ease-out;
+transition: height 500ms ease-out;
+}
+
+.signup.on .signup-full {
+height: 14rem;
+-webkit-transition: height 500ms ease-out;
+transition: height 500ms ease-out;
+}
+
+#game-logo {
+
+}
+
+@-webkit-keyframes breathe {
+0% {
+  -webkit-transform: scale(1.05, 1.05);
+          transform: scale(1.05, 1.05);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+100% {
+  -webkit-transform: scale(1.07, 1.07);
+          transform: scale(1.07, 1.07);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+}
+
+@keyframes breathe {
+0% {
+  -webkit-transform: scale(1.05, 1.05);
+          transform: scale(1.05, 1.05);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+100% {
+  -webkit-transform: scale(1.07, 1.07);
+          transform: scale(1.07, 1.07);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+}
+@-webkit-keyframes show {
+0% {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(0rem) brightness(100%);
+          backdrop-filter: blur(0rem) brightness(100%);
+}
+0.1% {
+  display: block;
+}
+to {
+  display: block;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(1rem) brightness(120%);
+          backdrop-filter: blur(1rem) brightness(120%);
+}
+}
+@keyframes show {
+0% {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(0rem) brightness(100%);
+          backdrop-filter: blur(0rem) brightness(100%);
+}
+0.1% {
+  display: block;
+}
+to {
+  display: block;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(1rem) brightness(120%);
+          backdrop-filter: blur(1rem) brightness(120%);
+}
+}
+
+@-webkit-keyframes hide {
+0% {
+  display: block;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(1rem) brightness(120%);
+          backdrop-filter: blur(1rem) brightness(120%);
+}
+99.9% {
+  display: block;
+}
+to {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(0rem) brightness(100%);
+          backdrop-filter: blur(0rem) brightness(100%);
+}
+}
+
+@keyframes hide {
+0% {
+  display: block;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(1rem) brightness(120%);
+          backdrop-filter: blur(1rem) brightness(120%);
+}
+99.9% {
+  display: block;
+}
+to {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(0rem) brightness(100%);
+          backdrop-filter: blur(0rem) brightness(100%);
+}
+}
+
+@-webkit-keyframes hide_splash_screen {
+0% {
+  display: fixed;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(0rem);
+          backdrop-filter: blur(0rem);
+}
+99.9% {
+  display: fixed;
+}
+to {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(4rem);
+          backdrop-filter: blur(4rem);
+}
+}
+
+@keyframes hide_splash_screen {
+0% {
+  display: fixed;
+  opacity: 1;
+  -webkit-backdrop-filter: blur(0rem);
+          backdrop-filter: blur(0rem);
+}
+99.9% {
+  display: fixed;
+}
+to {
+  display: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(4rem);
+          backdrop-filter: blur(4rem);
+}
+}
+
+@-webkit-keyframes anim_salty {
+0% {
+  -webkit-transform: scale(1, 1) rotate(0deg);
+          transform: scale(1, 1) rotate(0deg);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+100% {
+  -webkit-transform: scale(1.5, 1.5) rotate(-30deg);
+          transform: scale(1.5, 1.5) rotate(-30deg);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+}
+
+@keyframes anim_salty {
+0% {
+  -webkit-transform: scale(1, 1) rotate(0deg);
+          transform: scale(1, 1) rotate(0deg);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+100% {
+  -webkit-transform: scale(1.5, 1.5) rotate(-30deg);
+          transform: scale(1.5, 1.5) rotate(-30deg);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+}
