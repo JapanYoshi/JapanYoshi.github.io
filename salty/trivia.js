@@ -47,7 +47,7 @@ function setExtraVolume(vol) {
   bgm_sound_extra.fade(bgm_sound_extra.volume(), vol, 500);
 }
 // to test, we'll try playing music
-playMusic("signup_base", "signup_extra", 1, 0);
+playMusic("signup_base", "signup_extra", 0.8, 0);
 /* end howler.js setup stuff */
 
 function sys(keycode) {
@@ -306,6 +306,9 @@ function titleKeys(event) {
             "#Music",
             "*Musical director",
             "Haley Wakamatsu as “Akira Sora”",
+            "Coffee at Midnight - Akira Sora",
+            "Announcer Music - Akira Sora",
+            "15 Second Rock - Akira Sora",
             "[6] accept our thanks for playing!"
           ]);
           break;
@@ -392,7 +395,7 @@ function startSignup(){
   params.players = params_players_cache;
   console.log(params.players);
 
-  setExtraVolume(1);
+  setExtraVolume(0.8);
 }
 function initApp(){
   document.body.className = "state_title";
