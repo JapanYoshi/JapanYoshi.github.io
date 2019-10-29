@@ -4,6 +4,7 @@ var bgm_data = {};
 var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
+var bgm_sound_extra2;
 // sound effects should be played willy nilly, but one copy per sound effect
 
 const MUSIC_DELAY = 400;
@@ -20,6 +21,7 @@ const KEY_CONFIG = [
 const bgm_names = [
   "signup_base",
   "signup_extra",
+  "signup_extra2",
   "placeholder",
   "answer_now",
   "reading_question",
@@ -91,12 +93,18 @@ function pauseMusic(state) {
     if (bgm_sound_extra) {
       bgm_sound_extra.pause();
     }
+    if (bgm_sound_extra2) {
+      bgm_sound_extra2.pause();
+    }
   } else {
     if (bgm_sound){
       bgm_sound.pause();
     }
     if (bgm_sound_extra) {
       bgm_sound_extra.pause();
+    }
+    if (bgm_sound_extra2) {
+      bgm_sound_extra2.pause();
     }
   }
 }
@@ -109,6 +117,9 @@ function stopMusic(fade_ms) {
     if (bgm_sound_extra) {
       bgm_sound_extra.fade(bgm_sound_extra.volume(), 0, fade_ms).stop();
     }
+    if (bgm_sound_extra2) {
+      bgm_sound_extra2.fade(bgm_sound_extra2.volume(), 0, fade_ms).stop();
+    }
   } else {
     if (bgm_sound){
       bgm_sound.stop();
@@ -116,26 +127,42 @@ function stopMusic(fade_ms) {
     if (bgm_sound_extra) {
       bgm_sound_extra.stop();
     }
+    if (bgm_sound_extra2) {
+      bgm_sound_extra2.stop();
+    }
   }
 }
-function playMusic(bgm, bgmExtra, bgmStartVol, bgmExtraStartVol){
+function playMusic(bgm, bgmExtra, bgmExtra2){
+  // pass {name: string, vol: float}
   // set up
-  if (bgmStartVol !== 0 && !bgmStartVol) {
-    bgmStartVol = 1;
+  if (bgm.vol !== 0 && !bgm.vol) {
+    bgm.vol = 1;
   }
-  if (!bgmExtraStartVol) {
-    bgmExtraStartVol = 0;
-  }
-  bgm_sound = bgm_data[bgm];
-  if (!bgmExtra) {
-    bgm_sound_extra = undefined;
-  } else {
-    bgm_sound_extra = bgm_data[bgmExtra];
-    bgm_sound_extra.volume(bgmExtraStartVol);
-  }
-  bgm_sound.volume(bgmStartVol);
-  bgmLoaded = false;
+  bgm_sound = bgm_data[bgm.name];
+  bgm_sound.volume(bgm.vol);
   if (bgmExtra) {
+    if (!bgmExtra.vol) {
+      bgmExtra.vol = 0;
+    }
+    bgm_sound_extra = bgm_data[bgmExtra.name];
+    bgm_sound_extra.volume(bgmExtra.vol);
+  } else {
+    bgm_sound_extra = undefined;
+  }
+  if (bgmExtra2) {
+    if (!bgmExtra2.vol) {
+      bgmExtra2.vol = 0;
+    }
+    bgm_sound_extra2 = bgm_data[bgmExtra2.name];
+    bgm_sound_extra2.volume(bgmExtra2.vol);
+  } else {
+    bgm_sound_extra = undefined;
+  }
+  if (bgm_sound_extra2) {
+    bgm_sound.play();
+    bgm_sound_extra.play();
+    bgm_sound_extra2.play();
+  } else if (bgm_sound_extra) {
     bgm_sound.play();
     bgm_sound_extra.play();
   } else {
@@ -147,6 +174,12 @@ function setExtraVolume(vol) {
     return
   }
   bgm_sound_extra.fade(bgm_sound_extra.volume(), vol, 500);
+}
+function setExtra2Volume(vol) {
+  if (!bgm_sound_extra2) {
+    return
+  }
+  bgm_sound_extra2.fade(bgm_sound_extra2.volume(), vol, 500);
 }
 function playSFX(sfx) {
   if (sfx_data[sfx]) {
@@ -202,21 +235,22 @@ function modalKeys(event) {
   switch (sys(keyCode) % 64) {
     case 2:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
+      playSFX("menu_move");
       box.scrollBy(0, screenHeight / -8);
       break;
     case 5:
       console.log("Down was pressed. Scrolling px:", screenHeight / 8);
+      playSFX("menu_move");
       box.scrollBy(0, screenHeight / 8);
       break;
     case 6:
       document.removeEventListener("keydown", modalKeys);
+      playSFX("menu_confirm");
       setTimeout(function(){
         // give time for the title screen to process that the modal is still active
         document.getElementById("modal").classList.remove("active");
       }, 10);
       break;
-    default:
-      console.log(keyCode, "No action is defined for that key.");
   }
 }
 
@@ -377,7 +411,7 @@ function titleKeys(event) {
       return;
   }
 }
-function signupKeys(){
+function signupKeys(event){
   console.log("signupKeys()");
   event.stopPropagation();
   var keyCode = event.keyCode;
@@ -433,7 +467,9 @@ function signupKeys(){
       if (playerCount) {
         // somebody signed up
         playSFX("menu_confirm");
-        initGame();
+        setExtra2Volume(0.8);
+        setExtraVolume(0);
+        chooseEpisode();
       } else {
         // nobody signed up
         playSFX("menu_fail");
@@ -443,11 +479,9 @@ function signupKeys(){
       break;
   }
 }
-function initGame(){
+function chooseEpisode(){
   document.removeEventListener("keydown", signupKeys);
-  playerCount = params.playerCount;
-  activateModal([`#${playerCount} ${playerCount > 1 ? "players" : "player"}`, "Alright, let's begin!", "[6] Yeah!"]);
-  document.body.className = "";
+  document.body.className = "state_episode";
 }
 function startSignup(){
   document.removeEventListener("keydown", titleKeys);
@@ -467,7 +501,7 @@ function startSignup(){
   stopMusic(400);
   setTimeout(function(){
     document.addEventListener("keydown", signupKeys);
-    playMusic("signup_base", "signup_extra", 0.8, 0);
+    playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
   }, MUSIC_DELAY)
 }
 function initApp(){
@@ -475,7 +509,7 @@ function initApp(){
   document.addEventListener("keydown", titleKeys);
   setTimeout(
     function(){
-      playMusic("placeholder", undefined, 1, undefined);
+      playMusic({name: "placeholder"}, undefined, undefined);
     }, MUSIC_DELAY
   );
 }
