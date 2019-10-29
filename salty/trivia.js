@@ -4,22 +4,39 @@ var bgm_data = {};
 var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
+// sound effects should be played willy nilly, but one copy per sound effect
+
+const MUSIC_DELAY = 400;
 const MAX_PLAYER_COUNT = 8;
 const ROOT = "https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/"
+const KEY_CONFIG = [
+  [81, 87, 69, 65, 83, 68],
+  [70, 71, 72, 86, 66, 78],
+  [85, 73, 79, 74, 75, 76],
+  [103, 104, 105, 100, 101, 102]
+];
 
 /* howler.js setup stuff */
 const bgm_names = [
-  "answer_now",
-  "placeholder",
-  "reading_question",
   "signup_base",
-  "signup_extra"
+  "signup_extra",
+  "placeholder",
+  "answer_now",
+  "reading_question",
 ];
 const sfx_names = [
+  "menu_back",
+  "menu_confirm",
+  "menu_fail",
+  "menu_move",
+  "menu_signin",
+  "menu_signout",
   "option_correct",
   "option_highlight",
   "option_show",
   "option_wrong",
+  "pause_enter",
+  "pause_exit",
   "point_gain",
   "question_leave",
   "question_show",
@@ -30,10 +47,11 @@ const sfx_names = [
 for (const name of bgm_names) {
   var sound = new Howl({
     src: [
-      ROOT + "audio/music/" + name + ".ogg",
-      ROOT + "audio/music/" + name + ".wav"
+      ROOT + "audio/music/" + name + ".ogg"
     ],
-    loop: true
+    autoplay: false,
+    loop: true,
+    preload: true
   });
   bgm_data[name] = sound;
 }
@@ -41,15 +59,55 @@ for (const name of bgm_names) {
 for (const name of sfx_names) {
   var sound = new Howl({
     src: [
-      ROOT + "audio/sfx/" + name + ".ogg",
       ROOT + "audio/sfx/" + name + ".wav"
     ],
-    loop: true
+    autoplay: false,
+    loop: false,
+    preload: true,
+    volume: 1,
+    onend: function(){
+      console.log("SFX " + name + " finished");
+    }
   });
   sfx_data[name] = sound;
 }
+function pauseMusic(state) {
+  if (state) {
+    if (bgm_sound){
+      bgm_sound.pause();
+    }
+    if (bgm_sound_extra) {
+      bgm_sound_extra.pause();
+    }
+  } else {
+    if (bgm_sound){
+      bgm_sound.pause();
+    }
+    if (bgm_sound_extra) {
+      bgm_sound_extra.pause();
+    }
+  }
+}
 
+function stopMusic(fade_ms) {
+  if (fade_ms) {
+    if (bgm_sound){
+      bgm_sound.fade(bgm_sound.volume(), 0, fade_ms).stop();
+    }
+    if (bgm_sound_extra) {
+      bgm_sound_extra.fade(bgm_sound_extra.volume(), 0, fade_ms).stop();
+    }
+  } else {
+    if (bgm_sound){
+      bgm_sound.stop();
+    }
+    if (bgm_sound_extra) {
+      bgm_sound_extra.stop();
+    }
+  }
+}
 function playMusic(bgm, bgmExtra, bgmStartVol, bgmExtraStartVol){
+  // set up
   if (bgmStartVol !== 0 && !bgmStartVol) {
     bgmStartVol = 1;
   }
@@ -61,19 +119,28 @@ function playMusic(bgm, bgmExtra, bgmStartVol, bgmExtraStartVol){
     bgm_sound_extra = undefined;
   } else {
     bgm_sound_extra = bgm_data[bgmExtra];
+    bgm_sound_extra.volume(bgmExtraStartVol);
   }
   bgm_sound.volume(bgmStartVol);
-  bgm_sound_extra.volume(bgmExtraStartVol);
   bgmLoaded = false;
-  bgm_sound.play();
-  bgm_sound_extra.play();
+  if (bgmExtra) {
+    bgm_sound.play();
+    bgm_sound_extra.play();
+  } else {
+    bgm_sound.play();
+  }
 }
 function setExtraVolume(vol) {
+  if (!bgm_sound_extra) {
+    return
+  }
   bgm_sound_extra.fade(bgm_sound_extra.volume(), vol, 500);
 }
 function playSFX(sfx) {
   if (sfx_data[sfx]) {
-    sfx_data[sfx].stop().play();
+    console.log("playing SFX: " + sfx);
+    sfx_data[sfx].stop();
+    sfx_data[sfx].play();
   } else {
     console.log("playSFX error: the sound effect " + sfx + " does not exist.");
   }
@@ -81,87 +148,32 @@ function playSFX(sfx) {
 /* end howler.js setup stuff */
 
 function sys(keycode) {
-  var playerID = 0;
-  var keyID = 0;
+  // Player numbers go from 1 to 4 (or 8)
+  // Button numbers go from 0 to 7
+  // 0 - pause
+  // 1 - northwest
+  // 2 - north
+  // 3 - northeast
+  // 4 - west
+  // 5 - south
+  // 6 - east
+  // 7 - unused
   switch (keycode) {
-    case 81: // q
-    case 70: // f
-    case 85: // u
-    case 103: // numpad 7
     case 27: // esc
-      keyID = 1;
-      break;
-    case 87: // w
-    case 71: // g
-    case 73: // i
-    case 104: // numpad 8
+      return 1;
     case 32: // space
-      keyID = 2;
-      break;
-    case 69: // e
-    case 72: // h
-    case 79: // o
-    case 105: // numpad 9
-      keyID = 3;
-      break;
-    case 65: // a
-    case 86: // v
-    case 74: // j
-    case 100: // numpad 4
-      keyID = 4;
-      break;
-    case 83: // s
-    case 66: // b
-    case 75: // k
-    case 101: // numpad 5
-      keyID = 5;
-      break;
-    case 68: // d
-    case 78: // n
-    case 76: // l
-    case 102: // numpad 6
+      return 2;
     case 13: // return
-      keyID = 6;
-      break;
-  }
-  if (keyID == 0) {
+      return 6;
+    default:
+      for (var i = 0; i < KEY_CONFIG.length; i++) {
+        const result = KEY_CONFIG[i].indexOf(keycode);
+        if (result !== -1) {
+          return (i + 1) * 64 + result + 1;
+        }
+      }
     return 0;
   }
-  switch (keycode) {
-    case 81: // q
-    case 87: // w
-    case 69: // e
-    case 65: // a
-    case 83: // s
-    case 68: // d
-      playerID = 1;
-      break;
-    case 70: // f
-    case 71: // g
-    case 72: // h
-    case 86: // v
-    case 66: // b
-    case 78: // n
-      playerID = 2;
-      break;
-    case 85: // u
-    case 73: // i
-    case 79: // o
-    case 74: // j
-    case 75: // k
-    case 76: // l
-      playerID = 3;
-      break;
-    case 103: // numpad 7
-    case 104: // numpad 8
-    case 105: // numpad 9
-    case 100: // numpad 4
-    case 101: // numpad 5
-    case 102: // numpad 6
-      playerID = 4;
-      break;
-  }
-  return playerID * 64 + keyID;
 }
 
 function modalKeys(event) {
@@ -236,6 +248,7 @@ function activateModal(text) {
   if (modal.querySelector(".modal-box").clientHeight < content.scrollHeight) {
     modal.classList.add("overflowing");
   }
+  content.scrollTo(0, 0);
   setTimeout(function(){
     document.addEventListener("keydown", modalKeys);
     console.log("Modal key handler complete.");
@@ -270,17 +283,20 @@ function titleKeys(event) {
   switch (input % 64) {
     case 2:
       console.log("up");
+      playSFX("menu_move");
       buttons[selected].classList.remove("sel");
       selected = (selected + buttons.length - 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
     case 5:
       console.log("down");
+      playSFX("menu_move");
       buttons[selected].classList.remove("sel");
       selected = (selected + 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
     case 6:
+      playSFX("menu_confirm");
       switch (selected) {
         case 0:
           startSignup();
@@ -320,7 +336,8 @@ function titleKeys(event) {
             "#Credits",
             "*Made out of love for (inspired by)",
             "“You Don't Know Jack” series",
-            "by Jackbox Games",
+            "created by Harry Gottlieb",
+            "IP of Jackbox Games",
             "(This is a fangame that builds upon the formula. We are not affiliated with Jackbox Games in any capacity.)",
             "#Creative Director",
             "Haley Wakamatsu",
@@ -366,20 +383,31 @@ function signupKeys(){
   switch (key) {
     case 5:
       // register
-      params.players[player - 1].present = true;
-      cards[player - 1].classList.add("on");
-      params.playerCount++;
+      if (!params.players[player - 1].present){
+        playSFX("menu_signin");
+        params.players[player - 1].present = true;
+        cards[player - 1].classList.add("on");
+        params.playerCount++;
+        setExtraVolume(0.8);
+      }
       break;
     case 2:
       // unregister
-      params.players[player - 1].present = false;
-      cards[player - 1].classList.remove("on");
-      params.playerCount--;
+      if (params.players[player - 1].present){
+        playSFX("menu_signout");
+        params.players[player - 1].present = false;
+        cards[player - 1].classList.remove("on");
+        params.playerCount--;
+        if (params.playerCount === 0) {
+          setExtraVolume(0);
+        }
+      }
       break;
     case 4:
       // back
       document.removeEventListener("keydown", signupKeys);
-      setExtraVolume(0);
+      playSFX("menu_back");
+      stopMusic(400);
       initApp();
       break;
     case 6:
@@ -393,9 +421,11 @@ function signupKeys(){
       }
       if (playerCount) {
         // somebody signed up
+        playSFX("menu_confirm");
         initGame();
       } else {
         // nobody signed up
+        playSFX("menu_fail");
         activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
         setTimeout(function(){document.addEventListener("keydown", signupKeys)}, 1000);
       }
@@ -411,7 +441,6 @@ function initGame(){
 function startSignup(){
   document.removeEventListener("keydown", titleKeys);
   document.body.className = "state_signup";
-  document.addEventListener("keydown", signupKeys);
   params_players_cache = [];
   const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
   for (i = 0; i < MAX_PLAYER_COUNT; i++) {
@@ -424,12 +453,20 @@ function startSignup(){
   console.log(params_players_cache);
   params.players = params_players_cache;
   console.log(params.players);
-
-  setExtraVolume(0.8);
+  stopMusic(400);
+  setTimeout(function(){
+    document.addEventListener("keydown", signupKeys);
+    playMusic("signup_base", "signup_extra", 0.8, 0);
+  }, MUSIC_DELAY)
 }
 function initApp(){
   document.body.className = "state_title";
   document.addEventListener("keydown", titleKeys);
+  setTimeout(
+    function(){
+      playMusic("placeholder", undefined, 1, undefined);
+    }, MUSIC_DELAY
+  );
 }
 document.addEventListener("DOMContentLoaded", initApp);
 document.addEventListener("DOMContentLoaded", function(){
@@ -437,11 +474,20 @@ document.addEventListener("DOMContentLoaded", function(){
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
   }, 3000);
-  playMusic("signup_base", "signup_extra", 0.8, 0);
-  activateModal(["#Warning", "*Keyboard layout", "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.", "*Keybind", "Each player uses a 3x2 array of keys, represented as ↖, ↑, ↗, ←, ↓, and →; basically WASD/IJKL with up-left and up-right added.",
+  activateModal(["#Warning",
+  "*Keyboard layout",
+  "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.",
+  "*Keybind",
+  "Each player uses a 3x2 array of keys, represented as ↖, ↑, ↗, ←, ↓, and →; basically WASD/IJKL with up-left and up-right added.",
   "Player 1: Q W E A S D",
   "Player 2: F G H V B N",
   "Player 3: U I O J K L",
   "Player 4: 7 8 9 4 5 6 (Numpad)",
-  "Navigate using ↑ and ↓, and confirm by →.", "*Audio", "This program has audio. Please check your audio volume.", "This program is for up to 4 players, but one player must use the numpad.", "#Browser compatibility", "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.", "[6] Start!"]);
+  "Navigate using ↑ and ↓, and confirm by →.",
+  "*Audio",
+  "This program has audio. Please check your audio volume.",
+  "This program is for up to 4 players, but one player must use the numpad.",
+  "#Browser compatibility",
+  "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.",
+  "[6] Start!"]);
 });
