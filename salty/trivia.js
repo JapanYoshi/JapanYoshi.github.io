@@ -53,7 +53,20 @@ for (const name of bgm_names) {
     ],
     autoplay: false,
     loop: true,
-    preload: true
+    preload: true,
+    pool: 1,
+    onload: function(){
+      console.log("Music " + name + " loaded");
+    },
+    onloaderror: function(){
+      console.log("Error loading music " + name);
+    },
+    onplayerror: function(){
+      console.log("Error playing music " + name);
+    },
+    onend: function(){
+      console.log("music " + name + " finished");
+    }
   });
   bgm_data[name] = sound;
 }
