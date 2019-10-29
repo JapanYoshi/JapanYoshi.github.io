@@ -59,16 +59,28 @@ for (const name of bgm_names) {
 for (const name of sfx_names) {
   var sound = new Howl({
     src: [
-      ROOT + "audio/sfx/" + name + ".wav"
+      ROOT + "audio/sfx/" + name + ".ogg"
     ],
     autoplay: false,
     loop: false,
     preload: true,
-    volume: 1,
+    pool: 1,
+    onload: function(){
+      console.log("SFX " + name + " loaded");
+    },
+    onloaderror: function(){
+      console.log("Error loading SFX " + name);
+    },
+    onplayerror: function(){
+      console.log("Error playing SFX " + name);
+    },
     onend: function(){
       console.log("SFX " + name + " finished");
     }
   });
+  sound.once('load', function(){
+    console.log("SFX " + name + " loaded");
+  })
   sfx_data[name] = sound;
 }
 function pauseMusic(state) {
@@ -265,7 +277,6 @@ function titleKeys(event) {
     return;
   }
   var buttons = document.getElementById("title_option_box").children;
-  console.log("buttons", buttons);
   var selected = -1;
   for (var i = 0; i < buttons.length; i++) {
     if (buttons[i].classList.contains("sel")) {
