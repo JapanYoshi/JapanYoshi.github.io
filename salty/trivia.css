@@ -8,6 +8,11 @@
   scrollbar-width: none;
 }
 
+@font-face {
+  font-family: "_Icons";
+  src: url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/icons.woff2");
+}
+
 html {
   font-size: calc(100vw / 64);
   /* screen will be 64rem x 36rem*/
@@ -190,6 +195,11 @@ p {
   font-size: 1rem;
 }
 
+.key.numpad::before {
+  content: "#";
+  font-size: 75%;
+}
+
 .button>.key {
   float: left;
   margin: 0 0.25rem 0.25rem 0;
@@ -206,6 +216,10 @@ h1 {
 section.candy>.section_content {
   font-family: "Mikado", "Margarine", sans-serif;
   font-weight: bold;
+}
+
+.icon {
+  font-family: "_Icons";
 }
 
 #title_box {
