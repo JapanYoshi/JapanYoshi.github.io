@@ -10,8 +10,26 @@
 
 @font-face {
   font-family: "_Icons";
-  src: url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/icons.woff2");
+  src: url('https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/icons.woff2');
   font-weight: normal;
+}
+
+@font-face {
+  font-family: "Mikado";
+  font-weight: Bold;
+  font-display: swap;
+  src: local("Mikado Bold"), local ("Mikado-Bold"),
+    url('https://github.com/devthiagolino/farofa-freela-uber/blob/master/font/Mikado-Bold.otf?raw=true') format('otf'),
+    url('https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadobold-webfont.woff2?raw=true') format('woff2');
+}
+
+@font-face {
+  font-family: "Mikado";
+  font-weight: Regular;
+  font-display: swap;
+  src: local("Mikado Bold"), local ("Mikado-Bold"),
+    url('https://github.com/devthiagolino/farofa-freela-uber/blob/master/font/Mikado-Regular.otf?raw=true') format('otf'),
+    url('https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadolight-webfont.woff2?raw=true') format('woff2');
 }
 
 html {
