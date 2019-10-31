@@ -50,7 +50,7 @@ html {
 
 body,
 p {
-  font-family: "Poppins", "Century Gothic", sans-serif;
+  font-family: "Poppins", "TeX Gyre Adventor", "Century Gothic", sans-serif;
   font-weight: 400;
 }
 
@@ -161,7 +161,7 @@ h3,
 #title_trivia,
 .question,
 .section-title {
-  font-family: "Orelega", "Domine";
+  font-family: "Orelega", "Domine", "TeX Gyre Schola", "Century Schoolbook";
   font-weight: bold;
   margin: 0;
   padding: 0;
@@ -235,7 +235,7 @@ h1 {
 
 #title_salty,
 section.candy>.section_content {
-  font-family: "_Mikado", sans-serif;
+  font-family: "_Mikado", "Mikado", "Tobi Greek Cyrillic", sans-serif;
   font-weight: bold;
 }
 
