@@ -267,6 +267,11 @@ function modalKeys(event) {
   }
 }
 
+function formatIcons(text) {
+  // replace "[[" with '<span class="icon">' and "]]" with </span>
+  return text.replace(/\[\[/g, '<span class="icon">').replace(/\]\]/g, '</span>');
+}
+
 function activateModal(text) {
   var modal = document.getElementById("modal");
   var content = modal.getElementsByClassName("modal-content")[0];
@@ -288,19 +293,18 @@ function activateModal(text) {
       node = document.createElement("div");
       node.classList.add("button");
       const btnEnd = text[i].indexOf("]");
-      var button = parseInt(text[i].substring(1, btnEnd));
-      var buttonTxt = ["?", "↖", "↑", "↗", "←", "↓", "→"][button];
+      var button = text[i].substring(1, btnEnd);
       text[i] = text[i].substring(btnEnd + 1);
       var keyDisplay = document.createElement("span");
       keyDisplay.classList.add("key");
-      keyDisplay.innerHTML = buttonTxt;
+      keyDisplay.classList.add("icon");
+      keyDisplay.innerText = button;
       node.appendChild(keyDisplay);
     } else {
       // format: just text
       node = document.createElement("p");
     }
-    var textNode = document.createTextNode(text[i]);
-    node.appendChild(textNode);
+    node.innerHTML += formatIcons(text[i]);
     content.appendChild(node);
   }
   console.log("height", modal.querySelector(".modal-box").clientHeight, modal.querySelector(".modal-box").clientHeight > modal.querySelector.scrollHeight ? "no scroll" : "scroll", content.scrollHeight);
@@ -408,9 +412,12 @@ function titleKeys(event) {
             "#Voice",
             "*Candice “Candy” Barr",
             "Haley Wakamatsu",
+            "*Miles Stone",
+            "Salem Morrison",
             "#Music",
             "*Musical director",
             "Haley Wakamatsu as “Akira Sora”",
+            "Salty Trivia Theme - Akira Sora",
             "Coffee at Midnight - Akira Sora",
             "Announcer Music - Akira Sora",
             "15 Second Rock - Akira Sora",
@@ -536,12 +543,12 @@ document.addEventListener("DOMContentLoaded", function(){
   "*Keyboard layout",
   "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.",
   "*Keybind",
-  "Each player uses a 3x2 array of keys, represented as ↖, ↑, ↗, ←, ↓, and →; basically WASD/IJKL with up-left and up-right added.",
+  "Each player uses a 3x2 array of keys, represented as [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]; basically WASD/IJKL with up-left and up-right added.",
   "Player 1: Q W E A S D",
   "Player 2: F G H V B N",
   "Player 3: U I O J K L",
   "Player 4: 7 8 9 4 5 6 (Numpad)",
-  "Navigate using ↑ and ↓, and confirm by →.",
+  "Navigate using [[2]] and [[5]], and confirm by [[6]].",
   "*Audio",
   "This program has audio. Please check your audio volume.",
   "This program is for up to 4 players, but one player must use the numpad.",

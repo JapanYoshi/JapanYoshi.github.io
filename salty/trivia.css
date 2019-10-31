@@ -11,6 +11,7 @@
 @font-face {
   font-family: "_Icons";
   src: url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/icons.woff2");
+  font-weight: normal;
 }
 
 html {
@@ -220,6 +221,7 @@ section.candy>.section_content {
 
 .icon {
   font-family: "_Icons";
+  font-weight: normal;
 }
 
 #title_box {
