@@ -6,6 +6,9 @@ var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
 var bgm_sound_extra2;
+function isEmptyObj(obj) {
+  return Object.entries(obj).length === 0 && obj.constructor === Object;
+}
 // sound effects should be played willy nilly, but one copy per sound effect
 
 const MUSIC_DELAY = 400;
@@ -312,27 +315,98 @@ function activateModal(text) {
   }
   content.scrollTo(0, 0);
   setTimeout(function(){
-    document.addEventListener("keydown", modalKeys);
+    document.addEventListener("keydown", modalKeys, true);
     console.log("Modal key handler complete.");
   }, 500);
   modal.classList.add("active");
   console.log("Modal complete");
 }
+function abortModalKeys(event) {
+  event.stopPropagation();
+  if (sys(event.keyCode) % 64 === 6) {
+    document.removeEventListener("keydown", abortModalKeys);
+    playSFX("menu_confirm");
+    setTimeout(function(){
+      document.getElementById("modal").classList.remove("active");
+      document.body.classList = "";
+      initApp();
+    }, 2000);
+  }
+}
+function abort(text) {
+  stopMusic(0);
+  body.classList = "error";
+  var modal = document.getElementById("modal");
+  var content = modal.getElementsByClassName("modal-content")[0];
+  for (var i = content.childNodes.length - 1; i >= 0; i--) {
+    content.removeChild(content.childNodes[i]);
+  }
+  for (var i = 0; i < text.length; i++) {
+    var node;
+    if (text[i].charAt(0) == "#") {
+      // format: #heading
+      node = document.createElement("h2");
+      text[i] = text[i].substring(1);
+    } else if (text[i].charAt(0) == "*") {
+      // format: *subheading
+      node = document.createElement("h3");
+      text[i] = text[i].substring(1);
+    } else if (text[i].charAt(0) == "[") {
+      // format: [key]text
+      node = document.createElement("div");
+      node.classList.add("button");
+      const btnEnd = text[i].indexOf("]");
+      var button = text[i].substring(1, btnEnd);
+      text[i] = text[i].substring(btnEnd + 1);
+      var keyDisplay = document.createElement("span");
+      keyDisplay.classList.add("key");
+      keyDisplay.classList.add("icon");
+      keyDisplay.innerText = button;
+      node.appendChild(keyDisplay);
+    } else {
+      // format: just text
+      node = document.createElement("p");
+    }
+    node.innerHTML += formatIcons(text[i]);
+    content.appendChild(node);
+  }
+  console.log("height", modal.querySelector(".modal-box").clientHeight, modal.querySelector(".modal-box").clientHeight > modal.querySelector.scrollHeight ? "no scroll" : "scroll", content.scrollHeight);
+  if (modal.querySelector(".modal-box").clientHeight < content.scrollHeight) {
+    modal.classList.add("overflowing");
+    content.scrollTo(0, 0);
+  }
+  setTimeout(function(){
+    document.addEventListener("keydown", modalKeys, true);
+    console.log("Modal key handler complete.");
+  }, 500);
+  modal.classList.add("active");
+  console.log("Modal complete");
+}
+
 function chooseEpisode(){
   document.removeEventListener("keydown", signupKeys);
   document.body.className = "state_episode";
-  if (!episode_index) {
+  if (isEmptyObj(episode_index)) {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'text/json');
     fetch(ROOT + 'q/0.json', {
       method: 'GET',
-      mode: 'same-origin',
-      credentials: 'include'
-    }).then(
-      response => response.json()
-    ).then(
-      text => console.log(text)
-    ).catch(
-      error => console.log(error)
-    );
+      headers: myHeaders,
+      mode: 'cors'
+    }).then(response => {
+      if (response.ok) {
+        console.log('Fetched q/0.json');
+        console.log(response);
+        response.json();
+      } else {
+        abort(["Error on fetching episode list."]);
+      }
+    }).then(json => {
+      episode_index = json;
+    }).catch(error => {
+      console.log(error);
+      abort(["Error on fetching episode list."]);
+    });
   }
 }
 function signupKeys(event){
@@ -420,7 +494,7 @@ function startSignup(){
   console.log(params.players);
   stopMusic(400);
   setTimeout(function(){
-    document.addEventListener("keydown", signupKeys);
+    document.addEventListener("keydown", signupKeys, true);
     playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
   }, MUSIC_DELAY)
 }
@@ -537,18 +611,18 @@ function titleKeys(event) {
 }
 function initApp(){
   document.body.className = "state_title";
-  document.addEventListener("keydown", titleKeys);
+  document.addEventListener("keydown", titleKeys, true);
   setTimeout(
     function(){
       playMusic({name: "placeholder"}, undefined, undefined);
     }, MUSIC_DELAY
   );
 }
-document.addEventListener("DOMContentLoaded", initApp);
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
+    initApp();
   }, 3000);
   activateModal(["#Warning",
   "*Keyboard layout",
@@ -566,4 +640,4 @@ document.addEventListener("DOMContentLoaded", function(){
   "#Browser compatibility",
   "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.",
   "[6] Start!"]);
-});
+}, true);
