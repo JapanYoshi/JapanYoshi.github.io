@@ -7,13 +7,21 @@ var bgm_sound;
 var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListeners = [];
-function changeKeyHandler(f, allowMulti) {
-  while (!allowMulti && currentEventListeners.length) {
+function popKeyHandler() {
+  if (currentEventListeners) {
     document.removeEventListener("keydown", currentEventListeners[currentEventListeners.length - 1]);
     currentEventListeners.pop();
   }
-  document.addEventListener("keydown", f, true);
-  currentEventListeners.push(f);
+}
+function changeKeyHandler(f, allowMulti) {
+  while (!allowMulti && currentEventListeners.length) {
+    popKeyHandler();
+  }
+  setTimeout(function() {
+    document.addEventListener("keydown", f, true);
+    currentEventListeners.push(f);
+    // delayed to prevent double handling
+  }, 100);
 }
 function isEmptyObj(obj) {
   return Object.entries(obj).length === 0 && obj.constructor === Object;
@@ -274,7 +282,7 @@ function modalKeys(event) {
       box.scrollBy(0, screenHeight / 8);
       break;
     case 6:
-      document.removeEventListener("keydown", modalKeys);
+      popKeyHandler();
       playSFX("menu_confirm");
       setTimeout(function(){
         // give time for the title screen to process that the modal is still active
@@ -333,7 +341,7 @@ function activateModal(text) {
 function abortModalKeys(event) {
   event.stopPropagation();
   if (sys(event.keyCode) % 64 === 6) {
-    document.removeEventListener("keydown", abortModalKeys);
+    popKeyHandler();
     playSFX("menu_confirm");
     setTimeout(function(){
       document.getElementById("modal").classList.remove("active");
@@ -408,7 +416,7 @@ function chooseEpisode(){
   changeKeyHandler(chooseEpisodeKeys, false);
 }
 function getEpisodes(){
-  document.removeEventListener("keydown", signupKeys);
+  popKeyHandler();
   document.body.className = "state_episode";
   if (isEmptyObj(episode_index)) {
     const myHeaders = new Headers();
@@ -475,14 +483,13 @@ function signupKeys(event){
       break;
     case 4:
       // back
-      document.removeEventListener("keydown", signupKeys);
+      popKeyHandler();
       playSFX("menu_back");
       stopMusic(400);
       initApp();
       break;
     case 6:
       // start
-      document.removeEventListener("keydown", signupKeys);
       var playerCount = 0
       for (var i = 0; i < params.players.length; i++) {
         if (params.players[i].present) {
@@ -492,6 +499,7 @@ function signupKeys(event){
       if (playerCount) {
         // somebody signed up
         playSFX("menu_confirm");
+        popKeyHandler();
         setExtra2Volume(0.8);
         setExtraVolume(0);
         getEpisodes();
@@ -505,7 +513,7 @@ function signupKeys(event){
   }
 }
 function startSignup(){
-  document.removeEventListener("keydown", titleKeys);
+  popKeyHandler();
   document.body.className = "state_signup";
   params_players_cache = [];
   const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
@@ -521,9 +529,9 @@ function startSignup(){
   console.log(params.players);
   stopMusic(400);
   setTimeout(function(){
-    changeKeyHandler(signupKeys, false);
     playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
-  }, MUSIC_DELAY)
+  }, MUSIC_DELAY);
+  setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
 }
 function titleKeys(event) {
   console.log("titleKeys");
