@@ -1,4 +1,5 @@
 var params = {}; // persistent data will be stored in here
+var episode_index = {};
 var episode_data = {};
 var bgm_data = {};
 var sfx_data = {};
@@ -17,7 +18,7 @@ const KEY_CONFIG = [
   [103, 104, 105, 100, 101, 102]
 ];
 
-/* howler.js setup stuff */
+// howler.js setup stuff
 const bgm_names = [
   "signup_base",
   "signup_extra",
@@ -234,6 +235,10 @@ function sys(keycode) {
   }
 }
 
+function formatIcons(text) {
+  // replace "[[" with '<span class="icon">' and "]]" with </span>
+  return text.replace(/\[\[/g, '<span class="icon">').replace(/\]\]/g, '</span>');
+}
 function modalKeys(event) {
   console.log("modalKeys");
   event.stopPropagation();
@@ -266,12 +271,6 @@ function modalKeys(event) {
       break;
   }
 }
-
-function formatIcons(text) {
-  // replace "[[" with '<span class="icon">' and "]]" with </span>
-  return text.replace(/\[\[/g, '<span class="icon">').replace(/\]\]/g, '</span>');
-}
-
 function activateModal(text) {
   var modal = document.getElementById("modal");
   var content = modal.getElementsByClassName("modal-content")[0];
@@ -319,7 +318,112 @@ function activateModal(text) {
   modal.classList.add("active");
   console.log("Modal complete");
 }
-
+function chooseEpisode(){
+  document.removeEventListener("keydown", signupKeys);
+  document.body.className = "state_episode";
+  if (!episode_index) {
+    fetch(ROOT + 'q/0.json', {
+      method: 'GET',
+      mode: 'same-origin',
+      credentials: 'include'
+    }).then(
+      response => response.json()
+    ).then(
+      text => console.log(text)
+    ).catch(
+      error => console.log(error)
+    );
+  }
+}
+function signupKeys(event){
+  console.log("signupKeys()");
+  event.stopPropagation();
+  var keyCode = event.keyCode;
+  if (!keyCode) {
+    window.alert("event.keyCode failed");
+    return;
+  }
+  const id = sys(keyCode);
+  const key = id % 64;
+  const player = (id - key)/64;
+  console.log("Player", player, "Key", key, "pressed.");
+  var cards = document.getElementById("signup-box").getElementsByClassName("signup");
+  if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
+  switch (key) {
+    case 5:
+      // register
+      if (!params.players[player - 1].present){
+        playSFX("menu_signin");
+        params.players[player - 1].present = true;
+        cards[player - 1].classList.add("on");
+        params.playerCount++;
+        setExtraVolume(0.8);
+      }
+      break;
+    case 2:
+      // unregister
+      if (params.players[player - 1].present){
+        playSFX("menu_signout");
+        params.players[player - 1].present = false;
+        cards[player - 1].classList.remove("on");
+        params.playerCount--;
+        if (params.playerCount === 0) {
+          setExtraVolume(0);
+        }
+      }
+      break;
+    case 4:
+      // back
+      document.removeEventListener("keydown", signupKeys);
+      playSFX("menu_back");
+      stopMusic(400);
+      initApp();
+      break;
+    case 6:
+      // start
+      document.removeEventListener("keydown", signupKeys);
+      var playerCount = 0
+      for (var i = 0; i < params.players.length; i++) {
+        if (params.players[i].present) {
+          playerCount++;
+        }
+      }
+      if (playerCount) {
+        // somebody signed up
+        playSFX("menu_confirm");
+        setExtra2Volume(0.8);
+        setExtraVolume(0);
+        chooseEpisode();
+      } else {
+        // nobody signed up
+        playSFX("menu_fail");
+        activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
+        setTimeout(function(){document.addEventListener("keydown", signupKeys)}, 1000);
+      }
+      break;
+  }
+}
+function startSignup(){
+  document.removeEventListener("keydown", titleKeys);
+  document.body.className = "state_signup";
+  params_players_cache = [];
+  const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
+  for (i = 0; i < MAX_PLAYER_COUNT; i++) {
+    params_players_cache[i] = {
+      present: false,
+      name: playerNames[i]
+    };
+  }
+  params.playerCount = 0;
+  console.log(params_players_cache);
+  params.players = params_players_cache;
+  console.log(params.players);
+  stopMusic(400);
+  setTimeout(function(){
+    document.addEventListener("keydown", signupKeys);
+    playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
+  }, MUSIC_DELAY)
+}
 function titleKeys(event) {
   console.log("titleKeys");
   event.stopPropagation();
@@ -430,99 +534,6 @@ function titleKeys(event) {
       }
       return;
   }
-}
-function signupKeys(event){
-  console.log("signupKeys()");
-  event.stopPropagation();
-  var keyCode = event.keyCode;
-  if (!keyCode) {
-    window.alert("event.keyCode failed");
-    return;
-  }
-  const id = sys(keyCode);
-  const key = id % 64;
-  const player = (id - key)/64;
-  console.log("Player", player, "Key", key, "pressed.");
-  var cards = document.getElementById("signup-box").getElementsByClassName("signup");
-  if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
-  switch (key) {
-    case 5:
-      // register
-      if (!params.players[player - 1].present){
-        playSFX("menu_signin");
-        params.players[player - 1].present = true;
-        cards[player - 1].classList.add("on");
-        params.playerCount++;
-        setExtraVolume(0.8);
-      }
-      break;
-    case 2:
-      // unregister
-      if (params.players[player - 1].present){
-        playSFX("menu_signout");
-        params.players[player - 1].present = false;
-        cards[player - 1].classList.remove("on");
-        params.playerCount--;
-        if (params.playerCount === 0) {
-          setExtraVolume(0);
-        }
-      }
-      break;
-    case 4:
-      // back
-      document.removeEventListener("keydown", signupKeys);
-      playSFX("menu_back");
-      stopMusic(400);
-      initApp();
-      break;
-    case 6:
-      // start
-      document.removeEventListener("keydown", signupKeys);
-      var playerCount = 0
-      for (var i = 0; i < params.players.length; i++) {
-        if (params.players[i].present) {
-          playerCount++;
-        }
-      }
-      if (playerCount) {
-        // somebody signed up
-        playSFX("menu_confirm");
-        setExtra2Volume(0.8);
-        setExtraVolume(0);
-        chooseEpisode();
-      } else {
-        // nobody signed up
-        playSFX("menu_fail");
-        activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
-        setTimeout(function(){document.addEventListener("keydown", signupKeys)}, 1000);
-      }
-      break;
-  }
-}
-function chooseEpisode(){
-  document.removeEventListener("keydown", signupKeys);
-  document.body.className = "state_episode";
-}
-function startSignup(){
-  document.removeEventListener("keydown", titleKeys);
-  document.body.className = "state_signup";
-  params_players_cache = [];
-  const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
-  for (i = 0; i < MAX_PLAYER_COUNT; i++) {
-    params_players_cache[i] = {
-      present: false,
-      name: playerNames[i]
-    };
-  }
-  params.playerCount = 0;
-  console.log(params_players_cache);
-  params.players = params_players_cache;
-  console.log(params.players);
-  stopMusic(400);
-  setTimeout(function(){
-    document.addEventListener("keydown", signupKeys);
-    playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
-  }, MUSIC_DELAY)
 }
 function initApp(){
   document.body.className = "state_title";

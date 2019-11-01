@@ -1,0 +1,119 @@
+// use [""] for default
+game: {
+  system: {
+    intro1: ["..."],
+    intermission: ["..."],
+    intro2: ["..."],
+    outro: ["..."]
+  }
+  questions: [
+    { 
+      type: 0, // normal
+      announce: ["..."],
+      title: ["..."],
+      intro: ["..."],
+      question: ["..."],
+      options_read: ["..."],
+      options: [
+        {
+          text: "...",
+          correctness: 0, // 1 is correct; 0 is wrong and unannounced; >1 are announced from largest to smallest
+          explanation: ["..."]
+        }, {
+          ...
+        }
+      ]
+    }, {
+      type: 1, // candy
+      announce: ["..."],
+      title: ["..."],
+      intro: ["..."],
+      joke: ["...", "..."],
+      afterjoke: ["..."],
+      question: ["..."],
+      options_read: ["..."],
+      options: [
+        {
+          text: "...",
+          correctness: 0, // 1 is correct; 0 is wrong and unannounced; >1 are announced from largest to smallest
+          explanation: ["..."]
+        }, {
+          ...
+        }
+      ]
+    }, {
+      type: 2, // all outta salt
+      announce: ["..."],
+      title: ["..."],
+      category: ["..."],
+      gibberish: ["..."],
+      hints: ["...", "...", "..."],
+      reveal: ["..."],
+      quip: ["..."]
+    }, {
+      type: 3, // sorting time
+      announce: ["..."],
+      title: ["..."],
+      intro: ["..."], // I'm going to list 7:
+      category: ["..."],
+      intro2: ["..."] // For each, I need you to tell me if it's
+      a: ["...", "..."], // full category, short category
+      b: ["...", "..."],
+      both: ["...", "..."], // "or both!", "If it's both:"
+      intro3: ["...", "...", "..."], // "[A] or... [B]", "If it's:", "If it's:"
+      press: ["...", "...", "..."],
+      // order without "both":
+      //    intro[] category[] intro2[] a[0] intro3[0] b[0]
+      //    intro3[1] a[1] press[0]  intro3[2] b[1] press[1]
+      // order with "both":
+      //    intro[] category[] intro[2] a[0] b[0] both[0]
+      //    intro3[1] a[1] press[0] intro3[2] press[1] both[1] press[2]
+      options: [
+        [1, "..."], // category A
+        [2, "..."], // category B
+        [3, "..."], // both
+        ...
+      ]
+      quips: [
+        ["..."], // perfect
+        ["..."], // good
+        ["..."], // bad
+        ["..."] // awful
+      ]
+    }, {
+      type: 4, // sugar rush
+      title: ["..."],
+      sections: [ // 5 sections
+        {
+          title: "...",
+          options: [
+            [true, "..."], // yes
+            [false, "..."], // no
+            ... // 6 items
+          ]
+        }, ...
+      ]
+    }, {
+      type: 5, // hike your likes
+      title: ["..."],
+      options: [
+        ["..."],
+        ["..."],
+        ["..."]
+      ]
+      intro: ["..."],
+      sections: [ // 5 sections
+        {
+          title: "...",
+          bonus: "...", // bonus item
+          answers: [
+            true,
+            false,
+            true,
+            false
+          ],
+          quip: ["..."]
+        }, ...
+      ]
+    }
+  ]
