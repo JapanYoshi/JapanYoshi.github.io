@@ -6,6 +6,15 @@ var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
 var bgm_sound_extra2;
+var currentEventListeners = [];
+function changeKeyHandler(f, allowMulti) {
+  while (!allowMulti && currentEventListeners.length) {
+    document.removeEventListener("keydown", currentEventListeners[currentEventListeners.length - 1]);
+    currentEventListeners.pop();
+  }
+  document.addEventListener("keydown", f, true);
+  currentEventListeners.push(f);
+}
 function isEmptyObj(obj) {
   return Object.entries(obj).length === 0 && obj.constructor === Object;
 }
@@ -315,7 +324,7 @@ function activateModal(text) {
   }
   content.scrollTo(0, 0);
   setTimeout(function(){
-    document.addEventListener("keydown", modalKeys, true);
+    changeKeyHandler(modalKeys, true);
     console.log("Modal key handler complete.");
   }, 500);
   modal.classList.add("active");
@@ -328,14 +337,14 @@ function abortModalKeys(event) {
     playSFX("menu_confirm");
     setTimeout(function(){
       document.getElementById("modal").classList.remove("active");
-      document.body.classList = "";
+      document.body.className = "";
       initApp();
     }, 2000);
   }
 }
 function abort(text) {
   stopMusic(0);
-  body.classList = "error";
+  document.body.className = "error";
   var modal = document.getElementById("modal");
   var content = modal.getElementsByClassName("modal-content")[0];
   for (var i = content.childNodes.length - 1; i >= 0; i--) {
@@ -376,14 +385,29 @@ function abort(text) {
     content.scrollTo(0, 0);
   }
   setTimeout(function(){
-    document.addEventListener("keydown", modalKeys, true);
+    changeKeyHandler(modalKeys, true);
     console.log("Modal key handler complete.");
   }, 500);
   modal.classList.add("active");
   console.log("Modal complete");
 }
-
+function chooseEpisodeKeys(event) {
+  console.log("key handler wip");
+}
 function chooseEpisode(){
+  document.body.className = "state_episode_list";
+  var episodeCarousel = document.getElementById("episode_carousel");
+  for (episode of episode_index) {
+    var item = document.createElement("li");
+    var title = document.createElement("div");
+    title.innerHTML = episode.title;
+    item.appendChild(title);
+    episodeCarousel.append(item);
+  }
+  episodeCarousel.firstElementChild.classList.add("sel");
+  changeKeyHandler(chooseEpisodeKeys, false);
+}
+function getEpisodes(){
   document.removeEventListener("keydown", signupKeys);
   document.body.className = "state_episode";
   if (isEmptyObj(episode_index)) {
@@ -395,18 +419,21 @@ function chooseEpisode(){
       mode: 'cors'
     }).then(response => {
       if (response.ok) {
-        console.log('Fetched q/0.json');
-        console.log(response);
-        response.json();
+        return response.json();
       } else {
         abort(["Error on fetching episode list."]);
+        return;
       }
-    }).then(json => {
-      episode_index = json;
     }).catch(error => {
       console.log(error);
       abort(["Error on fetching episode list."]);
+    }).then(json => {
+      episode_index = json;
+      console.log("Fetched /q/0.json", json);
+      chooseEpisode();
     });
+  } else {
+    chooseEpisode();
   }
 }
 function signupKeys(event){
@@ -467,12 +494,12 @@ function signupKeys(event){
         playSFX("menu_confirm");
         setExtra2Volume(0.8);
         setExtraVolume(0);
-        chooseEpisode();
+        getEpisodes();
       } else {
         // nobody signed up
         playSFX("menu_fail");
         activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
-        setTimeout(function(){document.addEventListener("keydown", signupKeys)}, 1000);
+        setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
       }
       break;
   }
@@ -494,7 +521,7 @@ function startSignup(){
   console.log(params.players);
   stopMusic(400);
   setTimeout(function(){
-    document.addEventListener("keydown", signupKeys, true);
+    changeKeyHandler(signupKeys, false);
     playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
   }, MUSIC_DELAY)
 }
@@ -611,7 +638,7 @@ function titleKeys(event) {
 }
 function initApp(){
   document.body.className = "state_title";
-  document.addEventListener("keydown", titleKeys, true);
+  changeKeyHandler(titleKeys, false);
   setTimeout(
     function(){
       playMusic({name: "placeholder"}, undefined, undefined);

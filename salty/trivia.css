@@ -100,7 +100,8 @@ section {
 body.state_title section#s_title,
 body.state_signup section#s_signup,
 body.state_game_title section#s_game_title,
-body.state_ingame section#s_ingame {
+body.state_ingame section#s_ingame,
+body.state_episode_list section#s_episode_list {
   opacity: 1;
 }
 
