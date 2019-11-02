@@ -1,5 +1,5 @@
 var params = {}; // persistent data will be stored in here
-var episode_index = {};
+var episode_listing = {};
 var episode_data = {};
 var bgm_data = {};
 var sfx_data = {};
@@ -8,6 +8,24 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
+
+/**
+ * keyShiv is set as the EventListener for keyDown,
+ * and redirects the event to the specific handlers.
+ * The active handler can be changed using
+ * changeKeyHandler().
+ * Uses the global variables currentEventListener and
+ * currentEventListenerModal. currentEventListener is
+ * the event listener for the currently active page.
+ * currentEventListenerModal is the event listener for
+ * the currently active modal. There should be either
+ * no modal or 1 modal active at any given moment.
+ * This function prioritizes currentEventListenerModal.
+ * @param {keyDownEvent} event The event that gets
+ * passed through.
+ * @return {any} Whatever the specific handler returns.
+ * Probably doesn't return anything.
+ */
 function keyShiv(event){
   if (currentEventListenerModal) {
     return currentEventListenerModal(event);
@@ -18,6 +36,15 @@ function keyShiv(event){
     return;
   }
 }
+/**
+ * Changes one of the currently active event listeners.
+ * Uses the global variables currentEventListener and
+ * currentEventListenerModal. For details on these, see
+ * keyShiv().
+ * @param {function} f The function to change the eventListener to. Set this to undefined to remove it.
+ * @param {boolean} modal If this is true, it will change
+ * the event listener for modals.
+ */
 function changeKeyHandler(f, modal) {
   if (modal) {
     currentEventListenerModal = f;
@@ -25,9 +52,24 @@ function changeKeyHandler(f, modal) {
     currentEventListener = f;
   }
 }
+/**
+ * Checks if the object is empty (evidently).
+ * @param {Object} obj The object to be checked.
+ * @return {boolean} Whether the object is empty.
+ */
 function isEmptyObj(obj) {
   return Object.entries(obj).length === 0 && obj.constructor === Object;
 }
+/**
+ * Given a NodeList (returned by doing HTMLNode.childNodes)
+ * finds which of them has the class "sel". There should
+ * only be one item with that class at any given moment.
+ * If there is no such Node, returns -1.
+ * @param {NodeList} buttons The NodeList of "buttons" (or
+ * oher elements) to be checked.
+ * @return {number} The index of the element with class
+ * "sel", or -1 if no such element is found.
+ */
 function getIndexOfSel(buttons){
   var selected = -1;
   for (var i = 0; i < buttons.length; i++) {
@@ -43,14 +85,10 @@ function getIndexOfSel(buttons){
 const MUSIC_DELAY = 400;
 const MAX_PLAYER_COUNT = 8;
 const ROOT = "https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/"
-const KEY_CONFIG = [
-  [81, 87, 69, 65, 83, 68],
-  [70, 71, 72, 86, 66, 78],
-  [85, 73, 79, 74, 75, 76],
-  [103, 104, 105, 100, 101, 102]
-];
 
-// howler.js setup stuff
+/**
+ * This part sets up music and sound effects for Howler.js.
+ */
 const bgm_names = [
   "placeholder",
   "signup_base",
@@ -81,6 +119,9 @@ const sfx_names = [
   "title_leave",
   "title_show"
 ];
+/**
+ * This part loads the music onto the global variable bgm_data.
+ */
 for (const name of bgm_names) {
   var sound = new Howl({
     src: [
@@ -105,7 +146,9 @@ for (const name of bgm_names) {
   });
   bgm_data[name] = sound;
 }
-
+/**
+ * This part loads sound effects into the variable sfx_data.
+ */
 for (const name of sfx_names) {
   var sound = new Howl({
     src: [
@@ -130,6 +173,11 @@ for (const name of sfx_names) {
   });
   sfx_data[name] = sound;
 }
+/**
+ * Pauses or unpauses the music.
+ * @param {boolean} state To pause, pass true. To unpause,
+ * pass false.
+ */
 function pauseMusic(state) {
   if (state) {
     if (bgm_sound){
@@ -153,16 +201,29 @@ function pauseMusic(state) {
     }
   }
 }
-
+/**
+ * Optionally fades the music, then definitely stops it.
+ * @param {number} fade_ms Milliseconds to fade for. Pass
+ * 0 to disable fading.
+ */
 function stopMusic(fade_ms) {
   if (fade_ms) {
     if (bgm_sound){
-      bgm_sound.fade(bgm_sound.volume(), 0, fade_ms).stop();
+      bgm_sound.once('fade', () => {
+        bgm_sound.stop();
+      });
+      bgm_sound.fade(bgm_sound.volume(), 0, fade_ms);
     }
     if (bgm_sound_extra) {
-      bgm_sound_extra.fade(bgm_sound_extra.volume(), 0, fade_ms).stop();
+      bgm_sound_extra.once('fade', () => {
+        bgm_sound_extra.stop();
+      })
+      bgm_sound_extra.fade(bgm_sound_extra.volume(), 0, fade_ms);
     }
     if (bgm_sound_extra2) {
+      bgm_sound_extra2.once('fade', () => {
+        bgm_sound_extra2.stop();
+      })
       bgm_sound_extra2.fade(bgm_sound_extra2.volume(), 0, fade_ms).stop();
     }
   } else {
@@ -177,11 +238,27 @@ function stopMusic(fade_ms) {
     }
   }
 }
+/**
+ * Plays background music.
+ * The music is specified by an object:
+ * * name - The filename looked up in bgm_data.
+ * * vol - the initial volume from 0 to 1.
+ * Background music is made of up to 3 simultaneous tracks,
+ * which enables dynamically changing background music.
+ * You can pass undefined to disable those extra tracks.
+ * (In fact, you will need to pass undefined to at least one
+ * of bgmExtra and bgmExtra2 most of the time.)
+ * @param {Object} bgm Name of track 1. vol defaults to 0.8.
+ * @param {Object} bgmExtra Name of track 2. vol defaults
+ * to 0.
+ * @param {Object} bgmExtra2 Name of track 3. vol defaults
+ * to 0.
+ */
 function playMusic(bgm, bgmExtra, bgmExtra2){
   // pass {name: string, vol: float}
   // set up
   if (bgm.vol !== 0 && !bgm.vol) {
-    bgm.vol = 1;
+    bgm.vol = 0.8;
   }
   bgm_sound = bgm_data[bgm.name];
   bgm_sound.volume(bgm.vol);
@@ -214,6 +291,10 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     bgm_sound.play();
   }
 }
+/**
+ * 
+ * @param {number} vol Volume to set it to from 0 to 1.
+ */
 function setExtraVolume(vol) {
   if (!bgm_sound_extra) {
     return
@@ -226,17 +307,51 @@ function setExtra2Volume(vol) {
   }
   bgm_sound_extra2.fade(bgm_sound_extra2.volume(), vol, 500);
 }
+
+/**
+ * Plays a sound effect.
+ * The sound effect is specified by an object:
+ * * name: the filename, which is looked up in the global
+ * variable sfx_data.
+ * * vol: the volume at which to play this at. If absent,
+ * does not change the volume.
+ * @param {object} sfx Object specifying the sound effect.
+ */
 function playSFX(sfx) {
-  if (sfx_data[sfx]) {
-    console.log("playing SFX: " + sfx);
-    sfx_data[sfx].stop();
+  if (sfx_data[sfx.name]) {
+    console.log("playing SFX: " + sfx.name);
+    sfx_data[sfx.name].stop();
+    if (sfx.vol) {
+      sfx_data[sfx.name].volume(sfx.vol);
+    }
     sfx_data[sfx].play();
   } else {
     console.log("playSFX error: the sound effect " + sfx + " does not exist.");
   }
 }
-/* end howler.js setup stuff */
+/**
+ * end howler.js setup stuff
+ */
 
+const KEY_CONFIG = [
+  [81, 87, 69, 65, 83, 68],
+  [70, 71, 72, 86, 66, 78],
+  [85, 73, 79, 74, 75, 76],
+  [103, 104, 105, 100, 101, 102]
+];
+/**
+ * Converts the key code into one value representing which
+ * button of which player was pressed.
+ * Each player adds 64 to the ID, leaving each player as
+ * many buttons.
+ * (64 may have been excessive, but it's better to
+ * overshoot it than undershoot it!)
+ * Uses the global constant KEY_CONFIG to reference the
+ * key code against.
+ * @param {number} keycode The key code of the keyDown event,
+ * gotten from event.keyCode (mind the caps).
+ * @return {number}
+ */
 function sys(keycode) {
   // Player numbers go from 1 to 4 (or 8)
   // Button numbers go from 0 to 7
@@ -265,11 +380,20 @@ function sys(keycode) {
     return 0;
   }
 }
-
+/**
+ * Within modals, replaces the strings "[[" and "]]" with
+ * the HTML tags for button display.
+ * @param {string} text The unmodified text.
+ * @return {string} The modified text.
+ */
 function formatIcons(text) {
   // replace "[[" with '<span class="icon">' and "]]" with </span>
   return text.replace(/\[\[/g, '<span class="icon">').replace(/\]\]/g, '</span>');
 }
+/**
+ * The standard modal key handler.
+ * @param {keyDownEvent} event The event.
+ */
 function modalKeys(event) {
   console.log("modalKeys");
   event.stopPropagation();
@@ -284,17 +408,17 @@ function modalKeys(event) {
   switch (sys(keyCode) % 64) {
     case 2:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
-      playSFX("menu_move");
+      playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / -8);
       break;
     case 5:
       console.log("Down was pressed. Scrolling px:", screenHeight / 8);
-      playSFX("menu_move");
+      playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / 8);
       break;
     case 6:
       changeKeyHandler(undefined, true);
-      playSFX("menu_confirm");
+      playSFX({name: "menu_confirm"});
       setTimeout(function(){
         // give time for the title screen to process that the modal is still active
         document.getElementById("modal").classList.remove("active");
@@ -302,6 +426,16 @@ function modalKeys(event) {
       break;
   }
 }
+/**
+ * Initializes a modal, given an array of strings. All
+ * arrays can be exited by any player's button 6 (right).
+ * @param {Array<string>} text Lines of text to show on the modal.
+ * * starts with "#": headline.
+ * * starts with "*": subheading.
+ * * starts with "[1]" ... "[6]": button for the
+ * corresponding key.
+ * * else: paragraph.
+ */
 function activateModal(text) {
   var modal = document.getElementById("modal");
   var content = modal.getElementsByClassName("modal-content")[0];
@@ -349,11 +483,15 @@ function activateModal(text) {
   modal.classList.add("active");
   console.log("Modal complete");
 }
+/**
+ * The fatal error modal key handler.
+ * @param {keyDownEvent} event The event.
+ */
 function abortModalKeys(event) {
   event.stopPropagation();
   if (sys(event.keyCode) % 64 === 6) {
     changeKeyHandler(undefined, true);
-    playSFX("menu_confirm");
+    playSFX({name: "menu_confirm"});
     setTimeout(function(){
       document.getElementById("modal").classList.remove("active");
       document.body.className = "";
@@ -361,6 +499,11 @@ function abortModalKeys(event) {
     }, 2000);
   }
 }
+/**
+ * Like activateModal, but aborts the game and quits to the
+ * title screen.
+ * @param {Array<string>} text cf. activateModal()
+ */
 function abort(text) {
   stopMusic(0);
   document.body.className = "error";
@@ -410,6 +553,10 @@ function abort(text) {
   modal.classList.add("active");
   console.log("Modal complete");
 }
+/**
+ * The episode choice screen key handler.
+ * @param {keyDownEvent} event The event.
+ */
 function chooseEpisodeKeys(event) {
   console.log("key handler wip:", event);
   const id = sys(event.keyCode);
@@ -427,7 +574,7 @@ function chooseEpisodeKeys(event) {
     switch (key) {
       case 2:
         console.log("up");
-        playSFX("menu_move");
+        playSFX({name: "menu_move"});
         buttons[selected].classList.remove("sel");
         selected = (selected + buttons.length - 1) % buttons.length;
         console.log("new choice:", selected, buttons[selected]);
@@ -435,7 +582,7 @@ function chooseEpisodeKeys(event) {
         break;
       case 5:
         console.log("down");
-        playSFX("menu_move");
+        playSFX({name: "menu_move"});
         buttons[selected].classList.remove("sel");
         selected = (selected + 1) % buttons.length;
         console.log("new choice:", selected, buttons[selected]);
@@ -444,7 +591,7 @@ function chooseEpisodeKeys(event) {
       case 4:
         // back
         changeKeyHandler(undefined, false);
-        playSFX("menu_back");
+        playSFX({name: "menu_back"});
         stopMusic(400);
         startSignup();
         break;
@@ -458,13 +605,13 @@ function chooseEpisodeKeys(event) {
         }
         if (playerCount) {
           // somebody signed up
-          playSFX("game_start");
+          playSFX({name: "game_start"});
           changeKeyHandler(undefined, false);
           stopMusic(1500);
           console.log("game started");
         } else {
           // nobody signed up
-          playSFX("menu_fail");
+          playSFX({name: "menu_fail"});
           activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
           setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
         }
@@ -472,6 +619,10 @@ function chooseEpisodeKeys(event) {
     }
   }
 }
+/**
+ * Starts the episode choice screen, including
+ * the episode selector carousel.
+ */
 function chooseEpisode(){
   document.body.className = "state_episode_list";
   var episodeCarousel = document.getElementById("episode_carousel");
@@ -480,9 +631,9 @@ function chooseEpisode(){
     episodeCarousel.scrollTop();
     episodeCarousel.querySelector(".sel").classList.remove("sel");
   } else {
-    const summary = Object.keys(episode_index);
+    const summary = Object.keys(episode_listing);
     summary.forEach((key) => {
-      const episode = episode_index[key];
+      const episode = episode_listing[key];
       const i = summary.indexOf(key);
       console.log("episode", episode, "i", i);
       var item = document.createElement("div");
@@ -499,10 +650,15 @@ function chooseEpisode(){
   episodeCarousel.firstElementChild.classList.add("sel");
   changeKeyHandler(chooseEpisodeKeys, false);
 }
+/**
+ * Fetches episode data from the listing, if it hasn't been
+ * loaded and stored before in the global variable
+ * episode_listing.
+ */
 function getEpisodes(){
   changeKeyHandler(undefined, false);
   document.body.className = "state_episode";
-  if (isEmptyObj(episode_index)) {
+  if (isEmptyObj(episode_listing)) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'text/json');
     fetch(ROOT + 'q/0.json', {
@@ -520,7 +676,7 @@ function getEpisodes(){
       console.log(error);
       abort(["Error on fetching episode list."]);
     }).then(json => {
-      episode_index = json;
+      episode_listing = json;
       console.log("Fetched /q/0.json", json);
       chooseEpisode();
     });
@@ -528,6 +684,10 @@ function getEpisodes(){
     chooseEpisode();
   }
 }
+/**
+ * The player signup screen key handler.
+ * @param {keyDownEvent} event The event.
+ */
 function signupKeys(event){
   console.log("signupKeys()");
   event.stopPropagation();
@@ -546,7 +706,7 @@ function signupKeys(event){
     case 5:
       // register
       if (!params.players[player - 1].present){
-        playSFX("menu_signin");
+        playSFX({name: "menu_signin"});
         params.players[player - 1].present = true;
         cards[player - 1].classList.add("on");
         params.playerCount++;
@@ -556,7 +716,7 @@ function signupKeys(event){
     case 2:
       // unregister
       if (params.players[player - 1].present){
-        playSFX("menu_signout");
+        playSFX({name: "menu_signout"});
         params.players[player - 1].present = false;
         cards[player - 1].classList.remove("on");
         params.playerCount--;
@@ -568,7 +728,7 @@ function signupKeys(event){
     case 4:
       // back
       changeKeyHandler(undefined, false);
-      playSFX("menu_back");
+      playSFX({name: "menu_back"});
       stopMusic(400);
       initApp();
       break;
@@ -582,22 +742,26 @@ function signupKeys(event){
       }
       if (playerCount) {
         // somebody signed up
-        playSFX("menu_confirm");
+        playSFX({name: "menu_confirm"});
         changeKeyHandler(undefined, false);
         setExtra2Volume(0.8);
         setExtraVolume(0);
         getEpisodes();
       } else {
         // nobody signed up
-        playSFX("menu_fail");
+        playSFX({name: "menu_fail"});
         activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
         setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
       }
       break;
   }
 }
+/**
+ * Starts the signup screen.
+ */
 function startSignup(){
   changeKeyHandler(undefined, false);
+  stopMusic(400);
   document.body.className = "state_signup";
   params_players_cache = [];
   const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
@@ -611,12 +775,15 @@ function startSignup(){
   console.log(params_players_cache);
   params.players = params_players_cache;
   console.log(params.players);
-  stopMusic(400);
   setTimeout(function(){
-    playMusic({name: "signup_base", vol: 0.8}, {name: "signup_extra"}, {name: "signup_extra2"});
+    playMusic({name: "signup_base"}, {name: "signup_extra"}, {name: "signup_extra2"});
   }, MUSIC_DELAY);
   setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
 }
+/**
+ * The title screen key handler.
+ * @param {keyDownEvent} event The event.
+ */
 function titleKeys(event) {
   console.log("titleKeys");
   event.stopPropagation();
@@ -636,20 +803,20 @@ function titleKeys(event) {
   switch (input % 64) {
     case 2:
       console.log("up");
-      playSFX("menu_move");
+      playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
       selected = (selected + buttons.length - 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
     case 5:
       console.log("down");
-      playSFX("menu_move");
+      playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
       selected = (selected + 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
     case 6:
-      playSFX("menu_confirm");
+      playSFX({name: "menu_confirm"});
       switch (selected) {
         case 0:
           startSignup();
@@ -722,6 +889,10 @@ function titleKeys(event) {
       return;
   }
 }
+/**
+ * Called when the game is initialized or when the player
+ * returns to the menu.
+ */
 function initApp(){
   document.body.className = "state_title";
   changeKeyHandler(titleKeys, false);
