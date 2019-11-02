@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "_Mikado";
-  font-weight: Bold;
+  font-weight: bold;
   font-display: swap;
   src:
     local("Mikado Bold"), local("Mikado-Bold"),
@@ -26,7 +26,7 @@
 
 @font-face {
   font-family: "_Mikado";
-  font-weight: Regular;
+  font-weight: normal;
   font-display: swap;
   src:
     local("Mikado"), local("Mikado Regular"), local("Mikado-Regular"),
@@ -437,7 +437,7 @@ section.candy>.section_content {
   transition: background-color 500ms ease-in-out;
 }
 
-.signup.on {
+body.state_signup .signup.on {
   background-color: rgba(64, 192, 96, 0.5);
   -webkit-transition: background-color 200ms ease-in-out;
   transition: background-color 200ms ease-in-out;
@@ -466,17 +466,56 @@ section.candy>.section_content {
   height: 14rem;
 }
 
-.signup.on .signup-empty,
+body.state_signup .signup.on .signup-empty,
 .signup-full {
   height: 0rem;
   -webkit-transition: height 500ms ease-out;
   transition: height 500ms ease-out;
 }
 
-.signup.on .signup-full {
+body.state_signup .signup.on .signup-full {
   height: 14rem;
   -webkit-transition: height 500ms ease-out;
   transition: height 500ms ease-out;
+}
+
+#episode_carousel {
+  position: absolute;
+  overflow: scroll;
+  left: 24rem;
+  width: 34rem;
+  height: 32rem;
+  background: black;
+  font-size: 2rem;
+  padding: 0;
+}
+
+#episode_carousel > div {
+  position: relative;
+  left: 0;
+  display: block;
+  padding: 0 1rem;
+  width: 30rem;
+  margin: 0.5rem 0.5 0.5rem 1.5rem;
+  background: green;
+  border-radius: 0.5rem;
+  transition: left 0.1s linear, background 0.3s linear;
+}
+
+#episode_carousel > div > .marker {
+  display: inline-block;
+  width: 1.5rem;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+#episode_carousel > div > .marker::after {
+  content: ". ";
+}
+
+#episode_carousel > div.sel {
+  background: crimson;
+  left: -1rem;
 }
 
 #game-logo {}
