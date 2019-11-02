@@ -84,7 +84,13 @@ function getIndexOfSel(buttons){
 
 const MUSIC_DELAY = 400;
 const MAX_PLAYER_COUNT = 8;
-const ROOT = "https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/salty/"
+var _ROOT = "https://japanyoshi.github.io/salty/";
+if ((window.location.href).charAt(0) == "f") {
+  // protocol is "file", therefore it's a local test
+  _ROOT = "https://cors-anywhere.herokuapp.com/" + _ROOT;
+}
+const ROOT = _ROOT;
+delete _ROOT;
 
 /**
  * This part sets up music and sound effects for Howler.js.
@@ -255,11 +261,20 @@ function stopMusic(fade_ms) {
  * to 0.
  */
 function playMusic(bgm, bgmExtra, bgmExtra2){
-  // pass {name: string, vol: float}
-  // set up
+  // Trying to play music while another music is playing
+  // causes an error, so we want to stop the music if it's
+  // playing, before we play our new one.
+  if (
+    (bgm_sound        && bgm_sound.playing()       ) ||
+    (bgm_sound_extra  && bgm_sound_extra.playing() ) ||
+    (bgm_sound_extra2 && bgm_sound_extra2.playing())
+  ) {
+    stopMusic(0);
+  }
   if (bgm.vol !== 0 && !bgm.vol) {
     bgm.vol = 0.8;
   }
+  // set up
   bgm_sound = bgm_data[bgm.name];
   bgm_sound.volume(bgm.vol);
   if (bgmExtra) {
@@ -268,26 +283,33 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     }
     bgm_sound_extra = bgm_data[bgmExtra.name];
     bgm_sound_extra.volume(bgmExtra.vol);
-  } else {
-    bgm_sound_extra = undefined;
-  }
-  if (bgmExtra2) {
-    if (!bgmExtra2.vol) {
-      bgmExtra2.vol = 0;
+    if (bgmExtra2) {
+      if (!bgmExtra2.vol) {
+        bgmExtra2.vol = 0;
+      }
+      bgm_sound_extra2 = bgm_data[bgmExtra2.name];
+      bgm_sound_extra2.volume(bgmExtra2.vol);
+    } else {
+      bgm_sound_extra = undefined;
     }
-    bgm_sound_extra2 = bgm_data[bgmExtra2.name];
-    bgm_sound_extra2.volume(bgmExtra2.vol);
   } else {
     bgm_sound_extra = undefined;
+    bgm_sound_extra2 = undefined;
   }
   if (bgm_sound_extra2) {
+    bgm_sound.stop();
+    bgm_sound_extra.stop();
+    bgm_sound_extra2.stop();
     bgm_sound.play();
     bgm_sound_extra.play();
     bgm_sound_extra2.play();
   } else if (bgm_sound_extra) {
+    bgm_sound.stop();
+    bgm_sound_extra.stop();
     bgm_sound.play();
     bgm_sound_extra.play();
   } else {
+    bgm_sound.stop();
     bgm_sound.play();
   }
 }
@@ -324,7 +346,7 @@ function playSFX(sfx) {
     if (sfx.vol) {
       sfx_data[sfx.name].volume(sfx.vol);
     }
-    sfx_data[sfx].play();
+    sfx_data[sfx.name].play();
   } else {
     console.log("playSFX error: the sound effect " + sfx + " does not exist.");
   }
@@ -592,7 +614,8 @@ function chooseEpisodeKeys(event) {
         // back
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
-        stopMusic(400);
+        setExtraVolume(0.8);
+        setExtra2Volume(0);
         startSignup();
         break;
       case 6:
@@ -628,7 +651,7 @@ function chooseEpisode(){
   var episodeCarousel = document.getElementById("episode_carousel");
   if (episodeCarousel.childElementCount) {
     // reset selection
-    episodeCarousel.scrollTop();
+    episodeCarousel.scrollTop = 0;
     episodeCarousel.querySelector(".sel").classList.remove("sel");
   } else {
     const summary = Object.keys(episode_listing);
@@ -761,8 +784,15 @@ function signupKeys(event){
  */
 function startSignup(){
   changeKeyHandler(undefined, false);
-  stopMusic(400);
+  // init elements
   document.body.className = "state_signup";
+  Array.prototype.forEach.call(
+    document.getElementById("s_signup").getElementsByClassName("on"),
+    el => {
+      el.classList.remove("on");
+    }
+  );
+  // init signup data
   params_players_cache = [];
   const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
   for (i = 0; i < MAX_PLAYER_COUNT; i++) {
@@ -775,10 +805,14 @@ function startSignup(){
   console.log(params_players_cache);
   params.players = params_players_cache;
   console.log(params.players);
+  // set key handler and music with a delay
   setTimeout(function(){
-    playMusic({name: "signup_base"}, {name: "signup_extra"}, {name: "signup_extra2"});
+    if (bgm_sound !== bgm_data["signup_base"]) {
+      stopMusic(400);
+      playMusic({name: "signup_base"}, {name: "signup_extra"}, {name: "signup_extra2"});
+    }
+    changeKeyHandler(signupKeys, false)
   }, MUSIC_DELAY);
-  setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
 }
 /**
  * The title screen key handler.
@@ -819,6 +853,7 @@ function titleKeys(event) {
       playSFX({name: "menu_confirm"});
       switch (selected) {
         case 0:
+          stopMusic(300);
           startSignup();
           break;
         case 1:
