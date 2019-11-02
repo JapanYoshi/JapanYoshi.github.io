@@ -6,25 +6,37 @@ var sfx_data = {};
 var bgm_sound;
 var bgm_sound_extra;
 var bgm_sound_extra2;
-var currentEventListeners = [];
-function popKeyHandler() {
-  if (currentEventListeners) {
-    document.removeEventListener("keydown", currentEventListeners[currentEventListeners.length - 1]);
-    currentEventListeners.pop();
+var currentEventListener = undefined;
+var currentEventListenerModal = undefined;
+function keyShiv(event){
+  if (currentEventListenerModal) {
+    return currentEventListenerModal(event);
+  } else if (currentEventListener) {
+    return currentEventListener(event);
+  } else {
+    console.log("no key handler");
+    return;
   }
 }
-function changeKeyHandler(f, allowMulti) {
-  while (!allowMulti && currentEventListeners.length) {
-    popKeyHandler();
+function changeKeyHandler(f, modal) {
+  if (modal) {
+    currentEventListenerModal = f;
+  } else {
+    currentEventListener = f;
   }
-  setTimeout(function() {
-    document.addEventListener("keydown", f, true);
-    currentEventListeners.push(f);
-    // delayed to prevent double handling
-  }, 100);
 }
 function isEmptyObj(obj) {
   return Object.entries(obj).length === 0 && obj.constructor === Object;
+}
+function getIndexOfSel(buttons){
+  var selected = -1;
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].classList.contains("sel")) {
+      selected = i;
+      break;
+    }
+  }
+  return selected;
 }
 // sound effects should be played willy nilly, but one copy per sound effect
 
@@ -40,21 +52,23 @@ const KEY_CONFIG = [
 
 // howler.js setup stuff
 const bgm_names = [
+  "placeholder",
   "signup_base",
   "signup_extra",
   "signup_extra2",
-  "placeholder",
   "answer_now",
-  "reading_question",
+  "reading_question_base",
+  "reading_question_extra",
 ];
 const sfx_names = [
-  "menu_back",
+  "menu_move", // menu
   "menu_confirm",
+  "menu_back",
   "menu_fail",
-  "menu_move",
   "menu_signin",
   "menu_signout",
-  "option_correct",
+  "game_start",
+  "option_correct", // ingame
   "option_highlight",
   "option_show",
   "option_wrong",
@@ -114,9 +128,6 @@ for (const name of sfx_names) {
       console.log("SFX " + name + " finished");
     }
   });
-  sound.once('load', function(){
-    console.log("SFX " + name + " loaded");
-  })
   sfx_data[name] = sound;
 }
 function pauseMusic(state) {
@@ -282,7 +293,7 @@ function modalKeys(event) {
       box.scrollBy(0, screenHeight / 8);
       break;
     case 6:
-      popKeyHandler();
+      changeKeyHandler(undefined, true);
       playSFX("menu_confirm");
       setTimeout(function(){
         // give time for the title screen to process that the modal is still active
@@ -341,7 +352,7 @@ function activateModal(text) {
 function abortModalKeys(event) {
   event.stopPropagation();
   if (sys(event.keyCode) % 64 === 6) {
-    popKeyHandler();
+    changeKeyHandler(undefined, true);
     playSFX("menu_confirm");
     setTimeout(function(){
       document.getElementById("modal").classList.remove("active");
@@ -400,23 +411,96 @@ function abort(text) {
   console.log("Modal complete");
 }
 function chooseEpisodeKeys(event) {
-  console.log("key handler wip");
+  console.log("key handler wip:", event);
+  const id = sys(event.keyCode);
+  const key = id % 64;
+  const player = (id - key) / 64;
+  console.log("player", player, "key", key, "pressed");
+  if (
+    !player // player 0 means it's not a game key
+    || !(params.players[player-1].present) // not a present player
+  ){
+    return;
+  } else {
+    const buttons = document.getElementById("episode_carousel").childNodes;
+    var selected = getIndexOfSel(buttons);
+    switch (key) {
+      case 2:
+        console.log("up");
+        playSFX("menu_move");
+        buttons[selected].classList.remove("sel");
+        selected = (selected + buttons.length - 1) % buttons.length;
+        console.log("new choice:", selected, buttons[selected]);
+        buttons[selected].classList.add("sel");
+        break;
+      case 5:
+        console.log("down");
+        playSFX("menu_move");
+        buttons[selected].classList.remove("sel");
+        selected = (selected + 1) % buttons.length;
+        console.log("new choice:", selected, buttons[selected]);
+        buttons[selected].classList.add("sel");
+        break;
+      case 4:
+        // back
+        changeKeyHandler(undefined, false);
+        playSFX("menu_back");
+        stopMusic(400);
+        startSignup();
+        break;
+      case 6:
+        // start
+        var playerCount = 0
+        for (var i = 0; i < params.players.length; i++) {
+          if (params.players[i].present) {
+            playerCount++;
+          }
+        }
+        if (playerCount) {
+          // somebody signed up
+          playSFX("game_start");
+          changeKeyHandler(undefined, false);
+          stopMusic(1500);
+          console.log("game started");
+        } else {
+          // nobody signed up
+          playSFX("menu_fail");
+          activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
+          setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
+        }
+        break;
+    }
+  }
 }
 function chooseEpisode(){
   document.body.className = "state_episode_list";
   var episodeCarousel = document.getElementById("episode_carousel");
-  for (episode of episode_index) {
-    var item = document.createElement("li");
-    var title = document.createElement("div");
-    title.innerHTML = episode.title;
-    item.appendChild(title);
-    episodeCarousel.append(item);
+  if (episodeCarousel.childElementCount) {
+    // reset selection
+    episodeCarousel.scrollTop();
+    episodeCarousel.querySelector(".sel").classList.remove("sel");
+  } else {
+    const summary = Object.keys(episode_index);
+    summary.forEach((key) => {
+      const episode = episode_index[key];
+      const i = summary.indexOf(key);
+      console.log("episode", episode, "i", i);
+      var item = document.createElement("div");
+      var marker = document.createElement("span");
+      marker.classList = "marker";
+      marker.innerText = (i+1).toString();
+      item.appendChild(marker);
+      var title = document.createElement("span");
+      title.innerHTML = episode.title;
+      item.appendChild(title);
+      episodeCarousel.append(item);
+    });
   }
   episodeCarousel.firstElementChild.classList.add("sel");
   changeKeyHandler(chooseEpisodeKeys, false);
 }
 function getEpisodes(){
-  popKeyHandler();
+  changeKeyHandler(undefined, false);
   document.body.className = "state_episode";
   if (isEmptyObj(episode_index)) {
     const myHeaders = new Headers();
@@ -483,7 +567,7 @@ function signupKeys(event){
       break;
     case 4:
       // back
-      popKeyHandler();
+      changeKeyHandler(undefined, false);
       playSFX("menu_back");
       stopMusic(400);
       initApp();
@@ -499,7 +583,7 @@ function signupKeys(event){
       if (playerCount) {
         // somebody signed up
         playSFX("menu_confirm");
-        popKeyHandler();
+        changeKeyHandler(undefined, false);
         setExtra2Volume(0.8);
         setExtraVolume(0);
         getEpisodes();
@@ -513,7 +597,7 @@ function signupKeys(event){
   }
 }
 function startSignup(){
-  popKeyHandler();
+  changeKeyHandler(undefined, false);
   document.body.className = "state_signup";
   params_players_cache = [];
   const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
@@ -541,13 +625,7 @@ function titleKeys(event) {
     return;
   }
   var buttons = document.getElementById("title_option_box").children;
-  var selected = -1;
-  for (var i = 0; i < buttons.length; i++) {
-    if (buttons[i].classList.contains("sel")) {
-      selected = i;
-      break;
-    }
-  }
+  var selected = getIndexOfSel(buttons);
   if (selected == -1) {
     // error
     activateModal(["#Error", "An error occured while trying to select a menu item.", "[6]Dismiss"]);
@@ -658,21 +736,22 @@ document.addEventListener("DOMContentLoaded", function(){
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
     initApp();
+    document.addEventListener("keydown", keyShiv, true);
+    activateModal(["#Warning",
+    "*Keyboard layout",
+    "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.",
+    "*Keybind",
+    "Each player uses a 3x2 array of keys, represented as [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]; basically WASD/IJKL with up-left and up-right added.",
+    "Player 1: Q W E A S D",
+    "Player 2: F G H V B N",
+    "Player 3: U I O J K L",
+    "Player 4: 7 8 9 4 5 6 (Numpad)",
+    "Navigate using [[2]] and [[5]], and confirm by [[6]].",
+    "*Audio",
+    "This program has audio. Please check your audio volume.",
+    "This program is for up to 4 players, but one player must use the numpad.",
+    "#Browser compatibility",
+    "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.",
+    "[6] Start!"]);
   }, 3000);
-  activateModal(["#Warning",
-  "*Keyboard layout",
-  "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.",
-  "*Keybind",
-  "Each player uses a 3x2 array of keys, represented as [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]; basically WASD/IJKL with up-left and up-right added.",
-  "Player 1: Q W E A S D",
-  "Player 2: F G H V B N",
-  "Player 3: U I O J K L",
-  "Player 4: 7 8 9 4 5 6 (Numpad)",
-  "Navigate using [[2]] and [[5]], and confirm by [[6]].",
-  "*Audio",
-  "This program has audio. Please check your audio volume.",
-  "This program is for up to 4 players, but one player must use the numpad.",
-  "#Browser compatibility",
-  "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.",
-  "[6] Start!"]);
 }, true);
