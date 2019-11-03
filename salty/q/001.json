@@ -1,10 +1,9 @@
-// use [""] for default
 game: {
   system: {
-    intro1: ["..."],
-    intermission: ["..."],
-    intro2: ["..."],
-    outro: ["..."]
+    intro1: ["/data/audio/voice/intro_001"],
+    intermission: ["/data/audio/voice/break_001"],
+    intro2: ["/data/audio/voice/round2"],
+    outro: ["/data/audio/voice/outro_001"]
   }
   questions: [
     { 

@@ -576,6 +576,36 @@ function abort(text) {
   console.log("Modal complete");
 }
 /**
+ * Retrieves the data for the specified episode ID.
+ * It will be stored in the global variable episode_data.
+ * @param {string} filename The filename. This must be
+ * in the directory /q/.
+ */
+function loadEpisode(filename){
+  document.body.className = "state_loading_episode";
+  const myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'text/json');
+  fetch(ROOT + 'q/' + filename + ".json", {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors'
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      abort(["Error on fetching episode contents."]);
+      return;
+    }
+  }).catch(error => {
+    console.log(error);
+    abort(["Error on fetching episode contents."]);
+  }).then(json => {
+    episode_listing = json;
+    console.log("Fetched /q/" + filename + ".json", json);
+    startEpisode();
+  });
+}
+/**
  * The episode choice screen key handler.
  * @param {keyDownEvent} event The event.
  */
@@ -631,6 +661,7 @@ function chooseEpisodeKeys(event) {
           playSFX({name: "game_start"});
           changeKeyHandler(undefined, false);
           stopMusic(1500);
+          loadEpisode(episode_listing[selected].id);
           console.log("game started");
         } else {
           // nobody signed up

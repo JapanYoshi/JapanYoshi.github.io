@@ -173,6 +173,14 @@ p {
   padding: 0;
 }
 
+.button,
+#episode_carousel > div {
+  /* green bg gradient */
+  background-color: #348041;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5aa945), to(#348041));
+  background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
+}
+
 .button {
   display: block;
   text-align: left;
@@ -180,9 +188,6 @@ p {
   font-size: 1.5rem;
   line-height: 2rem;
   border-radius: 0.5rem;
-  background-color: #348041;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#5aa945), to(#348041));
-  background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
   pointer-events: initial;
 }
 
@@ -190,8 +195,10 @@ p {
   margin-top: 0.5rem;
 }
 
+/* red bg gradient */
 .button.sel,
-.signup-full .button {
+.signup-full .button,
+#episode_carousel > div.sel {
   background-color: #80345c;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bc56a2), to(#80345c));
   background-image: linear-gradient(to bottom, #bc56a2 0%, #80345c 100%);

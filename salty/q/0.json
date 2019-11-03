@@ -2,10 +2,10 @@
   {
     "id": "001",
     "title": "Pilot",
-    "data": "001.json"
+    "filename": "001"
   }, {
     "id": "002",
     "title": "???",
-    "data": "002.json"
+    "filename": "002"
   }
 ]
