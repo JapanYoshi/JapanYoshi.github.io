@@ -145,8 +145,14 @@ for (const name of bgm_names) {
     onloaderror: function(){
       console.log("Error loading music " + name);
     },
+    onplay: function(){
+      console.log("Started playing music " + name);
+    },
     onplayerror: function(){
       console.log("Error playing music " + name);
+    },
+    onstop: function(){
+      console.log("music " + name + " stopped");
     },
     onend: function(){
       console.log("music " + name + " finished");
@@ -215,34 +221,46 @@ function pauseMusic(state) {
  * 0 to disable fading.
  */
 function stopMusic(fade_ms) {
-  if (fade_ms) {
-    if (bgm_sound){
-      bgm_sound.once('fade', () => {
-        bgm_sound.stop();
-      });
-      bgm_sound.fade(bgm_sound.volume(), 0, fade_ms);
+  console.log("stopMusic objects are", bgm_sound, bgm_sound_extra, bgm_sound_extra2);
+  var c0 = bgm_sound;
+  var c1 = bgm_sound_extra;
+  var c2 = bgm_sound_extra2;
+  if (!fade_ms) {
+    console.log("stopMusic control flow", 4);
+    if (c0){
+      console.log("stopMusic control flow", 5);
+      c0.stop();
     }
-    if (bgm_sound_extra) {
-      bgm_sound_extra.once('fade', () => {
-        bgm_sound_extra.stop();
-      })
-      bgm_sound_extra.fade(bgm_sound_extra.volume(), 0, fade_ms);
+    if (c1) {
+      console.log("stopMusic control flow", 6);
+      c1.stop();
     }
-    if (bgm_sound_extra2) {
-      bgm_sound_extra2.once('fade', () => {
-        bgm_sound_extra2.stop();
-      })
-      bgm_sound_extra2.fade(bgm_sound_extra2.volume(), 0, fade_ms).stop();
+    if (c2) {
+      console.log("stopMusic control flow", 7);
+      c2.stop();
     }
   } else {
-    if (bgm_sound){
-      bgm_sound.stop();
+    console.log("stopMusic control flow", 0);
+    if (c0){
+      console.log("stopMusic control flow", 1);
+      c0.once("fade", () => {
+        c0.stop();
+      })
+      c0.fade(c0.volume(), 0, fade_ms);
     }
-    if (bgm_sound_extra) {
-      bgm_sound_extra.stop();
+    if (c1) {
+      console.log("stopMusic control flow", 2);
+      c1.once("fade", () => {
+        c1.stop();
+      })
+      c1.fade(c1.volume(), 0, fade_ms);
     }
-    if (bgm_sound_extra2) {
-      bgm_sound_extra2.stop();
+    if (c2) {
+      console.log("stopMusic control flow", 3);
+      c2.once("fade", () => {
+        c2.stop();
+      })
+      c2.fade(c2.volume(), 0, fade_ms).stop();
     }
   }
 }
@@ -266,53 +284,80 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   // Trying to play music while another music is playing
   // causes an error, so we want to stop the music if it's
   // playing, before we play our new one.
+  console.log(bgm_sound, bgm_sound_extra, bgm_sound_extra2);
+  console.log("control flow", 0);
   if (
     (bgm_sound        && bgm_sound.playing()       ) ||
     (bgm_sound_extra  && bgm_sound_extra.playing() ) ||
     (bgm_sound_extra2 && bgm_sound_extra2.playing())
   ) {
+    console.log("control flow", 1);
     stopMusic(0);
   }
-  if (bgm.vol !== 0 && !bgm.vol) {
+  if (!bgm.vol && bgm.vol !== 0) {
     bgm.vol = 0.8;
+    console.log("control flow", 2);
   }
   // set up
   bgm_sound = bgm_data[bgm.name];
   bgm_sound.volume(bgm.vol);
   if (bgmExtra) {
+    console.log("control flow", 3);
     if (!bgmExtra.vol) {
       bgmExtra.vol = 0;
+      console.log("control flow", 4);
     }
     bgm_sound_extra = bgm_data[bgmExtra.name];
     bgm_sound_extra.volume(bgmExtra.vol);
     if (bgmExtra2) {
+      console.log("control flow", 5);
       if (!bgmExtra2.vol) {
         bgmExtra2.vol = 0;
+        console.log("control flow", 6);
       }
       bgm_sound_extra2 = bgm_data[bgmExtra2.name];
       bgm_sound_extra2.volume(bgmExtra2.vol);
     } else {
+      console.log("control flow", 7);
       bgm_sound_extra = undefined;
     }
   } else {
+    console.log("control flow", 8);
     bgm_sound_extra = undefined;
     bgm_sound_extra2 = undefined;
   }
+  console.log(bgm_sound, bgm_sound_extra, bgm_sound_extra2);
+  // play them
   if (bgm_sound_extra2) {
+    console.log("control flow", 9);
+    bgm_sound_extra2.once("stop", function(){
+      bgm_sound_extra2.play();
+    })
+    bgm_sound_extra.once("stop", function(){
+      bgm_sound_extra.play();
+    })
+    bgm_sound.once("stop", function(){
+      bgm_sound.play();
+    })
     bgm_sound.stop();
     bgm_sound_extra.stop();
     bgm_sound_extra2.stop();
-    bgm_sound.play();
-    bgm_sound_extra.play();
-    bgm_sound_extra2.play();
   } else if (bgm_sound_extra) {
+    console.log("control flow", 10);
+    bgm_sound_extra.once("stop", function(){
+      bgm_sound_extra.play();
+    })
+    bgm_sound.once("stop", function(){
+      bgm_sound.play();
+    })
     bgm_sound.stop();
     bgm_sound_extra.stop();
-    bgm_sound.play();
-    bgm_sound_extra.play();
   } else {
+    console.log("control flow", 11);
+    bgm_sound.once("stop", function(){
+      bgm_sound.play();
+    })
     bgm_sound.stop();
-    bgm_sound.play();
   }
 }
 /**
@@ -516,11 +561,10 @@ function abortModalKeys(event) {
   if (sys(event.keyCode) % 64 === 6) {
     changeKeyHandler(undefined, true);
     playSFX({name: "menu_confirm"});
-    setTimeout(function(){
-      document.getElementById("modal").classList.remove("active");
-      document.body.className = "";
-      initApp();
-    }, 2000);
+    document.getElementById("modal").classList.remove("active");
+    document.body.className = "";
+    setTimeout(initApp, 2000);
+    console.log("Finished abortModalKeys");
   }
 }
 /**
@@ -571,11 +615,17 @@ function abort(text) {
     content.scrollTo(0, 0);
   }
   setTimeout(function(){
-    changeKeyHandler(modalKeys, true);
+    changeKeyHandler(abortModalKeys, true);
     console.log("Modal key handler complete.");
   }, 500);
   modal.classList.add("active");
   console.log("Modal complete");
+}
+/**
+ * Starts the episode!
+ */
+function startEpisode(){
+  abort(["#Under construction","The game proper is still being developed, and is currently nonfunctional.","Sorry about that."]);
 }
 /**
  * Retrieves the data for the specified episode ID.
@@ -647,7 +697,7 @@ function chooseEpisodeKeys(event) {
         // back
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
-        setExtraVolume(0.8);
+        setExtraVolume(0.6);
         setExtra2Volume(0);
         startSignup();
         break;
@@ -661,15 +711,20 @@ function chooseEpisodeKeys(event) {
         }
         if (playerCount) {
           // somebody signed up
+          try {
+            loadEpisode(episode_listing[selected].id);
+          } catch (e) {
+            abort(["#Error", "*An error occurred while trying to load the episode.", e.message])
+            break;
+          }
           playSFX({name: "game_start"});
           changeKeyHandler(undefined, false);
           stopMusic(1500);
-          loadEpisode(episode_listing[selected].id);
           console.log("game started");
         } else {
           // nobody signed up
           playSFX({name: "menu_fail"});
-          activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
+          activateModal(["#Nobody signed up.", "Press [[↓]] to sign up, and [[↑]] to sign off.", "[6] Okay"]);
           setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
         }
         break;
@@ -767,7 +822,7 @@ function signupKeys(event){
         params.players[player - 1].present = true;
         cards[player - 1].classList.add("on");
         params.playerCount++;
-        setExtraVolume(0.8);
+        setExtraVolume(0.6);
       }
       break;
     case 2:
@@ -801,7 +856,7 @@ function signupKeys(event){
         // somebody signed up
         playSFX({name: "menu_confirm"});
         changeKeyHandler(undefined, false);
-        setExtra2Volume(0.8);
+        setExtra2Volume(0.6);
         setExtraVolume(0);
         getEpisodes();
       } else {
@@ -843,7 +898,11 @@ function startSignup(){
   setTimeout(function(){
     if (bgm_sound !== bgm_data["signup_base"]) {
       stopMusic(400);
-      playMusic({name: "signup_base"}, {name: "signup_extra"}, {name: "signup_extra2"});
+      playMusic(
+        {name: "signup_base", vol: 0.6},
+        {name: "signup_extra", vol: 0},
+        {name: "signup_extra2", vol: 0}
+      );
     }
     changeKeyHandler(signupKeys, false)
   }, MUSIC_DELAY);
@@ -963,6 +1022,7 @@ function titleKeys(event) {
  * returns to the menu.
  */
 function initApp(){
+  console.log("initApp() called");
   document.body.className = "state_title";
   changeKeyHandler(titleKeys, false);
   setTimeout(
