@@ -96,13 +96,15 @@ delete _ROOT;
  * This part sets up music and sound effects for Howler.js.
  */
 const bgm_names = [
-  "placeholder",
+  "placeholder", // menu
   "signup_base",
   "signup_extra",
   "signup_extra2",
-  "answer_now",
+  "answer_now", // game
   "reading_question_base",
   "reading_question_extra",
+  "gibberish_base",
+  "gibberish_extra"
 ];
 const sfx_names = [
   "menu_move", // menu
