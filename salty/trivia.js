@@ -593,6 +593,7 @@ function loadEpisode(filename){
     mode: 'cors'
   }).then(response => {
     if (response.ok) {
+      console.log("response:", response.body);
       return response.json();
     } else {
       abort(["Error on fetching episode contents."]);
