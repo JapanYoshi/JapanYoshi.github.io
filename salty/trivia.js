@@ -652,6 +652,7 @@ function loadEpisode(filename){
   }).catch(error => {
     console.log(error);
     abort(["Error on fetching episode contents."]);
+    return;
   }).then(json => {
     episode_listing = json;
     console.log("Fetched /q/" + filename + ".json", json);
