@@ -98,6 +98,7 @@ delete _ROOT;
 /**
  * This part sets up music and sound effects for Howler.js.
  */
+const BGM_PRELOAD_COUNT = 4;
 const bgm_names = [
   "placeholder", // menu
   "signup_base",
@@ -109,6 +110,7 @@ const bgm_names = [
   "gibberish_base",
   "gibberish_extra"
 ];
+const SFX_PRELOAD_COUNT = 7;
 const sfx_names = [
   "menu_move", // menu
   "menu_confirm",
@@ -133,14 +135,15 @@ const sfx_names = [
 /**
  * This part loads the music onto the global variable bgm_data.
  */
-for (const name of bgm_names) {
+for (var i = 0; i < bgm_names.length; i++) {
+  var name = bgm_names[i]
   var sound = new Howl({
     src: [
       ROOT + "audio/music/" + name + ".ogg"
     ],
     autoplay: false,
     loop: true,
-    preload: true,
+    preload: (i < BGM_PRELOAD_COUNT),
     pool: 1,
     onload: function(){
       console.log("Music " + name + " loaded");
@@ -166,14 +169,15 @@ for (const name of bgm_names) {
 /**
  * This part loads sound effects into the variable sfx_data.
  */
-for (const name of sfx_names) {
+for (var i = 0; i < sfx_names.length; i++) {
+  name = sfx_names[i];
   var sound = new Howl({
     src: [
       ROOT + "audio/sfx/" + name + ".ogg"
     ],
     autoplay: false,
     loop: false,
-    preload: true,
+    preload: (i < SFX_PRELOAD_COUNT),
     pool: 1,
     onload: function(){
       console.log("SFX " + name + " loaded");
@@ -657,7 +661,7 @@ function loadEpisode(filename){
     abort(["Error on fetching episode contents."]);
     return;
   }).then(json => {
-    episode_listing = json;
+    episode_data = json;
     console.log("Fetched /q/" + filename + ".json", json);
     startEpisode();
   });
