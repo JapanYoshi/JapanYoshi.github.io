@@ -88,7 +88,7 @@ var _ROOT = "https://japanyoshi.github.io/salty/";
 if ((window.location.href).charAt(0) == "f") {
   // protocol is "file", therefore it's a local test
   _ROOT = "https://cors-anywhere.herokuapp.com/" + _ROOT;
-} else if ((window.location.href).substring(8, 7) == "2gd4.me") {
+} else if ((window.location.href).charAt(8) == "2") {
   // future-proof if I decide not to renew the 2gd4.me domain
   _ROOT = "https://2gd4.me/salty/";
 }
