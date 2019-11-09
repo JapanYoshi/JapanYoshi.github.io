@@ -39,15 +39,6 @@ html {
   /* screen will be 64rem x 36rem*/
 }
 
-#splash_screen.gone {
-  -webkit-animation: hide_splash_screen 1s linear;
-  animation: hide_splash_screen 1s linear;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
 body,
 p {
   font-family: "Poppins", "TeX Gyre Adventor", "Century Gothic", sans-serif;
@@ -76,6 +67,7 @@ p {
   width: 64rem;
   height: 36rem;
   overflow: hidden;
+  box-shadow: 0, 0, 0.5rem, rgba(255, 255, 255, 0.5);
 }
 
 section {
@@ -97,14 +89,6 @@ section {
   user-select: none;
 }
 
-body.state_title section#s_title,
-body.state_signup section#s_signup,
-body.state_game_title section#s_game_title,
-body.state_ingame section#s_ingame,
-body.state_episode_list section#s_episode_list {
-  opacity: 1;
-}
-
 @media (min-aspect-ratio: 16/9) {
   html {
     font-size: calc(100vh / 36);
@@ -116,7 +100,7 @@ body.state_episode_list section#s_episode_list {
   }
 }
 
-.section-bg {
+.section_bg {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -131,25 +115,14 @@ body.state_episode_list section#s_episode_list {
   filter: hue-rotate(-100deg) saturate(30%) contrast(80%) brightness(80%);
 }
 
-section#s_title>.section-bg {
-  background-image: url("https://wallpapershome.com/images/wallpapers/lines-1920x1080-pink-purple-abstract-hd-15571.jpg");
-  -webkit-filter: blur(2px) hue-rotate(-120deg) saturate(30%);
-  filter: blur(2px) hue-rotate(-120deg) saturate(30%);
-}
-
-section#s_signup>.section-bg {
-  -webkit-filter: saturate(10%) contrast(80%) brightness(50%);
-  filter: saturate(10%) contrast(80%) brightness(50%);
-}
-
-.section-content {
+.section_content {
   z-index: 2;
   width: 100%;
   height: 100%;
   position: absolute;
 }
 
-.section-content>div {
+.section_content > div {
   position: relative;
   width: 100%;
   height: 100%;
@@ -161,11 +134,12 @@ h2,
 h3,
 #title_trivia,
 .question,
-.section-title {
-  font-family: "Orelega", "Domine", "TeX Gyre Schola", "Century Schoolbook";
-  font-weight: bold;
+.section_title,
+.title {
   margin: 0;
   padding: 0;
+  font-family: "Orelega", "Domine", "TeX Gyre Schola", "Century Schoolbook";
+  font-weight: bold;
 }
 
 p {
@@ -197,7 +171,7 @@ p {
 
 /* red bg gradient */
 .button.sel,
-.signup-full .button,
+.signup_full .button,
 #episode_carousel > div.sel {
   background-color: #80345c;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#bc56a2), to(#80345c));
@@ -359,7 +333,7 @@ section.candy>.section_content {
   animation: show 700ms ease-out 0s;
 }
 
-.scroll-tip {
+.scroll_tip {
   position: absolute;
   top: calc(50vh - 18rem);
   width: 100vw;
@@ -369,11 +343,11 @@ section.candy>.section_content {
   color: rgba(255, 255, 255, 0.75);
 }
 
-#modal.overflowing .scroll-tip {
+#modal.overflowing .scroll_tip {
   opacity: 1;
 }
 
-.modal-box {
+.modal_box {
   width: 48rem;
   max-height: 32rem;
   position: absolute;
@@ -387,160 +361,36 @@ section.candy>.section_content {
   scroll-behavior: smooth;
 }
 
-.modal-content {
+.modal_content {
   padding: 1rem;
 }
 
-.floating-back-button {
+.floating_back_button,
+.floating_func_button {
   width: 10rem;
   height: 2rem;
   position: absolute;
   top: 0;
-  left: 0;
   margin-top: 0.5rem;
+}
+
+.floating_back_button {
+  left: 0;
   margin-left: 0.5rem;
 }
 
-.floating-func-button {
-  width: 10rem;
-  height: 2rem;
-  position: absolute;
-  top: 0;
+.floating_func_button {
   right: 0;
-  margin-top: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.section-title {
+.section_title {
   font-size: 3rem;
   text-align: center;
   line-height: 4rem;
   width: 24rem;
   height: 4rem;
   margin: 0 auto;
-}
-
-#signup-box {
-  display: table;
-  width: 64rem;
-  height: 32rem;
-  text-align: center;
-  border-spacing: 0.5rem;
-}
-
-.signup-row {
-  display: table-row;
-  height: 15rem;
-}
-
-.signup {
-  background: rgba(0, 0, 0, 0.5);
-  display: table-cell;
-  padding: 0.5rem;
-  vertical-align: top;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  -webkit-transition: background-color 500ms ease-in-out;
-  transition: background-color 500ms ease-in-out;
-}
-
-body.state_signup .signup.on {
-  background-color: rgba(64, 192, 96, 0.5);
-  -webkit-transition: background-color 200ms ease-in-out;
-  transition: background-color 200ms ease-in-out;
-}
-
-.signup-flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-}
-
-.signup-empty,
-.signup-full {
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -ms-flex-preferred-size: auto;
-  flex-basis: auto;
-  overflow: hidden;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
-  height: 14rem;
-}
-
-body.state_signup .signup.on .signup-empty,
-.signup-full {
-  height: 0rem;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
-}
-
-body.state_signup .signup.on .signup-full {
-  height: 14rem;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
-}
-
-#episode_carousel {
-  position: absolute;
-  overflow: scroll;
-  left: 24rem;
-  width: 34rem;
-  height: 32rem;
-  background: black;
-  font-size: 2rem;
-  padding: 0;
-}
-
-#episode_carousel > div {
-  position: relative;
-  left: 0;
-  display: block;
-  padding: 0 1rem;
-  width: 30rem;
-  margin: 0.5rem 0.5 0.5rem 1.5rem;
-  background: green;
-  border-radius: 0.5rem;
-  transition: left 0.1s linear, background 0.3s linear;
-}
-
-#episode_carousel > div > .marker {
-  display: inline-block;
-  width: 1.5rem;
-  text-align: right;
-  padding-right: 0.5rem;
-}
-
-#episode_carousel > div > .marker::after {
-  content: ". ";
-}
-
-#episode_carousel > div.sel {
-  background: crimson;
-  left: -1rem;
-}
-
-#game-logo {}
-
-@-webkit-keyframes breathe {
-  0% {
-    -webkit-transform: scale(1.05, 1.05);
-    transform: scale(1.05, 1.05);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
-
-  100% {
-    -webkit-transform: scale(1.07, 1.07);
-    transform: scale(1.07, 1.07);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
 }
 
 @keyframes breathe {
@@ -556,26 +406,6 @@ body.state_signup .signup.on .signup-full {
     transform: scale(1.07, 1.07);
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
-  }
-}
-
-@-webkit-keyframes show {
-  0% {
-    display: none;
-    opacity: 0;
-    -webkit-backdrop-filter: blur(0rem) brightness(100%);
-    backdrop-filter: blur(0rem) brightness(100%);
-  }
-
-  0.1% {
-    display: block;
-  }
-
-  to {
-    display: block;
-    opacity: 1;
-    -webkit-backdrop-filter: blur(1rem) brightness(120%);
-    backdrop-filter: blur(1rem) brightness(120%);
   }
 }
 
@@ -599,26 +429,6 @@ body.state_signup .signup.on .signup-full {
   }
 }
 
-@-webkit-keyframes hide {
-  0% {
-    display: block;
-    opacity: 1;
-    -webkit-backdrop-filter: blur(1rem) brightness(120%);
-    backdrop-filter: blur(1rem) brightness(120%);
-  }
-
-  99.9% {
-    display: block;
-  }
-
-  to {
-    display: none;
-    opacity: 0;
-    -webkit-backdrop-filter: blur(0rem) brightness(100%);
-    backdrop-filter: blur(0rem) brightness(100%);
-  }
-}
-
 @keyframes hide {
   0% {
     display: block;
@@ -639,26 +449,6 @@ body.state_signup .signup.on .signup-full {
   }
 }
 
-@-webkit-keyframes hide_splash_screen {
-  0% {
-    display: fixed;
-    opacity: 1;
-    -webkit-backdrop-filter: blur(0rem);
-    backdrop-filter: blur(0rem);
-  }
-
-  99.9% {
-    display: fixed;
-  }
-
-  to {
-    display: none;
-    opacity: 0;
-    -webkit-backdrop-filter: blur(4rem);
-    backdrop-filter: blur(4rem);
-  }
-}
-
 @keyframes hide_splash_screen {
   0% {
     display: fixed;
@@ -676,37 +466,5 @@ body.state_signup .signup.on .signup-full {
     opacity: 0;
     -webkit-backdrop-filter: blur(4rem);
     backdrop-filter: blur(4rem);
-  }
-}
-
-@-webkit-keyframes anim_salty {
-  0% {
-    -webkit-transform: scale(1, 1) rotate(0deg);
-    transform: scale(1, 1) rotate(0deg);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
-
-  100% {
-    -webkit-transform: scale(1.5, 1.5) rotate(-30deg);
-    transform: scale(1.5, 1.5) rotate(-30deg);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
-}
-
-@keyframes anim_salty {
-  0% {
-    -webkit-transform: scale(1, 1) rotate(0deg);
-    transform: scale(1, 1) rotate(0deg);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
-
-  100% {
-    -webkit-transform: scale(1.5, 1.5) rotate(-30deg);
-    transform: scale(1.5, 1.5) rotate(-30deg);
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
   }
 }

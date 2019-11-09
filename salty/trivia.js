@@ -1,6 +1,5 @@
-var params = {}; // persistent data will be stored in here
+var params = {};
 var episode_listing = {};
-var episode_data = {};
 var bgm_data = {};
 var sfx_data = {};
 var bgm_sound;
@@ -9,27 +8,6 @@ var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
 
-const loadPage = (name) => {
-  document.body.classList = "";
-  setTimeout(function(){
-    const screen = document.getElementById("screen");
-    // delete all children
-    while (screen.lastChild) {
-      screen.removeChild(screen.lastChild);
-    }
-    // request page
-    var xhr= new XMLHttpRequest();
-    xhr.open('GET', name + '.html', true);
-    xhr.onreadystatechange = function() {
-      if (this.readyState !== 4) return;
-      if (this.status !== 200) {
-        window.alert("Error on loading page " + name + ". Please see the browser console for details.");
-      }; // or whatever error handling you want
-      screen.innerHTML= this.responseText;
-    };
-    xhr.send();
-  }, 1000);
-}
 /**
  * floorTextSize sets the size of 1 rem to be an integer
  * number of pixels. This should be called on window
@@ -134,7 +112,31 @@ if ((window.location.href).charAt(0) == "f") {
 }
 const ROOT = _ROOT;
 delete _ROOT;
-
+/**
+ * Loads the contents of the specified HTML file into the #screen element.
+ * @param {string} name Name of the page (minus .html).
+ */
+const loadPage = (name) => {
+  document.body.classList = "";
+  setTimeout(function(){
+    const screen = document.getElementById("screen");
+    // delete all children
+    while (screen.lastChild) {
+      screen.removeChild(screen.lastChild);
+    }
+    // request page
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', name + '.html', true);
+    xhr.onreadystatechange = function() {
+      if (this.readyState !== 4) return;
+      if (this.status !== 200) {
+        window.alert("Error on loading page " + name + ". Please see the browser console for details.");
+      }; // or whatever error handling you want
+      screen.innerHTML= this.responseText;
+    };
+    xhr.send();
+  }, 1000);
+}
 /**
  * This part sets up music and sound effects for Howler.js.
  */
@@ -143,12 +145,7 @@ const bgm_names = [
   "placeholder", // menu
   "signup_base",
   "signup_extra",
-  "signup_extra2",
-  "answer_now", // game
-  "reading_question_base",
-  "reading_question_extra",
-  "gibberish_base",
-  "gibberish_extra"
+  "signup_extra2"
 ];
 const SFX_PRELOAD_COUNT = 8;
 const sfx_names = [
@@ -159,19 +156,7 @@ const sfx_names = [
   "menu_signout",
   "menu_stuck",
   "game_start",
-  "menu_fail",
-  "option_correct", // ingame
-  "option_highlight",
-  "option_show",
-  "option_wrong",
-  "pause_enter",
-  "pause_exit",
-  "point_gain",
-  "question_leave",
-  "question_show",
-  "time_up",
-  "title_leave",
-  "title_show"
+  "menu_fail"
 ];
 /**
  * This part loads the music onto the global variable bgm_data.
@@ -675,7 +660,8 @@ function abort(text) {
  * Starts the episode!
  */
 function startEpisode(){
-  abort(["#Under construction","The game proper is still being developed, and is currently nonfunctional.","Sorry about that."]);
+
+  loadPage("game");
 }
 /**
  * Retrieves the data for the specified episode ID.
