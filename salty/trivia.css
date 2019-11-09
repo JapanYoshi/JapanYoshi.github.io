@@ -252,13 +252,10 @@ section.candy>.section_content {
   position: relative;
   left: -7rem;
   top: 4rem;
-  -webkit-animation: anim_salty 0.4s ease-in-out 0s infinite alternate;
-  animation: anim_salty 0.4s ease-in-out 0s infinite alternate;
   z-index: 15;
 }
 
 #title_salty span {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #ff90d6), color-stop(75%, #fb4777));
   background: linear-gradient(to bottom, #ff90d6 25%, #fb4777 75%);
   -webkit-background-clip: text;
   background-clip: text;

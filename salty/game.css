@@ -1,3 +1,7 @@
+body.state_game_title section#s_game_title,
+body.state_question section#s_question {
+  display: block;
+}
 
 .userbar-number,
 .question_text,

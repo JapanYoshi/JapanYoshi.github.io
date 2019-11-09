@@ -17,6 +17,10 @@ section#s_signup>.section_bg {
   filter: saturate(10%) contrast(80%) brightness(50%);
 }
 
+section#s_title>#title_salty {
+  animation: anim_salty 0.4s ease-in-out 0s infinite alternate;
+}
+
 #signup_box {
   display: table;
   width: 64rem;
@@ -121,8 +125,6 @@ body.state_signup .signup.on .signup_full {
   background: crimson;
   left: -1rem;
 }
-
-
 
 @keyframes anim_salty {
   0% {

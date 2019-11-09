@@ -1,0 +1,1 @@
+document.body.classList = "state_game_title";
