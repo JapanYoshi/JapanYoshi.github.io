@@ -1,12 +1,3 @@
-#splash_screen.gone {
-  -webkit-animation: hide_splash_screen 1s linear;
-  animation: hide_splash_screen 1s linear;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
 body.state_title section#s_title,
 body.state_signup section#s_signup,
 body.state_game_title section#s_game_title,
@@ -25,8 +16,6 @@ section#s_signup>.section-bg {
   -webkit-filter: saturate(10%) contrast(80%) brightness(50%);
   filter: saturate(10%) contrast(80%) brightness(50%);
 }
-
-
 
 #signup_box {
   display: table;

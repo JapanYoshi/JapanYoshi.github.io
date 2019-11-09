@@ -39,6 +39,15 @@ html {
   /* screen will be 64rem x 36rem*/
 }
 
+#splash_screen.gone {
+  -webkit-animation: hide_splash_screen 1s linear;
+  animation: hide_splash_screen 1s linear;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
 body,
 p {
   font-family: "Poppins", "TeX Gyre Adventor", "Century Gothic", sans-serif;
