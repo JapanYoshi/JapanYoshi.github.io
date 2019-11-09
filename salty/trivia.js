@@ -10,6 +10,25 @@ var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
 
 /**
+ * floorTextSize sets the size of 1 rem to be an integer
+ * number of pixels. This should be called on window
+ * resize and document DOMContentLoaded.
+ */
+const floorRem = () => {
+  // get max width dimension in multiple of 64
+  // get max height dimension in multiple of 36
+  // take minimum
+  const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  const scale = Math.min(
+    Math.floor(w / 64),
+    Math.floor(h / 36)
+  );
+  document.documentElement.style.fontSize = `${scale}px`
+;}
+window.addEventListener("resize", floorRem);
+
+/**
  * keyShiv is set as the EventListener for keyDown,
  * and redirects the event to the specific handlers.
  * The active handler can be changed using
@@ -110,15 +129,16 @@ const bgm_names = [
   "gibberish_base",
   "gibberish_extra"
 ];
-const SFX_PRELOAD_COUNT = 7;
+const SFX_PRELOAD_COUNT = 8;
 const sfx_names = [
   "menu_move", // menu
   "menu_confirm",
   "menu_back",
-  "menu_fail",
   "menu_signin",
   "menu_signout",
+  "menu_stuck",
   "game_start",
+  "menu_fail",
   "option_correct", // ingame
   "option_highlight",
   "option_show",
@@ -184,6 +204,9 @@ for (var i = 0; i < sfx_names.length; i++) {
     },
     onloaderror: function(){
       console.log("Error loading SFX " + name);
+    },
+    onplay: function(){
+      console.log("Playing SFX " + name);
     },
     onplayerror: function(){
       console.log("Error playing SFX " + name);
@@ -395,7 +418,6 @@ function setExtra2Volume(vol) {
  */
 function playSFX(sfx) {
   if (sfx_data[sfx.name]) {
-    console.log("playing SFX: " + sfx.name);
     sfx_data[sfx.name].stop();
     if (sfx.vol) {
       sfx_data[sfx.name].volume(sfx.vol);
@@ -687,19 +709,27 @@ function chooseEpisodeKeys(event) {
     switch (key) {
       case 2:
         console.log("up");
-        playSFX({name: "menu_move"});
-        buttons[selected].classList.remove("sel");
-        selected = (selected + buttons.length - 1) % buttons.length;
-        console.log("new choice:", selected, buttons[selected]);
-        buttons[selected].classList.add("sel");
+        if (selected) {
+          playSFX({name: "menu_move"});
+          buttons[selected].classList.remove("sel");
+          selected = (selected + buttons.length - 1) % buttons.length;
+          console.log("new choice:", selected, buttons[selected]);
+          buttons[selected].classList.add("sel");
+        } else {
+          playSFX({name: "menu_stuck"});
+        }
         break;
       case 5:
         console.log("down");
-        playSFX({name: "menu_move"});
-        buttons[selected].classList.remove("sel");
-        selected = (selected + 1) % buttons.length;
-        console.log("new choice:", selected, buttons[selected]);
-        buttons[selected].classList.add("sel");
+        if ((selected + 1) % buttons.length) {
+          playSFX({name: "menu_move"});
+          buttons[selected].classList.remove("sel");
+          selected = (selected + 1) % buttons.length;
+          console.log("new choice:", selected, buttons[selected]);
+          buttons[selected].classList.add("sel");
+        } else {
+          playSFX({name: "menu_stuck"});
+        }
         break;
       case 4:
         // back
@@ -960,22 +990,22 @@ function titleKeys(event) {
         case 1:
           activateModal([
             "# Controls",
-            "Each player has 6 keys, called ↖, ↑, ↗, ←, ↓, and →. Player 1 has 123 QWE. Player 2 has FGH VBN. Player 3 has 890 IOP. Player 4 has 789 456 on the numpad.",
+            "Each player has 6 keys, called [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]. Player 1 has 123 QWE. Player 2 has FGH VBN. Player 3 has 890 IOP. Player 4 has 789 456 on the numpad.",
             "On console, it should correspond to L, N, R, W, S, and E. (N, E, W, and S are face buttons.)",
             "# Basics",
             "Answer the questions correctly using your set of 6 keys.",
             "*Standard and Candy Trivia",
-            "Use your ↑, ←, →, and ↓ keys to select one of four options. Each correct answer nets you 5 points, but each wrong answer costs you 5 points.",
+            "Use your [[2]], [[4]], [[5]], and [[6]] keys to select one of four options. Each correct answer nets you 5 points, but each wrong answer costs you 5 points.",
             "In Candy Trivia with Salty Barr, the question and/or options are about candy. (corresponds to Cookie's Fortune Cookie Fortunes with Cookie “Fortune Cookie” Masterson.)",
             "*Sorting Time",
-            "Use your ← and → keys to sort the 7 items into 2 categories. Sometimes you need to press ↑ to sort into both. If you are unsure and don't want to risk it, you can press ↓ to skip, you chicken. Each item is worth 2 points. (Corresponds to DisOrDat.)",
+            "Use your [[4]] and [[6]] keys to sort the 7 items into 2 categories. Sometimes you need to press [[2]] to sort into both. If you are unsure and don't want to risk it, you can press [[5]] to skip, you chicken. Each item is worth 2 points. (Corresponds to DisOrDat.)",
             "*All Outta Salt",
             "You will see a phrase whose every syllable rhymes with the syllables of another phrase. When you know what it is, press any key to buzz in, then type in your answer.",
             "Up to 3 hints will be shown. Each AOS is worth 7 points, but each hint will lower the value by 2 points. (Corresponds to Gibberish Question.)",
             "*Sugar Rush",
-            "You will get a title, followed by 5 categories containing 6 items. For each category, press the corresponding key to answer whether that item fits that category. Each item is worth 1 point, making the whole game valued at 30 points. (Corresponds to Jack Attack [Full Stream style].)",
+            "You will get a title, followed by 5 categories containing 6 items. For each category, press the corresponding key ([[1]], [[2]], [[3]], [[4]], [[5]], [[6]])to answer whether that item fits that category. Each item is worth 1 point, making the whole game valued at 30 points. (Corresponds to Jack Attack [Full Stream style].)",
             "*Hike Your Likes",
-            "You will get 3 items and 5 categories. For each category, press the corresponding key to answer whether that item fits that category. Each correct answer gives the player 10 'likes', which are then converted to points at the end of the game. There is also a 4th bonus item for each category, which, in multiplayer mode, can only be answered by the half of players with the fewest 'likes'. (Altered from Trivia Murder Party's final chase.)",
+            "You will get 3 items and 5 categories. For each category, press the corresponding key ([[2]], [[4]], [[5]], [[6]]) to answer whether that item fits that category. Each correct answer gives the player 10 'likes', which are then converted to points at the end of the game. There is also a 4th bonus item for each category, which, in multiplayer mode, can only be answered by the half of players with the fewest 'likes'. (Modified from Trivia Murder Party's final chase.)",
             "[6] Dismiss"
           ]);
           break;
@@ -983,11 +1013,12 @@ function titleKeys(event) {
           activateModal([
             "#About",
             "Salty Trivia with Candy Barr is a sassy trivia video game where the questions are ridiculous but the answers are serious.",
-            "This game was created by Haley Wakamatsu, who also wrote the questions, coded this demo, and voiced your host, Candice “Candy” Barr.",
+            "This game was created by Haley Wakamatsu, who also wrote most questions, coded this demo, and voiced your host, Candice “Candy” Barr.",
             "[6] Dismiss"
           ]);
           break;
         case 3:
+          stopMusic(1000);
           activateModal([
             "#Credits",
             "*Made out of love for (inspired by)",
@@ -1003,6 +1034,8 @@ function titleKeys(event) {
             "#Writing",
             "*Head writer",
             "Haley Wakamatsu",
+            "*Writers",
+            "fssZilla",
             "#Voice",
             "*Candice “Candy” Barr",
             "Haley Wakamatsu",
@@ -1015,11 +1048,19 @@ function titleKeys(event) {
             "Coffee at Midnight - Akira Sora",
             "Announcer Music - Akira Sora",
             "15 Second Rock - Akira Sora",
-            "[6] accept our thanks for playing!"
+            "#Other help and feedback",
+            "shslsquirrel",
+            "[6] Accept our thanks for playing!"
           ]);
           break;
         case 4:
+          stopMusic(1000);
           window.open("https://japanyoshi.github.io/social.html", "_blank");
+          activateModal([
+            "To show this page, please allow pop-ups.",
+            "Alternatively, please go directly to " + (window.location.origin === "japanyoshi.github.io" ? window.location.origin : "2gd4.me") + "/social .",
+            "[6] Dismiss"
+          ]);
           break;
       }
       return;
@@ -1041,6 +1082,7 @@ function initApp(){
 }
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
+  floorRem();
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
     initApp();
