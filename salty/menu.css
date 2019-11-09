@@ -6,13 +6,13 @@ body.state_episode_list section#s_episode_list {
   opacity: 1;
 }
 
-section#s_title>.section-bg {
+section#s_title>.section_bg {
   background-image: url("https://wallpapershome.com/images/wallpapers/lines-1920x1080-pink-purple-abstract-hd-15571.jpg");
   -webkit-filter: blur(2px) hue-rotate(-120deg) saturate(30%);
   filter: blur(2px) hue-rotate(-120deg) saturate(30%);
 }
 
-section#s_signup>.section-bg {
+section#s_signup>.section_bg {
   -webkit-filter: saturate(10%) contrast(80%) brightness(50%);
   filter: saturate(10%) contrast(80%) brightness(50%);
 }
