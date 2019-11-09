@@ -76,7 +76,7 @@ p {
   width: 64rem;
   height: 36rem;
   overflow: hidden;
-  box-shadow: 0, 0, 0.5rem, rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.5);
 }
 
 section {
