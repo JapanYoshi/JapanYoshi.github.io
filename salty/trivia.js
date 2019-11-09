@@ -9,6 +9,27 @@ var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
 
+const loadPage = (name) => {
+  document.body.classList = "";
+  setTimeout(function(){
+    const screen = document.getElementById("screen");
+    // delete all children
+    while (screen.lastChild) {
+      screen.removeChild(screen.lastChild);
+    }
+    // request page
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', name + '.html', true);
+    xhr.onreadystatechange = function() {
+      if (this.readyState !== 4) return;
+      if (this.status !== 200) {
+        window.alert("Error on loading page " + name + ". Please see the browser console for details.");
+      }; // or whatever error handling you want
+      screen.innerHTML= this.responseText;
+    };
+    xhr.send();
+  }, 1000);
+}
 /**
  * floorTextSize sets the size of 1 rem to be an integer
  * number of pixels. This should be called on window
@@ -1083,6 +1104,7 @@ function initApp(){
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
   floorRem();
+  loadPage("menu");
   setTimeout(function(){
     document.getElementById("splash_screen").classList = "gone";
     initApp();
