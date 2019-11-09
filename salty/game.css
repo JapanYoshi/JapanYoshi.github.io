@@ -1,0 +1,9 @@
+
+.userbar-number,
+.question_text,
+.question_timer_number {
+  font-family: "TeX Gyre Schola", "Century Schoolbook";
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
