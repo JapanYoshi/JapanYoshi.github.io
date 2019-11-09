@@ -506,7 +506,7 @@ function modalKeys(event) {
     window.alert("event.keyCode failed");
     return;
   }
-  var box = document.getElementById("modal").getElementsByClassName("modal-box")[0];
+  var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
   switch (sys(keyCode) % 64) {
@@ -542,7 +542,7 @@ function modalKeys(event) {
  */
 function activateModal(text) {
   var modal = document.getElementById("modal");
-  var content = modal.getElementsByClassName("modal-content")[0];
+  var content = modal.getElementsByClassName("modal_content")[0];
   for (var i = content.childNodes.length - 1; i >= 0; i--) {
     content.removeChild(content.childNodes[i]);
   }
@@ -575,8 +575,7 @@ function activateModal(text) {
     node.innerHTML += formatIcons(text[i]);
     content.appendChild(node);
   }
-  console.log("height", modal.querySelector(".modal-box").clientHeight, modal.querySelector(".modal-box").clientHeight > modal.querySelector.scrollHeight ? "no scroll" : "scroll", content.scrollHeight);
-  if (modal.querySelector(".modal-box").clientHeight < content.scrollHeight) {
+  if (modal.querySelector(".modal_box").clientHeight < content.scrollHeight) {
     modal.classList.add("overflowing");
   }
   content.scrollTo(0, 0);
@@ -611,7 +610,7 @@ function abort(text) {
   stopMusic(0);
   document.body.className = "error";
   var modal = document.getElementById("modal");
-  var content = modal.getElementsByClassName("modal-content")[0];
+  var content = modal.getElementsByClassName("modal_content")[0];
   for (var i = content.childNodes.length - 1; i >= 0; i--) {
     content.removeChild(content.childNodes[i]);
   }
@@ -644,8 +643,7 @@ function abort(text) {
     node.innerHTML += formatIcons(text[i]);
     content.appendChild(node);
   }
-  console.log("height", modal.querySelector(".modal-box").clientHeight, modal.querySelector(".modal-box").clientHeight > modal.querySelector.scrollHeight ? "no scroll" : "scroll", content.scrollHeight);
-  if (modal.querySelector(".modal-box").clientHeight < content.scrollHeight) {
+  if (modal.querySelector(".modal_box").clientHeight < content.scrollHeight) {
     modal.classList.add("overflowing");
     content.scrollTo(0, 0);
   }
@@ -857,7 +855,7 @@ function signupKeys(event){
   const key = id % 64;
   const player = (id - key)/64;
   console.log("Player", player, "Key", key, "pressed.");
-  var cards = document.getElementById("signup-box").getElementsByClassName("signup");
+  var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
   switch (key) {
     case 5:
