@@ -1,4 +1,5 @@
 var params = {};
+var strings = {};
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
@@ -7,6 +8,27 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
+
+/**
+ * Loads strings to memory via a request.
+ */
+fetch("strings.json", {
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors'
+}).then(response => {
+  if (response.ok) {
+    console.log("response:", response.body);
+    return response.json();
+  } else {
+    alert("Error fetching strings.");
+    return;
+  }
+}).catch(error => {
+  console.log(error);
+  abort("Error fetching strings.");
+  return;
+});
 
 /**
  * floorTextSize sets the size of 1 rem to be an integer
@@ -658,7 +680,6 @@ function abort(text) {
  * Starts the episode!
  */
 function startEpisode(){
-
   loadPage("game");
 }
 /**
@@ -671,7 +692,7 @@ function loadEpisode(filename){
   document.body.className = "state_loading_episode";
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'text/json');
-  fetch(ROOT + 'q/' + filename + ".json", {
+  fetch(ROOT + 'ep/' + filename + ".json", {
     method: 'GET',
     headers: myHeaders,
     mode: 'cors'
@@ -680,16 +701,16 @@ function loadEpisode(filename){
       console.log("response:", response.body);
       return response.json();
     } else {
-      abort(["Error on fetching episode contents."]);
+      abort(strings.error_episode_load);
       return;
     }
   }).catch(error => {
     console.log(error);
-    abort(["Error on fetching episode contents."]);
+    abort(strings.error_episode_load);
     return;
   }).then(json => {
     episode_data = json;
-    console.log("Fetched /q/" + filename + ".json", json);
+    console.log("Fetched /ep/" + filename + ".json", json);
     startEpisode();
   });
 }
@@ -698,7 +719,6 @@ function loadEpisode(filename){
  * @param {keyDownEvent} event The event.
  */
 function chooseEpisodeKeys(event) {
-  console.log("key handler wip:", event);
   const id = sys(event.keyCode);
   const key = id % 64;
   const player = (id - key) / 64;
@@ -757,7 +777,7 @@ function chooseEpisodeKeys(event) {
           try {
             loadEpisode(episode_listing[selected].id);
           } catch (e) {
-            abort(["#Error", "*An error occurred while trying to load the episode.", e.message])
+            abort(strings.error_episode_load + [e.message])
             break;
           }
           playSFX({name: "game_start"});
@@ -767,7 +787,7 @@ function chooseEpisodeKeys(event) {
         } else {
           // nobody signed up
           playSFX({name: "menu_fail"});
-          activateModal(["#Nobody signed up.", "Press [[↓]] to sign up, and [[↑]] to sign off.", "[6] Okay"]);
+          activateModal(strings.error_nobody);
           setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
         }
         break;
@@ -816,7 +836,7 @@ function getEpisodes(){
   if (isEmptyObj(episode_listing)) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'text/json');
-    fetch(ROOT + 'q/0.json', {
+    fetch(ROOT + 'episodes.json', {
       method: 'GET',
       headers: myHeaders,
       mode: 'cors'
@@ -829,10 +849,10 @@ function getEpisodes(){
       }
     }).catch(error => {
       console.log(error);
-      abort(["Error on fetching episode list."]);
+      abort(strings.error_episode_list);
     }).then(json => {
       episode_listing = json;
-      console.log("Fetched /q/0.json", json);
+      console.log("Fetched /episodes.json", json);
       chooseEpisode();
     });
   } else {
@@ -905,7 +925,7 @@ function signupKeys(event){
       } else {
         // nobody signed up
         playSFX({name: "menu_fail"});
-        activateModal(["#Nobody signed up.", "Press ↓ to sign up, and ↑ to sign off.", "[6] Okay"]);
+        activateModal(strings.error_nobody);
         setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
       }
       break;
@@ -965,7 +985,7 @@ function titleKeys(event) {
   var selected = getIndexOfSel(buttons);
   if (selected == -1) {
     // error
-    activateModal(["#Error", "An error occured while trying to select a menu item.", "[6]Dismiss"]);
+    activateModal(strings.error_menu_item);
     buttons[0].classList.add("sel");
   }
   // branch by key
@@ -993,70 +1013,14 @@ function titleKeys(event) {
           startSignup();
           break;
         case 1:
-          activateModal([
-            "# Controls",
-            "Each player has 6 keys, called [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]. Player 1 has 123 QWE. Player 2 has FGH VBN. Player 3 has 890 IOP. Player 4 has 789 456 on the numpad.",
-            "On console, it should correspond to L, N, R, W, S, and E. (N, E, W, and S are face buttons.)",
-            "# Basics",
-            "Answer the questions correctly using your set of 6 keys.",
-            "*Standard and Candy Trivia",
-            "Use your [[2]], [[4]], [[5]], and [[6]] keys to select one of four options. Each correct answer nets you 5 points, but each wrong answer costs you 5 points.",
-            "In Candy Trivia with Salty Barr, the question and/or options are about candy. (corresponds to Cookie's Fortune Cookie Fortunes with Cookie “Fortune Cookie” Masterson.)",
-            "*Sorting Time",
-            "Use your [[4]] and [[6]] keys to sort the 7 items into 2 categories. Sometimes you need to press [[2]] to sort into both. If you are unsure and don't want to risk it, you can press [[5]] to skip, you chicken. Each item is worth 2 points. (Corresponds to DisOrDat.)",
-            "*All Outta Salt",
-            "You will see a phrase whose every syllable rhymes with the syllables of another phrase. When you know what it is, press any key to buzz in, then type in your answer.",
-            "Up to 3 hints will be shown. Each AOS is worth 7 points, but each hint will lower the value by 2 points. (Corresponds to Gibberish Question.)",
-            "*Sugar Rush",
-            "You will get a title, followed by 5 categories containing 6 items. For each category, press the corresponding key ([[1]], [[2]], [[3]], [[4]], [[5]], [[6]])to answer whether that item fits that category. Each item is worth 1 point, making the whole game valued at 30 points. (Corresponds to Jack Attack [Full Stream style].)",
-            "*Hike Your Likes",
-            "You will get 3 items and 5 categories. For each category, press the corresponding key ([[2]], [[4]], [[5]], [[6]]) to answer whether that item fits that category. Each correct answer gives the player 10 'likes', which are then converted to points at the end of the game. There is also a 4th bonus item for each category, which, in multiplayer mode, can only be answered by the half of players with the fewest 'likes'. (Modified from Trivia Murder Party's final chase.)",
-            "[6] Dismiss"
-          ]);
+          activateModal(string.modal_controls);
           break;
         case 2:
-          activateModal([
-            "#About",
-            "Salty Trivia with Candy Barr is a sassy trivia video game where the questions are ridiculous but the answers are serious.",
-            "This game was created by Haley Wakamatsu, who also wrote most questions, coded this demo, and voiced your host, Candice “Candy” Barr.",
-            "[6] Dismiss"
-          ]);
+          activateModal(strings.modal_about);
           break;
         case 3:
           stopMusic(1000);
-          activateModal([
-            "#Credits",
-            "*Made out of love for (inspired by)",
-            "“You Don't Know Jack” series",
-            "created by Harry Gottlieb",
-            "IP of Jackbox Games",
-            "(This is a fangame that builds upon the formula. We are not affiliated with Jackbox Games in any capacity.)",
-            "#Creative Director",
-            "Haley Wakamatsu",
-            "#Coding",
-            "*Head programmer",
-            "Haley Wakamatsu",
-            "#Writing",
-            "*Head writer",
-            "Haley Wakamatsu",
-            "*Writers",
-            "fssZilla",
-            "#Voice",
-            "*Candice “Candy” Barr",
-            "Haley Wakamatsu",
-            "*Miles Stone",
-            "Salem Morrison",
-            "#Music",
-            "*Musical director",
-            "Haley Wakamatsu as “Akira Sora”",
-            "Salty Trivia Theme - Akira Sora",
-            "Coffee at Midnight - Akira Sora",
-            "Announcer Music - Akira Sora",
-            "15 Second Rock - Akira Sora",
-            "#Other help and feedback",
-            "shslsquirrel",
-            "[6] Accept our thanks for playing!"
-          ]);
+          activateModal(strings.modal_credits);
           break;
         case 4:
           stopMusic(1000);
@@ -1093,21 +1057,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("splash_screen").classList = "gone";
     initApp();
     document.addEventListener("keydown", keyShiv, true);
-    activateModal(["#Warning",
-    "*Keyboard layout",
-    "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY.",
-    "*Keybind",
-    "Each player uses a 3x2 array of keys, represented as [[1]], [[2]], [[3]], [[4]], [[5]], and [[6]]; basically WASD/IJKL with up-left and up-right added.",
-    "Player 1: Q W E A S D",
-    "Player 2: F G H V B N",
-    "Player 3: U I O J K L",
-    "Player 4: 7 8 9 4 5 6 (Numpad)",
-    "Navigate using [[2]] and [[5]], and confirm by [[6]].",
-    "*Audio",
-    "This program has audio. Please check your audio volume.",
-    "This program is for up to 4 players, but one player must use the numpad.",
-    "#Browser compatibility",
-    "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome.",
-    "[6] Start!"]);
+    activateModal(strings.modal_first);
   }, 3000);
 }, true);
