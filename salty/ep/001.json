@@ -1,39 +1,37 @@
 {
   "audio": {
-    "system": {
-      "intro": [
-        "/audio/voice/intro_03"
-      ],
-      "playerNumber": [
-        [
-          "default"
-        ],
-        [
-          "default"
-        ],
-        [
-          "default"
-        ],
-        [
-          "default"
-        ]
-      ],
-      "intermission": [
+    "intro": [
+      "/audio/voice/intro_03"
+    ],
+    "player_number": [
+      [
         "default"
       ],
-      "intro2": [
+      [
         "default"
       ],
-      "outro_excellent": [
+      [
         "default"
       ],
-      "outro_good": [
-        "default"
-      ],
-      "outro_bad": [
+      [
         "default"
       ]
-    }
+    ],
+    "intermission": [
+      "default"
+    ],
+    "intro2": [
+      "default"
+    ],
+    "outro_excellent": [
+      "default"
+    ],
+    "outro_good": [
+      "default"
+    ],
+    "outro_bad": [
+      "default"
+    ]
   },
   "question_types": "nnnsnc ngnnnn h",
   "question_id": [
