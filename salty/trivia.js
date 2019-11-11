@@ -12,6 +12,9 @@ var currentEventListenerModal = undefined;
 /**
  * Loads strings to memory via a request.
  */
+
+const myHeaders = new Headers();
+myHeaders.append('Content-Type', 'text/json');
 fetch("strings.json", {
   method: 'GET',
   headers: myHeaders,
@@ -690,8 +693,6 @@ function startEpisode(){
  */
 function loadEpisode(filename){
   document.body.className = "state_loading_episode";
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'text/json');
   fetch(ROOT + 'ep/' + filename + ".json", {
     method: 'GET',
     headers: myHeaders,
@@ -834,8 +835,6 @@ function getEpisodes(){
   changeKeyHandler(undefined, false);
   document.body.className = "state_episode";
   if (isEmptyObj(episode_listing)) {
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'text/json');
     fetch(ROOT + 'episodes.json', {
       method: 'GET',
       headers: myHeaders,
