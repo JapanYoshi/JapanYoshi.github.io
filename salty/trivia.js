@@ -13,26 +13,28 @@ const LANG = "en"; // might change it later
 /**
  * Loads strings to memory via a request.
  */
-
-const myHeaders = new Headers();
-myHeaders.append('Content-Type', 'text/json');
-fetch("strings/" + LANG + ".json", {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors'
-}).then(response => {
-  if (response.ok) {
-    console.log("response:", response.body);
-    strings = response.json();
-  } else {
-    console.log("response:", response);
-    alert("Error fetching strings.");
-  }
-}).catch(error => {
-  console.log(error);
-  abort("Error fetching strings.");
-});
-console.log(strings.modal_first);
+function loadStrings(lang){
+  const myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'text/json');
+  fetch("strings/" + lang + ".json", {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors'
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.log("response:", response);
+      alert("Error fetching strings. Response not OK.");
+    }
+  }).catch(error => {
+    console.log(error);
+    abort("Error fetching strings." + error);
+  }).then(res => {
+    return res;
+  });
+}
+strings = loadStrings(LANG);
 
 /**
  * floorTextSize sets the size of 1 rem to be an integer
