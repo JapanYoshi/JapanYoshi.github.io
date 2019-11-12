@@ -16,6 +16,7 @@ const LANG = "en"; // might change it later
 async function loadStrings(lang){
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'text/json');
+  console.log("await0");
   await fetch("strings/" + lang + ".json", {
     method: 'GET',
     headers: myHeaders,
@@ -30,10 +31,10 @@ async function loadStrings(lang){
   }).catch(error => {
     console.log(error);
     abort("Error fetching strings." + error);
-  }).then(res => {
-    return res;
   });
+  console.log("await1");
 }
+console.log("calling loadStrings");
 strings = loadStrings(LANG);
 console.log("strings", strings);
 
