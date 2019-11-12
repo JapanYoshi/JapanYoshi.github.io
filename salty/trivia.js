@@ -32,6 +32,7 @@ fetch("strings/" + LANG + ".json", {
   console.log(error);
   abort("Error fetching strings.");
 });
+console.log(strings.modal_first);
 
 /**
  * floorTextSize sets the size of 1 rem to be an integer
