@@ -23,7 +23,7 @@ fetch("strings/" + LANG + ".json", {
 }).then(response => {
   if (response.ok) {
     console.log("response:", response.json());
-    return response.json();
+    strings = response.json();
   } else {
     console.log("response:", response);
     alert("Error fetching strings.");
@@ -33,8 +33,6 @@ fetch("strings/" + LANG + ".json", {
   console.log(error);
   abort("Error fetching strings.");
   return;
-}).then(res => {
-  strings = res;
 });
 
 /**
