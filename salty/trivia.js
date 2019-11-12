@@ -25,6 +25,7 @@ fetch("strings/" + LANG + ".json", {
     console.log("response:", response.body);
     return response.json();
   } else {
+    console.log("response:", response);
     alert("Error fetching strings.");
     return;
   }
