@@ -13,10 +13,10 @@ const LANG = "en"; // might change it later
 /**
  * Loads strings to memory via a request.
  */
-function loadStrings(lang){
+async function loadStrings(lang){
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'text/json');
-  fetch("strings/" + lang + ".json", {
+  await fetch("strings/" + lang + ".json", {
     method: 'GET',
     headers: myHeaders,
     mode: 'cors'
