@@ -22,7 +22,7 @@ fetch("strings/" + LANG + ".json", {
   mode: 'cors'
 }).then(response => {
   if (response.ok) {
-    console.log("response:", response.json());
+    console.log("response:", response.body);
     strings = response.json();
   } else {
     console.log("response:", response);
