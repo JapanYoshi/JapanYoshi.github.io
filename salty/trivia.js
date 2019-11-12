@@ -22,7 +22,7 @@ fetch("strings/" + LANG + ".json", {
   mode: 'cors'
 }).then(response => {
   if (response.ok) {
-    console.log("response:", response.body);
+    console.log("response:", response.json());
     return response.json();
   } else {
     console.log("response:", response);
@@ -33,6 +33,8 @@ fetch("strings/" + LANG + ".json", {
   console.log(error);
   abort("Error fetching strings.");
   return;
+}).then(res => {
+  strings = res;
 });
 
 /**
