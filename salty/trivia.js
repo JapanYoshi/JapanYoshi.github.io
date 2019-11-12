@@ -1069,11 +1069,11 @@ document.addEventListener("DOMContentLoaded", function(){
     floorRem();
     
     document.getElementById("splash_screen_top_text").innerText =
-      strings.splash_screen_top[
-        Math.floor(Math.random() * strings.splash_screen_top.length)
+      strings.splash_screen_tagline[
+        Math.floor(Math.random() * strings.splash_screen_tagline.length)
       ]; // choose random line
     document.getElementById("splash_screen_bottom_text").innerText =
-      strings.splash_screen_bottom;
+      strings.splash_screen_name;
     loadPage("menu");
     setTimeout(function(){
       document.getElementById("splash_screen").classList = "gone";

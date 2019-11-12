@@ -1,12 +1,15 @@
 {
-  "splash_screen_top": [
+  "splash_screen_tagline": [
     "Made with ♥ by"
   , "The Developer that Cares"
   , "Thank her in the morning"
   , "In case of bugs, complain to"
   , "The sorely inexperienced coder"
+  , "undefined (Just kidding!)"
+  , "She made the music, graphics, and code."
+  , "Not actually a doll in real life."
   ]
-, "splash_screen_bottom": [
+, "splash_screen_name": [
     "Haley Halcyon"
 ]
 , "modal_first"  : [
@@ -69,21 +72,25 @@
   , "*Head writer"
   , "Haley Wakamatsu"
   , "*Writers"
-  , "fssZilla"
+  , "Zilla"
   , "#Voice"
-  , "*Candice “Candy” Barr"
+  , "*The host, Candice “Candy” Barr"
   , "Haley Wakamatsu"
-  , "*Miles Stone"
+  , "*The producer, Miles Stone"
   , "Salem Morrison"
+  , "*The sound guy, Daisy Chain"
+  , "Zilla"
   , "#Music"
   , "*Musical director"
   , "Haley Wakamatsu as “Akira Sora”"
-  , "Salty Trivia Theme - Akira Sora"
-  , "Coffee at Midnight - Akira Sora"
-  , "Announcer Music - Akira Sora"
-  , "15 Second Rock - Akira Sora"
+  , "All Outta Salt theme quotes from:"
+  , "1st movement: Allegro – Concerto No. 1 in E major, Op. 8, RV 269, “Spring” — Antonio Vivaldi"
+  , "arranged by Akira Sora"
+  , "All other pieces composed by Akira Sora"
   , "#Other help and feedback"
   , "shslsquirrel"
+  , "#In association with"
+  , "Cookie Powered Entertainment"
   , "[6] Accept our thanks for playing!"
   ]
 , "error_menu_item" : [
