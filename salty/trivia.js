@@ -9,13 +9,13 @@ var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
 const LANG = "en"; // might change it later
-
+// reload this header for each request
+const myHeaders = new Headers();
+myHeaders.append('Content-Type', 'text/json');
 /**
  * Loads strings to memory via a request.
  */
 async function loadStrings(lang){
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'text/json');
   console.log("await0");
   return fetch("strings/" + lang + ".json", {
     method: 'GET',
