@@ -8,6 +8,7 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
+const LANG = "en"; // might change it later
 
 /**
  * Loads strings to memory via a request.
@@ -15,7 +16,7 @@ var currentEventListenerModal = undefined;
 
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'text/json');
-fetch("strings.json", {
+fetch("strings/" + LANG + ".json", {
   method: 'GET',
   headers: myHeaders,
   mode: 'cors'
