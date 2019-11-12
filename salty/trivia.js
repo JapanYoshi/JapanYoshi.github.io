@@ -27,12 +27,10 @@ fetch("strings/" + LANG + ".json", {
   } else {
     console.log("response:", response);
     alert("Error fetching strings.");
-    return;
   }
 }).catch(error => {
   console.log(error);
   abort("Error fetching strings.");
-  return;
 });
 
 /**
