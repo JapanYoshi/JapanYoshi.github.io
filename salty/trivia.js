@@ -1059,7 +1059,7 @@ document.addEventListener("DOMContentLoaded", function(){
     console.log(result);
     strings = result;
     if (strings === undefined) {
-      alert("WHAT AM I DOING?!?!?!?!?!?!");
+      throw new Error("Fuck you, asynchronous code!");
     } else {
       console.log("strings seems to be loaded:", strings.modal_first);
     }
