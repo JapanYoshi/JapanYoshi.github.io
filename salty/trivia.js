@@ -35,6 +35,7 @@ function loadStrings(lang){
   });
 }
 strings = loadStrings(LANG);
+console.log("strings", strings);
 
 /**
  * floorTextSize sets the size of 1 rem to be an integer
