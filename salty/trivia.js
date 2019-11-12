@@ -1052,8 +1052,15 @@ function initApp(){
 }
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
+  console.log("race condition??? 0");
   loadStrings(LANG).then(result => {
+    console.log("race condition??? 1");
     strings = result;
+    if (strings.modal_first === undefined) {
+      alert("WHAT AM I DOING?!?!?!?!?!?!");
+    } else {
+      console.log("strings seems to be loaded:", strings.modal_first);
+    }
     /**
      * unrelated code from here on out.
      * i don't know how to make the program wait for
