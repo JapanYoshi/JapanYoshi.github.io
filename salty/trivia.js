@@ -23,6 +23,7 @@ async function loadStrings(lang){
     mode: 'cors'
   }).then(response => {
     if (response.ok) {
+      console.log("await1");
       return response.json();
     } else {
       console.log("response:", response);
@@ -32,7 +33,7 @@ async function loadStrings(lang){
     console.log(error);
     abort("Error fetching strings." + error);
   });
-  console.log("await1");
+  console.log("await2");
 }
 
 /**
@@ -1055,8 +1056,9 @@ document.addEventListener("DOMContentLoaded", function(){
   console.log("race condition??? 0");
   loadStrings(LANG).then(result => {
     console.log("race condition??? 1");
+    console.log(result);
     strings = result;
-    if (strings.modal_first === undefined) {
+    if (strings === undefined) {
       alert("WHAT AM I DOING?!?!?!?!?!?!");
     } else {
       console.log("strings seems to be loaded:", strings.modal_first);
