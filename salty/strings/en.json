@@ -1,5 +1,14 @@
 {
-  "splash_screen": "Made with love by"
+  "splash_screen_top": [
+    "Made with ♥ by"
+  , "The Developer that Cares"
+  , "Thank her in the morning"
+  , "In case of bugs, complain to"
+  , "The sorely inexperienced coder"
+  ]
+, "splash_screen_bottom": [
+    "Haley Halcyon"
+]
 , "modal_first"  : [
     "#Warning"
   , "*Keyboard layout"

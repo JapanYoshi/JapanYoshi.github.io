@@ -17,7 +17,7 @@ async function loadStrings(lang){
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'text/json');
   console.log("await0");
-  await fetch("strings/" + lang + ".json", {
+  return fetch("strings/" + lang + ".json", {
     method: 'GET',
     headers: myHeaders,
     mode: 'cors'
@@ -33,7 +33,6 @@ async function loadStrings(lang){
     console.log(error);
     abort("Error fetching strings." + error);
   });
-  console.log("await2");
 }
 
 /**
@@ -1053,9 +1052,7 @@ function initApp(){
 }
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
-  console.log("race condition??? 0");
   loadStrings(LANG).then(result => {
-    console.log("race condition??? 1");
     console.log(result);
     strings = result;
     if (strings === undefined) {
@@ -1070,6 +1067,12 @@ document.addEventListener("DOMContentLoaded", function(){
      * race conditions, you can kiss my ass
      */
     floorRem();
+    document.getElementById("splash_screen_top_text").innerText =
+      strings.splash_screen_top[
+        Math.floor(Math.random * strings.splash_screen_top.length)
+      ]; // choose random line
+    document.getElementById("splash_screen_bottom_text").innerText =
+      strings.splash_screen_bottom;
     loadPage("menu");
     setTimeout(function(){
       document.getElementById("splash_screen").classList = "gone";
