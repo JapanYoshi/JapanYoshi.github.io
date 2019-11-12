@@ -1067,9 +1067,10 @@ document.addEventListener("DOMContentLoaded", function(){
      * race conditions, you can kiss my ass
      */
     floorRem();
+    
     document.getElementById("splash_screen_top_text").innerText =
       strings.splash_screen_top[
-        Math.floor(Math.random * strings.splash_screen_top.length)
+        Math.floor(Math.random() * strings.splash_screen_top.length)
       ]; // choose random line
     document.getElementById("splash_screen_bottom_text").innerText =
       strings.splash_screen_bottom;
