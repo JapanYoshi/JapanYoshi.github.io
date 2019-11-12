@@ -34,9 +34,6 @@ async function loadStrings(lang){
   });
   console.log("await1");
 }
-console.log("calling loadStrings");
-strings = loadStrings(LANG);
-console.log("strings", strings);
 
 /**
  * floorTextSize sets the size of 1 rem to be an integer
@@ -1055,12 +1052,21 @@ function initApp(){
 }
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
-  floorRem();
-  loadPage("menu");
-  setTimeout(function(){
-    document.getElementById("splash_screen").classList = "gone";
-    initApp();
-    document.addEventListener("keydown", keyShiv, true);
-    activateModal(strings.modal_first);
-  }, 3000);
+  loadStrings(LANG).then(result => {
+    strings = result;
+    /**
+     * unrelated code from here on out.
+     * i don't know how to make the program wait for
+     * strings to load in a better way.
+     * race conditions, you can kiss my ass
+     */
+    floorRem();
+    loadPage("menu");
+    setTimeout(function(){
+      document.getElementById("splash_screen").classList = "gone";
+      initApp();
+      document.addEventListener("keydown", keyShiv, true);
+      activateModal(strings.modal_first);
+    }, 3000);
+  });
 }, true);
