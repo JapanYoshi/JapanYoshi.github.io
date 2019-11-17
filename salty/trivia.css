@@ -39,14 +39,14 @@
   font-weight: normal;
   font-display: swap;
   src:
-    url('resources/Poppins-Regular-Extended.woff2') format('woff2');
+    url('../resource/Poppins-Regular-Extended.woff2') format('woff2');
 }
 @font-face {
   font-family: "_Poppins";
   font-weight: bold;
   font-display: swap;
   src:
-    url('resources/Poppins-Bold-Extended.woff2') format('woff2');
+    url('../resource/Poppins-Bold-Extended.woff2') format('woff2');
 }
 /*
 @font-face {
