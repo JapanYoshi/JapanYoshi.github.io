@@ -1029,7 +1029,7 @@ function titleKeys(event) {
           startSignup();
           break;
         case 1:
-          activateModal(string.modal_controls);
+          activateModal(strings.modal_controls);
           break;
         case 2:
           activateModal(strings.modal_about);
