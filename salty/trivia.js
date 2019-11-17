@@ -1,4 +1,5 @@
 var params = {};
+var configs = [];
 var strings = {};
 var episode_listing = {};
 var bgm_data = {};
@@ -8,6 +9,24 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
+
+var _ROOT = "https://japanyoshi.github.io/salty/";
+var _LOCAL = false;
+if ((window.location.href).startsWith("file://")) {
+  // protocol is "file", therefore it's a local test
+  _ROOT = window.location.href;
+  _ROOT = _ROOT.slice(0, _ROOT.lastIndexOf("/") + 1);
+} else if ((window.location.href).startsWith("https://2gd4.me/")) {
+  // future-proof if I decide not to renew the 2gd4.me domain
+  _ROOT = "https://2gd4.me/salty/";
+}
+if (_ROOT.startsWith("file://")) {
+  throw "This does not work locally!";
+}
+console.log("ROOT is " + _ROOT)
+const ROOT = _ROOT;
+delete _ROOT;
+
 const LANG = "en"; // might change it later
 // reload this header for each request
 const myHeaders = new Headers();
@@ -16,7 +35,6 @@ myHeaders.append('Content-Type', 'text/json');
  * Loads strings to memory via a request.
  */
 async function loadStrings(lang){
-  console.log("await0");
   return fetch("strings/" + lang + ".json", {
     method: 'GET',
     headers: myHeaders,
@@ -129,16 +147,6 @@ function getIndexOfSel(buttons){
 
 const MUSIC_DELAY = 400;
 const MAX_PLAYER_COUNT = 8;
-var _ROOT = "https://japanyoshi.github.io/salty/";
-if ((window.location.href).charAt(0) == "f") {
-  // protocol is "file", therefore it's a local test
-  _ROOT = "https://cors-anywhere.herokuapp.com/" + _ROOT;
-} else if ((window.location.href).charAt(8) == "2") {
-  // future-proof if I decide not to renew the 2gd4.me domain
-  _ROOT = "https://2gd4.me/salty/";
-}
-const ROOT = _ROOT;
-delete _ROOT;
 /**
  * Loads the contents of the specified HTML file into the #screen element.
  * @param {string} name Name of the page (minus .html).
@@ -595,6 +603,13 @@ function activateModal(text) {
       keyDisplay.classList.add("icon");
       keyDisplay.innerText = button;
       node.appendChild(keyDisplay);
+    } else if (text[i].charAt(0) == "!") {
+      node = document.createElement("img");
+      node.classList.add("modal_img");
+      node.src = text[i].substring(1);
+      // don't change innerHTML!
+      content.appendChild(node);
+      continue;
     } else {
       // format: just text
       node = document.createElement("p");
