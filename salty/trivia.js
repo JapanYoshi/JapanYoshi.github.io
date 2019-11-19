@@ -1079,7 +1079,7 @@ function advanceSplashScreen() {
     delete splashTimeout;
     document.getElementById("splash_screen_2").classList.add("gone");
     changeKeyHandler(undefined, false);
-    activateModal(modal_first.concat("[[→]]" + strings.sys_start));
+    activateModal(strings.modal_first.concat("[[→]]" + strings.sys_start));
     initApp();
   } else {
     document.getElementById("splash_screen").classList.add("gone");
