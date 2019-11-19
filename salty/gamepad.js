@@ -1,8 +1,3 @@
-function formatIcons(text) {
-  // replace "[[" with '<span class="icon">' and "]]" with </span>
-  return text.replace(/\[\[/g, '<span class="icon">').replace(/\]\]/g, '</span>');
-}
-
 function log(text, append) {
   if (typeof text !== typeof "") {
     text = "" + text;
@@ -31,7 +26,6 @@ var daisyWheelPage = 4;
 var readyState = 0;
 const stickThreshold = 0.4;
 var configQueue = [];
-configs = {};
 // from tilt state to config page
 const daisyWheelOrder = [8, 1, 2, 7, 0, 3, 6, 5, 4];
 // Length 1: literal. Else: commands. You can input multiple characters with "input".
@@ -76,7 +70,7 @@ window.addEventListener("gamepadconnected", function (e) {
     gp.buttons.length,
     gp.axes.length
   );
-  //document.getElementById("daisywheel_control").classList.remove("disconnected");
+  document.getElementById("gamepad_config").classList.add("shown");
   
   addToConfigQueue(gp.index);
 });
@@ -161,6 +155,7 @@ function finishConfig() {
   } else {
     // all controllers set up
     controllerLoop();
+    document.getElementById("gamepad_config").classList.add("shown");
   }
 }
 function configChangeState(state) {
@@ -168,7 +163,7 @@ function configChangeState(state) {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = "Done!";
   } else {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = formatIcons(configStrings[state]);
-    document.getElementById("gamepad_config_body").querySelector("img").src = "";
+    document.getElementById("gamepad_config_diagram").src = "";
   }
 }
 function getNewPresses(oldState, newState) {

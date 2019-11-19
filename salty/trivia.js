@@ -1074,9 +1074,11 @@ function advanceSplashScreen() {
     initApp();
   } else {
     document.getElementById("splash_screen").classList.add("gone");
+    changeKeyHandler(undefined, false);
     splashTimeout = setTimeout(function(){
       advanceSplashScreen();
     }, 3000);
+    setTimeout(()=>{changeKeyHandler(splashScreenHandler, false)}, 1000);
   }
 }
 function splashScreenHandler(e) {
@@ -1115,7 +1117,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     loadPage("menu");
     document.addEventListener("keydown", keyShiv, true);
-    changeKeyHandler(splashScreenHandler, false);
+    setTimeout(()=>{changeKeyHandler(splashScreenHandler, false)}, 1000);
     splashTimeout = setTimeout(function(){
       advanceSplashScreen();
     }, 3000);
