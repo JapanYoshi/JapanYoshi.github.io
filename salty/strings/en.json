@@ -116,7 +116,7 @@
   , "shslsquirrel"
   , "#In association with"
   , "Cookie Powered Entertainment"
-  , "[6] Accept our thanks for playing!"
+  , "[→] Accept our thanks for playing!"
   ]
 , "error_menu_item" : [
     "An error occured while trying to select a menu item."

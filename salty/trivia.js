@@ -1044,7 +1044,7 @@ function titleKeys(event) {
           activateModal([
             "To show this page, please allow pop-ups.",
             "Alternatively, please go directly to " + (window.location.origin === "japanyoshi.github.io" ? window.location.origin : "2gd4.me") + "/social .",
-            "[6] Dismiss"
+            "[→] Dismiss"
           ]);
           break;
       }
