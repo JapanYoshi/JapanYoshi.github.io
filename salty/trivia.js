@@ -159,20 +159,19 @@ const loadPage = (name) => {
     screen.removeChild(screen.lastChild);
   }
   // request page
-  return new Promise(
-    function resolve(){
+  return new Promise((resolve, reject) => {
       setTimeout(
         function(){
           var xhr= new XMLHttpRequest();
           xhr.open('GET', name + '.html', true);
           xhr.onreadystatechange = function() {
-            if (this.readyState !== 4) return new Error("Page " + name + " could not load");
+            if (this.readyState !== 4) throw new Error("Page " + name + " could not load");
             if (this.status !== 200) {
               window.alert("Error on loading page " + name + ". Please see the browser console for details.");
-              return new Error("Page " + name + " could not load");
+              throw new Error("Page " + name + " could not load");
             }; // or whatever error handling you want
             screen.innerHTML= this.responseText;
-            return;
+            resolve();
           };
           xhr.send();
         }
