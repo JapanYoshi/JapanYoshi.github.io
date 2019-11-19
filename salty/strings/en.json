@@ -10,6 +10,7 @@
   , "Not actually a doll in real life."
   , "Can you handle her sass?"
   , "It's pronounced “HAL-see-yun”."
+  , "The Asian better than you"
   ]
 , "splash_screen_name": [
     "Haley Halcyon"
@@ -45,11 +46,26 @@
   , "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome."
   , "[→] Start!"
   ]
+, "game_title" : [
+  "Salty"
+, "Trivia"
+, "with Candy Barr"
+, "The Pilot Episode"
+]
+, "title_option_box" : [
+  "Start"
+, "Rules"
+, "About “Salty Trivia”"
+, "Credits"
+, "More Haley Halcyon"
+]
+, "sys_cancel": "Cancel"
+, "sys_start": "Start!"
+, "sys_dismiss": "Dismiss"
 , "modal_about": [
     "#About"
   , "Salty Trivia with Candy Barr is a sassy trivia video game where the questions are ridiculous but the answers are serious."
   , "This game was created by Haley Wakamatsu, who also wrote most questions, coded this demo, and voiced your host, Candice “Candy” Barr."
-  , "[→] Dismiss"
 ]
 , "modal_controls" : [
     "# Controls"
@@ -130,6 +146,11 @@
   , "Cookie Powered Entertainment"
   , "[→] Accept our thanks for playing!"
   ]
+, "modal_popup" : [
+  "To show this page, please allow pop-ups."
+, "Alternatively, please go directly to "
+, "."
+]
 , "error_menu_item" : [
     "An error occured while trying to select a menu item."
   ]

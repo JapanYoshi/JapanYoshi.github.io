@@ -805,7 +805,7 @@ function chooseEpisodeKeys(event) {
         } else {
           // nobody signed up
           playSFX({name: "menu_fail"});
-          activateModal(strings.error_nobody);
+          activateModal(strings.error_nobody.concat("[[→]]" + strings.sys_dismiss));
           setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
         }
         break;
@@ -941,7 +941,7 @@ function signupKeys(event){
       } else {
         // nobody signed up
         playSFX({name: "menu_fail"});
-        activateModal(strings.error_nobody);
+        activateModal(strings.error_nobody.concat("[[→]]" + strings.sys_dismiss));
         setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
       }
       break;
@@ -1001,7 +1001,7 @@ function titleKeys(event) {
   var selected = getIndexOfSel(buttons);
   if (selected == -1) {
     // error
-    activateModal(strings.error_menu_item);
+    activateModal(strings.error_menu_item.concat("[[→]]" + strings.sys_dismiss));
     buttons[0].classList.add("sel");
   }
   // branch by key
@@ -1029,10 +1029,10 @@ function titleKeys(event) {
           startSignup();
           break;
         case 1:
-          activateModal(strings.modal_controls);
+          activateModal(strings.modal_controls.concat("[[→]]" + strings.sys_dismiss));
           break;
         case 2:
-          activateModal(strings.modal_about);
+          activateModal(strings.modal_about.concat("[[→]]" + strings.sys_dismiss));
           break;
         case 3:
           stopMusic(1000);
@@ -1042,9 +1042,9 @@ function titleKeys(event) {
           stopMusic(1000);
           window.open("https://japanyoshi.github.io/social.html", "_blank");
           activateModal([
-            "To show this page, please allow pop-ups.",
-            "Alternatively, please go directly to " + (window.location.origin === "japanyoshi.github.io" ? window.location.origin : "2gd4.me") + "/social .",
-            "[→] Dismiss"
+            strings.modal_popup[0],
+            strings.modal_popup[1] + (window.location.origin === "japanyoshi.github.io" ? window.location.origin : "2gd4.me") + modal_popup[2],
+            "[[→]]" + strings.sys_dismiss
           ]);
           break;
       }
@@ -1058,6 +1058,7 @@ function titleKeys(event) {
 function initApp(){
   console.log("initApp() called");
   document.body.className = "state_title";
+
   changeKeyHandler(titleKeys, false);
   setTimeout(
     function(){
@@ -1114,6 +1115,20 @@ document.addEventListener("DOMContentLoaded", function(){
       ]; // choose random line
     document.getElementById("splash_screen_2_bottom_text").innerText =
       strings.splash_screen_name_2;
+      
+    // other strings
+    buttons = document.getElementById("title_option_box").querySelectorAll(".button");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].innerText = strings.title_option_box[i];
+    }
+    document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
+    document.getElementById("title_dropcap").innerText = strings.game_title[1].charAt(0);
+    document.getElementById("title_rest").innerText = strings.game_title[1].substring(1);
+    document.getElementById("title_subtitle").innerText = strings.game_title[2];
+    document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
+
+    document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
+    document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
 
     loadPage("menu");
     document.addEventListener("keydown", keyShiv, true);
