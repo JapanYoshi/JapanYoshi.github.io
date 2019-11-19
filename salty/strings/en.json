@@ -27,7 +27,8 @@
 , "splash_screen_name_2": [
   "Jackbox Games"
 ]
-, "modal_first"  : [
+, "sys_scroll" : "Use any player's [[↑]] and [[↓]] to scroll"
+, "modal_first" : [
     "#Warning"
   , "*Keyboard layout"
   , "This program assumes that you have a physical keyboard with the QWERTY keyboard layout, so mobile devices are not supported without a Bluetooth keyboard. If you are using a different layout (e.g. QWERTZ, AZERTY, Dvorak, or Colemak), I'm sorry. Please switch to QWERTY."
