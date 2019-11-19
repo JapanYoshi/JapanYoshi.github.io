@@ -70,7 +70,6 @@ window.addEventListener("gamepadconnected", function (e) {
     gp.buttons.length,
     gp.axes.length
   );
-  document.getElementById("gamepad_config").classList.add("shown");
   
   addToConfigQueue(gp.index);
 });
@@ -155,7 +154,7 @@ function finishConfig() {
   } else {
     // all controllers set up
     controllerLoop();
-    document.getElementById("gamepad_config").classList.add("shown");
+    document.getElementById("gamepad_config").classList.remove("shown");
   }
 }
 function configChangeState(state) {
@@ -511,6 +510,7 @@ const configHandle = (id, configState) => {
 function configGamepad() {
   const id = configQueue[0];
   var gp = getGamepads()[id];
+  document.getElementById("gamepad_config").classList.add("shown");
   configs[id] = {
     buttons: [
       -1, -1, -1, -1, -1, -1, -1, -1, // first 8 is P1
