@@ -153,24 +153,31 @@ const MAX_PLAYER_COUNT = 8;
  */
 const loadPage = (name) => {
   document.body.classList = "";
-  setTimeout(function(){
-    const screen = document.getElementById("screen");
-    // delete all children
-    while (screen.lastChild) {
-      screen.removeChild(screen.lastChild);
+  const screen = document.getElementById("screen");
+  // delete all children
+  while (screen.lastChild) {
+    screen.removeChild(screen.lastChild);
+  }
+  // request page
+  return new Promise(
+    function resolve(){
+      setTimeout(
+        function(){
+          var xhr= new XMLHttpRequest();
+          xhr.open('GET', name + '.html', true);
+          xhr.onreadystatechange = function() {
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) {
+              window.alert("Error on loading page " + name + ". Please see the browser console for details.");
+            }; // or whatever error handling you want
+            screen.innerHTML= this.responseText;
+            return;
+          };
+          xhr.send();
+        }
+      , 1000);
     }
-    // request page
-    var xhr= new XMLHttpRequest();
-    xhr.open('GET', name + '.html', true);
-    xhr.onreadystatechange = function() {
-      if (this.readyState !== 4) return;
-      if (this.status !== 200) {
-        window.alert("Error on loading page " + name + ". Please see the browser console for details.");
-      }; // or whatever error handling you want
-      screen.innerHTML= this.responseText;
-    };
-    xhr.send();
-  }, 1000);
+  );
 }
 /**
  * This part sets up music and sound effects for Howler.js.
