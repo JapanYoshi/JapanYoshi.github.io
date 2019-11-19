@@ -16,16 +16,16 @@
     "Haley Halcyon"
 ]
 , "splash_screen_tagline_2": [
-  "Based on the works of"
-, "In loving homage to"
-, "Mostly copied from"
-, "With mad respect to"
-, "Support the original by"
-, "Concept lifted from"
-, "An irreverent fan game of"
+    "Based on the works of"
+  , "In loving homage to"
+  , "Mostly copied from"
+  , "With mad respect to"
+  , "Support the original by"
+  , "Concept lifted from"
+  , "An irreverent fan game of"
 ]
 , "splash_screen_name_2": [
-  "Jackbox Games"
+    "Jackbox Games"
 ]
 , "sys_scroll" : "Use any player's [[↑]] and [[↓]] to scroll"
 , "modal_first" : [
@@ -47,17 +47,17 @@
   , "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome."
   ]
 , "game_title" : [
-  "Salty"
-, "Trivia"
-, "with Candy Barr"
-, "The Pilot Episode"
+    "Salty"
+  , "T", "rivia"
+  , "with Candy Barr"
+  , "The Pilot Episode"
 ]
 , "title_option_box" : [
-  "Start"
-, "Rules"
-, "About “Salty Trivia”"
-, "Credits"
-, "More Haley Halcyon"
+    "Start"
+  , "Rules"
+  , "About “Salty Trivia”"
+  , "Credits"
+  , "More Haley Halcyon"
 ]
 , "sys_cancel": "Cancel"
 , "sys_start": "Start!"
@@ -146,9 +146,9 @@
   , "[→] Accept our thanks for playing!"
   ]
 , "modal_popup" : [
-  "To show this page, please allow pop-ups."
-, "Alternatively, please go directly to "
-, "."
+    "To show this page, please allow pop-ups."
+  , "Alternatively, please go directly to "
+  , "."
 ]
 , "error_menu_item" : [
     "An error occured while trying to select a menu item."

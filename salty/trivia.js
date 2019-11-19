@@ -589,6 +589,7 @@ function activateModal(text) {
   for (var i = content.childNodes.length - 1; i >= 0; i--) {
     content.removeChild(content.childNodes[i]);
   }
+  modal.querySelector(".modal_box").scrollTo(0, 0);
   for (var i = 0; i < text.length; i++) {
     var node;
     if (text[i].charAt(0) == "#") {
@@ -813,7 +814,7 @@ function chooseEpisodeKeys(event) {
         } else {
           // nobody signed up
           playSFX({name: "menu_fail"});
-          activateModal(strings.error_nobody.concat("[[→]]" + strings.sys_dismiss));
+          activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
           setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
         }
         break;
@@ -949,7 +950,7 @@ function signupKeys(event){
       } else {
         // nobody signed up
         playSFX({name: "menu_fail"});
-        activateModal(strings.error_nobody.concat("[[→]]" + strings.sys_dismiss));
+        activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
         setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
       }
       break;
@@ -1009,7 +1010,7 @@ function titleKeys(event) {
   var selected = getIndexOfSel(buttons);
   if (selected == -1) {
     // error
-    activateModal(strings.error_menu_item.concat("[[→]]" + strings.sys_dismiss));
+    activateModal(strings.error_menu_item.concat("[→]" + strings.sys_dismiss));
     buttons[0].classList.add("sel");
   }
   // branch by key
@@ -1037,10 +1038,10 @@ function titleKeys(event) {
           startSignup();
           break;
         case 1:
-          activateModal(strings.modal_controls.concat("[[→]]" + strings.sys_dismiss));
+          activateModal(strings.modal_controls.concat("[→]" + strings.sys_dismiss));
           break;
         case 2:
-          activateModal(strings.modal_about.concat("[[→]]" + strings.sys_dismiss));
+          activateModal(strings.modal_about.concat("[→]" + strings.sys_dismiss));
           break;
         case 3:
           stopMusic(1000);
@@ -1052,7 +1053,7 @@ function titleKeys(event) {
           activateModal([
             strings.modal_popup[0],
             strings.modal_popup[1] + (window.location.origin === "japanyoshi.github.io" ? window.location.origin : "2gd4.me") + modal_popup[2],
-            "[[→]]" + strings.sys_dismiss
+            "[→]" + strings.sys_dismiss
           ]);
           break;
       }
@@ -1080,7 +1081,7 @@ function advanceSplashScreen() {
     delete splashTimeout;
     document.getElementById("splash_screen_2").classList.add("gone");
     changeKeyHandler(undefined, false);
-    activateModal(strings.modal_first.concat("[[→]]" + strings.sys_start));
+    activateModal(strings.modal_first.concat("[→]" + strings.sys_start));
     initApp();
   } else {
     document.getElementById("splash_screen").classList.add("gone");
