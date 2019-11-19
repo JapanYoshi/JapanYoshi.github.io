@@ -1072,6 +1072,7 @@ function advanceSplashScreen() {
     delete splashTimeout;
     document.getElementById("splash_screen_2").classList.add("gone");
     changeKeyHandler(undefined, false);
+    activateModal(modal_first.concat("[[→]]" + strings.sys_start));
     initApp();
   } else {
     document.getElementById("splash_screen").classList.add("gone");
@@ -1117,6 +1118,7 @@ document.addEventListener("DOMContentLoaded", function(){
       strings.splash_screen_name_2;
       
     // other strings
+    loadPage("menu");
     buttons = document.getElementById("title_option_box").querySelectorAll(".button");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].innerText = strings.title_option_box[i];
@@ -1130,7 +1132,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
     document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
 
-    loadPage("menu");
     document.addEventListener("keydown", keyShiv, true);
     setTimeout(()=>{changeKeyHandler(splashScreenHandler, false)}, 1000);
     splashTimeout = setTimeout(function(){

@@ -44,7 +44,6 @@
   , "This program is for up to 4 players, but one player must use the numpad."
   , "#Browser compatibility"
   , "This application uses Chrome specific features. If the background doesn't look blurry here, you should open this page on Google Chrome."
-  , "[→] Start!"
   ]
 , "game_title" : [
   "Salty"
@@ -106,7 +105,6 @@
   , "You will get 3 items and 5 categories. For each category, press the corresponding key ([[↑]], [[←]], [[↓]], [[→]]) to answer whether that item fits that category. Each correct answer gives the player 100 'likes', which are then converted to points at the end of the game. There is also a 4th bonus item for each category, which, in multiplayer mode, can only be answered by the half of players with the fewest 'likes'."
   , "10 likes is equal to 1 point, and you break even at 1000 likes."
   , "You cannot use a Lifesaver on Hike Your Likes."
-  , "[→] Dismiss"
 ]
 , "modal_credits": [
     "#Credits"
