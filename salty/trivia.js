@@ -1103,6 +1103,22 @@ document.addEventListener("DOMContentLoaded", function(){
      * race conditions, you can kiss my ass
      */
     floorRem();
+    loadPage("menu").then(() => {
+      // other strings
+      buttons = document.getElementById("title_option_box").querySelectorAll(".button");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].innerText = strings.title_option_box[i];
+      }
+      document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
+      document.getElementById("title_dropcap").innerText = strings.game_title[1].charAt(0);
+      document.getElementById("title_rest").innerText = strings.game_title[1].substring(1);
+      document.getElementById("title_subtitle").innerText = strings.game_title[2];
+      document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
+  
+      document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
+      document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
+  
+    });
     /* splash screen */
     document.getElementById("splash_screen_top_text").innerText =
       strings.splash_screen_tagline[
@@ -1116,23 +1132,8 @@ document.addEventListener("DOMContentLoaded", function(){
       ]; // choose random line
     document.getElementById("splash_screen_2_bottom_text").innerText =
       strings.splash_screen_name_2;
-      
-    // other strings
-    loadPage("menu");
-    buttons = document.getElementById("title_option_box").querySelectorAll(".button");
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].innerText = strings.title_option_box[i];
-    }
-    document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
-    document.getElementById("title_dropcap").innerText = strings.game_title[1].charAt(0);
-    document.getElementById("title_rest").innerText = strings.game_title[1].substring(1);
-    document.getElementById("title_subtitle").innerText = strings.game_title[2];
-    document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
-
-    document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
-    document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
-
     document.addEventListener("keydown", keyShiv, true);
+      
     setTimeout(()=>{changeKeyHandler(splashScreenHandler, false)}, 1000);
     splashTimeout = setTimeout(function(){
       advanceSplashScreen();
