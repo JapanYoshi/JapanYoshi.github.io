@@ -72,7 +72,8 @@ html {
   /* screen will be 64rem x 36rem*/
 }
 
-#splash_screen.gone {
+#splash_screen.gone,
+#splash_screen_2.gone {
   -webkit-animation: hide_splash_screen 1s linear;
   animation: hide_splash_screen 1s linear;
   -webkit-animation-delay: 0s;

@@ -14,6 +14,18 @@
 , "splash_screen_name": [
     "Haley Halcyon"
 ]
+, "splash_screen_tagline_2": [
+  "Based on the works of"
+, "In loving homage to"
+, "Mostly copied from"
+, "With mad respect to"
+, "Support the original by"
+, "Concept lifted from"
+, "An irreverent fan game of"
+]
+, "splash_screen_name_2": [
+  "Jackbox Games"
+]
 , "modal_first"  : [
     "#Warning"
   , "*Keyboard layout"

@@ -1,0 +1,28 @@
+#gamepad_config {
+    position: absolute;
+    z-index: 69;
+    width: 64rem;
+    height: 36rem;
+    left: calc(50vw - 32rem);
+    bottom: calc(100vh + 18rem);
+    transition: bottom 0.3s ease-out;
+}
+
+#gamepad_config.shown {
+    bottom: calc(50vh - 18rem);
+}
+
+#gamepad_config > div {
+    display: flex;
+    flex-direction: row;
+}
+
+#gamepad_config_body {
+    width: 28rem;
+    height: 36rem;
+}
+
+#gamepad_config_diagram {
+    width: 36rem;
+    height: 36rem;
+}

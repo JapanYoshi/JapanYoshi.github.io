@@ -1065,6 +1065,22 @@ function initApp(){
     }, MUSIC_DELAY
   );
 }
+splashTimeout = undefined;
+function advanceSplashScreen() {
+  if (document.getElementById("splash_screen").classList.contains("gone")) {
+    delete splashTimeout;
+    document.getElementById("splash_screen_2").classList.add("gone");
+    initApp();
+  } else {
+    document.getElementById("splash_screen").classList.add("gone");
+    splashTimeout = setTimeout(function(){
+      advanceSplashScreen();
+    }, 3000);
+  }
+}
+function splashScreenHandler(e) {
+  advanceSplashScreen();
+}
 document.addEventListener("DOMContentLoaded", function(){
   // first time boot
   loadStrings(LANG).then(result => {
@@ -1082,19 +1098,25 @@ document.addEventListener("DOMContentLoaded", function(){
      * race conditions, you can kiss my ass
      */
     floorRem();
-    
+    /* splash screen */
     document.getElementById("splash_screen_top_text").innerText =
       strings.splash_screen_tagline[
         Math.floor(Math.random() * strings.splash_screen_tagline.length)
       ]; // choose random line
     document.getElementById("splash_screen_bottom_text").innerText =
       strings.splash_screen_name;
+      document.getElementById("splash_screen_top_text").innerText =
+      strings.splash_screen_tagline_2[
+        Math.floor(Math.random() * strings.splash_screen_tagline_2.length)
+      ]; // choose random line
+    document.getElementById("splash_screen_bottom_text").innerText =
+      strings.splash_screen_name_2;
+
     loadPage("menu");
-    setTimeout(function(){
-      document.getElementById("splash_screen").classList = "gone";
-      initApp();
-      document.addEventListener("keydown", keyShiv, true);
-      activateModal(strings.modal_first);
+    document.addEventListener("keydown", keyShiv, true);
+    changeKeyHandler(splashScreenHandler, false);
+    splashTimeout = setTimeout(function(){
+      advanceSplashScreen();
     }, 3000);
   });
 }, true);
