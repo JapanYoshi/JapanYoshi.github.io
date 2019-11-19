@@ -1125,9 +1125,15 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
       
       document.getElementById("modal").querySelector("scroll_tip").innerHTML = formatIcons(strings.modal_scroll);
-
-      document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
-      document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
+      
+      var parent = document.querySelectorAll("floating_back_button");
+      for (var i = 0; i < parent.length; i++){
+        parent[i].querySelector("span").innerText = strings.sys_cancel;
+      }
+      parent = document.querySelectorAll("floating_func_button");
+      for (var i = 0; i < parent.length; i++){
+        parent[i].querySelector("span").innerText = strings.sys_start;
+      }
   
     });
     /* splash screen */

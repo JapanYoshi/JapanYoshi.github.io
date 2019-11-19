@@ -62,6 +62,10 @@
 , "sys_cancel": "Cancel"
 , "sys_start": "Start!"
 , "sys_dismiss": "Dismiss"
+, "title_signup" : "Player signup"
+, "title_episodes" : "Episodes"
+, "signup_press" : "Press [[↑]]/[[2]] to sign up"
+, "signout_press" : "Press [[↓]]/[[5]] to sign out"
 , "modal_about": [
     "#About"
   , "Salty Trivia with Candy Barr is a sassy trivia video game where the questions are ridiculous but the answers are serious."
