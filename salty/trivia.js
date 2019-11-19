@@ -1070,6 +1070,7 @@ function advanceSplashScreen() {
   if (document.getElementById("splash_screen").classList.contains("gone")) {
     delete splashTimeout;
     document.getElementById("splash_screen_2").classList.add("gone");
+    changeKeyHandler(undefined, false);
     initApp();
   } else {
     document.getElementById("splash_screen").classList.add("gone");
@@ -1105,11 +1106,11 @@ document.addEventListener("DOMContentLoaded", function(){
       ]; // choose random line
     document.getElementById("splash_screen_bottom_text").innerText =
       strings.splash_screen_name;
-      document.getElementById("splash_screen_top_text").innerText =
+      document.getElementById("splash_screen_2_top_text").innerText =
       strings.splash_screen_tagline_2[
         Math.floor(Math.random() * strings.splash_screen_tagline_2.length)
       ]; // choose random line
-    document.getElementById("splash_screen_bottom_text").innerText =
+    document.getElementById("splash_screen_2_bottom_text").innerText =
       strings.splash_screen_name_2;
 
     loadPage("menu");
