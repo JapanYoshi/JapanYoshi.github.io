@@ -166,12 +166,13 @@ const loadPage = (name) => {
           var xhr= new XMLHttpRequest();
           xhr.open('GET', name + '.html', true);
           xhr.onreadystatechange = function() {
-            if (this.readyState !== 4) return;
+            if (this.readyState !== 4) reject(new Error("Page " + name + " could not load"));
             if (this.status !== 200) {
               window.alert("Error on loading page " + name + ". Please see the browser console for details.");
+              reject(new Error("Page " + name + " could not load"));
             }; // or whatever error handling you want
             screen.innerHTML= this.responseText;
-            return;
+            resolve();
           };
           xhr.send();
         }
@@ -1115,13 +1116,16 @@ document.addEventListener("DOMContentLoaded", function(){
       buttons = document.getElementById("title_option_box").querySelectorAll(".button");
       for (var i = 0; i < buttons.length; i++) {
         buttons[i].innerText = strings.title_option_box[i];
+        console.log(strings.title_option_box[i]);
       }
       document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
-      document.getElementById("title_dropcap").innerText = strings.game_title[1].charAt(0);
-      document.getElementById("title_rest").innerText = strings.game_title[1].substring(1);
-      document.getElementById("title_subtitle").innerText = strings.game_title[2];
+      document.getElementById("title_dropcap").innerText = strings.game_title[1];
+      document.getElementById("title_rest").innerText = strings.game_title[2];
+      document.getElementById("title_subtitle").innerText = strings.game_title[3];
       document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
-  
+      
+      document.getElementById("modal").querySelector("scroll_tip").innerHTML = formatIcons(strings.modal_scroll);
+
       document.querySelectorAll("floating_back_button").querySelector("span").innerText = strings.sys_cancel;
       document.querySelectorAll("floating_func_button").querySelector("span").innerText = strings.sys_start;
   
