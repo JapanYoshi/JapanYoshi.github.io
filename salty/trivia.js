@@ -166,10 +166,10 @@ const loadPage = (name) => {
           var xhr= new XMLHttpRequest();
           xhr.open('GET', name + '.html', true);
           xhr.onreadystatechange = function() {
-            if (this.readyState !== 4) reject(new Error("Page " + name + " could not load"));
+            if (this.readyState !== 4) resolve(new Error("Page " + name + " could not load"));
             if (this.status !== 200) {
               window.alert("Error on loading page " + name + ". Please see the browser console for details.");
-              reject(new Error("Page " + name + " could not load"));
+              resolve(new Error("Page " + name + " could not load"));
             }; // or whatever error handling you want
             screen.innerHTML= this.responseText;
             resolve();
