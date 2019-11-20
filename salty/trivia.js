@@ -581,6 +581,7 @@ function modalKeys(event) {
   var key, player;
   if (event.code !== undefined) {
     const id = sys(event);
+    console.log(id);
     key = id % 16;
     player = -(id - key) / 16;
   } else {
