@@ -99,6 +99,25 @@ function keyShiv(event){
     return;
   }
 }
+
+/**
+ * Like keyShiv, but adapts to button presses.
+ * @param {controllerPressEvent} event Custom event.
+ * @param {number} event.index The index of the controller.
+ * @param {boolean} event.player2 On a shared controller, whether the button is on the right hand side. 
+ * @param {number} event.button The index of the button.
+ */
+function buttonShiv(event){
+  if (currentEventListenerModal) {
+    return currentEventListenerModal(event);
+  } else if (currentEventListener) {
+    return currentEventListener(event);
+  } else {
+    console.log("no key handler");
+    return;
+  }
+}
+
 /**
  * Changes one of the currently active event listeners.
  * Uses the global variables currentEventListener and
@@ -567,24 +586,27 @@ function modalKeys(event) {
     player = -(id - key) / 16;
   } else {
     key = event.button;
-    player = event.gamepad;
+    player = event.index * 2 + +(event.player2);
   }
   event.stopPropagation();
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
-  switch (sys(event) % 8) {
+  switch (sys(event) % 16) {
     case keyName.up:
+    case keyName.dUp:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
       playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / -8);
       break;
     case keyName.down:
+    case keyName.dDown:
       console.log("Down was pressed. Scrolling px:", screenHeight / 8);
       playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / 8);
       break;
     case keyName.right:
+    case keyName.dRight:
       changeKeyHandler(undefined, true);
       playSFX({name: "menu_confirm"});
       setTimeout(function(){
@@ -771,16 +793,14 @@ function chooseEpisodeKeys(event) {
   var key, player;
   if (typeof event === "KeyboardEvent") {
     const id = sys(event);
+    if (id < 16) {return;}
     key = id % 16;
     player = -(id - key) / 16;
   } else {
     key = event.button;
-    player = event.gamepad;
+    player = event.index * 2 + +(event.player2);
   }
-  if (
-    !player // player 0 means it's not a game key
-    || !params.players[player] // not a present player
-  ) {
+  if (!params.players[player]){ // not a present player
     return;
   } else {
     const buttons = document.getElementById("episode_carousel").childNodes;
@@ -925,12 +945,13 @@ function signupKeys(event){
     player = -(id - key) / 16;
   } else {
     key = event.button;
-    player = event.gamepad;
+    player = event.index * 2 + +(event.player2);
   }
   console.log("Player", player, "Key", key, "pressed.");
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   switch (key) {
     case keyName.up:
+    case keyName.dUp:
       // register
       if (!params.players[player].present){
         playSFX({name: "menu_signin"});
@@ -942,6 +963,7 @@ function signupKeys(event){
       }
       break;
     case keyName.down:
+    case keyName.dDown:
       // unregister
       if (params.players[0-player]){
         playSFX({name: "menu_signout"});
@@ -953,6 +975,7 @@ function signupKeys(event){
       }
       break;
     case keyName.left:
+    case keyName.dLeft:
       // back
       changeKeyHandler(undefined, false);
       playSFX({name: "menu_back"});
@@ -960,6 +983,7 @@ function signupKeys(event){
       initApp();
       break;
     case keyName.right:
+    case keyName.dRight:
       // start
       if (params.playerCount) {
         // somebody signed up
@@ -1045,6 +1069,7 @@ function titleKeys(event) {
   var input = sys(event);
   switch (input % 16) {
     case keyName.up:
+    case keyName.dUp:
       console.log("up");
       playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
@@ -1052,6 +1077,7 @@ function titleKeys(event) {
       buttons[selected].classList.add("sel");
       break;
     case keyName.down:
+    case keyName.dDown:
       console.log("down");
       playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
@@ -1059,6 +1085,7 @@ function titleKeys(event) {
       buttons[selected].classList.add("sel");
       break;
     case keyName.right:
+    case keyName.dRight:
       playSFX({name: "menu_confirm"});
       switch (selected) {
         case 0:
@@ -1179,6 +1206,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("splash_screen_2_bottom_text").innerText =
       strings.splash_screen_name_2;
     document.addEventListener("keydown", keyShiv, true);
+    document.addEventListener("controllerPress", buttonShiv, true);
       
     setTimeout(()=>{changeKeyHandler(splashScreenHandler, false)}, 1000);
     splashTimeout = setTimeout(function(){

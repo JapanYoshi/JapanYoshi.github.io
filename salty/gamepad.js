@@ -5,8 +5,7 @@ const sleep = (wait, someFunction) => {
     }, wait)
   });
 }
-// end test/included functions
-
+// end test functions
 var daisyWheelPage = 4;
 var readyState = 0;
 const stickThreshold = 0.4;
@@ -568,6 +567,16 @@ function removeGamepad(index) {
   configs[index] = {};
 }
 
+function sendButtonEvent(index, player2, button) {
+  document.dispatchEvent(
+    new Event('controllerPress', {
+      index: index,
+      player2: player2,
+      button: button
+    })
+  );
+}
+
 function controllerLoop() {
   var buttonPressedState = 0;
   var gamepads = getGamepads();
@@ -585,6 +594,7 @@ function controllerLoop() {
     for (var k = 0; k < new1.length; k++) {
       if (new1[k]) {
         console.log("gamepad " + i + " player 1 button " + k, state1, new1);
+        sendButtonEvent(i, false, k);
       }
     }
     configs[i].lastFrameButtonState1 = state1;
@@ -594,8 +604,10 @@ function controllerLoop() {
       for (var k = 0; k < new2.length; k++) {
         if (new2[k]) {
           console.log("gamepad " + i + " player 2 button " + k);
+          sendButtonEvent(i, true, k);
         }
       }
+      
       configs[i].lastFrameButtonState2 = state2;
     }
   }
