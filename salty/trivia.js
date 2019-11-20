@@ -17,7 +17,15 @@ const keyName = {
   down: 4,
   right: 5,
   pause: 6,
-  "undefined": 7
+  unused7: 7,
+  unused8: 8,
+  dUp: 9,
+  unused10: 10,
+  dLeft: 11,
+  dDown: 12,
+  dRight: 13,
+  unused14: 14,
+  unused15: 15
 }
 
 var _ROOT = "https://japanyoshi.github.io/salty/";
@@ -520,8 +528,6 @@ function sys(e) {
   switch (e.keyCode) {
     case 27: // esc
       return 6;
-    case 32: // space
-      return 1;
     case 8: // backspace
       return 3;
     case 13: // return
