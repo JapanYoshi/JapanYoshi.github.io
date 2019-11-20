@@ -1098,6 +1098,8 @@ function titleKeys(event) {
           ]);
           break;
       }
+      default:
+        console.log("Key name " + key + " was not found.");
       return;
   }
 }
