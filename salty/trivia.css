@@ -119,6 +119,10 @@ p {
   filter: blur(0.5rem);
 }
 
+#gamepad_config.shown + #modal {
+  opacity: 0;
+}
+
 section {
   opacity: 0;
   position: absolute;

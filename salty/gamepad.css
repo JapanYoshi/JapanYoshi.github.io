@@ -18,8 +18,12 @@
 }
 
 #gamepad_config_body {
-    width: 28rem;
-    height: 36rem;
+    width: 26rem;
+    height: 34rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 1rem;
 }
 
 #gamepad_diagram_box,
