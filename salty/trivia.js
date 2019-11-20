@@ -938,7 +938,8 @@ function signupKeys(event){
     player = event.index * 2 + +(event.player2);
   }
   console.log("Player", player, "Key", key, "pressed.");
-  console.log(params.players);
+  console.log("Players", params.players);
+  console.log("PresentList", params.presentList);
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   switch (key) {
     case keyName.up:
