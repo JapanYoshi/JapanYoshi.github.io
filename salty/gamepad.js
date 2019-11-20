@@ -170,6 +170,9 @@ function configChangeState(state, retro, shared) {
     document.getElementById("gamepad_diagram").src = state.toString(10) + (
       19 >= state
     ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg";
+    console.log(state.toString(10) + (
+      19 >= state
+    ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg");
   }
 }
 function getNewPresses(oldState, newState) {
