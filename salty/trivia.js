@@ -844,31 +844,16 @@ function chooseEpisodeKeys(event) {
         startSignup();
         break;
       case keyName.right:
-        // start
-        var playerCount = 0
-        for (var i = 0; i < params.players.length; i++) {
-          if (params.players[i].present) {
-            playerCount++;
-          }
+        try {
+          loadEpisode(episode_listing[selected].id);
+        } catch (e) {
+          abort(strings.error_episode_load + [e.message])
+          break;
         }
-        if (playerCount) {
-          // somebody signed up
-          try {
-            loadEpisode(episode_listing[selected].id);
-          } catch (e) {
-            abort(strings.error_episode_load + [e.message])
-            break;
-          }
-          playSFX({name: "game_start"});
-          changeKeyHandler(undefined, false);
-          stopMusic(1500);
-          console.log("game started");
-        } else {
-          // nobody signed up
-          playSFX({name: "menu_fail"});
-          activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
-          setTimeout(function(){changeKeyHandler(signupKeys, false)}, 1000);
-        }
+        playSFX({name: "game_start"});
+        changeKeyHandler(undefined, false);
+        stopMusic(1500);
+        console.log("game started");
         break;
     }
   }
@@ -960,7 +945,7 @@ function signupKeys(event){
       // register
       if (!params.players[player].present){
         playSFX({name: "menu_signin"});
-        params.players[0-player] = {
+        params.players[player] = {
           id: player
         };
         params.playerCount++;
@@ -970,9 +955,9 @@ function signupKeys(event){
     case keyName.down:
     case keyName.dDown:
       // unregister
-      if (params.players[0-player]){
+      if (params.players[player]){
         playSFX({name: "menu_signout"});
-        params.players[0-player] = undefined;
+        params.players[player] = undefined;
         params.playerCount--;
         if (params.playerCount === 0) {
           setExtraVolume(0);
@@ -1020,17 +1005,9 @@ function startSignup(){
     }
   );
   // init signup data
-  params_players_cache = [];
-  const playerNames = ["Velocity", "Acceleration", "Jerk", "Snap", "Crackle", "Pop", "Lock", "Drop"];
-  for (i = 0; i < MAX_PLAYER_COUNT; i++) {
-    params_players_cache[i] = {
-      present: false,
-      name: playerNames[i]
-    };
-  }
   params.playerCount = 0;
   console.log(params_players_cache);
-  params.players = params_players_cache;
+  params.players = {};
   console.log(params.players);
   // set key handler and music with a delay
   setTimeout(function(){
