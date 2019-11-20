@@ -949,7 +949,6 @@ function signupKeys(event){
           name: ""
         };
         params.presentList.push(player);
-        params.playerCount++;
         setExtraVolume(0.6);
       }
       break;
@@ -960,8 +959,7 @@ function signupKeys(event){
         playSFX({name: "menu_signout"});
         params.players[player] = undefined;
         params.presentList.splice(params.presentList.indexOf(player), 1);
-        params.playerCount--;
-        if (params.playerCount === 0) {
+        if (params.presentList.length === 0) {
           setExtraVolume(0);
         }
       }
@@ -977,7 +975,7 @@ function signupKeys(event){
     case keyName.right:
     case keyName.dRight:
       // start
-      if (params.playerCount) {
+      if (params.presentList.length) {
         // somebody signed up
         playSFX({name: "menu_confirm"});
         changeKeyHandler(undefined, false);
