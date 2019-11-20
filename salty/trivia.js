@@ -805,7 +805,7 @@ function chooseEpisodeKeys(event) {
     key = event.button;
     player = event.index * 2 + +(event.player2);
   }
-  if (!params.players[player]){ // not a present player
+  if (!params.presentList.contains(player)){ // not a present player
     return;
   } else {
     const buttons = document.getElementById("episode_carousel").childNodes;
@@ -938,16 +938,19 @@ function signupKeys(event){
     player = event.index * 2 + +(event.player2);
   }
   console.log("Player", player, "Key", key, "pressed.");
+  console.log(params.players);
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   switch (key) {
     case keyName.up:
     case keyName.dUp:
       // register
-      if (!params.players[player].present){
+      if (!params.presentList.contains(player)){
         playSFX({name: "menu_signin"});
         params.players[player] = {
-          id: player
+          id: player,
+          name: ""
         };
+        params.presentList.push(player);
         params.playerCount++;
         setExtraVolume(0.6);
       }
@@ -955,9 +958,10 @@ function signupKeys(event){
     case keyName.down:
     case keyName.dDown:
       // unregister
-      if (params.players[player]){
+      if (params.presentList.contains(player)){
         playSFX({name: "menu_signout"});
         params.players[player] = undefined;
+        params.presentList.splice(params.presentList.indexOf(player), 1);
         params.playerCount--;
         if (params.playerCount === 0) {
           setExtraVolume(0);
@@ -1005,9 +1009,8 @@ function startSignup(){
     }
   );
   // init signup data
-  params.playerCount = 0;
-  console.log(params_players_cache);
-  params.players = {};
+  params.players = [];
+  params.presentList = [];
   console.log(params.players);
   // set key handler and music with a delay
   setTimeout(function(){
