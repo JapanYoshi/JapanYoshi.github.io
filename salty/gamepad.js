@@ -154,12 +154,13 @@ function configChangeState(state, retro, shared) {
     console.log("state" + state);
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = formatIcons(configStrings[state]);
     const changeBackground = [
-      5 // solo
-    , 8 // none
-    , 9 // shared_side
-    , 13 // shared
-    , 15 // solo
-    , 17 // retro
+      0 // none
+    , 5 // solo
+    , 7 // none
+    , 8 // shared_side
+    , 12 // shared
+    , 14 // solo
+    , 16 // retro
     ];
     if (changeBackground.includes(state)){
       document.getElementById("gamepad_diagram_bg").src = state === 0 ? "" : (
