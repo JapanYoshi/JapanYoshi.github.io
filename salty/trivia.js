@@ -587,7 +587,7 @@ function modalKeys(event) {
     key = event.button;
     player = event.index * 2 + +(event.player2);
   }
-  console.log("modalKeys", id, key);
+  console.log("modalKeys", key, player);
   event.stopPropagation();
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
