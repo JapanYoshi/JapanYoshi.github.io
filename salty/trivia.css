@@ -152,8 +152,8 @@ section {
   height: 100%;
   background-image: url("data/bg0.png");
   background-size: cover;
-  -webkit-animation: breathe 2.5s linear 0s infinite alternate;
-  animation: breathe 2.5s linear 0s infinite alternate;
+  -webkit-animation: breathe 3s linear 0s infinite alternate;
+  animation: breathe 3s linear 0s infinite alternate;
   -webkit-filter: hue-rotate(-100deg) saturate(30%) contrast(80%) brightness(80%);
   filter: hue-rotate(-100deg) saturate(30%) contrast(80%) brightness(80%);
 }

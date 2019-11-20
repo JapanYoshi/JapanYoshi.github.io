@@ -10,15 +10,7 @@
   box-shadow:
     -0.1rem -0.2rem 0.3rem #fd90cf inset,
     0.2rem 0.4rem 1rem rgba(0, 0, 0, 0.5);
-  animation: 3s ease-in-out 0s infinite alternate both running phone_bob;
-}
-@keyframes phone_bob {
-  from {
-    top: -1rem;
-  }
-  to {
-    top: 0rem;
-  }
+  will-change: left, top;
 }
 #hike_screen {
   position: relative;
@@ -192,42 +184,42 @@
   width: 2rem;
   height: 2rem;
 }
-.hike_button:nth-child(1) {
+#hike_button_1 {
   background: #c8ab6c;
   background-image: -moz-linear-gradient(#e4f684 5%, #c8ab6c 95%);
   background-image: -webkit-linear-gradient(#e4f684 5%, #c8ab6c 95%);
   background-image: linear-gradient(#e4f684 5%, #c8ab6c 95%);
 }
-.hike_button:nth-child(1) .hike_icon {
+#hike_button_1 .hike_icon {
   filter: hue-rotate(60deg)brightness(300%)contrast(200%)saturate(150%);
 }
-.hike_button:nth-child(2) {
+#hike_button_2 {
   background: #74bd61;
   background-image: -moz-linear-gradient(#9edc73 5%, #74bd61 95%);
   background-image: -webkit-linear-gradient(#9edc73 5%, #74bd61 95%);
   background-image: linear-gradient(#9edc73 5%, #74bd61 95%);
 }
-.hike_button:nth-child(2) .hike_icon {
+#hike_button_2 .hike_icon {
   transform: rotate(-90deg);
   filter: hue-rotate(100deg)brightness(200%)contrast(350%)saturate(100%);
 }
-.hike_button:nth-child(3) {
+#hike_button_3 {
   background: #a2cdea;
   background-image: -moz-linear-gradient(#caf2f7 5%, #a2cdea 95%);
   background-image: -webkit-linear-gradient(#caf2f7 5%, #a2cdea 95%);
   background-image: linear-gradient(#caf2f7 5%, #a2cdea 95%);
 }
-.hike_button:nth-child(3) .hike_icon {
+#hike_button_3 .hike_icon {
   transform: rotate(90deg);
   filter: hue-rotate(-130deg)brightness(340%)contrast(150%);
 }
-.hike_button:nth-child(4) {
+#hike_button_4 {
   background: #d1abff;
   background-image: -moz-linear-gradient(#f1cbff 5%, #d1abff 95%);
   background-image: -webkit-linear-gradient(#f1cbff 5%, #d1abff 95%);
   background-image: linear-gradient(#f1cbff 5%, #d1abff 95%);
 }
-.hike_button:nth-child(4) .hike_icon {
+#hike_button_4 .hike_icon {
   transform: rotate(180deg);
   filter: saturate(60%)hue-rotate(-90deg)brightness(400%)contrast(350%);
 }
