@@ -819,7 +819,7 @@ function chooseEpisodeKeys(event) {
     var selected = getIndexOfSel(buttons);
     switch (key) {
       case keyName.up:
-      case keyName.dup:
+      case keyName.dUp:
         console.log("up");
         if (selected) {
           playSFX({name: "menu_move"});
