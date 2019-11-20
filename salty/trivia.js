@@ -1136,6 +1136,7 @@ function initApp(){
 splashTimeout = undefined;
 function advanceSplashScreen() {
   if (document.getElementById("splash_screen").classList.contains("gone")) {
+    clearTimeout(splashTimeout);
     delete splashTimeout;
     document.getElementById("splash_screen_2").classList.add("gone");
     changeKeyHandler(undefined, false);
