@@ -243,16 +243,16 @@ function getGamepadStateSys(id, player2) {
       }
     } else {
       // buttons 9, 11, 12, and 13
-      if (gp.buttons[cfgButtons[13]].pressed) {
+      if (gp.buttons[cfgButtons[keyName.dRight]].pressed) {
         state[8] = 5;
-      } else if (gp.buttons[cfgButtons[11]].pressed) {
+      } else if (gp.buttons[cfgButtons[keyName.dLeft]].pressed) {
         state[8] = 4;
       } else {
         state[8] = 3;
       }
-      if (gp.buttons[cfgButtons[12]].pressed) {
+      if (gp.buttons[cfgButtons[keyName.dDown]].pressed) {
         state[8] += 3;
-      } else if (gp.buttons[cfgButtons[9]].pressed) {
+      } else if (gp.buttons[keyName.dUp]].pressed) {
         state[8] -= 3;
       }
     }
@@ -565,17 +565,6 @@ function getGamepads() {
     return [];
   }
   return gamepads;
-}
-
-function formatGamepadStateSys(state) {
-  const p = ["--", "()"];
-  const n = String.fromCharCode(160);
-  return [ // 18 char wide
-    n + n + n + p[state[0]] + n + n + " " + n + n + " " + n + n + p[state[2]]
-  , "/ " + n + " " + p[+(state[8] < 3)] + n + n + p[state[6]] + n + n + p[state[1]] + " " + n + " \\"
-  , "| " + p[+(state[8] % 3 === 0)] + n + n + p[+(state[8] % 3 === 2)] + "||" + p[state[3]] + n + n + p[state[5]] + " |"
-  , "\\" + n + n + n + p[+(6 <= state[8])] + n + " || " + n + p[state[4]] + n + n + n + "/"
-  ].join("\n");
 }
 
 function removeGamepad(index) {
