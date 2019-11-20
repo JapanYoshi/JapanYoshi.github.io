@@ -1114,7 +1114,7 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("title_subtitle").innerText = strings.game_title[3];
       document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
       
-      document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.modal_scroll);
+      document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
       
       var parent = document.querySelectorAll("floating_back_button");
       for (var i = 0; i < parent.length; i++){
