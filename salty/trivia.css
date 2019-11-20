@@ -110,7 +110,6 @@ p {
   width: 64rem;
   height: 36rem;
   overflow: hidden;
-  box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.5);
   filter: blur(0) brightness(1);
   transition: filter 0.5s linear;
 }
