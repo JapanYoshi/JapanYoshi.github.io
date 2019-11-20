@@ -9,24 +9,6 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
-const keyName = {
-  L: 0,
-  up: 1,
-  R: 2,
-  left: 3,
-  down: 4,
-  right: 5,
-  pause: 6,
-  unused7: 7,
-  unused8: 8,
-  dUp: 9,
-  unused10: 10,
-  dLeft: 11,
-  dDown: 12,
-  dRight: 13,
-  unused14: 14,
-  unused15: 15
-}
 
 var _ROOT = "https://japanyoshi.github.io/salty/";
 var _LOCAL = false;
@@ -495,6 +477,24 @@ function playSFX(sfx) {
  * end howler.js setup stuff
  */
 
+const keyName = {
+  L: 0,
+  up: 1,
+  R: 2,
+  left: 3,
+  down: 4,
+  right: 5,
+  pause: 6,
+  unused7: 7,
+  unused8: 8,
+  dUp: 9,
+  unused10: 10,
+  dLeft: 11,
+  dDown: 12,
+  dRight: 13,
+  unused14: 14,
+  unused15: 15
+}
 const KEY_CONFIG = [
   ["KeyQ", "KeyW", "KeyE", "KeyA", "KeyS", "KeyD"],
   ["KeyF", "KeyG", "KeyH", "KeyV", "KeyB", "KeyN"],
