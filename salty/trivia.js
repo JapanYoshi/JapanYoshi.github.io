@@ -407,7 +407,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     }
     bgm_sound_extra = bgm_data[bgmExtra.name];
     bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
-    bgm_volumes[1] = bgmExtra1.vol;
+    bgm_volumes[1] = bgmExtra.vol;
     if (bgmExtra2) {
       console.log("control flow", 5);
       if (!bgmExtra2.vol) {
