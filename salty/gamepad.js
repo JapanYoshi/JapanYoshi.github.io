@@ -151,6 +151,7 @@ function configChangeState(state, retro, shared) {
       retro ? "retro" : shared ? "shared" : "solo"
     ) + ".svg";
   } else {
+    console.log("state" + state);
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = formatIcons(configStrings[state]);
     const changeBackground = [
       5 // solo
