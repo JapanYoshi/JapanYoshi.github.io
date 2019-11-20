@@ -571,9 +571,9 @@ function sendButtonEvent(index, player2, button) {
   document.dispatchEvent(
     new CustomEvent('controllerPress', {
       detail: { // JavaScript gives me an ANEURYSM
-        index: 0, // this doesn't turn into event.index
-        player2: false, // that turns into event.DETAIL.index
-        button: 12 // they are fucking selling me short on this
+        index: index, // this doesn't turn into event.index
+        player2: player2, // that turns into event.DETAIL.index
+        button: button // they are fucking selling me short on this
       } // let me define a fucking custom property on a fucking
     }) // custom event god damn it IT MAKES MY CODE UGLY
   );
