@@ -115,7 +115,7 @@ p {
 }
 
 #modal.active + #screen {
-  filter: blur(0.5rem) brightness(0.7);
+  filter: blur(0.5rem);
 }
 
 section {
@@ -358,7 +358,6 @@ section.candy>.section_content {
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   -webkit-animation: hide 700ms ease-out;
   animation: hide 700ms ease-out;
   overflow: auto;
@@ -395,7 +394,7 @@ section.candy>.section_content {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
   overflow: auto;
   scroll-behavior: smooth;
