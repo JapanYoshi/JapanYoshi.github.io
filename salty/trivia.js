@@ -1105,8 +1105,9 @@ function titleKeys(event) {
       }
       default:
         console.log("Key name " + key + " was not found.");
-      return;
   }
+  console.log("key: ", key);
+  return;
 }
 /**
  * Called when the game is initialized or when the player
