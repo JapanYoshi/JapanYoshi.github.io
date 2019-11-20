@@ -161,12 +161,12 @@ function configChangeState(state, retro, shared) {
     , 17 // retro
     ];
     if (changeBackground.includes(state)){
-      document.getElementById("gamepad_diagram_bg").src = "bg_" + (retro ? "retro" : shared ? "shared" : "solo") + ".svg";
+      document.getElementById("gamepad_diagram_bg").src = "bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg");
     }
     // 19..30 (last element) have multiple variants
-    document.getElementById("gamepad_diagram").src = state + "_" + (
+    document.getElementById("gamepad_diagram").src = state + (
       19 >= state
-    ) ? (retro ? "retro" : shared ? "shared" : "solo") : "" + ".svg";
+    ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg";
   }
 }
 function getNewPresses(oldState, newState) {
@@ -174,7 +174,7 @@ function getNewPresses(oldState, newState) {
 }
 function getNewPressesSys(oldState, newState) {
   var result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (var i = 0; i = oldState.length - 1; i++) {
+  for (var i = 0; i < oldState.length - 1; i++) {
     result[i] = !oldState[i] & newState[i]
   }
   // special for d-pad: index 8 has d-pad state
