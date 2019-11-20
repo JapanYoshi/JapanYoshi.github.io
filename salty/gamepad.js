@@ -164,7 +164,7 @@ function configChangeState(state, retro, shared) {
       document.getElementById("gamepad_diagram_bg").src = "bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg");
     }
     // 19..30 (last element) have multiple variants
-    document.getElementById("gamepad_diagram").src = state + (
+    document.getElementById("gamepad_diagram").src = state.toString(10) + (
       19 >= state
     ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg";
   }
@@ -598,6 +598,7 @@ function controllerLoop() {
         console.log("gamepad " + i + " player 1 button " + k);
       }
     }
+    configs[i].lastFrameButtonState1 = state1;
     if (configs[i].shared) {
       const state2 = getGamepadStateSys(i, true);
       const new2 = getNewPressesSys(state2, configs[i].lastFrameButtonState2);
@@ -606,6 +607,7 @@ function controllerLoop() {
           console.log("gamepad " + i + " player 2 button " + k);
         }
       }
+      configs[i].lastFrameButtonState2 = state2;
     }
   }
   if (!configQueue.length && gamepadCount) {
