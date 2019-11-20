@@ -176,13 +176,13 @@ function getNewPresses(oldState, newState) {
 }
 function getNewPressesSys(oldState, newState) {
   var result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (var i = 0; i < oldState.length - 1; i++) {
+  for (var i = 0; i < newState.length - 1; i++) {
     result[i] = !oldState[i] & newState[i]
   }
   // special for d-pad: index 8 has d-pad state
   // new horizontal movement
   if (oldState[i] % 3 === 1 && newState[i] % 3 !== 1) {
-    if (newState[i] % 3) {
+    if (newState[i] % 3 === 2) {
       result[keyName.dRight] = 1;
     } else {
       result[keyName.dLeft] = 1;
