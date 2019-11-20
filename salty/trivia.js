@@ -4,6 +4,8 @@ var strings = {};
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
+var global_bgm_volume = 1;
+var bgm_volumes = [0, 0, 0];
 var bgm_sound;
 var bgm_sound_extra;
 var bgm_sound_extra2;
@@ -103,9 +105,9 @@ function keyShiv(event){
 /**
  * Like keyShiv, but adapts to button presses.
  * @param {controllerPressEvent} event Custom event.
- * @param {number} event.index The index of the controller.
- * @param {boolean} event.player2 On a shared controller, whether the button is on the right hand side. 
- * @param {number} event.button The index of the button.
+ * @param {number} event.detail.index The index of the controller.
+ * @param {boolean} event.detail.player2 On a shared controller, whether the button is on the right hand side. 
+ * @param {number} event.detail.button The index of the button.
  */
 function buttonShiv(event){
   if (currentEventListenerModal) {
@@ -395,7 +397,8 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   }
   // set up
   bgm_sound = bgm_data[bgm.name];
-  bgm_sound.volume(bgm.vol);
+  bgm_sound.volume(bgm.vol * global_bgm_volume);
+  bgm_volumes[0] = bgm.vol;
   if (bgmExtra) {
     console.log("control flow", 3);
     if (!bgmExtra.vol) {
@@ -403,7 +406,8 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
       console.log("control flow", 4);
     }
     bgm_sound_extra = bgm_data[bgmExtra.name];
-    bgm_sound_extra.volume(bgmExtra.vol);
+    bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
+    bgm_volumes[1] = bgmExtra1.vol;
     if (bgmExtra2) {
       console.log("control flow", 5);
       if (!bgmExtra2.vol) {
@@ -411,7 +415,8 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
         console.log("control flow", 6);
       }
       bgm_sound_extra2 = bgm_data[bgmExtra2.name];
-      bgm_sound_extra2.volume(bgmExtra2.vol);
+      bgm_volumes[2] = bgmExtra2.vol;
+      bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
     } else {
       console.log("control flow", 7);
       bgm_sound_extra = undefined;
@@ -585,8 +590,8 @@ function modalKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
-    key = event.button;
-    player = event.index * 2 + +(event.player2);
+    key = event.detail.button;
+    player = event.detail.index * 2 + +(event.detail.player2);
   }
   console.log("modalKeys", key, player);
   event.stopPropagation();
@@ -691,7 +696,7 @@ function abortModalKeys(event) {
   if (event.code !== undefined) {
     key = sys(event) % 16;
   } else {
-    key = event.button;
+    key = event.detail.button;
   }
   if (key === keyName.right || key === keyName.dRight) {
     changeKeyHandler(undefined, true);
@@ -804,8 +809,8 @@ function chooseEpisodeKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
-    key = event.button;
-    player = event.index * 2 + +(event.player2);
+    key = event.detail.button;
+    player = event.detail.index * 2 + +(event.detail.player2);
   }
   if (!params.presentList.includes(player)){ // not a present player
     return;
@@ -936,8 +941,8 @@ function signupKeys(event){
     key = id % 16;
     player = -(id - key) / 16;
   } else {
-    key = event.button;
-    player = event.index * 2 + +(event.player2);
+    key = event.detail.button;
+    player = event.detail.index * 2 + +(event.detail.player2);
   }
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   switch (key) {
@@ -1043,7 +1048,7 @@ function titleKeys(event) {
     const id = sys(event);
     key = id % 16;
   } else {
-    key = event.button;
+    key = event.detail.button;
   }
   var buttons = document.getElementById("title_option_box").children;
   var selected = getIndexOfSel(buttons);
