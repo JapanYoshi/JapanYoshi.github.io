@@ -543,15 +543,10 @@ function formatIcons(text) {
 function modalKeys(event) {
   console.log("modalKeys");
   event.stopPropagation();
-  var keyCode = event.keyCode;
-  if (!keyCode) {
-    window.alert("event.keyCode failed");
-    return;
-  }
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
-  switch (sys(keyCode) % 8) {
+  switch (sys(event) % 8) {
     case 2:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
       playSFX({name: "menu_move"});
@@ -642,7 +637,7 @@ function activateModal(text) {
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (sys(event.keyCode) % 16 === 6) {
+  if (sys(event) % 16 === 6) {
     changeKeyHandler(undefined, true);
     playSFX({name: "menu_confirm"});
     document.getElementById("modal").classList.remove("active");
@@ -745,7 +740,7 @@ function loadEpisode(filename){
  * @param {keyDownEvent} event The event.
  */
 function chooseEpisodeKeys(event) {
-  const id = sys(event.keyCode);
+  const id = sys(event);
   const key = id % 16;
   const player = (id - key) / 16;
   console.log("player", player, "key", key, "pressed");
@@ -890,12 +885,7 @@ function getEpisodes(){
 function signupKeys(event){
   console.log("signupKeys()");
   event.stopPropagation();
-  var keyCode = event.keyCode;
-  if (!keyCode) {
-    window.alert("event.keyCode failed");
-    return;
-  }
-  const id = sys(keyCode);
+  const id = sys(event);
   const key = id % 16;
   const player = (id - key) / 16;
   console.log("Player", player, "Key", key, "pressed.");
@@ -1013,7 +1003,7 @@ function titleKeys(event) {
     buttons[0].classList.add("sel");
   }
   // branch by key
-  var input = sys(event.keyCode);
+  var input = sys(event);
   switch (input % 16) {
     case 2:
       console.log("up");
@@ -1124,7 +1114,7 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("title_subtitle").innerText = strings.game_title[3];
       document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
       
-      document.getElementById("modal").querySelector("scroll_tip").innerHTML = formatIcons(strings.modal_scroll);
+      document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.modal_scroll);
       
       var parent = document.querySelectorAll("floating_back_button");
       for (var i = 0; i < parent.length; i++){
