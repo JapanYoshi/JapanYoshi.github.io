@@ -332,6 +332,7 @@ const configHandle = (id, configState) => {
           if (configState == 3 && gp.axes.length === 0) {
             // DEFINITELY no joysticks, choose "no" for them
             configState = 16;
+            configs[id].retro = true;
           } else {
             configState++;
           }
@@ -345,6 +346,7 @@ const configHandle = (id, configState) => {
           break;
         case configs[id].buttons[3]: //left
           configState = 16;
+          configs[id].retro = true;
           configStateChanged = true;
           configs[id].noAxes = true;
           break;
