@@ -570,7 +570,7 @@ function removeGamepad(index) {
 function sendButtonEvent(index, player2, button) {
   document.dispatchEvent(
     new Event('controllerPress', {
-      details: { // WHY IS THIS NECESSARY
+      detail: { // WHY IS THIS NECESSARY *AND* SINGULAR
         index: index,
         player2: player2,
         button: button
