@@ -616,6 +616,7 @@ function modalKeys(event) {
       }, 10);
       break;
   }
+  return;
 }
 /**
  * Initializes a modal, given an array of strings. All
@@ -700,6 +701,7 @@ function abortModalKeys(event) {
     setTimeout(initApp, 2000);
     console.log("Finished abortModalKeys");
   }
+  return;
 }
 /**
  * Like activateModal, but aborts the game and quits to the

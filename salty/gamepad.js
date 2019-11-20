@@ -583,7 +583,7 @@ function controllerLoop() {
   if (!gamepads) { return; }
   var gamepadCount = gamepads.length;
   for (var i = 0; i < gamepads.length; i++) {
-    if (!Object.getOwnPropertyNames(configs[i]).length) {
+    if (!configs[i] || !(Object.getOwnPropertyNames(configs[i]).length)) {
       // config was deleted, because gamepad was disconnected
       gamepadCount--;
       continue;
