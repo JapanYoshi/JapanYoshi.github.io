@@ -167,12 +167,7 @@ function configChangeState(state, retro, shared) {
       );
     }
     // 19..30 (last element) have multiple variants
-    document.getElementById("gamepad_diagram").src = state.toString(10) + (
-      19 >= state
-    ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg";
-    console.log(state.toString(10) + (
-      19 >= state
-    ) ? (retro ? "_retro.svg" : shared ? "_shared.svg" : "_solo.svg") : ".svg");
+    document.getElementById("gamepad_diagram").src = state.toString(10).concat((state >= 19) ? retro ? "_retro.svg" : (shared ? "_shared.svg" : "_solo.svg") : ".svg")
   }
 }
 function getNewPresses(oldState, newState) {
