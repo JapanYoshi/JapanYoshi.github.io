@@ -9,6 +9,7 @@ const sleep = (wait, someFunction) => {
 var daisyWheelPage = 4;
 var readyState = 0;
 const stickThreshold = 0.4;
+const blankImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIAAAUAAeImBZsAAAAASUVORK5CYII=";
 var configQueue = [];
 // from tilt state to config page
 const daisyWheelOrder = [8, 1, 2, 7, 0, 3, 6, 5, 4];
@@ -168,7 +169,7 @@ function configChangeState(state, retro, shared) {
     , 16 // retro
     ];
     if (changeBackground.includes(state)){
-      document.getElementById("gamepad_diagram_bg").src = (state === 0 || state === 7) ? "" : (
+      document.getElementById("gamepad_diagram_bg").src = (state === 0 || state === 7) ? blankImg : (
         "data/joystick/bg_" + (retro ? "retro.svg" : shared ? (state === 8 ? "side_shared.svg" : "shared.svg") : "solo.svg")
       );
     }
