@@ -131,8 +131,10 @@ function addToConfigQueue(id) {
   } // else, wait for finishConfig() to be called
 }
 function finishConfig() {
-  const justFinished = configQueue.shift();  
-  console.log(configs[justFinished]);
+  const justFinished = configQueue.shift();
+  configs[justFinished].lastFrameButtonState = undefined;
+  configs[justFinished].lastFrameButtonState1 = getGamepadStateSys(justFinished, false);
+  configs[justFinished].lastFrameButtonState2 = getGamepadStateSys(justFinished, true);
   if (configQueue.length) {
     // more controllers need to be configured
     configGamepad(configQueue[0]);
@@ -170,6 +172,30 @@ function configChangeState(state, retro, shared) {
 function getNewPresses(oldState, newState) {
   return newState & ~oldState; // bitwise not is ~
 }
+function getNewPressesSys(oldState, newState) {
+  var result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (var i = 0; i = oldState.length - 1; i++) {
+    result[i] = !oldState[i] & newState[i]
+  }
+  // special for d-pad: index 8 has d-pad state
+  // new horizontal movement
+  if (oldState[i] % 3 === 1 && newState[i] % 3 !== 1) {
+    if (newState[i] % 3) {
+      result[keyName.dRight] = 1;
+    } else {
+      result[keyName.dLeft] = 1;
+    }
+  }
+  // new vertical movement
+  if (3 <= oldState[i] && oldState[i] < 6 && (newState[i] < 3 || 6 <= newState[i])) {
+    if (newState[i] < 3) {
+      result[keyName.dUp] = 1;
+    } else {
+      result[keyName.dDown] = 1;
+    }
+  }
+  return result;
+}
 function getButtonState(id) {
   var buttons = getGamepads()[id].buttons;
   var state = 0;
@@ -184,9 +210,7 @@ function getButtonState(id) {
 function getGamepadStateSys(id, player2) {
   var gp = getGamepads()[id];
   if (!gp || player2 && !configs[id].shared) {
-    return [
-      0, 0, 0, 0, 0, 0, 0, 0, 4
-    ]; // neutral state just for testing
+    return undefined; // neutral state just for testing
   }
   var cfgButtons = configs[id].buttons;
   var state = [];
@@ -568,7 +592,21 @@ function controllerLoop() {
     }
     gp = gamepads[i];
     const state1 = getGamepadStateSys(i, false);
-    const state2 = getGamepadStateSys(i, true);
+    const new1 = getNewPressesSys(state1, configs[i].lastFrameButtonState1);
+    for (var k = 0; k < new1.length; k++) {
+      if (new1[k]) {
+        console.log("gamepad " + i + " player 1 button " + k);
+      }
+    }
+    if (configs[i].shared) {
+      const state2 = getGamepadStateSys(i, true);
+      const new2 = getNewPressesSys(state2, configs[i].lastFrameButtonState2);
+      for (var k = 0; k < new2.length; k++) {
+        if (new2[k]) {
+          console.log("gamepad " + i + " player 2 button " + k);
+        }
+      }
+    }
   }
   if (!configQueue.length && gamepadCount) {
     // only continue if the config queue is empty,
