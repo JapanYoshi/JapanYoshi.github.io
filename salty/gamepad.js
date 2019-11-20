@@ -163,12 +163,12 @@ function configChangeState(state, retro, shared) {
     , 16 // retro
     ];
     if (changeBackground.includes(state)){
-      document.getElementById("gamepad_diagram_bg").src = state === 0 ? "" : (
-        "data/joystick/bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg")
+      document.getElementById("gamepad_diagram_bg").src = (state === 0 || state === 7) ? "" : (
+        "data/joystick/bg_" + (retro ? "retro.svg" : shared ? (state === 8 ? "shared_side.svg" : "shared.svg") : "solo.svg")
       );
     }
-    // 19..30 (last element) have multiple variants
-    document.getElementById("gamepad_diagram").src = "data/joystick/" + state.toString(10).concat((state >= 19) ? retro ? "_retro.svg" : (shared ? "_shared.svg" : "_solo.svg") : ".svg")
+    // 18..30 (last element) have multiple variants
+    document.getElementById("gamepad_diagram").src = "data/joystick/" + state.toString(10).concat((state >= 18) ? retro ? "_retro.svg" : (shared ? "_shared.svg" : "_solo.svg") : ".svg")
   }
 }
 function getNewPresses(oldState, newState) {
