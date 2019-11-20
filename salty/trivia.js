@@ -560,6 +560,15 @@ function formatIcons(text) {
  */
 function modalKeys(event) {
   console.log("modalKeys");
+  var key, player;
+  if (typeof event === "KeyboardEvent") {
+    const id = sys(event);
+    key = id % 16;
+    player = -(id - key) / 16;
+  } else {
+    key = event.button;
+    player = event.gamepad;
+  }
   event.stopPropagation();
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
@@ -759,13 +768,19 @@ function loadEpisode(filename){
  */
 function chooseEpisodeKeys(event) {
   const id = sys(event);
-  const key = id % 16;
-  const player = (id - key) / 16;
-  console.log("player", player, "key", key, "pressed");
+  var key, player;
+  if (typeof event === "KeyboardEvent") {
+    const id = sys(event);
+    key = id % 16;
+    player = -(id - key) / 16;
+  } else {
+    key = event.button;
+    player = event.gamepad;
+  }
   if (
     !player // player 0 means it's not a game key
-    || !(params.players[player-1].present) // not a present player
-  ){
+    || !params.players[player] // not a present player
+  ) {
     return;
   } else {
     const buttons = document.getElementById("episode_carousel").childNodes;
@@ -903,29 +918,35 @@ function getEpisodes(){
 function signupKeys(event){
   console.log("signupKeys()");
   event.stopPropagation();
-  const id = sys(event);
-  const key = id % 16;
-  const player = (id - key) / 16;
+  var key, player;
+  if (typeof event === "KeyboardEvent") {
+    const id = sys(event);
+    key = id % 16;
+    player = -(id - key) / 16;
+  } else {
+    key = event.button;
+    player = event.gamepad;
+  }
   console.log("Player", player, "Key", key, "pressed.");
   var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
   switch (key) {
     case keyName.up:
       // register
-      if (!params.players[player - 1].present){
+      if (!params.players[player].present){
         playSFX({name: "menu_signin"});
-        params.players[player - 1].present = true;
-        cards[player - 1].classList.add("on");
+        params.players[0-player] = {
+          id: player
+        };
         params.playerCount++;
         setExtraVolume(0.6);
       }
       break;
     case keyName.down:
       // unregister
-      if (params.players[player - 1].present){
+      if (params.players[0-player]){
         playSFX({name: "menu_signout"});
-        params.players[player - 1].present = false;
-        cards[player - 1].classList.remove("on");
+        params.players[0-player] = undefined;
         params.playerCount--;
         if (params.playerCount === 0) {
           setExtraVolume(0);
@@ -941,13 +962,7 @@ function signupKeys(event){
       break;
     case keyName.right:
       // start
-      var playerCount = 0
-      for (var i = 0; i < params.players.length; i++) {
-        if (params.players[i].present) {
-          playerCount++;
-        }
-      }
-      if (playerCount) {
+      if (params.playerCount) {
         // somebody signed up
         playSFX({name: "menu_confirm"});
         changeKeyHandler(undefined, false);
@@ -1012,6 +1027,13 @@ function titleKeys(event) {
   if (document.querySelector("#modal.active")) {
     console.log("modal is active");
     return;
+  }
+  var key;
+  if (typeof event === "KeyboardEvent") {
+    const id = sys(event);
+    key = id % 16;
+  } else {
+    key = event.button;
   }
   var buttons = document.getElementById("title_option_box").children;
   var selected = getIndexOfSel(buttons);
