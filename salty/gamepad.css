@@ -41,6 +41,6 @@
     top: 0;
 }
 
-#gamepad_diagram_bg[src=] {
+#gamepad_diagram_bg[src=""] {
     opacity: 0;
 }
