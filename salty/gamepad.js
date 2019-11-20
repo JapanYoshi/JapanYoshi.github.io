@@ -183,13 +183,13 @@ function getNewPressesSys(oldState, newState) {
   // new horizontal movement
   if (oldState[i] % 3 !== 2 && newState[i] % 3 === 2) {
     result[keyName.dRight] = 1;
-  } else if (oldState[i] % 3 !== 0 && newState[i] % 3 === 0) { //
+  } else if (oldState[i] % 3 !== 0 && newState[i] % 3 === 0) {
     result[keyName.dLeft] = 1;
   }
   // new vertical movement
   if (oldState[i] >= 3 && newState[i] < 3) {
     result[keyName.dUp] = 1;
-  } else if (oldState[i] < 6 && newState >= 6) {
+  } else if (oldState[i] < 6 && newState[i] >= 6) {
     result[keyName.dDown] = 1;
   }
   return result;
