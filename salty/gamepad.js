@@ -252,7 +252,7 @@ function getGamepadStateSys(id, player2) {
       }
       if (gp.buttons[cfgButtons[keyName.dDown]].pressed) {
         state[8] += 3;
-      } else if (gp.buttons[keyName.dUp]].pressed) {
+      } else if (gp.buttons[cfgButtons[keyName.dUp]].pressed) {
         state[8] -= 3;
       }
     }
