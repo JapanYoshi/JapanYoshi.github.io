@@ -181,20 +181,16 @@ function getNewPressesSys(oldState, newState) {
   }
   // special for d-pad: index 8 has d-pad state
   // new horizontal movement
-  if (oldState[i] % 3 === 1 && newState[i] % 3 !== 1) {
-    if (newState[i] % 3 === 2) {
-      result[keyName.dRight] = 1;
-    } else {
-      result[keyName.dLeft] = 1;
-    }
+  if (oldState[i] % 3 !== 2 && newState[i] % 3 === 2) {
+    result[keyName.dRight] = 1;
+  } else if (oldState[i] % 3 !== 0 %% newState[i] % 3 === 0) {
+    result[keyName.dLeft] = 1;
   }
   // new vertical movement
-  if (3 <= oldState[i] && oldState[i] < 6 && (newState[i] < 3 || 6 <= newState[i])) {
-    if (newState[i] < 3) {
-      result[keyName.dUp] = 1;
-    } else {
-      result[keyName.dDown] = 1;
-    }
+  if (oldState[i] >= 3 && newState[i] < 3) {
+    result[keyName.dUp] = 1;
+  } else if (oldState[i] < 6 && newState >= 6) {
+    result[keyName.dDown] = 1;
   }
   return result;
 }
