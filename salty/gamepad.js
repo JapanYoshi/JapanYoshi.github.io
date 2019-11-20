@@ -162,7 +162,9 @@ function configChangeState(state, retro, shared) {
     , 17 // retro
     ];
     if (changeBackground.includes(state)){
-      document.getElementById("gamepad_diagram_bg").src = "bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg");
+      document.getElementById("gamepad_diagram_bg").src = state === 0 ? "" : (
+        "bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg")
+      );
     }
     // 19..30 (last element) have multiple variants
     document.getElementById("gamepad_diagram").src = state.toString(10) + (
