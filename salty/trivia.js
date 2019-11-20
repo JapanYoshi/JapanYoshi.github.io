@@ -480,25 +480,24 @@ function playSFX(sfx) {
  */
 
 const KEY_CONFIG = [
-  [81, 87, 69, 65, 83, 68],
-  [70, 71, 72, 86, 66, 78],
-  [85, 73, 79, 74, 75, 76],
-  [103, 104, 105, 100, 101, 102]
+  ["KeyQ", "KeyW", "KeyE", "KeyA", "KeyS", "KeyD"],
+  ["KeyF", "KeyG", "KeyH", "KeyV", "KeyB", "KeyN"],
+  ["KeyU", "KeyI", "KeyO", "KeyJ", "KeyK", "KeyL"],
+  ["Numpad7", "Numpad8", "Numpad9", "Numpad4", "Numpad5", "Numpad6"]
 ];
 /**
  * Converts the key code into one value representing which
  * button of which player was pressed.
- * Each player adds 64 to the ID, leaving each player as
+ * Each player adds 16 to the ID, leaving each player as
  * many buttons.
- * (64 may have been excessive, but it's better to
- * overshoot it than undershoot it!)
+ * (each player should only use 8 buttons, but I'm
+ * futureproofing it for 16 buttons max)
  * Uses the global constant KEY_CONFIG to reference the
  * key code against.
- * @param {number} keycode The key code of the keyDown event,
- * gotten from event.keyCode (mind the caps).
- * @return {number}
+ * @param {KeyboardEvent} e
+ * @return {number} 16 * player + buttonID
  */
-function sys(keycode) {
+function sys(e) {
   // Player numbers go from 1 to 4 (or 8)
   // Button numbers go from 0 to 7
   // 0 - pause
@@ -509,7 +508,7 @@ function sys(keycode) {
   // 5 - south
   // 6 - east
   // 7 - unused
-  switch (keycode) {
+  switch (e.keyCode) {
     case 27: // esc
       return 1;
     case 32: // space
@@ -517,10 +516,11 @@ function sys(keycode) {
     case 13: // return
       return 6;
     default:
+      const code = e.code;
       for (var i = 0; i < KEY_CONFIG.length; i++) {
-        const result = KEY_CONFIG[i].indexOf(keycode);
+        const result = KEY_CONFIG[i].indexOf(code);
         if (result !== -1) {
-          return (i + 1) * 64 + result + 1;
+          return (i + 1) * 8 + result + 1;
         }
       }
     return 0;
@@ -551,7 +551,7 @@ function modalKeys(event) {
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
-  switch (sys(keyCode) % 64) {
+  switch (sys(keyCode) % 8) {
     case 2:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
       playSFX({name: "menu_move"});
@@ -642,7 +642,7 @@ function activateModal(text) {
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (sys(event.keyCode) % 64 === 6) {
+  if (sys(event.keyCode) % 16 === 6) {
     changeKeyHandler(undefined, true);
     playSFX({name: "menu_confirm"});
     document.getElementById("modal").classList.remove("active");
@@ -746,8 +746,8 @@ function loadEpisode(filename){
  */
 function chooseEpisodeKeys(event) {
   const id = sys(event.keyCode);
-  const key = id % 64;
-  const player = (id - key) / 64;
+  const key = id % 16;
+  const player = (id - key) / 16;
   console.log("player", player, "key", key, "pressed");
   if (
     !player // player 0 means it's not a game key
@@ -896,8 +896,8 @@ function signupKeys(event){
     return;
   }
   const id = sys(keyCode);
-  const key = id % 64;
-  const player = (id - key)/64;
+  const key = id % 16;
+  const player = (id - key) / 16;
   console.log("Player", player, "Key", key, "pressed.");
   var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
@@ -1014,7 +1014,7 @@ function titleKeys(event) {
   }
   // branch by key
   var input = sys(event.keyCode);
-  switch (input % 64) {
+  switch (input % 16) {
     case 2:
       console.log("up");
       playSFX({name: "menu_move"});
