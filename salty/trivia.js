@@ -9,6 +9,16 @@ var bgm_sound_extra;
 var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
+const keyName = {
+  L: 0,
+  up: 1,
+  R: 2,
+  left: 3,
+  down: 4,
+  right: 5,
+  pause: 6,
+  "undefined": 7
+}
 
 var _ROOT = "https://japanyoshi.github.io/salty/";
 var _LOCAL = false;
@@ -490,29 +500,32 @@ const KEY_CONFIG = [
  * many buttons.
  * (each player should only use 8 buttons, but I'm
  * futureproofing it for 16 buttons max)
+ * Players start with 1.
  * Uses the global constant KEY_CONFIG to reference the
  * key code against.
  * @param {KeyboardEvent} e
- * @return {number} 16 * player + buttonID
+ * @return {number} 16 * player + buttonID, 0 if undefined
  */
 function sys(e) {
   // Player numbers go from 1 to 4 (or 8)
   // Button numbers go from 0 to 7
-  // 0 - pause
-  // 1 - northwest
-  // 2 - north
-  // 3 - northeast
-  // 4 - west
-  // 5 - south
-  // 6 - east
+  // 0 - northwest
+  // 1 - north
+  // 2 - northeast
+  // 3 - west
+  // 4 - south
+  // 5 - east
+  // 6 - pause
   // 7 - unused
   switch (e.keyCode) {
     case 27: // esc
-      return 1;
-    case 32: // space
-      return 2;
-    case 13: // return
       return 6;
+    case 32: // space
+      return 1;
+    case 8: // backspace
+      return 3;
+    case 13: // return
+      return 5;
     default:
       const code = e.code;
       console.log("sys key handle", code);
@@ -546,17 +559,17 @@ function modalKeys(event) {
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
   switch (sys(event) % 8) {
-    case 2:
+    case keyName.up:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
       playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / -8);
       break;
-    case 5:
+    case keyName.down:
       console.log("Down was pressed. Scrolling px:", screenHeight / 8);
       playSFX({name: "menu_move"});
       box.scrollBy(0, screenHeight / 8);
       break;
-    case 6:
+    case keyName.right:
       changeKeyHandler(undefined, true);
       playSFX({name: "menu_confirm"});
       setTimeout(function(){
@@ -636,7 +649,7 @@ function activateModal(text) {
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (sys(event) % 16 === 6) {
+  if (sys(event) % 16 === keyName.right) {
     changeKeyHandler(undefined, true);
     playSFX({name: "menu_confirm"});
     document.getElementById("modal").classList.remove("active");
@@ -752,7 +765,7 @@ function chooseEpisodeKeys(event) {
     const buttons = document.getElementById("episode_carousel").childNodes;
     var selected = getIndexOfSel(buttons);
     switch (key) {
-      case 2:
+      case keyName.up:
         console.log("up");
         if (selected) {
           playSFX({name: "menu_move"});
@@ -764,7 +777,7 @@ function chooseEpisodeKeys(event) {
           playSFX({name: "menu_stuck"});
         }
         break;
-      case 5:
+      case keyName.down:
         console.log("down");
         if ((selected + 1) % buttons.length) {
           playSFX({name: "menu_move"});
@@ -776,7 +789,7 @@ function chooseEpisodeKeys(event) {
           playSFX({name: "menu_stuck"});
         }
         break;
-      case 4:
+      case keyName.left:
         // back
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
@@ -784,7 +797,7 @@ function chooseEpisodeKeys(event) {
         setExtra2Volume(0);
         startSignup();
         break;
-      case 6:
+      case keyName.right:
         // start
         var playerCount = 0
         for (var i = 0; i < params.players.length; i++) {
@@ -891,7 +904,7 @@ function signupKeys(event){
   var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
   switch (key) {
-    case 5:
+    case keyName.up:
       // register
       if (!params.players[player - 1].present){
         playSFX({name: "menu_signin"});
@@ -901,7 +914,7 @@ function signupKeys(event){
         setExtraVolume(0.6);
       }
       break;
-    case 2:
+    case keyName.down:
       // unregister
       if (params.players[player - 1].present){
         playSFX({name: "menu_signout"});
@@ -913,14 +926,14 @@ function signupKeys(event){
         }
       }
       break;
-    case 4:
+    case keyName.left:
       // back
       changeKeyHandler(undefined, false);
       playSFX({name: "menu_back"});
       stopMusic(400);
       initApp();
       break;
-    case 6:
+    case keyName.right:
       // start
       var playerCount = 0
       for (var i = 0; i < params.players.length; i++) {
@@ -1004,21 +1017,21 @@ function titleKeys(event) {
   // branch by key
   var input = sys(event);
   switch (input % 16) {
-    case 2:
+    case keyName.up:
       console.log("up");
       playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
       selected = (selected + buttons.length - 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
-    case 5:
+    case keyName.down:
       console.log("down");
       playSFX({name: "menu_move"});
       buttons[selected].classList.remove("sel");
       selected = (selected + 1) % buttons.length;
       buttons[selected].classList.add("sel");
       break;
-    case 6:
+    case keyName.right:
       playSFX({name: "menu_confirm"});
       switch (selected) {
         case 0:
