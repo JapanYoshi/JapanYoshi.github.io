@@ -575,6 +575,7 @@ function sendButtonEvent(index, player2, button) {
       button: button
     })
   );
+  console.log("Dispatched controllerPressEvent: {index: " + index + ", player2: " + player2 + ", button: " + button + "}");
 }
 
 function controllerLoop() {
