@@ -1115,11 +1115,11 @@ document.addEventListener("DOMContentLoaded", function(){
       
       document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
       
-      var parent = document.querySelectorAll("floating_back_button");
+      var parent = document.querySelectorAll(".floating_back_button");
       for (var i = 0; i < parent.length; i++){
         parent[i].querySelector("span").innerText = strings.sys_cancel;
       }
-      parent = document.querySelectorAll("floating_func_button");
+      parent = document.querySelectorAll(".floating_func_button");
       for (var i = 0; i < parent.length; i++){
         parent[i].querySelector("span").innerText = strings.sys_start;
       }
