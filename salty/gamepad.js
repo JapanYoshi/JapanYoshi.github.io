@@ -131,9 +131,15 @@ function addToConfigQueue(id) {
 }
 function finishConfig() {
   const justFinished = configQueue.shift();
-  configs[justFinished].lastFrameButtonState = undefined;
-  configs[justFinished].lastFrameButtonState1 = getGamepadStateSys(justFinished, false);
-  configs[justFinished].lastFrameButtonState2 = getGamepadStateSys(justFinished, true);
+  if (!configs[justFinished]) {
+    // controller just disconnected
+    console.log("controller " + justFinished + " disconnected")
+  } else {
+    // controller finished
+    configs[justFinished].lastFrameButtonState = undefined;
+    configs[justFinished].lastFrameButtonState1 = getGamepadStateSys(justFinished, false);
+    configs[justFinished].lastFrameButtonState2 = getGamepadStateSys(justFinished, true);
+  }
   if (configQueue.length) {
     // more controllers need to be configured
     configGamepad(configQueue[0]);
