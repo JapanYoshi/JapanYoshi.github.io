@@ -575,10 +575,9 @@ function formatIcons(text) {
 }
 /**
  * The standard modal key handler.
- * @param {keyDownEvent} event The event.
+ * @param {KeyboardEvent} event The event.
  */
 function modalKeys(event) {
-  console.log("modalKeys");
   var key, player;
   if (typeof event === "KeyboardEvent") {
     const id = sys(event);
@@ -588,6 +587,7 @@ function modalKeys(event) {
     key = event.button;
     player = event.index * 2 + +(event.player2);
   }
+  console.log("modalKeys", id, key);
   event.stopPropagation();
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
@@ -682,11 +682,11 @@ function activateModal(text) {
 }
 /**
  * The fatal error modal key handler.
- * @param {keyDownEvent} event The event.
+ * @param {KeyboardEvent} event The event.
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (typeof event === "keyDownEvent") {
+  if (typeof event === "KeyboardEvent") {
     key = sys(event) % 16;
   } else {
     key = event.button;
@@ -791,7 +791,7 @@ function loadEpisode(filename){
 }
 /**
  * The episode choice screen key handler.
- * @param {keyDownEvent} event The event.
+ * @param {KeyboardEvent} event The event.
  */
 function chooseEpisodeKeys(event) {
   var key, player;
@@ -937,7 +937,7 @@ function getEpisodes(){
 }
 /**
  * The player signup screen key handler.
- * @param {keyDownEvent} event The event.
+ * @param {KeyboardEvent} event The event.
  */
 function signupKeys(event){
   console.log("signupKeys()");
@@ -1046,7 +1046,7 @@ function startSignup(){
 }
 /**
  * The title screen key handler.
- * @param {keyDownEvent} event The event.
+ * @param {KeyboardEvent} event The event.
  */
 function titleKeys(event) {
   console.log("titleKeys");
