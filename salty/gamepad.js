@@ -157,14 +157,14 @@ function configChangeState(state, retro, shared) {
       0 // none
     , 5 // solo
     , 7 // none
-    , 8 // shared_side
+    , 8 // side_shared
     , 12 // shared
     , 14 // solo
     , 16 // retro
     ];
     if (changeBackground.includes(state)){
       document.getElementById("gamepad_diagram_bg").src = (state === 0 || state === 7) ? "" : (
-        "data/joystick/bg_" + (retro ? "retro.svg" : shared ? (state === 8 ? "shared_side.svg" : "shared.svg") : "solo.svg")
+        "data/joystick/bg_" + (retro ? "retro.svg" : shared ? (state === 8 ? "side_shared.svg" : "shared.svg") : "solo.svg")
       );
     }
     // 18..30 (last element) have multiple variants
@@ -588,7 +588,7 @@ function controllerLoop() {
     const new1 = getNewPressesSys(state1, configs[i].lastFrameButtonState1);
     for (var k = 0; k < new1.length; k++) {
       if (new1[k]) {
-        console.log("gamepad " + i + " player 1 button " + k);
+        console.log("gamepad " + i + " player 1 button " + k, state1, new1);
       }
     }
     configs[i].lastFrameButtonState1 = state1;
