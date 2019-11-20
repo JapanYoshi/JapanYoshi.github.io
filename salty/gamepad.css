@@ -25,6 +25,14 @@
 #gamepad_diagram_box,
 #gamepad_diagram,
 #gamepad_diagram_bg {
+    position: relative;
     width: 36rem;
     height: 36rem;
+}
+
+#gamepad_diagram,
+#gamepad_diagram_bg {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
