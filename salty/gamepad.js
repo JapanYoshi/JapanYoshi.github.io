@@ -570,9 +570,11 @@ function removeGamepad(index) {
 function sendButtonEvent(index, player2, button) {
   document.dispatchEvent(
     new Event('controllerPress', {
-      index: index,
-      player2: player2,
-      button: button
+      details: { // WHY IS THIS NECESSARY
+        index: index,
+        player2: player2,
+        button: button
+      }
     })
   );
   console.log("Dispatched controllerPressEvent: {index: " + index + ", player2: " + player2 + ", button: " + button + "}");
