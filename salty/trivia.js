@@ -579,7 +579,7 @@ function formatIcons(text) {
  */
 function modalKeys(event) {
   var key, player;
-  if (typeof event === "KeyboardEvent") {
+  if (event.code !== undefined) {
     const id = sys(event);
     key = id % 16;
     player = -(id - key) / 16;
@@ -686,7 +686,7 @@ function activateModal(text) {
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (typeof event === "KeyboardEvent") {
+  if (event.code !== undefined) {
     key = sys(event) % 16;
   } else {
     key = event.button;
@@ -795,7 +795,7 @@ function loadEpisode(filename){
  */
 function chooseEpisodeKeys(event) {
   var key, player;
-  if (typeof event === "KeyboardEvent") {
+  if (event.code !== undefined) {
     const id = sys(event);
     if (id < 16) {return;}
     key = id % 16;
@@ -943,7 +943,7 @@ function signupKeys(event){
   console.log("signupKeys()");
   event.stopPropagation();
   var key, player;
-  if (typeof event === "KeyboardEvent") {
+  if (event.code !== undefined) {
     const id = sys(event);
     key = id % 16;
     player = -(id - key) / 16;
@@ -1056,7 +1056,7 @@ function titleKeys(event) {
     return;
   }
   var key;
-  if (typeof event === "KeyboardEvent") {
+  if (event.code !== undefined) {
     const id = sys(event);
     key = id % 16;
   } else {
