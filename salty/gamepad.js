@@ -1,18 +1,3 @@
-function log(text, append) {
-  if (typeof text !== typeof "") {
-    text = "" + text;
-  }
-  const textFormat = text.replace(/  /gi, ' ' + String.fromCharCode(160)); // nbsp is decimal 160
-  if (!append) {
-    document.getElementById("log").innerText = textFormat;
-  } else {
-    document.getElementById("log").innerText += textFormat;
-  }
-  if (!text) {
-    throw "No text logged";
-  }
-}
-
 const sleep = (wait, someFunction) => {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -288,8 +273,6 @@ const configHandle = (id, configState) => {
   } else {
     btn = -1;
   }
-  const logContent = configState + ";\nbutton state:" + thisFrameButtonState.toString(2).padStart(gp.buttons.length, "0") + ";\naxis state:" + JSON.stringify(gp.axes, null, 2) + ";\nconfig state:" + JSON.stringify(configs[id], null, 2);
-  log(logContent);
   switch (configState) {
     case -1:
       return;
@@ -509,7 +492,6 @@ const configHandle = (id, configState) => {
   }
   if (configStateChanged) {
     /* wait for the user */
-    log(configState);
     configChangeState(configState);
     if (configState == -1) {
       finishConfig();
@@ -578,7 +560,6 @@ function controllerLoop() {
   var gamepads = getGamepads();
   if (!gamepads) { return; }
   var gamepadCount = gamepads.length;
-  log("Gamepad display\n", false);
   for (var i = 0; i < gamepads.length; i++) {
     if (!Object.getOwnPropertyNames(configs[i]).length) {
       // config was deleted, because gamepad was disconnected
@@ -588,7 +569,6 @@ function controllerLoop() {
     gp = gamepads[i];
     const state1 = getGamepadStateSys(i, false);
     const state2 = getGamepadStateSys(i, true);
-    log("Controller #" + i + "\nPlayer 1:\n" + JSON.stringify(state1) + "\n" + formatGamepadStateSys(state1) + "\n Player 2:\n" + JSON.stringify(state2) + "\n" + (!!state2 ? formatGamepadStateSys(state2) : "Not shared"), true);
   }
   if (!configQueue.length && gamepadCount) {
     // only continue if the config queue is empty,
