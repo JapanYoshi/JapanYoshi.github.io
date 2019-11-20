@@ -1,5 +1,5 @@
 var params = {};
-var configs = [];
+var configs = {};
 var strings = {};
 var episode_listing = {};
 var bgm_data = {};
@@ -592,7 +592,7 @@ function modalKeys(event) {
   var box = document.getElementById("modal").getElementsByClassName("modal_box")[0];
   var screenHeight = document.getElementById("screen").scrollHeight;
   console.log("screenHeight =", screenHeight);
-  switch (sys(event) % 16) {
+  switch (key) {
     case keyName.up:
     case keyName.dUp:
       console.log("Up was pressed. Scrolling px:", screenHeight / -8);
@@ -686,7 +686,12 @@ function activateModal(text) {
  */
 function abortModalKeys(event) {
   event.stopPropagation();
-  if (sys(event) % 16 === keyName.right) {
+  if (typeof event === "keyDownEvent") {
+    key = sys(event) % 16;
+  } else {
+    key = event.button;
+  }
+  if (key === keyName.right || key === keyName.dRight) {
     changeKeyHandler(undefined, true);
     playSFX({name: "menu_confirm"});
     document.getElementById("modal").classList.remove("active");
@@ -789,7 +794,6 @@ function loadEpisode(filename){
  * @param {keyDownEvent} event The event.
  */
 function chooseEpisodeKeys(event) {
-  const id = sys(event);
   var key, player;
   if (typeof event === "KeyboardEvent") {
     const id = sys(event);
@@ -1066,8 +1070,7 @@ function titleKeys(event) {
     buttons[0].classList.add("sel");
   }
   // branch by key
-  var input = sys(event);
-  switch (input % 16) {
+  switch (key) {
     case keyName.up:
     case keyName.dUp:
       console.log("up");
