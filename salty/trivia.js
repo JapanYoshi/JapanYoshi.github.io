@@ -805,7 +805,7 @@ function chooseEpisodeKeys(event) {
     key = event.button;
     player = event.index * 2 + +(event.player2);
   }
-  if (!params.presentList.contains(player)){ // not a present player
+  if (!params.presentList.includes(player)){ // not a present player
     return;
   } else {
     const buttons = document.getElementById("episode_carousel").childNodes;
@@ -944,7 +944,7 @@ function signupKeys(event){
     case keyName.up:
     case keyName.dUp:
       // register
-      if (!params.presentList.contains(player)){
+      if (!params.presentList.includes(player)){
         playSFX({name: "menu_signin"});
         params.players[player] = {
           id: player,
@@ -958,7 +958,7 @@ function signupKeys(event){
     case keyName.down:
     case keyName.dDown:
       // unregister
-      if (params.presentList.contains(player)){
+      if (params.presentList.includes(player)){
         playSFX({name: "menu_signout"});
         params.players[player] = undefined;
         params.presentList.splice(params.presentList.indexOf(player), 1);
