@@ -538,7 +538,7 @@ function sys(e) {
       for (var i = 0; i < KEY_CONFIG.length; i++) {
         const result = KEY_CONFIG[i].indexOf(code);
         if (result !== -1) {
-          return (i + 1) * 16 + result + 1;
+          return (i + 1) * 16 + result;
         }
       }
     return 0;
