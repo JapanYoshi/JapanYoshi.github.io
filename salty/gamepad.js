@@ -569,13 +569,13 @@ function removeGamepad(index) {
 
 function sendButtonEvent(index, player2, button) {
   document.dispatchEvent(
-    new Event('controllerPress', {
-      detail: { // WHY IS THIS NECESSARY *AND* SINGULAR
-        index: index,
-        player2: player2,
-        button: button
-      }
-    })
+    new CustomEvent('controllerPress', {
+      detail: { // JavaScript gives me an ANEURYSM
+        index: 0, // this doesn't turn into event.index
+        player2: false, // that turns into event.DETAIL.index
+        button: 12 // they are fucking selling me short on this
+      } // let me define a fucking custom property on a fucking
+    }) // custom event god damn it IT MAKES MY CODE UGLY
   );
   console.log("Dispatched controllerPressEvent: {index: " + index + ", player2: " + player2 + ", button: " + button + "}");
 }
