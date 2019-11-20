@@ -29,7 +29,7 @@
 ]
 , "sys_scroll" : "Use any player's [[↑]] and [[↓]] to scroll"
 , "modal_first" : [
-  , "#Controls"
+    "#Controls"
   , "Each player uses a 3x2 array of keys: Q W E A S D, F G H V B N, U I O J K L, 7 8 9 4 5 6 (Numpad)"
   , "Up to 4 players can play on the keyboard at once."
   , "!data/key_layout.svg"
