@@ -819,6 +819,7 @@ function chooseEpisodeKeys(event) {
     var selected = getIndexOfSel(buttons);
     switch (key) {
       case keyName.up:
+      case keyName.dup:
         console.log("up");
         if (selected) {
           playSFX({name: "menu_move"});
@@ -831,6 +832,7 @@ function chooseEpisodeKeys(event) {
         }
         break;
       case keyName.down:
+      case keyName.dDown:
         console.log("down");
         if ((selected + 1) % buttons.length) {
           playSFX({name: "menu_move"});
@@ -843,6 +845,7 @@ function chooseEpisodeKeys(event) {
         }
         break;
       case keyName.left:
+      case keyName.dLeft:
         // back
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
@@ -851,6 +854,7 @@ function chooseEpisodeKeys(event) {
         startSignup();
         break;
       case keyName.right:
+      case keyName.dRight:
         try {
           loadEpisode(episode_listing[selected].id);
         } catch (e) {
