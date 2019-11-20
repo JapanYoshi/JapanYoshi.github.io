@@ -111,6 +111,12 @@ p {
   height: 36rem;
   overflow: hidden;
   box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.5);
+  filter: blur(0) brightness(100);
+  transition: filter 0.5s linear;
+}
+
+#modal.active + #screen {
+  filter: blur(0.5rem) brightness(70%);
 }
 
 section {
@@ -354,19 +360,15 @@ section.candy>.section_content {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(0) brightness(100%);
-  backdrop-filter: blur(0) brightness(100%);
   -webkit-animation: hide 700ms ease-out;
   animation: hide 700ms ease-out;
   overflow: auto;
 }
 
 #modal.active {
-  /* these three properties... */
+  /* these properties... */
   display: block;
   opacity: 1;
-  -webkit-backdrop-filter: blur(1rem) brightness(120%);
-  backdrop-filter: blur(1rem) brightness(120%);
   /* are managed by this animation */
   -webkit-animation: show 700ms ease-out 0s;
   animation: show 700ms ease-out 0s;
@@ -459,8 +461,6 @@ section.candy>.section_content {
   0% {
     display: none;
     opacity: 0;
-    -webkit-backdrop-filter: blur(0rem) brightness(100%);
-    backdrop-filter: blur(0rem) brightness(100%);
   }
 
   0.1% {
@@ -470,8 +470,6 @@ section.candy>.section_content {
   to {
     display: block;
     opacity: 1;
-    -webkit-backdrop-filter: blur(1rem) brightness(120%);
-    backdrop-filter: blur(1rem) brightness(120%);
   }
 }
 
@@ -479,8 +477,6 @@ section.candy>.section_content {
   0% {
     display: block;
     opacity: 1;
-    -webkit-backdrop-filter: blur(1rem) brightness(120%);
-    backdrop-filter: blur(1rem) brightness(120%);
   }
 
   99.9% {
@@ -490,8 +486,6 @@ section.candy>.section_content {
   to {
     display: none;
     opacity: 0;
-    -webkit-backdrop-filter: blur(0rem) brightness(100%);
-    backdrop-filter: blur(0rem) brightness(100%);
   }
 }
 
