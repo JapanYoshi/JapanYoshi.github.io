@@ -928,8 +928,7 @@ function signupKeys(event){
     player = event.gamepad;
   }
   console.log("Player", player, "Key", key, "pressed.");
-  var cards = document.getElementById("signup_box").getElementsByClassName("signup");
-  if (cards.length != 8) {alert("assertion failed: cards.length != 8")};
+  // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   switch (key) {
     case keyName.up:
       // register
