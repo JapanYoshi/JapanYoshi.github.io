@@ -1116,6 +1116,7 @@ function initApp(){
 }
 splashTimeout = undefined;
 function advanceSplashScreen() {
+  if (!splashTimeout) return;
   if (document.getElementById("splash_screen").classList.contains("gone")) {
     clearTimeout(splashTimeout);
     delete splashTimeout;
