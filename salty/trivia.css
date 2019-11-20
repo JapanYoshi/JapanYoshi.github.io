@@ -114,7 +114,8 @@ p {
   transition: filter 0.5s linear;
 }
 
-#modal.active + #screen {
+#modal.active + #screen,
+#gamepad_config.shown + #modal + #screen {
   filter: blur(0.5rem);
 }
 

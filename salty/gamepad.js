@@ -106,37 +106,37 @@ function pollGamepads() {
   }
 }
 const configStrings = [
-  "Press the face buttons in order: [[↑]][[→]][[↓]][[←]]."
-  , "Press the face buttons in order: [[→]][[↓]][[←]]."
-  , "Press the face buttons in order: [[↓]][[←]]."
-  , "Press the face buttons in order: [[←]]."
-  , "Does this have an analog stick? [[←]]No, [[→]]Yes"
-  , "Tilt the left stick to the right."
-  , "Tilt the left stick downward."
-  , "Is this a shared controller? [[←]]No, [[→]]Yes, [[↑]]Help"
-  , "Left player: Press your left shoulder button."
-  , "Left player: Press your right shoulder button."
-  , "Right player: Press your left shoulder button."
-  , "Right player: Press your right shoulder button."
-  , "Tilt the right stick to the right."
-  , "Tilt the right stick downward."
-  , "Press the left shoulder button [[↖]]."
-  , "Press the right shoulder button [[↗]]."
-  , "Press the left shoulder button [[↖]]. If you do not have shoulder buttons, press [[↓]]."
-  , "Press the right shoulder button [[↗]]. If you do not have shoulder buttons, press [[↓]]."
-  , "Press up on your D-pad."
-  , "Press right on your D-pad."
-  , "Press down on your D-pad."
-  , "Press left on your D-pad."
-  , "Finally, press the pause button."
-  , "While holding your D-pad up, press [[→]]."
-  , "While holding your D-pad up-right, press [[→]]."
-  , "While holding your D-pad right, press [[→]]."
-  , "While holding your D-pad down-right, press [[→]]."
-  , "While holding your D-pad down, press [[→]]."
-  , "While holding your D-pad down-left, press [[→]]."
-  , "While holding your D-pad left, press [[→]]."
-  , "While holding your D-pad up-left, press [[→]]."
+  "Press the face buttons in order. [[↑]]"
+, "Press the face buttons in order. [[→]]"
+, "Press the face buttons in order. [[↓]]"
+, "Press the face buttons in order. [[←]]"
+, "Does this have an analog stick?<br>[[←]]No, [[→]]Yes"
+, "Tilt the left stick to the right."
+, "Tilt the left stick downward."
+, "Is this a shared controller?<br>[[←]]No, [[→]]Yes, [[↑]]Help"
+, "Left player: Press [[↖]]."
+, "Left player: Press [[↗]]."
+, "Right player: Press [[↖]]."
+, "Right player: Press [[↗]]."
+, "Tilt the right stick to the right."
+, "Tilt the right stick downward."
+, "Press the left shoulder button [[↖]]."
+, "Press the right shoulder button [[↗]]."
+, "Press the left shoulder button [[↖]]. If you do not have shoulder buttons, press [[↓]]."
+, "Press the right shoulder button [[↗]]. If you do not have shoulder buttons, press [[↓]]."
+, "Press up on your D-pad."
+, "Press right on your D-pad."
+, "Press down on your D-pad."
+, "Press left on your D-pad."
+, "Finally, press the pause button."
+, "While holding your D-pad up,<br>press [[→]]."
+, "While holding your D-pad up-right,<br>press [[→]]."
+, "While holding your D-pad right,<br>press [[→]]."
+, "While holding your D-pad down-right,<br>press [[→]]."
+, "While holding your D-pad down,<br>press [[→]]."
+, "While holding your D-pad down-left,<br>press [[→]]."
+, "While holding your D-pad left,<br>press [[→]]."
+, "While holding your D-pad up-left,<br>press [[→]]."
 ]
 function addToConfigQueue(id) {
   configQueue.push(id)
@@ -157,12 +157,29 @@ function finishConfig() {
     document.getElementById("gamepad_config").classList.remove("shown");
   }
 }
-function configChangeState(state) {
+function configChangeState(state, retro, shared) {
   if (state === -1) {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = "Done!";
+    document.getElementById("gamepad_diagram").src = "ready-" + (
+      retro ? "retro" : shared ? "shared" : "solo"
+    ) + ".svg";
   } else {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = formatIcons(configStrings[state]);
-    document.getElementById("gamepad_config_diagram").src = "";
+    const changeBackground = [
+      5 // solo
+    , 8 // none
+    , 9 // shared_side
+    , 13 // shared
+    , 15 // solo
+    , 17 // retro
+    ];
+    if (changeBackground.includes(state)){
+      document.getElementById("gamepad_diagram_bg").src = "bg_" + (retro ? "retro" : shared ? "shared" : "solo") + ".svg";
+    }
+    // 19..30 (last element) have multiple variants
+    document.getElementById("gamepad_diagram").src = state + "_" + (
+      19 >= state
+    ) ? (retro ? "retro" : shared ? "shared" : "solo") : "" + ".svg";
   }
 }
 function getNewPresses(oldState, newState) {

@@ -22,7 +22,9 @@
     height: 36rem;
 }
 
-#gamepad_config_diagram {
+#gamepad_diagram_box,
+#gamepad_diagram,
+#gamepad_diagram_bg {
     width: 36rem;
     height: 36rem;
 }
