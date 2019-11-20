@@ -80,10 +80,6 @@
   width: 20rem;
   height: calc(28rem/9);
   margin: calc(5rem - 28rem/9) auto 0;
-  background-image: url("data/hike_logo.svg");
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
 }
 
 #hike_bottom {
