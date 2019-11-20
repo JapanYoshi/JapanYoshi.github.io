@@ -163,11 +163,11 @@ function configChangeState(state, retro, shared) {
     ];
     if (changeBackground.includes(state)){
       document.getElementById("gamepad_diagram_bg").src = state === 0 ? "" : (
-        "bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg")
+        "data/joystick/bg_" + (retro ? "retro.svg" : shared ? "shared.svg" : "solo.svg")
       );
     }
     // 19..30 (last element) have multiple variants
-    document.getElementById("gamepad_diagram").src = state.toString(10).concat((state >= 19) ? retro ? "_retro.svg" : (shared ? "_shared.svg" : "_solo.svg") : ".svg")
+    document.getElementById("gamepad_diagram").src = "data/joystick/" + state.toString(10).concat((state >= 19) ? retro ? "_retro.svg" : (shared ? "_shared.svg" : "_solo.svg") : ".svg")
   }
 }
 function getNewPresses(oldState, newState) {
