@@ -147,7 +147,7 @@ function finishConfig() {
 function configChangeState(state, retro, shared) {
   if (state === -1) {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = "Done!";
-    document.getElementById("gamepad_diagram").src = "ready-" + (
+    document.getElementById("gamepad_diagram").src = "ready_" + (
       retro ? "retro" : shared ? "shared" : "solo"
     ) + ".svg";
   } else {
@@ -280,7 +280,7 @@ const configHandle = (id, configState) => {
     // disconnected during setup
     configs[id] = {};
     configState = -1;
-    configChangeState(-1);
+    configChangeState(-1, configs[id].retro, configs[id].shared);
     finishConfig();
   }
   var configStateChanged = false;
@@ -516,7 +516,7 @@ const configHandle = (id, configState) => {
   }
   if (configStateChanged) {
     /* wait for the user */
-    configChangeState(configState);
+    configChangeState(configState, configs[id].retro, configs[id].shared);
     if (configState == -1) {
       finishConfig();
     } else {
