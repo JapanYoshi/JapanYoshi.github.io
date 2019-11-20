@@ -246,9 +246,9 @@ function getGamepadStateSys(id, player2) {
       if (gp.buttons[cfgButtons[keyName.dRight]].pressed) {
         state[8] = 5;
       } else if (gp.buttons[cfgButtons[keyName.dLeft]].pressed) {
-        state[8] = 4;
-      } else {
         state[8] = 3;
+      } else {
+        state[8] = 4;
       }
       if (gp.buttons[cfgButtons[keyName.dDown]].pressed) {
         state[8] += 3;
