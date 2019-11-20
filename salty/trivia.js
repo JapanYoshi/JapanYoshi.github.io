@@ -515,6 +515,7 @@ function sys(e) {
       return 6;
     default:
       const code = e.code;
+      console.log("sys key handle", code);
       for (var i = 0; i < KEY_CONFIG.length; i++) {
         const result = KEY_CONFIG[i].indexOf(code);
         if (result !== -1) {
