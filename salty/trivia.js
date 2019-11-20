@@ -1127,6 +1127,7 @@ function advanceSplashScreen() {
   } else {
     document.getElementById("splash_screen").classList.add("gone");
     changeKeyHandler(undefined, false);
+    clearTimeout(splashTimeout);
     splashTimeout = setTimeout(function(){
       advanceSplashScreen();
     }, 3000);
