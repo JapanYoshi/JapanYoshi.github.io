@@ -160,22 +160,20 @@ const loadPage = (name) => {
   }
   // request page
   return new Promise((resolve, reject) => {
-      setTimeout(
-        function(){
-          var xhr= new XMLHttpRequest();
-          xhr.open('GET', name + '.html', true);
-          xhr.onreadystatechange = function() {
-            if (this.readyState !== 4) throw new Error("Page " + name + " could not load");
-            if (this.status !== 200) {
-              window.alert("Error on loading page " + name + ". Please see the browser console for details.");
-              throw new Error("Page " + name + " could not load");
-            }; // or whatever error handling you want
-            screen.innerHTML= this.responseText;
-            resolve();
-          };
-          xhr.send();
-        }
-      , 1000);
+
+      var xhr= new XMLHttpRequest();
+      xhr.open('GET', name + '.html', true);
+      xhr.onreadystatechange = function() {
+        if (this.readyState !== 4) throw new Error("Page " + name + " could not load");
+        if (this.status !== 200) {
+          window.alert("Error on loading page " + name + ". Please see the browser console for details.");
+          throw new Error("Page " + name + " could not load");
+        }; // or whatever error handling you want
+        screen.innerHTML= this.responseText;
+        resolve();
+      };
+      xhr.send();
+
     }
   );
 }
