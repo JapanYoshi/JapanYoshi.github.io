@@ -1471,6 +1471,7 @@ function startSetting(){
  * @param {KeyboardEvent} event The event.
  */
 function titleKeys(event) {
+  hideVKButton()
   console.log("titleKeys");
   event.stopPropagation();
   if (document.querySelector("#modal.active")) {
@@ -1587,6 +1588,36 @@ function initApp(){
     }, BGM_DELAY
   );
 }
+/**
+ * Enables virtual (touch) keypad.
+ */
+function enableVK() {
+  document.getElementById("vk_button").removeAttribute("class");
+  document.getElementById("vk_container").classList.add("active");
+  document.getElementById("screen").classList.add("vk_is_active");
+  const _key_config = [
+    {keyCode: 81, code: "KeyQ"}
+  , {keyCode: 87, code: "KeyW"}
+  , {keyCode: 69, code: "KeyE"}
+  , {keyCode: 65, code: "KeyA"}
+  , {keyCode: 83, code: "KeyS"}
+  , {keyCode: 68, code: "KeyD"}
+  , {keyCode: 27, code: "Esc"}
+  ];
+  const _key_el = document.getElementById("vk_container").querySelectorAll(".vk_key");
+  for (var k = 0; k < 7; k++) {
+    var event = new KeyboardEvent("keydown", _key_config[k]);
+    _key_el[k].addEventListener("click", () => {
+      document.dispatchEvent(e);
+    });
+  }
+}
+/**
+ * Disables the virtual (touch) keypad activation button.
+ */
+function hideVKButton() {
+  document.getElementById("vk_button").removeAttribute("class");
+}
 splashTimeout = undefined;
 function advanceSplashScreen() {
   if (!splashTimeout) return;
@@ -1608,6 +1639,7 @@ function advanceSplashScreen() {
   }
 }
 function splashScreenHandler(e) {
+  // on any key press, advance the splash screen
   advanceSplashScreen();
 }
 document.addEventListener("DOMContentLoaded", function(){
