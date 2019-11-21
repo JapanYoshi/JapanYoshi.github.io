@@ -6,7 +6,7 @@ var units = localStorage.getItem("units") || "SI";
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
-var global_bgm_volume = localStorage.getItem("musicVolume") ? 1;
+var global_bgm_volume = localStorage.getItem("musicVolume") || 1;
 var bgm_volumes = [0, 0, 0];
 var bgm_sound;
 var bgm_sound_extra;
