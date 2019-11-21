@@ -6,7 +6,9 @@ var units = localStorage.getItem("units") || "SI";
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
+var voice_queue = [];
 var global_bgm_volume = +(localStorage.getItem("musicVolume")) || 1;
+var global_vox_volume = +(localStorage.getItem("voiceVolume")) || 1;
 var bgm_volumes = [0, 0, 0];
 var bgm_sound;
 var bgm_sound_extra;
@@ -274,6 +276,15 @@ const sfx_names = [
   "game_start",
   "menu_fail"
 ];
+const VOX_PRELOAD_COUNT = 6;
+const vox_names = [
+  "intro_00", // menu
+  "p1_00",
+  "p2_00",
+  "p3_00",
+  "p4_00",
+  "break_00"
+];
 /**
  * This part loads the music onto the global variable bgm_data.
  */
@@ -338,6 +349,98 @@ for (var i = 0; i < sfx_names.length; i++) {
     }
   });
   sfx_data[name] = sound;
+}
+/**
+ * This part loads voice lines into the variable vox_data.
+ */
+for (var i = 0; i < vox_names.length; i++) {
+  name = vox_names[i];
+  var sound = new Howl({
+    src: [
+      ROOT + "audio/voice/" + name + ".ogg"
+    ],
+    autoplay: false,
+    loop: false,
+    preload: (i < SFX_PRELOAD_COUNT),
+    pool: 1,
+    onload: function(){
+      console.log("VOX " + name + " loaded");
+    },
+    onloaderror: function(){
+      console.log("Error loading VOX " + name);
+    },
+    onplay: function(){
+      console.log("Playing VOX " + name);
+    },
+    onplayerror: function(){
+      console.log("Error playing VOX " + name);
+    },
+    onend: function(){
+      console.log("VOX " + name + " finished");
+    }
+  });
+  vox_data[name] = sound;
+}
+/**
+ * Queues an array of voice lines for playing. 
+ * @param {Array<string>} names 
+ */
+function queueVoice(names){
+  for (var i = 0; i < names.length; i++) {
+    const data = vox_data[names[i]];
+    if (![data]) {
+      console.log("Voice line not found: " + names[i]);
+    } else {
+      if (data.state !== "loaded") {
+        data.load();
+      }
+      voice_queue.push(data);
+    }
+  }
+}
+/**
+ * Plays the next queued voice line.
+ */
+function playNextVoice(){
+  data = vox_data.unshift();
+  document.dispatchEvent(
+    new CustomEvent('voiceLineEnd', {
+      detail: {
+        // nothing so far
+      }
+    })
+  );
+  console.log("voiceLineEnd event dispatched");
+  if (vox_data.length) {
+    vox_data[0].play();
+  } else {
+    document.dispatchEvent(
+      new CustomEvent('allVoiceLinesEnd', {
+        detail: {
+          // nothing so far
+        }
+      })
+    );
+    console.log("allVoiceLinesEnd event dispatched");
+  }
+}
+/**
+ * Pauses or unpauses a voice line.
+ * @param {boolean} pause 
+ */
+function pauseVoice(pause) {
+  if (pause) {
+    voice_queue[0].pause();
+  } else {
+    voice_queue[0].play();
+  }
+}
+/**
+ * Stops a voice line from playing.
+ */
+function stopVoice() {
+  voice_queue[0].stop();
+  voice_queue = [];
 }
 /**
  * Pauses or unpauses the music.
@@ -564,13 +667,13 @@ function adjustMusicVolume(vol, relative) {
   global_bgm_volume = Math.min(Math.max(0, global_bgm_volume), 1);
   // adjust music vol accordingly
   if (bgm_sound) {
-    bgm_sound.volume = global_bgm_volume * bgm_volumes[0];
+    bgm_sound.volume(global_bgm_volume * bgm_volumes[0]);
   }
   if (bgm_sound_extra) {
-    bgm_sound_extra.volume = global_bgm_volume * bgm_volumes[1];
+    bgm_sound_extra.volume(global_bgm_volume * bgm_volumes[1]);
   }
   if (bgm_sound_extra2) {
-    bgm_sound_extra2.volume = global_bgm_volume * bgm_volumes[2];
+    bgm_sound_extra2.volume(global_bgm_volume * bgm_volumes[2]);
   }
   console.log("New global music volume is " + global_bgm_volume);
 }
@@ -1144,10 +1247,11 @@ function settingKeys(event){
   }
   var selectedOption = (
     document.getElementById("setting_volume").classList.contains("sel") ? 0 :
-    document.getElementById("setting_units").classList.contains("sel") ? 1 :
-    document.getElementById("setting_currency").classList.contains("sel") ? 2 :
-    document.getElementById("setting_players").classList.contains("sel") ? 3 :
-    4
+    document.getElementById("setting_volume_voice").classList.contains("sel") ? 1 :
+    document.getElementById("setting_units").classList.contains("sel") ? 2 :
+    document.getElementById("setting_currency").classList.contains("sel") ? 3 :
+    document.getElementById("setting_players").classList.contains("sel") ? 4 :
+    5
   );
   switch (key) {
     case keyName.up:
@@ -1184,6 +1288,19 @@ function settingKeys(event){
           }
           break;
         case 1:
+            if (global_vox_volume === 0.5) {
+              playSFX({name: "menu_stuck"});
+            } else {
+              playSFX({name: "menu_move"});
+              adjustVoiceVolume(-1/16, true);
+              var setVolume = document.getElementById("setting_volume_voice");
+              var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
+              setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
+              setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
+              setVolume.querySelector(".setting_slider_value").innerText = (global_vox_volume * 16).toString(10) + "/16";
+            }
+            break;
+        case 2:
           playSFX({name: "menu_move"});
           var index = 0;
           var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
@@ -1195,7 +1312,7 @@ function settingKeys(event){
           items[index].classList.add("sel");
           units = configUnitOptions[index];
           break;
-        case 2:
+        case 3:
           playSFX({name: "menu_move"});
           var index = 0;
           var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
@@ -1207,7 +1324,7 @@ function settingKeys(event){
           items[index].classList.add("sel");
           formatName = configCurrencyOptions[index];
           break;
-        case 4:        
+        case 5:        
           changeKeyHandler(undefined, false);
           playSFX({name: "menu_back"});
           document.body.className = "";
@@ -1237,6 +1354,19 @@ function settingKeys(event){
         }
         break;
       case 1:
+        if (global_vox_volume === 1) {
+          playSFX({name: "menu_stuck"});
+        } else {
+          playSFX({name: "menu_move"});
+          adjustVoiceVolume(1/16, true);
+          var setVolume = document.getElementById("setting_volume_voice");
+          var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
+          setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
+          setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
+          setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
+        }
+        break;
+      case 2:
         playSFX({name: "menu_move"});
         var index = 0;
         var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
@@ -1248,7 +1378,7 @@ function settingKeys(event){
         items[index].classList.add("sel");
         units = configUnitOptions[index];
         break;
-      case 2:
+      case 3:
         playSFX({name: "menu_move"});
         var index = 0;
         var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
@@ -1260,18 +1390,19 @@ function settingKeys(event){
         items[index].classList.add("sel");
         formatName = configCurrencyOptions[index];
         break;
-      case 3:       
+      case 4:       
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
         stopMusic(400);
         initApp();
         break;
-      case 4:        
+      case 5:        
         changeKeyHandler(undefined, false);
         document.body.className = "";
         playSFX({name: "menu_back"});
         localStorage.setItem("units", units);
         localStorage.setItem("musicVolume", global_bgm_volume);
+        localStorage.setItem("voiceVolume", global_vox_volume);
         localStorage.setItem("formatName", formatName);
         stopMusic(400);
         initApp();
@@ -1343,6 +1474,11 @@ function startSetting(){
         undefined,
         undefined
       );
+      queueVoice(vox_names);
+      playNextVoice();
+      document.addEventListener("allVoiceLinesEnd", {
+        queueVoice(vox_names);
+      });
       changeKeyHandler(settingKeys, false);
     }, MUSIC_DELAY);
   });
