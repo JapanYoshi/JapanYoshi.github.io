@@ -1,10 +1,12 @@
 var params = {};
 var configs = {};
 var strings = {};
+var contestants = JSON.parse(localStorage.getItem("contestants") || "{}");
+var units = localStorage.getItem("units") || "SI";
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
-var global_bgm_volume = 1;
+var global_bgm_volume = localStorage.getItem("musicVolume") ? 1;
 var bgm_volumes = [0, 0, 0];
 var bgm_sound;
 var bgm_sound_extra;
@@ -73,6 +75,57 @@ const floorRem = () => {
   document.documentElement.style.fontSize = `${scale}px`
 ;}
 window.addEventListener("resize", floorRem);
+
+
+var formatName = localStorage.getItem("formatName") || "points";
+var format = {};
+/**
+ * Changes how winnings are printed.
+ * @param {Object} format
+ * @param {number} format.multiplier What to multiply the 10 pts per question by.
+ * @param {number} format.decimalDigits How many decimal digits to show.
+ * @param {string} format.decimalSymbol Decimal point? Decimal comma? Custom define.
+ * @param {Array<number>} format.separatorDigits How often to insert the digit separator. 
+ * Define from least significant to most significant. Repeats the last entry.
+ * To disable set to []. Usually set to [3]. If lakh/crore, set to [3, 2].
+ * @param {string} format.separatorSymbol Separator comma? Separator period? Custom define.
+ * @param {Array<string>[2]} format.nega Prefix and suffix when the amount is negative.
+ * @param {Array<string>[2]} format.zero Prefix and suffix when the amount is zero.
+ * @param {Array<string>[2]} format.posi Prefix and suffix when the amount is positive.
+ */
+function changeFormat(format) {
+  formatPts = (value, plus) => {
+    var str = Math.floor(
+      value * format.multiplier * Math.pow(10, format.decimalDigits)
+    ).toString(10);
+    digits = str.length;
+    if (format.decimalDigits) {
+      if (format.decimalDigits >= str.length) {
+        digits = format.decimalDigits + 1;
+        str = str.padStart(digits, "0");
+      }
+      digits -= format.decimalDigits;
+      str = str.slice(0, digits) + format.decimalSymbol + str.slice(digits);
+    }
+    if (format.separatorDigits.length) {
+      var i = 0;
+      while (digits > format.separatorDigits[i]) {
+        digits -= format.separatorDigits[i];
+        str = str.slice(0, digits) + format.separatorSymbol + str.slice(digits);
+      }
+    }
+    str +=
+      value < 0 ? format.nega[1] :
+        plus ? (
+          value === 0 ? format.zero[1] : format.posi[1]
+        ) : format.noSign[1];
+    return value < 0 ? format.nega[0] :
+      plus ? (
+        value === 0 ? format.zero[0] : format.posi[0]
+      ) : format.noSign[0]
+        + str;
+  }
+}
 
 /**
  * keyShiv is set as the EventListener for keyDown,
@@ -206,7 +259,8 @@ const bgm_names = [
   "placeholder", // menu
   "signup_base",
   "signup_extra",
-  "signup_extra2"
+  "signup_extra2",
+  "settings"
 ];
 const SFX_PRELOAD_COUNT = 8;
 const sfx_names = [
@@ -371,7 +425,7 @@ function stopMusic(fade_ms) {
  * You can pass undefined to disable those extra tracks.
  * (In fact, you will need to pass undefined to at least one
  * of bgmExtra and bgmExtra2 most of the time.)
- * @param {Object} bgm Name of track 1. vol defaults to 0.8.
+ * @param {Object} bgm Name of track 1. vol defaults to 0.8 if base, 0.6 if bgmExtra or bgmExtra2 is defined.
  * @param {Object} bgmExtra Name of track 2. vol defaults
  * to 0.
  * @param {Object} bgmExtra2 Name of track 3. vol defaults
@@ -392,7 +446,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     stopMusic(0);
   }
   if (!bgm.vol && bgm.vol !== 0) {
-    bgm.vol = 0.8;
+    bgm.vol = (bgmExtra || bgmExtra2) ? 0.6 : 0.8;
     console.log("control flow", 2);
   }
   // set up
@@ -1031,6 +1085,159 @@ function signupKeys(event){
   console.log("Players", params.players);
   console.log("PresentList", params.presentList);
 }
+
+/**
+ * The settings screen key handler.
+ * @param {KeyboardEvent} event The event.
+ */
+const configUnitOptions = ["SI", "SI_US", "US_SI", "US"];
+const configCurrencyOptions = ["points", "dollars", "euro", "pounds", "yen", "rubbles", "Bitcoin"]
+function settingKeys(event){
+  console.log("settingKeys()");
+  event.stopPropagation();
+  var key, player;
+  if (event.code !== undefined) {
+    const id = sys(event);
+    key = id % 16;
+    player = -(id - key) / 16;
+  } else {
+    key = event.detail.button;
+    player = event.detail.index * 2 + +(event.detail.player2);
+  }
+  var selectedOption = (
+    document.getElementById("setting_volume").classList.contains("sel") ? 0 :
+    document.getElementById("setting_units").classList.contains("sel") ? 1 :
+    document.getElementById("setting_currency").classList.contains("sel") ? 2 :
+    document.getElementById("setting_players").classList.contains("sel") ? 3 :
+    4
+  );
+  switch (key) {
+    case keyName.up:
+    case keyName.dUp:
+      // move up
+      playSFX({name: "menu_move"});
+      document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
+      selectedOption = ++selectedOption % 5;
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selecteOption].classList.add("sel");
+      break;
+    case keyName.down:
+    case keyName.dDown:
+      // move down
+      playSFX({name: "menu_move"});
+      document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
+      selectedOption = (5 + --selectedOption) % 5;
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selecteOption].classList.add("sel");
+      break;
+    case keyName.left:
+    case keyName.dLeft:
+      // change option left
+      switch (selectedOption) {
+        case 0:
+          if (global_bgm_volume === 0) {
+            playSFX({name: "menu_stuck"});
+          } else {
+            playSFX({name: "menu_move"});
+            adjustMusicVolume(-1/16, true);
+            setVolume.querySelector(".setting_slider_base").style.left = sliderWidth * global_bgm_volume;
+            setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
+            setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
+          }
+          break;
+        case 1:
+          playSFX({name: "menu_move"});
+          var index = 0;
+          const items = document.getElementById("setting_units").querySelectorAll(".setting_option");
+          for (i = 0; i < configUnitOptions.length; i++){
+            if (items[i].classList.contains("sel")) index = i;
+          }
+          items[index].classList.remove("sel");
+          index = (configUnitOptions.length + --index) % configUnitOptions.length;
+          items[index].classList.add("sel");
+          units = configUnitOptions[index];
+          break;
+        case 2:
+          playSFX({name: "menu_move"});
+          var index = 0;
+          const items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
+          for (i = 0; i < configCurrencyOptions.length; i++){
+            if (items[i].classList.contains("sel")) index = i;
+          }
+          items[index].classList.remove("sel");
+          index = (configCurrencyOptions.length + --index) % configCurrencyOptions.length;
+          items[index].classList.add("sel");
+          formatName = configCurrencyOptions[index];
+          break;
+        case 3:       
+          changeKeyHandler(undefined, false);
+          playSFX({name: "menu_back"});
+          stopMusic(400);
+          initApp();
+          break;
+        case 4:        
+          changeKeyHandler(undefined, false);
+          playSFX({name: "menu_back"});
+          stopMusic(400);
+          initApp();
+          break;
+        }
+      break;
+    case keyName.right:
+    case keyName.dRight:
+      // change option right
+      switch (selectedOption) {
+      case 0:
+        if (global_bgm_volume === 1) {
+          playSFX({name: "menu_stuck"});
+        } else {
+          playSFX({name: "menu_move"});
+          adjustMusicVolume(1/16, true);
+          setVolume.querySelector(".setting_slider_base").style.left = sliderWidth * global_bgm_volume;
+          setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
+          setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
+        }
+        break;
+      case 1:
+        playSFX({name: "menu_move"});
+        var index = 0;
+        const items = document.getElementById("setting_units").querySelectorAll(".setting_option");
+        for (i = 0; i < configUnitOptions.length; i++){
+          if (items[i].classList.contains("sel")) index = i;
+        }
+        items[index].classList.remove("sel");
+        index = ++index % configUnitOptions.length;
+        items[index].classList.add("sel");
+        units = configUnitOptions[index];
+        break;
+      case 2:
+        playSFX({name: "menu_move"});
+        var index = 0;
+        const items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
+        for (i = 0; i < configCurrencyOptions.length; i++){
+          if (items[i].classList.contains("sel")) index = i;
+        }
+        items[index].classList.remove("sel");
+        index = ++index % configCurrencyOptions.length;
+        items[index].classList.add("sel");
+        formatName = configCurrencyOptions[index];
+        break;
+      case 3:       
+        changeKeyHandler(undefined, false);
+        playSFX({name: "menu_back"});
+        stopMusic(400);
+        initApp();
+        break;
+      case 4:        
+        changeKeyHandler(undefined, false);
+        playSFX({name: "menu_back"});
+        stopMusic(400);
+        initApp();
+        break;
+      }
+  }
+  console.log("Player", player, "Key", key, "pressed.");
+  console.log("Players", params.players);
+  console.log("PresentList", params.presentList);
+}
 /**
  * Starts the signup screen.
  */
@@ -1053,12 +1260,45 @@ function startSignup(){
     if (bgm_sound !== bgm_data["signup_base"]) {
       stopMusic(400);
       playMusic(
-        {name: "signup_base", vol: 0.6},
-        {name: "signup_extra", vol: 0},
-        {name: "signup_extra2", vol: 0}
+        {name: "options"},
+        undefined,
+        undefined
       );
     }
-    changeKeyHandler(signupKeys, false)
+    changeKeyHandler(signupKeys, false);
+  }, MUSIC_DELAY);
+}
+
+/**
+ * Starts the setting screen.
+ */
+function startSetting(){
+  changeKeyHandler(undefined, false);
+  // init elements
+  document.body.className = "state_setting";
+  loadPage("setting").then(() => {
+    // other strings
+    const sliderWidth = document.querySelector("setting_slider_box").clientWidth -  document.querySelector("setting_slider_knob").clientWidth;
+    const setVolume = document.getElementById("setting_volume");
+    setVolume.querySelector(".setting_slider_base").style.left = sliderWidth * global_bgm_volume;
+    setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
+    setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
+    const setUnits = document.getElementById("setting_units");
+    setUnits.querySelector(".setting_option")[configUnitOptions.indexOf(units)].classList.add("sel");
+    const setCurrency = document.getElementById("setting_currency");
+    setCurrency.querySelector(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
+  });
+  // set key handler and music with a delay
+  setTimeout(function(){
+    if (bgm_sound !== bgm_data["signup_base"]) {
+      stopMusic(400);
+      playMusic(
+        {name: "signup_base"},
+        {name: "signup_extra"},
+        {name: "signup_extra2"}
+      );
+    }
+    changeKeyHandler(settingKeys, false);
   }, MUSIC_DELAY);
 }
 /**
@@ -1148,6 +1388,31 @@ function titleKeys(event) {
 function initApp(){
   console.log("initApp() called");
   document.body.className = "state_title";
+  loadPage("menu").then(() => {
+    // other strings
+    buttons = document.getElementById("title_option_box").querySelectorAll(".button");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].innerText = strings.title_option_box[i];
+      console.log(strings.title_option_box[i]);
+    }
+    document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
+    document.getElementById("title_dropcap").innerText = strings.game_title[1];
+    document.getElementById("title_rest").innerText = strings.game_title[2];
+    document.getElementById("title_subtitle").innerText = strings.game_title[3];
+    document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
+    
+    document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
+    
+    var parent = document.querySelectorAll(".floating_back_button");
+    for (var i = 0; i < parent.length; i++){
+      parent[i].querySelector("span").innerText = strings.sys_cancel;
+    }
+    parent = document.querySelectorAll(".floating_func_button");
+    for (var i = 0; i < parent.length; i++){
+      parent[i].querySelector("span").innerText = strings.sys_start;
+    }
+
+  });
 
   changeKeyHandler(titleKeys, false);
   setTimeout(
@@ -1196,31 +1461,7 @@ document.addEventListener("DOMContentLoaded", function(){
      * race conditions, you can kiss my ass
      */
     floorRem();
-    loadPage("menu").then(() => {
-      // other strings
-      buttons = document.getElementById("title_option_box").querySelectorAll(".button");
-      for (var i = 0; i < buttons.length; i++) {
-        buttons[i].innerText = strings.title_option_box[i];
-        console.log(strings.title_option_box[i]);
-      }
-      document.getElementById("title_salty").querySelector("span").innerText = strings.game_title[0];
-      document.getElementById("title_dropcap").innerText = strings.game_title[1];
-      document.getElementById("title_rest").innerText = strings.game_title[2];
-      document.getElementById("title_subtitle").innerText = strings.game_title[3];
-      document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
-      
-      document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
-      
-      var parent = document.querySelectorAll(".floating_back_button");
-      for (var i = 0; i < parent.length; i++){
-        parent[i].querySelector("span").innerText = strings.sys_cancel;
-      }
-      parent = document.querySelectorAll(".floating_func_button");
-      for (var i = 0; i < parent.length; i++){
-        parent[i].querySelector("span").innerText = strings.sys_start;
-      }
-  
-    });
+    
     /* splash screen */
     document.getElementById("splash_screen_top_text").innerText =
       strings.splash_screen_tagline[

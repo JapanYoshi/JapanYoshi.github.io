@@ -1,5 +1,6 @@
 {
-  "multiplier": 100
+  "name": "euro"
+, "multiplier": 100
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]

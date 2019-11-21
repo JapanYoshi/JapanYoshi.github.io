@@ -1,5 +1,6 @@
 {
-  "multiplier": 0.6
+  "name": "rubles"
+, "multiplier": 0.6
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]

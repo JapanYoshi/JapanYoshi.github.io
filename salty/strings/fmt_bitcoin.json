@@ -1,5 +1,6 @@
 {
-  "multiplier": 0.01
+  "name": "Bitcoin"
+, "multiplier": 0.01
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]

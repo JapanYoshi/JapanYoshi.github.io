@@ -1,5 +1,6 @@
 {
-  "multiplier": 1
+  "name": "yen"
+, "multiplier": 1
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]
