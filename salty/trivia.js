@@ -226,7 +226,6 @@ const MAX_PLAYER_COUNT = 8;
  * @param {string} name Name of the page (minus .html).
  */
 const loadPage = (name) => {
-  document.body.classList = "";
   const screen = document.getElementById("screen");
   // delete all children
   while (screen.lastChild) {
@@ -238,7 +237,7 @@ const loadPage = (name) => {
       var xhr= new XMLHttpRequest();
       xhr.open('GET', name + '.html', true);
       xhr.onreadystatechange = function() {
-        if (this.readyState !== 4) throw new Error("Page " + name + " could not load");
+        if (this.readyState !== 4) console.log(Error("Page " + name + " could not load"));
         if (this.status !== 200) {
           window.alert("Error on loading page " + name + ". Please see the browser console for details.");
           throw new Error("Page " + name + " could not load");
