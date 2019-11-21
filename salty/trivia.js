@@ -377,35 +377,35 @@ function stopMusic(fade_ms) {
   var c2 = bgm_sound_extra2;
   if (!fade_ms) {
     console.log("stopMusic control flow", 4);
-    if (c0){
+    if (!!c0){
       console.log("stopMusic control flow", 5);
       c0.stop();
     }
-    if (c1) {
+    if (!!c1) {
       console.log("stopMusic control flow", 6);
       c1.stop();
     }
-    if (c2) {
+    if (!!c2) {
       console.log("stopMusic control flow", 7);
       c2.stop();
     }
   } else {
     console.log("stopMusic control flow", 0);
-    if (c0){
+    if (!!c0){
       console.log("stopMusic control flow", 1);
       c0.once("fade", () => {
         c0.stop();
       })
       c0.fade(c0.volume(), 0, fade_ms);
     }
-    if (c1) {
+    if (!!c1) {
       console.log("stopMusic control flow", 2);
       c1.once("fade", () => {
         c1.stop();
       })
       c1.fade(c1.volume(), 0, fade_ms);
     }
-    if (c2) {
+    if (!!c2) {
       console.log("stopMusic control flow", 3);
       c2.once("fade", () => {
         c2.stop();
@@ -1162,6 +1162,7 @@ function settingKeys(event){
         case 4:        
           changeKeyHandler(undefined, false);
           playSFX({name: "menu_back"});
+          document.body.className = "";
           units = localStorage.getItem("units") || "SI";
           global_bgm_volume = localStorage.getItem("musicVolume") || 1;
           formatName = localStorage.getItem("formatName") || "points";
@@ -1219,6 +1220,7 @@ function settingKeys(event){
         break;
       case 4:        
         changeKeyHandler(undefined, false);
+        document.body.className = "";
         playSFX({name: "menu_back"});
         localStorage.setItem("units", units);
         localStorage.setItem("musicVolume", global_bgm_volume);
