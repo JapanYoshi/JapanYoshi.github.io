@@ -282,7 +282,7 @@ const configHandle = (id, configState) => {
   var gp = getGamepads()[id];
   if (!gp) {
     // disconnected during setup
-    configs[id] = {};
+    configs[id] = undefined;
     configState = -1;
     configChangeState(-1, configs[id].retro, configs[id].shared);
     finishConfig();
