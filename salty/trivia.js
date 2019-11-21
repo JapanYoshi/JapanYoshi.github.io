@@ -502,7 +502,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     })
     bgm_sound.stop();
     bgm_sound_extra.stop();
-  } else if (!!bgm_sound_extra) {
+  } else if (!!bgm_sound) {
     console.log("control flow", 11);
     bgm_sound.once("stop", function(){
       bgm_sound.play();
