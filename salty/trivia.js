@@ -460,6 +460,9 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   } else {
     bgm_sound.volume(bgm.vol * global_bgm_volume);
     bgm_volumes[0] = bgm.vol;
+    if (bgm_sound.volume() !== bgm.vol * global_bgm_volume) {
+      console.log("BGM sound volume error: The necessary volume was " + (bgm.vol * global_bgm_volume) + ", but the music volume is set to " + bgm_sound.volume() + ".");
+    }
   }
   if (!bgm_sound_extra) {
     console.log("No BGM 2 loaded");
