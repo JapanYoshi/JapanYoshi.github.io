@@ -529,7 +529,7 @@ section.candy>.section_content {
   transition: opacity 0.5s linear;
 }
 
-#vk_button.shown {
+#vk_button.active {
   position: absolute;
   z-index: 1025;
   display: block;
