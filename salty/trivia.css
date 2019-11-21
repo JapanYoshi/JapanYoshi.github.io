@@ -538,7 +538,7 @@ section.candy>.section_content {
   top: 0;
   transform: translate(-50%, 0);
 }
-#vk_container.active ~ #screen {
+#screen.vk_is_active {
   left: 50vw;
   top: 0;
   -webkit-transform: translate(-50%, 0);
@@ -565,6 +565,7 @@ section.candy>.section_content {
   position: relative;
   width: 33%;
   height: 16vw;
+  line-height: 16vw;
   border-radius: 2.25vw;
   background: rgba(0, 0, 0, 0.1);
   font-family: _Icons;
