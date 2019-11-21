@@ -1146,7 +1146,7 @@ function settingKeys(event){
         case 1:
           playSFX({name: "menu_move"});
           var index = 0;
-          const items = document.getElementById("setting_units").querySelectorAll(".setting_option");
+          var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
           for (i = 0; i < configUnitOptions.length; i++){
             if (items[i].classList.contains("sel")) index = i;
           }
@@ -1158,7 +1158,7 @@ function settingKeys(event){
         case 2:
           playSFX({name: "menu_move"});
           var index = 0;
-          const items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
+          var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
           for (i = 0; i < configCurrencyOptions.length; i++){
             if (items[i].classList.contains("sel")) index = i;
           }
@@ -1199,7 +1199,7 @@ function settingKeys(event){
       case 1:
         playSFX({name: "menu_move"});
         var index = 0;
-        const items = document.getElementById("setting_units").querySelectorAll(".setting_option");
+        var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
         for (i = 0; i < configUnitOptions.length; i++){
           if (items[i].classList.contains("sel")) index = i;
         }
@@ -1211,7 +1211,7 @@ function settingKeys(event){
       case 2:
         playSFX({name: "menu_move"});
         var index = 0;
-        const items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
+        var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
         for (i = 0; i < configCurrencyOptions.length; i++){
           if (items[i].classList.contains("sel")) index = i;
         }
