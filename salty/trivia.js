@@ -545,7 +545,7 @@ function adjustMusicVolume(vol, relative) {
   if (bgm_sound_extra2) {
     bgm_sound_extra2.volume = global_bgm_volume * bgm_volumes[2];
   }
-  console.log("New global music volume is " + global_music_volume);
+  console.log("New global music volume is " + global_bgm_volume);
 }
 /**
  * 
