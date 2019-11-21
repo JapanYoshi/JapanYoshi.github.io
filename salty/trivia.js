@@ -693,10 +693,7 @@ function modalKeys(event) {
     case keyName.dRight:
       changeKeyHandler(undefined, true);
       playSFX({name: "menu_confirm"});
-      setTimeout(function(){
-        // give time for the title screen to process that the modal is still active
-        document.getElementById("modal").classList.remove("active");
-      }, 10);
+      document.getElementById("modal").classList.remove("active");
       break;
   }
   return;
@@ -1258,12 +1255,12 @@ function startSignup(){
   setTimeout(function(){
     if (bgm_sound !== bgm_data["signup_base"]) {
       stopMusic(400);
-      playMusic(
-        {name: "options"},
-        undefined,
-        undefined
-      );
     }
+    playMusic(
+      {name: "signup_base"},
+      {name: "signup_extra"},
+      {name: "signup_extra2"}
+    );
     changeKeyHandler(signupKeys, false);
   }, MUSIC_DELAY);
 }
@@ -1292,9 +1289,9 @@ function startSetting(){
     if (bgm_sound !== bgm_data["signup_base"]) {
       stopMusic(400);
       playMusic(
-        {name: "signup_base"},
-        {name: "signup_extra"},
-        {name: "signup_extra2"}
+        {name: "options"},
+        undefined,
+        undefined
       );
     }
     changeKeyHandler(settingKeys, false);
@@ -1354,6 +1351,7 @@ function titleKeys(event) {
         case 1:
           stopMusic(300);
           startSetting();
+          break;
         case 2:
           activateModal(strings.modal_controls.concat("[→]" + strings.sys_dismiss));
           break;
