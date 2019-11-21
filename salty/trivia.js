@@ -1123,7 +1123,7 @@ function settingKeys(event){
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
       selectedOption = ++selectedOption % 5;
-      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectOption].classList.add("sel");
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.down:
     case keyName.dDown:
@@ -1131,7 +1131,7 @@ function settingKeys(event){
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
       selectedOption = (5 + --selectedOption) % 5;
-      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectOption].classList.add("sel");
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.left:
     case keyName.dLeft:
