@@ -490,6 +490,40 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
       bgm_sound_extra2.load();
     }
   }
+  
+  var playAudios = () => {
+    // play them at close timing to each other
+    if (!!bgm_sound_extra2) {
+      if (bgm_sound_extra2.playing()) {
+        bgm_sound_extra2.once("stop", function(){
+          bgm_sound_extra2.play();
+        })
+        bgm_sound_extra2.stop();
+      } else {
+        bgm_sound_extra2.play();
+      }
+    }
+    if (!!bgm_sound_extra) {
+      if (bgm_sound_extra.playing()) {
+        bgm_sound_extra.once("stop", function(){
+          bgm_sound_extra.play();
+        })
+        bgm_sound_extra.stop();
+      } else {
+        bgm_sound_extra.play();
+      }
+    }
+    if (!!bgm_sound) {
+      if (bgm_sound.playing()) {
+        bgm_sound.once("stop", function(){
+          bgm_sound.play();
+        })
+        bgm_sound.stop();
+      } else {
+        bgm_sound.play();
+      }
+    }
+  }
   if (
     !!bgm_sound        && bgm_sound.state()        === "unloaded" ||
     !!bgm_sound_extra  && bgm_sound_extra.state()  === "unloaded" ||
@@ -503,43 +537,18 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
           !!bgm_sound_extra2 && bgm_sound_extra2.state() === "unloaded"
         ) {
           waitForLoad();
+        } else {
+          // done, play
+          playAudios();
         }
       }, 50);
     }
     waitForLoad();
+  } else {
+    // already loaded, play
+    playAudios();
   }
   console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
-  // play them at close timing to each other
-  if (!!bgm_sound_extra2) {
-    if (bgm_sound_extra2.playing()) {
-      bgm_sound_extra2.once("stop", function(){
-        bgm_sound_extra2.play();
-      })
-      bgm_sound_extra2.stop();
-    } else {
-      bgm_sound_extra2.play();
-    }
-  }
-  if (!!bgm_sound_extra) {
-    if (bgm_sound_extra.playing()) {
-      bgm_sound_extra.once("stop", function(){
-        bgm_sound_extra.play();
-      })
-      bgm_sound_extra.stop();
-    } else {
-      bgm_sound_extra.play();
-    }
-  }
-  if (!!bgm_sound) {
-    if (bgm_sound.playing()) {
-      bgm_sound.once("stop", function(){
-        bgm_sound.play();
-      })
-      bgm_sound.stop();
-    } else {
-      bgm_sound.play();
-    }
-  }
 }
 /**
  * Adjust the global music volume.
