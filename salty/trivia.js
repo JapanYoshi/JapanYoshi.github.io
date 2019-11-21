@@ -1274,7 +1274,7 @@ function startSetting(){
   document.body.className = "state_setting";
   loadPage("setting").then(() => {
     // other strings
-    const sliderWidth = document.querySelector("setting_slider_box").clientWidth -  document.querySelector("setting_slider_knob").clientWidth;
+    const sliderWidth = document.querySelector(".setting_slider_box").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
     const setVolume = document.getElementById("setting_volume");
     setVolume.querySelector(".setting_slider_base").style.left = sliderWidth * global_bgm_volume;
     setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
