@@ -434,62 +434,47 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   // Trying to play music while another music is playing
   // causes an error, so we want to stop the music if it's
   // playing, before we play our new one.
-  console.log(bgm_sound, bgm_sound_extra, bgm_sound_extra2);
-  console.log("control flow", 0);
+  console.log("bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
   if (
     (bgm_sound        && bgm_sound.playing()       ) ||
     (bgm_sound_extra  && bgm_sound_extra.playing() ) ||
     (bgm_sound_extra2 && bgm_sound_extra2.playing())
   ) {
-    console.log("control flow", 1);
     stopMusic(0);
   }
-  if (!bgm.vol && bgm.vol !== 0) {
-    bgm.vol = (bgmExtra || bgmExtra2) ? 0.6 : 0.8;
-    console.log("control flow", 2);
+  if (bgm.vol === undefined) {
+    bgm.vol = (!!bgmExtra || !!bgmExtra2) ? 0.6 : 0.8;
+  }
+  if (bgmExtra !== undefined && bgmExtra.vol === undefined) {
+    bgmExtra.vol = 0;
+  }
+  if (bgmExtra2 !== undefined && bgmExtra.vol === undefined) {
+    bgmExtra2.vol = 0;
   }
   // set up
-  bgm_sound = bgm_data[bgm.name];
+  bgm_sound = !!bgm ? undefined : bgm_data[bgm.name];
+  bgm_extra = !!bgmExtra ? undefined : bgm_data[bgmExtra.name];
+  bgm_extra2 = !!bgmExtra2 ? undefined : bgm_data[bgmExtra2.name];
   if (!bgm_sound) {
-    console.log("No BGM found by the name " + bgm.name);
+    console.log("No BGM 1 loaded");
+  } else {
+    bgm_sound.volume(bgm.vol * global_bgm_volume);
+    bgm_volumes[0] = bgm.vol;
   }
-  bgm_sound.volume(bgm.vol * global_bgm_volume);
-  bgm_volumes[0] = bgm.vol;
-  if (bgmExtra) {
-    console.log("control flow", 3);
-    if (!bgmExtra.vol) {
-      bgmExtra.vol = 0;
-      console.log("control flow", 4);
-    }
-    bgm_sound_extra = bgm_data[bgmExtra.name];
-    if (!bgm_sound_extra) {
-      console.log("No BGM found by the name " + bgmExtra.name);
-    }
+  if (!bgm_sound_extra) {
+    console.log("No BGM 2 loaded");
+  } else {
     bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
     bgm_volumes[1] = bgmExtra.vol;
-    if (bgmExtra2) {
-      console.log("control flow", 5);
-      if (!bgmExtra2.vol) {
-        bgmExtra2.vol = 0;
-        console.log("control flow", 6);
-      }
-      bgm_sound_extra2 = bgm_data[bgmExtra2.name];    
-      if (!bgm_sound_extra2) {
-        console.log("No BGM found by the name " + bgmExtra2.name);
-      }
-      bgm_volumes[2] = bgmExtra2.vol;
-      bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
-    } else {
-      console.log("control flow", 7);
-      bgm_sound_extra = undefined;
-    }
-  } else {
-    console.log("control flow", 8);
-    bgm_sound_extra = undefined;
-    bgm_sound_extra2 = undefined;
   }
-  console.log(bgm_sound, bgm_sound_extra, bgm_sound_extra2);
-  // play them
+  if (!bgm_sound_extra2) {
+    console.log("No BGM 3 loaded");
+  } else {
+    bgm_volumes[2] = bgmExtra2.vol;
+    bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
+  }
+  console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
+  // play them at close timing to each other
   if (bgm_sound_extra2) {
     console.log("control flow", 9);
     bgm_sound_extra2.once("stop", function(){
