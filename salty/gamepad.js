@@ -153,7 +153,7 @@ function finishConfig() {
 function configChangeState(state, retro, shared) {
   if (state === -1) {
     document.getElementById("gamepad_config_body").querySelector("h3").innerHTML = "Done!";
-    document.getElementById("gamepad_diagram").src = "ready_" + (
+    document.getElementById("gamepad_diagram").src = "data/joystick/ready_" + (
       retro ? "retro" : shared ? "shared" : "solo"
     ) + ".svg";
   } else {
