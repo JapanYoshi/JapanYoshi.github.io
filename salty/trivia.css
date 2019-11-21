@@ -511,3 +511,75 @@ section.candy>.section_content {
     backdrop-filter: blur(4rem);
   }
 }
+
+/**
+ * virtual keypad
+ * assume vertical phone orientation by default
+ */
+#vk_button,
+.vk_key {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+#vk_button.shown {
+  position: absolute;
+  z-index: 1025;
+  display: block;
+  opacity: 1;
+}
+#vk_container.active .vk_key {
+  position: absolute;
+  z-index: 1025;
+  display: block;
+  opacity: 1;
+}
+#vk {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 32vw;
+  display: flex;
+  align-content: stretch;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.vk_key {
+  width: 33%;
+  height: 16vw;
+  flex: 0 1 auto;
+}
+#vk_6 {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+  top: 0;
+  right: 0;
+}
+@media (min-aspect-ratio: 16/9) {
+  #vk {
+    width: 50vh;
+    height: 100vh;
+  }
+  .vk_key {
+    width: 50%;
+    height: 25vh;
+  }
+  /* horizontal hold */
+  #vk_0 { order: 1; }
+  #vk_1 { order: 2; }
+  #vk_2 { order: 1; }
+  #vk_3 { order: 3; }
+  #vk_4 { order: 4; }
+  #vk_5 { order: 3; }
+  #vk_1, #vk_4 { margin: 0 20vh; }
+  #vk_6 {
+    width: 5.625vh;
+    height: 5.625vh;
+    right: 50vh;
+  }
+}
