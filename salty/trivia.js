@@ -7,9 +7,9 @@ var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
 var vox_data = {};
-var voice_queue = [];
-var global_bgm_volume = +(localStorage.getItem("musicVolume")) || 1;
-var global_vox_volume = +(localStorage.getItem("voiceVolume")) || 1;
+var vox_queue = [];
+var global_bgm_volume = +(localStorage.getItem("bgmVolume")) || 1;
+var global_vox_volume = +(localStorage.getItem("voxVolume")) || 1;
 var bgm_volumes = [0, 0, 0];
 var bgm_sound;
 var bgm_sound_extra;
@@ -224,7 +224,7 @@ function getIndexOfSel(buttons){
 }
 // sound effects should be played willy nilly, but one copy per sound effect
 
-const MUSIC_DELAY = 400;
+const BGM_DELAY = 400;
 const MAX_PLAYER_COUNT = 8;
 /**
  * Loads the contents of the specified HTML file into the #screen element.
@@ -386,7 +386,7 @@ for (var i = 0; i < vox_names.length; i++) {
  * Queues an array of voice lines for playing. 
  * @param {Array<string>} names 
  */
-function queueVoice(names){
+function queueVox(names){
   for (var i = 0; i < names.length; i++) {
     const data = vox_data[names[i]];
     if (![data]) {
@@ -395,60 +395,60 @@ function queueVoice(names){
       if (data.state !== "loaded") {
         data.load();
       }
-      voice_queue.push(data);
+      vox_queue.push(data);
     }
   }
 }
 /**
  * Plays the next queued voice line.
  */
-function playNextVoice(){
+function playNextVox(){
   data = vox_queue.unshift();
   document.dispatchEvent(
-    new CustomEvent('voiceLineEnd', {
+    new CustomEvent('voxEnd', {
       detail: {
         // nothing so far
       }
     })
   );
-  console.log("voiceLineEnd event dispatched");
+  console.log("voxEnd event dispatched");
   if (vox_queue.length) {
     vox_queue[0].play();
   } else {
     document.dispatchEvent(
-      new CustomEvent('allVoiceLinesEnd', {
+      new CustomEvent('allVoxEnd', {
         detail: {
           // nothing so far
         }
       })
     );
-    console.log("allVoiceLinesEnd event dispatched");
+    console.log("allVoxEnd event dispatched");
   }
 }
 /**
  * Pauses or unpauses a voice line.
  * @param {boolean} pause 
  */
-function pauseVoice(pause) {
+function pauseVox(pause) {
   if (pause) {
-    voice_queue[0].pause();
+    vox_queue[0].pause();
   } else {
-    voice_queue[0].play();
+    vox_queue[0].play();
   }
 }
 /**
  * Stops a voice line from playing.
  */
-function stopVoice() {
-  voice_queue[0].stop();
-  voice_queue = [];
+function stopVox() {
+  vox_queue[0].stop();
+  vox_queue = [];
 }
 /**
  * Pauses or unpauses the music.
  * @param {boolean} state To pause, pass true. To unpause,
  * pass false.
  */
-function pauseMusic(state) {
+function pauseBgm(state) {
   if (state) {
     if (bgm_sound){
       bgm_sound.pause();
@@ -476,43 +476,43 @@ function pauseMusic(state) {
  * @param {number} fade_ms Milliseconds to fade for. Pass
  * 0 to disable fading.
  */
-function stopMusic(fade_ms) {
-  console.log("stopMusic objects are", bgm_sound, bgm_sound_extra, bgm_sound_extra2);
+function stopBgm(fade_ms) {
+  console.log("stopBgm objects are", bgm_sound, bgm_sound_extra, bgm_sound_extra2);
   var c0 = bgm_sound;
   var c1 = bgm_sound_extra;
   var c2 = bgm_sound_extra2;
   if (!fade_ms) {
-    console.log("stopMusic control flow", 4);
+    console.log("stopBgm control flow", 4);
     if (!!c0){
-      console.log("stopMusic control flow", 5);
+      console.log("stopBgm control flow", 5);
       c0.stop();
     }
     if (!!c1) {
-      console.log("stopMusic control flow", 6);
+      console.log("stopBgm control flow", 6);
       c1.stop();
     }
     if (!!c2) {
-      console.log("stopMusic control flow", 7);
+      console.log("stopBgm control flow", 7);
       c2.stop();
     }
   } else {
-    console.log("stopMusic control flow", 0);
+    console.log("stopBgm control flow", 0);
     if (!!c0){
-      console.log("stopMusic control flow", 1);
+      console.log("stopBgm control flow", 1);
       c0.once("fade", () => {
         c0.stop();
       })
       c0.fade(c0.volume(), 0, fade_ms);
     }
     if (!!c1) {
-      console.log("stopMusic control flow", 2);
+      console.log("stopBgm control flow", 2);
       c1.once("fade", () => {
         c1.stop();
       })
       c1.fade(c1.volume(), 0, fade_ms);
     }
     if (!!c2) {
-      console.log("stopMusic control flow", 3);
+      console.log("stopBgm control flow", 3);
       c2.once("fade", () => {
         c2.stop();
       })
@@ -536,7 +536,7 @@ function stopMusic(fade_ms) {
  * @param {Object} bgmExtra2 Name of track 3. vol defaults
  * to 0.
  */
-function playMusic(bgm, bgmExtra, bgmExtra2){
+function playBgm(bgm, bgmExtra, bgmExtra2){
   // Trying to play music while another music is playing
   // causes an error, so we want to stop the music if it's
   // playing, before we play our new one.
@@ -547,7 +547,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     (bgm_sound_extra  && bgm_sound_extra.playing() ) ||
     (bgm_sound_extra2 && bgm_sound_extra2.playing())
   ) {
-    stopMusic(0);
+    stopBgm(0);
   }
   if (bgm.vol === undefined) {
     bgm.vol = (!!bgmExtra || !!bgmExtra2) ? 0.6 : 0.8;
@@ -659,7 +659,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
  * @param {number} vol A number between 0 and 1 (-1 and 1 if relative).
  * @param {boolean} relative Instead of an absolute number. adjusts volume by difference.
  */
-function adjustMusicVolume(vol, relative) {
+function adjustBgmVolume(vol, relative) {
   if (relative) {
     global_bgm_volume = + global_bgm_volume + vol;
   } else {
@@ -676,7 +676,7 @@ function adjustMusicVolume(vol, relative) {
   if (bgm_sound_extra2) {
     bgm_sound_extra2.volume(global_bgm_volume * bgm_volumes[2]);
   }
-  console.log("New global music volume is " + global_bgm_volume);
+  console.log("New global bgm volume is " + global_bgm_volume);
 }
 /**
  * 
@@ -935,7 +935,7 @@ function abortModalKeys(event) {
  * @param {Array<string>} text cf. activateModal()
  */
 function abort(text) {
-  stopMusic(0);
+  stopBgm(0);
   document.body.className = "error";
   var modal = document.getElementById("modal");
   var content = modal.getElementsByClassName("modal_content")[0];
@@ -1084,7 +1084,7 @@ function chooseEpisodeKeys(event) {
         }
         playSFX({name: "game_start"});
         changeKeyHandler(undefined, false);
-        stopMusic(1500);
+        stopBgm(1500);
         console.log("game started");
         break;
     }
@@ -1201,7 +1201,7 @@ function signupKeys(event){
       // back
       changeKeyHandler(undefined, false);
       playSFX({name: "menu_back"});
-      stopMusic(400);
+      stopBgm(400);
       initApp();
       break;
     case keyName.right:
@@ -1273,7 +1273,7 @@ function settingKeys(event){
             playSFX({name: "menu_stuck"});
           } else {
             playSFX({name: "menu_move"});
-            adjustMusicVolume(-1/16, true);
+            adjustBgmVolume(-1/16, true);
             var setVolume = document.getElementById("setting_volume");
             var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
             setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
@@ -1286,8 +1286,8 @@ function settingKeys(event){
               playSFX({name: "menu_stuck"});
             } else {
               playSFX({name: "menu_move"});
-              adjustVoiceVolume(-1/16, true);
-              var setVolume = document.getElementById("setting_volume_voice");
+              adjustVoxVolume(-1/16, true);
+              var setVolume = document.getElementById("setting_volume_vox");
               var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
               setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
               setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
@@ -1317,9 +1317,9 @@ function settingKeys(event){
           playSFX({name: "menu_back"});
           document.body.className = "";
           units = localStorage.getItem("units") || "SI";
-          global_bgm_volume = +(localStorage.getItem("musicVolume")) || 1;
+          global_bgm_volume = +(localStorage.getItem("bgmVolume")) || 1;
           formatName = localStorage.getItem("formatName") || "points";
-          stopMusic(400);
+          stopBgm(400);
           initApp();
           break;
         }
@@ -1333,7 +1333,7 @@ function settingKeys(event){
           playSFX({name: "menu_stuck"});
         } else {
           playSFX({name: "menu_move"});
-          adjustMusicVolume(1/16, true);
+          adjustBgmVolume(1/16, true);
           var setVolume = document.getElementById("setting_volume");
           var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
           setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
@@ -1346,8 +1346,8 @@ function settingKeys(event){
           playSFX({name: "menu_stuck"});
         } else {
           playSFX({name: "menu_move"});
-          adjustVoiceVolume(1/16, true);
-          var setVolume = document.getElementById("setting_volume_voice");
+          adjustVoxVolume(1/16, true);
+          var setVolume = document.getElementById("setting_volume_vox");
           var sliderWidth = document.querySelector(".setting_slider_base").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
           setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
           setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
@@ -1375,7 +1375,7 @@ function settingKeys(event){
       case 4:       
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
-        stopMusic(400);
+        stopBgm(400);
         initApp();
         break;
       case 5:        
@@ -1383,10 +1383,10 @@ function settingKeys(event){
         document.body.className = "";
         playSFX({name: "menu_back"});
         localStorage.setItem("units", units);
-        localStorage.setItem("musicVolume", global_bgm_volume);
-        localStorage.setItem("voiceVolume", global_vox_volume);
+        localStorage.setItem("bgmVolume", global_bgm_volume);
+        localStorage.setItem("voxVolume", global_vox_volume);
         localStorage.setItem("formatName", formatName);
-        stopMusic(400);
+        stopBgm(400);
         initApp();
         break;
       }
@@ -1415,15 +1415,15 @@ function startSignup(){
   // set key handler and music with a delay
   setTimeout(function(){
     if (bgm_sound !== bgm_data["signup_base"]) {
-      stopMusic(400);
+      stopBgm(400);
     }
-    playMusic(
+    playBgm(
       {name: "signup_base"},
       {name: "signup_extra"},
       {name: "signup_extra2"}
     );
     changeKeyHandler(signupKeys, false);
-  }, MUSIC_DELAY);
+  }, BGM_DELAY);
 }
 
 /**
@@ -1434,7 +1434,7 @@ function startSetting(){
   // init elements
   document.body.className = "state_setting";
   // set key handler and music with a delay
-  stopMusic(MUSIC_DELAY);
+  stopBgm(BGM_DELAY);
   loadPage("setting").then(() => {
     // other strings
     const setUnits = document.getElementById("setting_units");
@@ -1451,18 +1451,18 @@ function startSetting(){
       setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
       setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
       setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
-      playMusic(
+      playBgm(
         {name: "options"},
         undefined,
         undefined
       );
-      queueVoice(vox_names);
-      playNextVoice();
-      document.addEventListener("allVoiceLinesEnd", ()=>{
-        queueVoice(vox_names);
+      queueVox(vox_names);
+      playNextVox();
+      document.addEventListener("allVoxEnd", ()=>{
+        queueVox(vox_names);
       });
       changeKeyHandler(settingKeys, false);
-    }, MUSIC_DELAY);
+    }, BGM_DELAY);
   });
   
 }
@@ -1514,11 +1514,11 @@ function titleKeys(event) {
       playSFX({name: "menu_confirm"});
       switch (selected) {
         case 0:
-          stopMusic(300);
+          stopBgm(300);
           startSignup();
           break;
         case 1:
-          stopMusic(300);
+          stopBgm(300);
           startSetting();
           break;
         case 2:
@@ -1528,11 +1528,11 @@ function titleKeys(event) {
           activateModal(strings.modal_about.concat("[→]" + strings.sys_dismiss));
           break;
         case 4:
-          stopMusic(1000);
+          stopBgm(1000);
           activateModal(strings.modal_credits);
           break;
         case 5:
-          stopMusic(1000);
+          stopBgm(1000);
           window.open("https://japanyoshi.github.io/social.html", "_blank");
           activateModal([
             strings.modal_popup[0],
@@ -1583,8 +1583,8 @@ function initApp(){
   changeKeyHandler(titleKeys, false);
   setTimeout(
     function(){
-      playMusic({name: "placeholder"}, undefined, undefined);
-    }, MUSIC_DELAY
+      playBgm({name: "placeholder"}, undefined, undefined);
+    }, BGM_DELAY
   );
 }
 splashTimeout = undefined;
