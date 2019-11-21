@@ -1476,7 +1476,7 @@ function startSetting(){
       );
       queueVoice(vox_names);
       playNextVoice();
-      document.addEventListener("allVoiceLinesEnd", {
+      document.addEventListener("allVoiceLinesEnd", ()=>{
         queueVoice(vox_names);
       });
       changeKeyHandler(settingKeys, false);
