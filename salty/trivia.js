@@ -259,7 +259,7 @@ const bgm_names = [
   "signup_base",
   "signup_extra",
   "signup_extra2",
-  "settings"
+  "options"
 ];
 const SFX_PRELOAD_COUNT = 8;
 const sfx_names = [
