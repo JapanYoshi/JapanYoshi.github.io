@@ -452,9 +452,9 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     bgmExtra2.vol = 0;
   }
   // set up
-  bgm_sound = !!bgm ? undefined : bgm_data[bgm.name];
-  bgm_extra = !!bgmExtra ? undefined : bgm_data[bgmExtra.name];
-  bgm_extra2 = !!bgmExtra2 ? undefined : bgm_data[bgmExtra2.name];
+  bgm_sound = !bgm ? undefined : bgm_data[bgm.name];
+  bgm_extra = !bgmExtra ? undefined : bgm_data[bgmExtra.name];
+  bgm_extra2 = !bgmExtra2 ? undefined : bgm_data[bgmExtra2.name];
   if (!bgm_sound) {
     console.log("No BGM 1 loaded");
   } else {
@@ -1284,7 +1284,7 @@ function startSetting(){
     console.log("units option " + units + ", " + configUnitOptions.indexOf(units))
     const setCurrency = document.getElementById("setting_currency");
     setCurrency.querySelectorAll(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
-    console.log("name option " + formatName + ", " + configUnitOptions.indexOf(formatName))
+    console.log("name option " + formatName + ", " + configCurrencyOptions.indexOf(formatName))
     
     setTimeout(function(){
       playMusic(
