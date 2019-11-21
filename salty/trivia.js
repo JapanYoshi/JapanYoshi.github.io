@@ -403,7 +403,7 @@ function queueVoice(names){
  * Plays the next queued voice line.
  */
 function playNextVoice(){
-  data = vox_data.unshift();
+  data = vox_queue.unshift();
   document.dispatchEvent(
     new CustomEvent('voiceLineEnd', {
       detail: {
@@ -412,8 +412,8 @@ function playNextVoice(){
     })
   );
   console.log("voiceLineEnd event dispatched");
-  if (vox_data.length) {
-    vox_data[0].play();
+  if (vox_queue.length) {
+    vox_queue[0].play();
   } else {
     document.dispatchEvent(
       new CustomEvent('allVoiceLinesEnd', {
