@@ -1613,7 +1613,7 @@ function splashScreenHandler(e) {
 document.addEventListener("DOMContentLoaded", function(){
   // prepare the "virtual keyboard", but only if no keyboard input for the first 3 seconds
   vkTimeout = setTimeout(()=>{
-    document.getElementById("vkButton").classList.add("active");
+    document.getElementById("vk_button").classList.add("active");
   }, 3000);
 
   // first time boot
