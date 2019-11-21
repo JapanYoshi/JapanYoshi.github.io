@@ -461,6 +461,31 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   }
 }
 /**
+ * Adjust the global music volume.
+ * Do NOT fire while any track is fading!
+ * @param {number} vol A number between 0 and 1 (-1 and 1 if relative).
+ * @param {boolean} relative Instead of an absolute number. adjusts volume by difference.
+ */
+function adjustMusicVolume(vol, relative) {
+  if (relative) {
+    global_bgm_volume += vol;
+  } else {
+    global_bgm_volume = vol;
+  }
+  global_bgm_volume = Math.min(Math.max(0, global_bgm_volume), 1);
+  // adjust music vol accordingly
+  if (bgm_sound) {
+    bgm_sound.volume = global_bgm_volume * bgm_volumes[0];
+  }
+  if (bgm_sound_extra) {
+    bgm_sound_extra.volume = global_bgm_volume * bgm_volumes[1];
+  }
+  if (bgm_sound_extra2) {
+    bgm_sound_extra2.volume = global_bgm_volume * bgm_volumes[2];
+  }
+  console.log("New global music volume is " + global_music_volume);
+}
+/**
  * 
  * @param {number} vol Volume to set it to from 0 to 1.
  */
@@ -1088,16 +1113,19 @@ function titleKeys(event) {
           startSignup();
           break;
         case 1:
+          stopMusic(300);
+          startSetting();
+        case 2:
           activateModal(strings.modal_controls.concat("[→]" + strings.sys_dismiss));
           break;
-        case 2:
+        case 3:
           activateModal(strings.modal_about.concat("[→]" + strings.sys_dismiss));
           break;
-        case 3:
+        case 4:
           stopMusic(1000);
           activateModal(strings.modal_credits);
           break;
-        case 4:
+        case 5:
           stopMusic(1000);
           window.open("https://japanyoshi.github.io/social.html", "_blank");
           activateModal([

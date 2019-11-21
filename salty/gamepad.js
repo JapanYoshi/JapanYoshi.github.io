@@ -9,7 +9,7 @@ const sleep = (wait, someFunction) => {
 var daisyWheelPage = 4;
 var readyState = 0;
 const stickThreshold = 0.4;
-const blankImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIAAAUAAeImBZsAAAAASUVORK5CYII=";
+const blankImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
 var configQueue = [];
 // from tilt state to config page
 const daisyWheelOrder = [8, 1, 2, 7, 0, 3, 6, 5, 4];
