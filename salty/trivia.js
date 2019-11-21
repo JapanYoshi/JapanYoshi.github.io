@@ -450,6 +450,9 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   }
   // set up
   bgm_sound = bgm_data[bgm.name];
+  if (!bgm_sound) {
+    console.log("No BGM found by the name " + bgm.name);
+  }
   bgm_sound.volume(bgm.vol * global_bgm_volume);
   bgm_volumes[0] = bgm.vol;
   if (bgmExtra) {
@@ -459,6 +462,9 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
       console.log("control flow", 4);
     }
     bgm_sound_extra = bgm_data[bgmExtra.name];
+    if (!bgm_sound_extra) {
+      console.log("No BGM found by the name " + bgmExtra.name);
+    }
     bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
     bgm_volumes[1] = bgmExtra.vol;
     if (bgmExtra2) {
@@ -467,7 +473,10 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
         bgmExtra2.vol = 0;
         console.log("control flow", 6);
       }
-      bgm_sound_extra2 = bgm_data[bgmExtra2.name];
+      bgm_sound_extra2 = bgm_data[bgmExtra2.name];    
+      if (!bgm_sound_extra2) {
+        console.log("No BGM found by the name " + bgmExtra2.name);
+      }
       bgm_volumes[2] = bgmExtra2.vol;
       bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
     } else {
