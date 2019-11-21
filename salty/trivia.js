@@ -481,6 +481,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   }
   
   var prepareAudio = () => {
+    console.log("prepareAudio fired.");
     // play them at close timing to each other
     if (!!bgm_sound_extra2) {
       bgm_volumes[2] = bgmExtra2.vol;
