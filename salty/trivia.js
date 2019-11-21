@@ -463,18 +463,29 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     if (bgm_sound.volume() !== bgm.vol * global_bgm_volume) {
       console.log("BGM sound volume error: The necessary volume was " + (bgm.vol * global_bgm_volume) + ", but the music volume is set to " + bgm_sound.volume() + ".");
     }
+    if (bgm_sound.state === "unloaded") {
+      bgm_sound.load();
+    }
   }
   if (!bgm_sound_extra) {
     console.log("No BGM 2 loaded");
   } else {
     bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
     bgm_volumes[1] = bgmExtra.vol;
+    
+    if (bgm_sound_extra.state === "unloaded") {
+      bgm_sound_extra.load();
+    }
   }
   if (!bgm_sound_extra2) {
     console.log("No BGM 3 loaded");
   } else {
     bgm_volumes[2] = bgmExtra2.vol;
     bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
+    
+    if (bgm_sound_extra2.state === "unloaded") {
+      bgm_sound_extra2.load();
+    }
   }
   console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
   // play them at close timing to each other
