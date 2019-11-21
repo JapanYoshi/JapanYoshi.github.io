@@ -536,7 +536,7 @@ section.candy>.section_content {
   opacity: 1;
   left: 50vw;
   top: 0;
-  transform: translate(-50% 0);
+  transform: translate(-50%, 0);
 }
 #vk_container.active ~ #screen {
   left: 50vw;
@@ -565,6 +565,12 @@ section.candy>.section_content {
   position: relative;
   width: 33%;
   height: 16vw;
+  border-radius: 2.25vw;
+  background: rgba(0, 0, 0, 0.1);
+  font-family: _Icons;
+}
+.vk_key:active {
+  background: rgba(255, 255, 255, 0.5);
 }
 #vk_6 {
   display: block;
@@ -574,6 +580,7 @@ section.candy>.section_content {
   height: 10vw;
   top: 0;
   right: 0;
+  font-family: Poppins;
 }
 @media (min-aspect-ratio: 16/9) {
   /* horizontal hold */
@@ -590,6 +597,7 @@ section.candy>.section_content {
   .vk_key {
     width: 50%;
     height: 25vh;
+    border-radius: 4vh;
   }
   #vk_0 { order: 1; }
   #vk_1 { order: 2; }
