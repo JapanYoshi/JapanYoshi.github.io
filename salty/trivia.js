@@ -6,6 +6,7 @@ var units = localStorage.getItem("units") || "SI";
 var episode_listing = {};
 var bgm_data = {};
 var sfx_data = {};
+var vox_data = {};
 var voice_queue = [];
 var global_bgm_volume = +(localStorage.getItem("musicVolume")) || 1;
 var global_vox_volume = +(localStorage.getItem("voiceVolume")) || 1;
