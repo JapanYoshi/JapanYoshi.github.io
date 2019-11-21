@@ -515,7 +515,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
  */
 function adjustMusicVolume(vol, relative) {
   if (relative) {
-    global_bgm_volume += vol;
+    global_bgm_volume = + global_bgm_volume + vol;
   } else {
     global_bgm_volume = vol;
   }
