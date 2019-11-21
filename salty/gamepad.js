@@ -553,7 +553,7 @@ function configGamepad() {
     noAxes: false
   };
   configChangeState(0);
-  setTimeout(() => {
+  setTimeout(() => { //
     configHandle(id, 0)
   }, 500);
   document.getElementById("gamepad_config").querySelector("p").innerText = "Configuring gamepad #" + id + " called " + gp.id;
