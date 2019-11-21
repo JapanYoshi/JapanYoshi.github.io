@@ -1123,7 +1123,7 @@ function settingKeys(event){
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
       selectedOption = ++selectedOption % 5;
-      document.getElementById("setting_box").querySelectorAll(".setting_item")[selecteOption].classList.add("sel");
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectOption].classList.add("sel");
       break;
     case keyName.down:
     case keyName.dDown:
@@ -1131,7 +1131,7 @@ function settingKeys(event){
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
       selectedOption = (5 + --selectedOption) % 5;
-      document.getElementById("setting_box").querySelectorAll(".setting_item")[selecteOption].classList.add("sel");
+      document.getElementById("setting_box").querySelectorAll(".setting_item")[selectOption].classList.add("sel");
       break;
     case keyName.left:
     case keyName.dLeft:
@@ -1281,6 +1281,16 @@ function startSetting(){
   changeKeyHandler(undefined, false);
   // init elements
   document.body.className = "state_setting";
+  // set key handler and music with a delay
+  stopMusic(400);
+  setTimeout(function(){
+    playMusic(
+      {name: "options"},
+      undefined,
+      undefined
+    );
+    changeKeyHandler(settingKeys, false);
+  }, MUSIC_DELAY);
   loadPage("setting").then(() => {
     // other strings
     const sliderWidth = document.querySelector(".setting_slider_box").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
@@ -1289,20 +1299,13 @@ function startSetting(){
     setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
     setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
     const setUnits = document.getElementById("setting_units");
-    setUnits.querySelector(".setting_option")[configUnitOptions.indexOf(units)].classList.add("sel");
+    setUnits.querySelector(".setting_option")[configUnitOptions.indexOf(units) === -1 ? 0 : configUnitOptions.indexOf(units)].classList.add("sel");
+    console.log("units option " + units + ", " + configUnitOptions.indexOf(units))
     const setCurrency = document.getElementById("setting_currency");
     setCurrency.querySelector(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
+    console.log("name option " + formatName + ", " + configUnitOptions.indexOf(formatName))
   });
-  // set key handler and music with a delay
-  setTimeout(function(){
-    stopMusic(400);
-    playMusic(
-      {name: "options"},
-      undefined,
-      undefined
-    );
-    changeKeyHandler(settingKeys, false);
-  }, MUSIC_DELAY);
+  
 }
 /**
  * The title screen key handler.
