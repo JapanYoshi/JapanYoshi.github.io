@@ -499,13 +499,13 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     }
   }
   if (!!bgm_sound) {
-    if (bgm_sound_extra.playing()) {
-      bgm_sound_extra.once("stop", function(){
-        bgm_sound_extra.play();
+    if (bgm_sound.playing()) {
+      bgm_sound.once("stop", function(){
+        bgm_sound.play();
       })
       bgm_sound.stop();
     } else {
-      bgm_sound_extra.play();
+      bgm_sound.play();
     }
   }
 }
