@@ -1299,10 +1299,10 @@ function startSetting(){
     setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
     setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
     const setUnits = document.getElementById("setting_units");
-    setUnits.querySelector(".setting_option")[configUnitOptions.indexOf(units) === -1 ? 0 : configUnitOptions.indexOf(units)].classList.add("sel");
+    setUnits.querySelectorAll(".setting_option")[configUnitOptions.indexOf(units) === -1 ? 0 : configUnitOptions.indexOf(units)].classList.add("sel");
     console.log("units option " + units + ", " + configUnitOptions.indexOf(units))
     const setCurrency = document.getElementById("setting_currency");
-    setCurrency.querySelector(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
+    setCurrency.querySelectorAll(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
     console.log("name option " + formatName + ", " + configUnitOptions.indexOf(formatName))
   });
   
