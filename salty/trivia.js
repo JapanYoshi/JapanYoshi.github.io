@@ -1284,15 +1284,7 @@ function startSetting(){
   // init elements
   document.body.className = "state_setting";
   // set key handler and music with a delay
-  stopMusic(400);
-  setTimeout(function(){
-    playMusic(
-      {name: "options"},
-      undefined,
-      undefined
-    );
-    changeKeyHandler(settingKeys, false);
-  }, MUSIC_DELAY);
+  stopMusic(MUSIC_DELAY);
   loadPage("setting").then(() => {
     // other strings
     const sliderWidth = document.querySelector(".setting_slider_box").clientWidth -  document.querySelector(".setting_slider_knob").clientWidth;
@@ -1306,6 +1298,15 @@ function startSetting(){
     const setCurrency = document.getElementById("setting_currency");
     setCurrency.querySelectorAll(".setting_option")[configCurrencyOptions.indexOf(formatName)].classList.add("sel");
     console.log("name option " + formatName + ", " + configUnitOptions.indexOf(formatName))
+    
+    setTimeout(function(){
+      playMusic(
+        {name: "options"},
+        undefined,
+        undefined
+      );
+      changeKeyHandler(settingKeys, false);
+    }, MUSIC_DELAY);
   });
   
 }
