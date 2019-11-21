@@ -675,15 +675,21 @@ function modalKeys(event) {
   switch (key) {
     case keyName.up:
     case keyName.dUp:
-      console.log("Up was pressed. Scrolling px:", screenHeight / -8);
       playSFX({name: "menu_move"});
-      box.scrollBy(0, screenHeight / -8);
+      box.scrollBy({
+        top: document.querySelector(".modal_box").clientHeight / -4,
+        left: 0,
+        behavior: 'auto'
+      });
       break;
     case keyName.down:
     case keyName.dDown:
-      console.log("Down was pressed. Scrolling px:", screenHeight / 8);
       playSFX({name: "menu_move"});
-      box.scrollBy(0, screenHeight / 8);
+      box.scrollBy({
+        top: document.querySelector(".modal_box").clientHeight / 4,
+        left: 0,
+        behavior: 'auto'
+      });
       break;
     case keyName.right:
     case keyName.dRight:
