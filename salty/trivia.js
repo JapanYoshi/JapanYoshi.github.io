@@ -1107,7 +1107,7 @@ function settingKeys(event){
       // move up
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
-      selectedOption = ++selectedOption % 5;
+      selectedOption = (5 + --selectedOption) % 5;
       document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.down:
@@ -1115,7 +1115,7 @@ function settingKeys(event){
       // move down
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
-      selectedOption = (5 + --selectedOption) % 5;
+      selectedOption = ++selectedOption % 5;
       document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.left:
@@ -1282,8 +1282,9 @@ function startSetting(){
     console.log("name option " + formatName + ", " + configCurrencyOptions.indexOf(formatName))
     
     setTimeout(function(){
-      const sliderWidth = document.querySelector(".setting_slider_base").clientWidth - document.querySelector(".setting_slider_knob").clientWidth;
-      const setVolume = document.getElementById("setting_volume");
+      var sliderWidth = document.querySelector(".setting_slider_base").clientWidth - document.querySelector(".setting_slider_knob").clientWidth;
+      console.log("sliderWidth", sliderWidth);
+      var setVolume = document.getElementById("setting_volume");
       setVolume.querySelector(".setting_slider_highlight").style.left = sliderWidth * global_bgm_volume;
       setVolume.querySelector(".setting_slider_knob").style.left = sliderWidth * global_bgm_volume;
       setVolume.querySelector(".setting_slider_value").innerText = (global_bgm_volume * 16).toString(10) + "/16";
