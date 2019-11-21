@@ -1159,15 +1159,12 @@ function settingKeys(event){
           items[index].classList.add("sel");
           formatName = configCurrencyOptions[index];
           break;
-        case 3:       
-          changeKeyHandler(undefined, false);
-          playSFX({name: "menu_back"});
-          stopMusic(400);
-          initApp();
-          break;
         case 4:        
           changeKeyHandler(undefined, false);
           playSFX({name: "menu_back"});
+          units = localStorage.getItem("units") || "SI";
+          global_bgm_volume = localStorage.getItem("musicVolume") || 1;
+          formatName = localStorage.getItem("formatName") || "points";
           stopMusic(400);
           initApp();
           break;
@@ -1223,6 +1220,9 @@ function settingKeys(event){
       case 4:        
         changeKeyHandler(undefined, false);
         playSFX({name: "menu_back"});
+        localStorage.setItem("units", units);
+        localStorage.setItem("musicVolume", global_bgm_volume);
+        localStorage.setItem("formatName", formatName);
         stopMusic(400);
         initApp();
         break;
