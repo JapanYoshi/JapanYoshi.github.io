@@ -14,6 +14,8 @@ var bgm_sound_extra2;
 var currentEventListener = undefined;
 var currentEventListenerModal = undefined;
 
+const sleep = ms => new Promise((r, j)=>setTimeout(r, ms));
+
 var _ROOT = "https://japanyoshi.github.io/salty/";
 var _LOCAL = false;
 if ((window.location.href).startsWith("file://")) {
@@ -434,6 +436,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   // Trying to play music while another music is playing
   // causes an error, so we want to stop the music if it's
   // playing, before we play our new one.
+  var loadPromises = [];
   console.log("bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
   if (
     (bgm_sound        && bgm_sound.playing()       ) ||
@@ -486,6 +489,24 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     if (bgm_sound_extra2.state() === "unloaded") {
       bgm_sound_extra2.load();
     }
+  }
+  if (
+    !!bgm_sound        && bgm_sound.state()        === "unloaded" ||
+    !!bgm_sound_extra  && bgm_sound_extra.state()  === "unloaded" ||
+    !!bgm_sound_extra2 && bgm_sound_extra2.state() === "unloaded"
+  ) {
+    var waitForLoad = () => {
+      setTimeout(()=>{
+        if (
+          !!bgm_sound        && bgm_sound.state()        === "unloaded" ||
+          !!bgm_sound_extra  && bgm_sound_extra.state()  === "unloaded" ||
+          !!bgm_sound_extra2 && bgm_sound_extra2.state() === "unloaded"
+        ) {
+          waitForLoad();
+        }
+      }, 50);
+    }
+    waitForLoad();
   }
   console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
   // play them at close timing to each other

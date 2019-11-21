@@ -1,10 +1,4 @@
-const sleep = (wait, someFunction) => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(someFunction())
-    }, wait)
-  });
-}
+
 // end test functions
 var daisyWheelPage = 4;
 var readyState = 0;
