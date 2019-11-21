@@ -1246,14 +1246,7 @@ function settingKeys(event){
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
-  var selectedOption = (
-    document.getElementById("setting_volume").classList.contains("sel") ? 0 :
-    document.getElementById("setting_volume_voice").classList.contains("sel") ? 1 :
-    document.getElementById("setting_units").classList.contains("sel") ? 2 :
-    document.getElementById("setting_currency").classList.contains("sel") ? 3 :
-    document.getElementById("setting_players").classList.contains("sel") ? 4 :
-    5
-  );
+  var selectedOption = getIndexOfSel(document.getElementById("setting_box").childNodes);
   switch (key) {
     case keyName.up:
     case keyName.dUp:
@@ -1303,11 +1296,8 @@ function settingKeys(event){
             break;
         case 2:
           playSFX({name: "menu_move"});
-          var index = 0;
           var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
-          for (i = 0; i < configUnitOptions.length; i++){
-            if (items[i].classList.contains("sel")) index = i;
-          }
+          var index = getIndexOfSel(items);
           items[index].classList.remove("sel");
           index = (configUnitOptions.length + --index) % configUnitOptions.length;
           items[index].classList.add("sel");
@@ -1315,11 +1305,8 @@ function settingKeys(event){
           break;
         case 3:
           playSFX({name: "menu_move"});
-          var index = 0;
           var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
-          for (i = 0; i < configCurrencyOptions.length; i++){
-            if (items[i].classList.contains("sel")) index = i;
-          }
+          var index = getIndexOfSel(items);
           items[index].classList.remove("sel");
           index = (configCurrencyOptions.length + --index) % configCurrencyOptions.length;
           items[index].classList.add("sel");
@@ -1369,11 +1356,8 @@ function settingKeys(event){
         break;
       case 2:
         playSFX({name: "menu_move"});
-        var index = 0;
         var items = document.getElementById("setting_units").querySelectorAll(".setting_option");
-        for (i = 0; i < configUnitOptions.length; i++){
-          if (items[i].classList.contains("sel")) index = i;
-        }
+        var index = getIndexOfSel(items);
         items[index].classList.remove("sel");
         index = ++index % configUnitOptions.length;
         items[index].classList.add("sel");
@@ -1381,11 +1365,8 @@ function settingKeys(event){
         break;
       case 3:
         playSFX({name: "menu_move"});
-        var index = 0;
         var items = document.getElementById("setting_currency").querySelectorAll(".setting_option");
-        for (i = 0; i < configCurrencyOptions.length; i++){
-          if (items[i].classList.contains("sel")) index = i;
-        }
+        var index = getIndexOfSel(items);
         items[index].classList.remove("sel");
         index = ++index % configCurrencyOptions.length;
         items[index].classList.add("sel");
