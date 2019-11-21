@@ -1286,14 +1286,12 @@ function startSetting(){
   });
   // set key handler and music with a delay
   setTimeout(function(){
-    if (bgm_sound !== bgm_data["signup_base"]) {
-      stopMusic(400);
-      playMusic(
-        {name: "options"},
-        undefined,
-        undefined
-      );
-    }
+    stopMusic(400);
+    playMusic(
+      {name: "options"},
+      undefined,
+      undefined
+    );
     changeKeyHandler(settingKeys, false);
   }, MUSIC_DELAY);
 }
