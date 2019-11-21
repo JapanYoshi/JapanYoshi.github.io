@@ -475,7 +475,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   }
   console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
   // play them at close timing to each other
-  if (bgm_sound_extra2) {
+  if (!!bgm_sound_extra2) {
     console.log("control flow", 9);
     bgm_sound_extra2.once("stop", function(){
       bgm_sound_extra2.play();
@@ -489,7 +489,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     bgm_sound.stop();
     bgm_sound_extra.stop();
     bgm_sound_extra2.stop();
-  } else if (bgm_sound_extra) {
+  } else if (!!bgm_sound_extra) {
     console.log("control flow", 10);
     bgm_sound_extra.once("stop", function(){
       bgm_sound_extra.play();
@@ -499,7 +499,7 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
     })
     bgm_sound.stop();
     bgm_sound_extra.stop();
-  } else {
+  } else if (!!bgm_sound_extra) {
     console.log("control flow", 11);
     bgm_sound.once("stop", function(){
       bgm_sound.play();
