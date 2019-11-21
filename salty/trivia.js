@@ -461,11 +461,6 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   if (!bgm_sound) {
     console.log("No BGM 1 loaded");
   } else {
-    bgm_sound.volume(bgm.vol * global_bgm_volume);
-    bgm_volumes[0] = bgm.vol;
-    if (bgm_sound.volume() !== bgm.vol * global_bgm_volume) {
-      console.log("BGM sound volume error: The necessary volume was " + (bgm.vol * global_bgm_volume) + ", but the music volume is set to " + bgm_sound.volume() + ".");
-    }
     if (bgm_sound.state() === "unloaded") {
       bgm_sound.load();
     }
@@ -473,9 +468,6 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   if (!bgm_sound_extra) {
     console.log("No BGM 2 loaded");
   } else {
-    bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
-    bgm_volumes[1] = bgmExtra.vol;
-    
     if (bgm_sound_extra.state() === "unloaded") {
       bgm_sound_extra.load();
     }
@@ -483,17 +475,16 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
   if (!bgm_sound_extra2) {
     console.log("No BGM 3 loaded");
   } else {
-    bgm_volumes[2] = bgmExtra2.vol;
-    bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
-    
     if (bgm_sound_extra2.state() === "unloaded") {
       bgm_sound_extra2.load();
     }
   }
   
-  var playAudios = () => {
+  var prepareAudio = () => {
     // play them at close timing to each other
     if (!!bgm_sound_extra2) {
+      bgm_volumes[2] = bgmExtra2.vol;
+      bgm_sound_extra2.volume(bgmExtra2.vol * global_bgm_volume);
       if (bgm_sound_extra2.playing()) {
         bgm_sound_extra2.once("stop", function(){
           bgm_sound_extra2.play();
@@ -504,6 +495,8 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
       }
     }
     if (!!bgm_sound_extra) {
+      bgm_sound_extra.volume(bgmExtra.vol * global_bgm_volume);
+      bgm_volumes[1] = bgmExtra.vol;
       if (bgm_sound_extra.playing()) {
         bgm_sound_extra.once("stop", function(){
           bgm_sound_extra.play();
@@ -514,6 +507,11 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
       }
     }
     if (!!bgm_sound) {
+      bgm_sound.volume(bgm.vol * global_bgm_volume);
+      bgm_volumes[0] = bgm.vol;
+      if (bgm_sound.volume() !== bgm.vol * global_bgm_volume) {
+        console.log("BGM sound volume error: The necessary volume was " + (bgm.vol * global_bgm_volume) + ", but the music volume is set to " + bgm_sound.volume() + ".");
+      }
       if (bgm_sound.playing()) {
         bgm_sound.once("stop", function(){
           bgm_sound.play();
@@ -539,14 +537,14 @@ function playMusic(bgm, bgmExtra, bgmExtra2){
           waitForLoad();
         } else {
           // done, play
-          playAudios();
+          prepareAudio();
         }
       }, 50);
     }
     waitForLoad();
   } else {
     // already loaded, play
-    playAudios();
+    prepareAudio();
   }
   console.log("New bgm: 1", bgm_sound, "2", bgm_sound_extra, "3", bgm_sound_extra2);
 }
