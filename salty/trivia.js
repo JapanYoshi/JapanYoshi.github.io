@@ -402,12 +402,14 @@ function queueVox(names){
  * Plays the next queued voice line.
  */
 function playNextVox(){
-  console.log("playNextVox. first in queue: ", vox_queue[0].src.substring( vox_queue[0].src.lastIndexOf("/")));
+  console.log("playNextVox. first in queue: ",
+    vox_queue[0]._src.substring(vox_queue[0]._src.lastIndexOf("/"))
+  );
   data = vox_queue.shift(); // unshift PUTS elements
   document.dispatchEvent(
     new CustomEvent('voxEnd', {
       detail: {
-        name: data.src.substring(data.src.lastIndexOf("/"))
+        name: data._src.substring(data._src.lastIndexOf("/"))
       }
     })
   );
@@ -419,7 +421,7 @@ function playNextVox(){
     document.dispatchEvent(
       new CustomEvent('allVoxEnd', {
         detail: {
-          name: data.src.substring(data.src.lastIndexOf("/"))
+          name: data._src.substring(data._src.lastIndexOf("/"))
         }
       })
     );
