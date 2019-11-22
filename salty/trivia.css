@@ -538,6 +538,8 @@ section.candy>.section_content {
   top: 0;
   transform: translate(-50%, 0);
 }
+#gamepad_config.vk_is_active,
+#modal.vk_is_active,
 #screen.vk_is_active {
   left: 50vw;
   top: 0;
@@ -589,7 +591,9 @@ section.candy>.section_content {
 }
 @media (min-aspect-ratio: 16/9) {
   /* horizontal hold */
-  #vk_container.active ~ #screen {
+  #gamepad_config.vk_is_active,
+  #modal.vk_is_active,
+  #screen.vk_is_active {
     left: 0;
     top: 50vh;
     -webkit-transform: translate(0, -50%);

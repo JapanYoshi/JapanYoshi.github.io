@@ -1596,6 +1596,8 @@ function enableVK() {
   document.getElementById("vk_button").removeAttribute("class");
   document.getElementById("vk_container").classList.add("active");
   document.getElementById("screen").classList.add("vk_is_active");
+  document.getElementById("modal").classList.add("vk_is_active");
+  document.getElementById("gamepad_config").classList.add("vk_is_active");
   const _key_config = [
     {keyCode: 81, code: "KeyQ"}
   , {keyCode: 87, code: "KeyW"}
