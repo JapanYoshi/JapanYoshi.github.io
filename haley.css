@@ -53,6 +53,45 @@ h2 {
 }
 #body {
     margin: 0 16px;
+    border: 8px solid #FF4080;
+    background: #ff79B2;
+    color: #4c4c4c;
+    border-radius: 16px;
+}
+
+#body > .section {
+    background: #FFB0F0;
+    margin: 4px;
+    border-radius: 4px;
+    padding: 0;
+}
+
+#body > .section > h3 {
+    display: block;
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 12px;
+    border: 2px solid #40B0FF;
+    border-radius: 3px;
+    background: #B0F0FF;
+    color: #4C4C4C;
+}
+#body > .section > ul {
+    margin: 0;
+    padding: 4px;
+}
+#body > .section > ul > li {
+    display: block;
+    margin: 0;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+#body > .section > ul > li > strong {
+
+}
+#body > .section > ul > li > strong::after {
+    content: ": ";
 }
 a {
     color: #ff4080;

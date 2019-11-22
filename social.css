@@ -1,6 +1,9 @@
 #body {
   width: 136px;
   margin: 0 auto;
+  background: unset;
+  border: unset;
+  padding: 0;
 }
 
 .box {
