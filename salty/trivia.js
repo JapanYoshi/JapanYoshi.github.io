@@ -680,6 +680,26 @@ function adjustBgmVolume(vol, relative) {
   }
   console.log("New global bgm volume is " + global_bgm_volume);
 }
+}
+/**
+ * Adjust the global voice volume.
+ * Do NOT fire while any track is fading!
+ * @param {number} vol A number between 0 and 1 (-1 and 1 if relative).
+ * @param {boolean} relative Instead of an absolute number. adjusts volume by difference.
+ */
+function adjustBgmVolume(vol, relative) {
+  if (relative) {
+    global_vox_volume = + global_vox_volume + vol;
+  } else {
+    global_vox_volume = vol;
+  }
+  global_vox_volume = Math.min(Math.max(0.5, global_vox_volume), 1);
+  // adjust music vol accordingly
+  if (vox_queue.length) {
+    vox_queue[0].volume(global_vox_volume);
+  }
+  console.log("New global vox volume is " + global_vox_volume);
+}
 /**
  * 
  * @param {number} vol Volume to set it to from 0 to 1.
