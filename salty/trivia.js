@@ -1609,9 +1609,8 @@ function enableVK() {
   ];
   const _key_el = document.getElementById("vk_container").querySelectorAll(".vk_key");
   for (var k = 0; k < 7; k++) {
-    const _e = new KeyboardEvent("keydown", _key_config[k]);
     _key_el[k].addEventListener("click", () => {
-      document.dispatchEvent(_e);
+      document.dispatchEvent(new KeyboardEvent("keydown", _key_config[k]));
     });
   }
 }

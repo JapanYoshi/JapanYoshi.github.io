@@ -553,7 +553,7 @@ section.candy>.section_content {
 }
 #vk {
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
   width: 100vw;
   height: 32vw;
