@@ -1590,6 +1590,7 @@ function initApp(){
 }
 /**
  * Enables virtual (touch) keypad.
+ * Unlike the gamepads, touch keypads emulate key press events directly.
  */
 function enableVK() {
   document.getElementById("vk_button").removeAttribute("class");
@@ -1606,7 +1607,7 @@ function enableVK() {
   ];
   const _key_el = document.getElementById("vk_container").querySelectorAll(".vk_key");
   for (var k = 0; k < 7; k++) {
-    var event = new KeyboardEvent("keydown", _key_config[k]);
+    var e = new KeyboardEvent("keydown", _key_config[k]);
     _key_el[k].addEventListener("click", () => {
       document.dispatchEvent(e);
     });

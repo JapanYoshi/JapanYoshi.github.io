@@ -569,9 +569,13 @@ section.candy>.section_content {
   border-radius: 2.25vw;
   background: rgba(0, 0, 0, 0.1);
   font-family: _Icons;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  border: 0.5rem solid rgba(0, 0, 0, 0.5);
 }
 .vk_key:active {
   background: rgba(255, 255, 255, 0.5);
+  border: 0.5rem solid rgba(255, 255, 255, 0.5);
 }
 #vk_6 {
   display: block;
