@@ -1387,6 +1387,8 @@ function settingKeys(event){
         localStorage.setItem("voxVolume", global_vox_volume);
         localStorage.setItem("formatName", formatName);
         stopBgm(400);
+        document.removeEventListener("voxEnd", playNextVox);
+        document.removeEventListener("allVoxEnd", queueVoxSettings);
         initApp();
         break;
       }
@@ -1458,7 +1460,8 @@ function startSetting(){
       );
       queueVox(vox_names);
       playNextVox();
-      document.addEventListener("allVoxEnd", ()=>{
+      document.addEventListener("voxEnd", playNextVox);
+      document.addEventListener("allVoxEnd", function queueVoxSettings() {
         queueVox(vox_names);
       });
       changeKeyHandler(settingKeys, false);
