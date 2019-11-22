@@ -1250,6 +1250,13 @@ function signupKeys(event){
 }
 
 /**
+ * Used in the settings screen key handler and setup.
+ * Will need to be removed when exiting.
+ */
+function queueVoxSettings() {
+  queueVox(vox_names);
+}
+/**
  * The settings screen key handler.
  * @param {KeyboardEvent} event The event.
  */
@@ -1494,9 +1501,7 @@ function startSetting(){
       loadNewVox(vox_names);
       queueVox(vox_names);
       playNextVox();
-      document.addEventListener("allVoxEnd", function queueVoxSettings() {
-        queueVox(vox_names);
-      });
+      document.addEventListener("allVoxEnd", queueVoxSettings);
       changeKeyHandler(settingKeys, false);
     }, BGM_DELAY);
   });
