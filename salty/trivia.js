@@ -680,7 +680,6 @@ function adjustBgmVolume(vol, relative) {
   }
   console.log("New global bgm volume is " + global_bgm_volume);
 }
-}
 /**
  * Adjust the global voice volume.
  * Do NOT fire while any track is fading!
