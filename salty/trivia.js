@@ -277,15 +277,6 @@ const sfx_names = [
   "game_start",
   "menu_fail"
 ];
-const VOX_PRELOAD_COUNT = 6;
-const vox_names = [
-  "intro_00", // menu
-  "p1_00",
-  "p2_00",
-  "p3_00",
-  "p4_00",
-  "break_00"
-];
 /**
  * This part loads the music onto the global variable bgm_data.
  */
