@@ -558,7 +558,6 @@ section.candy>.section_content {
   width: 100vw;
   height: 32vw;
   display: flex;
-  flex: 0 1 auto;
   justify-content: stretch;
   align-content: stretch;
   align-items: stretch;
@@ -577,6 +576,7 @@ section.candy>.section_content {
   color: rgba(255, 255, 255, 0.5);
   border: 0.05rem solid rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
+  flex: 1 1 auto;
 }
 .vk_key:active {
   background: rgba(255, 255, 255, 0.5);
