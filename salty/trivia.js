@@ -1598,21 +1598,29 @@ function enableVK() {
   document.getElementById("screen").classList.add("vk_is_active");
   document.getElementById("modal").classList.add("vk_is_active");
   document.getElementById("gamepad_config").classList.add("vk_is_active");
-  const _key_config = [
-    {keyCode: 81, code: "KeyQ"}
-  , {keyCode: 87, code: "KeyW"}
-  , {keyCode: 69, code: "KeyE"}
-  , {keyCode: 65, code: "KeyA"}
-  , {keyCode: 83, code: "KeyS"}
-  , {keyCode: 68, code: "KeyD"}
-  , {keyCode: 27, code: "Esc"}
-  ];
   const _key_el = document.getElementById("vk_container").querySelectorAll(".vk_key");
-  for (var k = 0; k < 7; k++) {
-    _key_el[k].addEventListener("click", () => {
-      document.dispatchEvent(new KeyboardEvent("keydown", _key_config[k]));
-    });
-  }
+  // LOOPS DON'T FUCKING PRESERVE THE KEYBOARD EVENT DETAILS
+  _key_el[0].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 81, code: "KeyQ"}));
+  });
+  _key_el[1].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 87, code: "KeyW"}));
+  });
+  _key_el[2].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 69, code: "KeyE"}));
+  });
+  _key_el[3].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 65, code: "KeyA"}));
+  });
+  _key_el[4].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 83, code: "KeyS"}));
+  });
+  _key_el[5].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 68, code: "KeyD"}));
+  });
+  _key_el[6].addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 27, code: "Esc"}));
+  });
 }
 /**
  * Disables the virtual (touch) keypad activation button.

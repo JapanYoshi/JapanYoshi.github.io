@@ -543,6 +543,7 @@ section.candy>.section_content {
 #screen.vk_is_active {
   left: 50vw;
   top: 0;
+  max-height: 36rem;
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
 }
