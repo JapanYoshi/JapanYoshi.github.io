@@ -22,7 +22,7 @@
     <meta property="og:image" content="http://japanyoshi.github.io/tidbit/luma.png">
     <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/luma.png">
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Nunito:300,900&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Nunito:300,700&display=swap&subset=latin');
 
         body {
             font-family: "Nunito", sans-serif;
@@ -66,7 +66,10 @@
         .hex {
             width: 128px;
         }
-
+        button {
+          font-size: inherit;
+          font-family: inherit;
+        }
 
         .preview {
             padding: 8px;
@@ -83,7 +86,47 @@
                 background: black;
                 margin: 2px 0;
             }
-
+            
+        .previewStandard {
+            display: none;
+        }
+        body.w3c .previewStandard {
+            display: block;
+        }
+        .largeText::before {
+            content: "Large text: "
+        }
+        .bodyText::before {
+            content: "Normal text: "
+        }
+        .graphical::before {
+            content: "Graphic and UI: "
+        }
+        .largeText,
+        .bodyText,
+        .graphical {
+            padding: 0 4px;
+            color: white;
+            background: red;
+        }
+        .pass.largeText,
+        .pass.bodyText,
+        .pass.graphical {
+            color: white;
+            background: green;
+        }
+        .largeText::after,
+        .bodyText::after,
+        .graphical::after
+        {
+            content: "Fail"
+        }
+        .pass.largeText::after,
+        .pass.bodyText::after,
+        .pass.graphical::after
+        {
+            content: "Pass"
+        }
         @media screen and (min-width: 480px) {
             /* 2-column layout */
             .preview {
@@ -135,22 +178,51 @@
             <label>Hex</label><input id="hex" class="hex" type="text" pattern="^#?[a-fA-F\d]{3}([a-fA-F\d]{3})?$"
                 value="#7F7F7F" />
             <hr>
+            <h3>Custom background color</h3>
+            <label>R</label><input class="byte" id="r_bg" type="number" min="0" max="255" value="0">
+            <label>G</label><input class="byte" id="g_bg" type="number" min="0" max="255" value="0">
+            <label>B</label><input class="byte" id="b_bg" type="number" min="0" max="255" value="0">
+            <span class="separator"></span>
+            <label>Color picker</label><input id="picker_bg" type="color">
+            <span class="separator"></span>
+            <label>Hex</label><input id="hex_bg" class="hex" type="text" pattern="^#?[a-fA-F\d]{3}([a-fA-F\d]{3})?$"
+                value="#000000" />
+            <span class="separator"></span>
+            <button type="button" onclick="setCustomBG('000')" style="background:#000;color:#fff">Black</button>
+            <button type="button" onclick="setCustomBG('36393f')" style="background:#36393f;color:#fff">Discord chat background</button>
+            <button type="button" onclick="setCustomBG('fff')" style="background:#fff;color:#000">White</button>
+            <hr>
             <h3>Threshold</h3>
             <input class="byte" id="thres" type="number" min="0" max="255" value="144">
             <hr>
             <h3>Luminance formula</h3>
-            <input type="radio" name="luma" id="luma1">Fast: 0.25r + 0.65g + 0.1b</input><br>
-            <input type="radio" name="luma" id="luma2">Wikipedia: &radic;(0.2126r&sup2; + 0.7152g&sup2; +
-            0.0722b&sup2;)</input> <a href="https://en.wikipedia.org/wiki/Relative_luminance">*</a><br>
-            <input type="radio" name="luma" id="luma3" checked>HSP: &radic;(0.299r&sup2; + 0.587g&sup2; + 0.114b&sup2;)</input>
+            <p><i>R, G, B: raw 0..1; r, g, b: sRGB squared (see W3C docs for details) </i></p>
+            <input type="radio" name="luma" id="luma1">Fast: 0.25R + 0.65G + 0.1B</input><br>
+            <input type="radio" name="luma" id="luma2">W3C: &radic;(0.2126r + 0.7152g + 0.0722b)</input> <a href="https://en.wikipedia.org/wiki/Relative_luminance">*</a><br>
+            <input type="radio" name="luma" id="luma3" checked>Darel Rex Finley's HSP: &radic;(0.299R&sup2; + 0.587G&sup2; + 0.114B&sup2;)</input>
             <a href="http://alienryderflex.com/hsp.html">*</a>
         </form>
-        <h3><span id="br">?</span> - use <span id="bg">?</span> text or background</h3>
-        <div id="previewWrapper">
+        <h3><span id="br">?</span> - use <span id="bg">?</span> text or background</h3>        
+        <div class="previewWrapper">
             <div id="preview1" class="preview">
                 Lorem ipsum dolor sit amet, consectetuer adipscing elit.
             </div>
             <div id="preview2" class="preview">
+                Lorem ipsum dolor sit amet, consectetuer adipscing elit.
+            </div>
+        </div>
+        <h3><span id="cr">?</span> : 1 - <span id="bg2">?</span></h3>
+        <div class="previewStandard">
+            WCAG AA: <span class="bodyText"></span> <span class="largeText"></span> <span class="graphical"></span>
+        </div>
+        <div class="previewStandard">
+            WCAG AAA: <span class="bodyText"> <span class="largeText"></span></span>
+        </div>
+        <div class="previewWrapper">
+            <div id="preview3" class="preview">
+                Lorem ipsum dolor sit amet, consectetuer adipscing elit.
+            </div>
+            <div id="preview4" class="preview">
                 Lorem ipsum dolor sit amet, consectetuer adipscing elit.
             </div>
             <div style="clear:both;height:8px;">
@@ -161,9 +233,15 @@
             document.getElementById("r"), // 0
             document.getElementById("g"), // 1
             document.getElementById("b"), // 2
-            document.getElementById("thres"), // 3
+            document.getElementById("thres"), // light vs black threshold
             document.getElementById("picker"), // 4
-            document.getElementById("hex") // 5
+            document.getElementById("hex"), // 5
+            document.getElementById("r_bg"), // 6
+            document.getElementById("g_bg"), // 7
+            document.getElementById("b_bg"), // 8
+            undefined, // only one threshold
+            document.getElementById("picker_bg"), // 10
+            document.getElementById("hex_bg") // 11
         ];
 
         const radioButtons = [
@@ -174,18 +252,28 @@
 
         const preview1 = document.getElementById("preview1");
         const preview2 = document.getElementById("preview2");
+        const preview3 = document.getElementById("preview3");
         var lumaMode = 2;
+        var vals = [];
+        var vals2 = [];
+        
+        const sRGB_square = (c) => {
+          if (c > 10) {
+            return Math.pow((c / 255 + 0.055) / 1.055, 2.4);
+          } else {
+            return c / (255 * 12.92);
+          }
+        }
 
         const luma = (r, g, b) => {
             switch (lumaMode) {
                 case 0:
                     return 0.25 * r + 0.65 * g + 0.1 * b;
                 case 1:
-                    return Math.sqrt(
-                        (0.2126 * r * r) +
-                        (0.7152 * g * g) +
-                        (0.0722 * b * b)
-                    );
+                    return 255 * (
+                        0.2126 * sRGB_square(r) +
+                        0.7152 * sRGB_square(g) +
+                        0.0752 * sRGB_square(b));
                 case 2:
                     return Math.sqrt(
                         (0.299 * r * r) +
@@ -194,11 +282,10 @@
                     );
             }
         };
-
+        /* convert hex channel */
         const comp = (c) => {
             console.log("comp");
-            var hex = c.toString(16);
-            return hex.length == 1 ? "0" + hex : hex;
+            return hex = c.toString(16).padStart(2, "0");
         };
 
         const toHex = vals => {
@@ -228,6 +315,17 @@
             updateFields(vals, 0);
             update(vals);
         };
+        
+        const recalc2 = () => {
+            console.log("recalc2");
+            vals = [];
+            for (var i = 0; i < 3; i++) {
+                vals2[i] = +elems[i+6].value;
+            }
+            console.log(vals2);
+            updateFields2(vals2, 0);
+            update(vals2, true);
+        };
 
         const recalcFromPicker = () => {
             console.log("recalcFromPicker");
@@ -237,12 +335,36 @@
             update(vals);
         };
 
+        const recalcFromPicker2 = () => {
+            console.log("recalcFromPicker2");
+            vals2 = fromHex(elems[10].value);
+            // vals2[3] = +elems[9].value;
+            updateFields2(vals2, 1);
+            update(vals2, true);
+        };
+
         const recalcFromHex = () => {
             console.log("recalcFromHex");
             vals = fromHex(elems[5].value);
             vals[3] = +elems[3].value;
             updateFields(vals, 1);
             update(vals);
+        };
+
+        const recalcFromHex2 = () => {
+            console.log("recalcFromHex");
+            vals2 = fromHex(elems[11].value);
+            // vals[3] = +elems[9].value;
+            updateFields2(vals2, 1);
+            update(vals2, true);
+        };
+
+        const setCustomBG = (hex) => {
+            console.log("setCustomBG");
+            vals2 = fromHex(hex);
+            // vals[3] = +elems[9].value;
+            updateFields2(vals2, 1);
+            update(vals2, true);
         };
 
         const updateFields = (newVals, id) => {
@@ -260,39 +382,116 @@
             }
         };
 
-        const update = vals => {
-            console.log("update " + vals);
-            theme = "rgba(" + vals[0] + "," + vals[1] + "," + vals[2] + ", 1)";
-            thisLuma = luma(vals[0], vals[1], vals[2]);
+        const updateFields2 = (newVals, id) => {
+            console.log("updateFields " + newVals + " " + id);
+            if (id != 0) {
+                for (var i = 0; i < 3; i++) {
+                    elems[i+6].value = newVals[i];
+                }
+            }
+            if (id != 1) {
+                elems[10].value = toHex(newVals);
+            }
+            if (id != 2) {
+                elems[11].value = toHex(newVals);
+            }
+        };
 
-            dark = thisLuma < vals[3];
-            comparator = dark ? " &lt; " : " &ge; ";
-            document.getElementById("br").innerHTML =
-                thisLuma.toPrecision(3) + comparator + String(vals[3]);
-            document.getElementById("bg").innerHTML = dark ? "light" : "dark";
+        const update = (vals, bg) => {
+            console.log("update " + vals + ", " + bg);
+            if (!bg) {
+              theme = "rgba(" + vals[0] + "," + vals[1] + "," + vals[2] + ", 1)";
+              thisLuma = luma(vals[0], vals[1], vals[2]);
 
-            preview1.style.color = theme;
-            preview1.style.border = "4px solid " + theme;
-            preview1.style.background = dark ? "#fff" : "#000";
+              dark = thisLuma < vals[3];
+              comparator = dark ? " &lt; " : " &ge; ";
+              document.getElementById("br").innerHTML =
+                  thisLuma.toPrecision(3) + comparator + String(vals[3]);
+              document.getElementById("bg").innerHTML = dark ? "light" : "dark";
 
-            preview2.style.color = dark ? "#fff" : "#000";
-            preview2.style.border = dark ? "4px solid #fff" : "4px solid #000";
-            preview2.style.background = theme;
+              preview1.style.color = theme;
+              preview1.style.border = "4px solid " + theme;
+              preview1.style.background = dark ? "#fff" : "#000";
+
+              preview2.style.color = dark ? "#fff" : "#000";
+              preview2.style.border = dark ? "4px solid #fff" : "4px solid #000";
+              preview2.style.background = theme;
+            }
+            
+            var verdict = ""
+            customBG = "rgba(" + vals2[0] + "," + vals2[1] + "," + vals2[2] + ", 1)";
+            customBGLuma = luma(vals2[0], vals2[1], vals2[2]);
+            if (lumaMode === 1) {
+              const results = document.querySelectorAll(".largeText, .bodyText, .graphical");
+              const addFactor = (255*0.05);
+              contrast = customBGLuma > thisLuma ? (customBGLuma + addFactor) / (thisLuma + addFactor) : (thisLuma + addFactor) / (customBGLuma + addFactor);
+              if (contrast >= 7) {
+                // very good contrast
+                verdict = "Very good contrast (WCAG AAA body text)";
+                for (var i = 0; i < 5; i++) {
+                  results[i].classList.add("pass");
+                }
+              } else if (contrast >= 4.5) {
+                // good for most text
+                verdict = "Good contrast (WCAG AA body text, WCAG AAA large text)";
+                for (var i = 0; i < 5; i++) {
+                  if (i === 4) {
+                    results[i].classList.remove("pass");
+                  } else {
+                    results[i].classList.add("pass");
+                  }
+                }
+              } else if (contrast >= 3) {
+                // good for large text\
+                verdict = "Okay contrast for large text (WCAG AA large text)";
+                for (var i = 0; i < 5; i++) {
+                  if (i === 1 || i === 2) {
+                    results[i].classList.add("pass");
+                  } else {
+                    results[i].classList.remove("pass");
+                  }
+                }
+              } else {
+                verdict = "Not enough contrast";
+                for (var i = 0; i < 5; i++) {
+                  results[i].classList.remove("pass");
+                }
+              }
+              document.getElementById("cr").innerHTML = contrast.toPrecision(2);
+            } else {
+              verdict = "Please set the luma mode to W3C.";
+              document.getElementById("cr").innerHTML = "?"
+            }
+            document.getElementById("bg2").innerHTML = verdict;
+            
+            preview3.style.color = theme;
+            preview3.style.border = "4px solid " + theme;
+            preview3.style.background = customBG;
+
+            preview4.style.color = customBG;
+            preview4.style.border = "4px solid " + customBG;
+            preview4.style.background = theme;
         };
 
         const changeLumaMode = () => {
-            for (var i = 0; i < 2; i++) {
+            console.log("changeLumaMode");
+            for (var i = 0; i < 3; i++) {
                 if (radioButtons[i].checked) {
                     lumaMode = i;
                     break;
                 }
             }
+            if (lumaMode === 1) {
+                document.body.classList.add("w3c");
+            } else {
+                document.body.classList.remove("w3c");
+            }
             recalc();
+            recalc2();
         }
 
-        recalc();
-
         for (var i = 0; i < 6; i++) {
+            if (!elems[i]) continue;
             console.log("ael " + i);
             if (elems[i].classList.contains("byte")) {
                 elems[i].addEventListener("change", recalc);
@@ -302,9 +501,23 @@
                 elems[i].addEventListener("change", recalcFromHex);
             }
         }
+        
+        for (var i = 6; i < 12; i++) {
+            if (!elems[i]) continue;
+            console.log("ael " + i);
+            if (elems[i].classList.contains("byte")) {
+                elems[i].addEventListener("change", recalc2);
+            } else if (elems[i].type == "color") {
+                elems[i].addEventListener("change", recalcFromPicker2);
+            } else {
+                elems[i].addEventListener("change", recalcFromHex2);
+            }
+        }
         for (var i = 0; i < 3; i++) {
             radioButtons[i].addEventListener("change", changeLumaMode);
         }
-
+        
+        recalc();
+        recalc2();
     </script>
 </body>
