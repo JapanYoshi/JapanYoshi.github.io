@@ -1674,9 +1674,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // prepare the "virtual keyboard"
   document.getElementById("vk_button").classList.add("active");
   document.getElementById("vk_button").addEventListener("click", enableVK);
-  setTimeout(()=>{
-    hideVKButton();
-  }, 10000);
+  // vk button should disappear if the user presses a key
 
   // first time boot
   loadStrings(LANG).then(result => {
