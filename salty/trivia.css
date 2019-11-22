@@ -538,7 +538,7 @@ section.candy>.section_content {
   top: 0;
   transform: translate(-50%, 0);
 }
-#gamepad_config.vk_is_active,
+#gamepad_config.vk_is_active.shown,
 #modal.vk_is_active,
 #screen.vk_is_active {
   left: 50vw;
@@ -559,6 +559,7 @@ section.candy>.section_content {
   height: 32vw;
   display: flex;
   flex: 0 1 auto;
+  justify-content: stretch;
   align-content: stretch;
   align-items: stretch;
   flex-wrap: wrap;
@@ -593,7 +594,7 @@ section.candy>.section_content {
 }
 @media (min-aspect-ratio: 16/9) {
   /* horizontal hold */
-  #gamepad_config.vk_is_active,
+  #gamepad_config.vk_is_active.shown,
   #modal.vk_is_active,
   #screen.vk_is_active {
     left: 0;
