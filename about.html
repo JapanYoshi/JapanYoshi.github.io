@@ -126,7 +126,7 @@ obj = undefined;
 
 function getLocalDateText(){
   var d = new Date(1999, 1, 5); // months are 0-indexed
-  return d.toLocaleDateString(d);
+  return d.toLocaleDateString(userLang);
 }
 
 function getAgeText(lang){
