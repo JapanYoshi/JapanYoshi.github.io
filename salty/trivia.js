@@ -8,7 +8,7 @@ var bgm_data = {};
 var sfx_data = {};
 var vox_data = {};
 var vox_queue = [];
-var global_bgm_volume = +(localStorage.getItem("bgmVolume")) || 1;
+var global_bgm_volume = +(localStorage.getItem("bgmVolume")) || 0.5;
 var global_vox_volume = +(localStorage.getItem("voxVolume")) || 1;
 var bgm_volumes = [0, 0, 0];
 var bgm_sound;
