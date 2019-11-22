@@ -1267,6 +1267,7 @@ function settingKeys(event){
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
+  var optionCount = document.getElementById("setting_box").children.length;
   var selectedOption = getIndexOfSel(document.getElementById("setting_box").children);
   switch (key) {
     case keyName.up:
@@ -1274,7 +1275,7 @@ function settingKeys(event){
       // move up
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
-      selectedOption = (5 + --selectedOption) % 5;
+      selectedOption = (5 + --selectedOption) % optionCount;
       document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.down:
@@ -1282,7 +1283,7 @@ function settingKeys(event){
       // move down
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
-      selectedOption = ++selectedOption % 5;
+      selectedOption = ++selectedOption % optionCount;
       document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.left:
