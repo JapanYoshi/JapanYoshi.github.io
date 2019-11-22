@@ -352,36 +352,40 @@ for (var i = 0; i < sfx_names.length; i++) {
   sfx_data[name] = sound;
 }
 /**
- * This part loads voice lines into the variable vox_data.
+ * 
  */
-for (var i = 0; i < vox_names.length; i++) {
-  name = vox_names[i];
-  var sound = new Howl({
-    src: [
-      ROOT + "audio/voice/" + name + ".ogg"
-    ],
-    autoplay: false,
-    loop: false,
-    preload: (i < SFX_PRELOAD_COUNT),
-    pool: 1,
-    onload: function(){
-      console.log("VOX " + name + " loaded");
-    },
-    onloaderror: function(){
-      console.log("Error loading VOX " + name);
-    },
-    onplay: function(){
-      console.log("Playing VOX " + name);
-    },
-    onplayerror: function(){
-      console.log("Error playing VOX " + name);
-    },
-    onend: function(){
-      console.log("VOX " + name + " finished");
-      playNextVox();
+function loadNewVox(names){
+  for (var i = 0; i < names.length; i++) {
+    names[i] = name;
+    if (!vox_data[name]) {
+      var sound = new Howl({
+        src: [
+          ROOT + "audio/voice/" + name + ".ogg"
+        ],
+        autoplay: false,
+        loop: false,
+        preload: true,
+        pool: 1,
+        onload: function(){
+          console.log("VOX " + name + " loaded");
+        },
+        onloaderror: function(){
+          console.log("Error loading VOX " + name);
+        },
+        onplay: function(){
+          console.log("Playing VOX " + name);
+        },
+        onplayerror: function(){
+          console.log("Error playing VOX " + name);
+        },
+        onend: function(){
+          console.log("VOX " + name + " finished");
+          playNextVox();
+        }
+      });
+      vox_data[name] = sound;
     }
-  });
-  vox_data[name] = sound;
+  }
 }
 /**
  * Queues an array of voice lines for playing. 
@@ -1461,6 +1465,19 @@ function startSetting(){
         undefined,
         undefined
       );
+      vox_names = [
+      , "intro_01"
+      , "intro_02"
+      , "intro_03"
+      , "intro_04"
+      , "intro_05"
+      , "intro_06"
+      , "intro_07"
+      , "intro_08"
+      , "intro_09"
+      , "intro_bagel"
+      ];
+      loadNewVox()
       queueVox(vox_names);
       playNextVox();
       document.addEventListener("allVoxEnd", function queueVoxSettings() {
