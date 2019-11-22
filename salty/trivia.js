@@ -686,7 +686,7 @@ function adjustBgmVolume(vol, relative) {
  * @param {number} vol A number between 0 and 1 (-1 and 1 if relative).
  * @param {boolean} relative Instead of an absolute number. adjusts volume by difference.
  */
-function adjustBgmVolume(vol, relative) {
+function adjustVoxVolume(vol, relative) {
   if (relative) {
     global_vox_volume = + global_vox_volume + vol;
   } else {
