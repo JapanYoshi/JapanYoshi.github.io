@@ -565,6 +565,10 @@ section.candy>.section_content {
   flex-wrap: wrap;
 }
 .vk_key {
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  user-select: none; /* no prefix */
+
   position: relative;
   width: 30vw;
   margin: 0 0.25vw 0.5vw;
@@ -589,6 +593,7 @@ section.candy>.section_content {
   border-radius: 50%;
   width: 10vw;
   height: 10vw;
+  line-height: 10vw;
   top: 0;
   right: 0;
   font-family: Poppins;
