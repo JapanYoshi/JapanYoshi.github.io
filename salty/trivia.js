@@ -402,24 +402,24 @@ function queueVox(names){
  * Plays the next queued voice line.
  */
 function playNextVox(){
-  console.log("playNextVox. first in queue: ", vox_queue[0]);
+  console.log("playNextVox. first in queue: ", vox_queue[0].src.substring( vox_queue[0].src.lastIndexOf("/")));
   data = vox_queue.shift(); // unshift PUTS elements
   document.dispatchEvent(
     new CustomEvent('voxEnd', {
       detail: {
-        // nothing so far
+        name: data.src.substring(data.src.lastIndexOf("/"))
       }
     })
   );
   console.log("voxEnd event dispatched");
-  if (vox_queue.length) {
+  if (vox_queue.length !== 0) {
     vox_queue[0].play();
     return;
   } else {
     document.dispatchEvent(
       new CustomEvent('allVoxEnd', {
         detail: {
-          // nothing so far
+          name: data.src.substring(data.src.lastIndexOf("/"))
         }
       })
     );
