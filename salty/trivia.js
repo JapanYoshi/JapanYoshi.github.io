@@ -347,7 +347,7 @@ for (var i = 0; i < sfx_names.length; i++) {
  */
 function loadNewVox(names){
   for (var i = 0; i < names.length; i++) {
-    names[i] = name;
+    var name = names[i];
     if (!vox_data[name]) {
       var sound = new Howl({
         src: [
