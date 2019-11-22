@@ -378,6 +378,7 @@ for (var i = 0; i < vox_names.length; i++) {
     },
     onend: function(){
       console.log("VOX " + name + " finished");
+      playNextVox();
     }
   });
   vox_data[name] = sound;
@@ -403,7 +404,8 @@ function queueVox(names){
  * Plays the next queued voice line.
  */
 function playNextVox(){
-  data = vox_queue.unshift();
+  data = vox_queue.shift(); // unshift PUTS elements
+  console.log("playNextVox called by ", data);
   document.dispatchEvent(
     new CustomEvent('voxEnd', {
       detail: {
@@ -414,6 +416,7 @@ function playNextVox(){
   console.log("voxEnd event dispatched");
   if (vox_queue.length) {
     vox_queue[0].play();
+    return;
   } else {
     document.dispatchEvent(
       new CustomEvent('allVoxEnd', {
@@ -423,6 +426,7 @@ function playNextVox(){
       })
     );
     console.log("allVoxEnd event dispatched");
+    return;
   }
 }
 /**
