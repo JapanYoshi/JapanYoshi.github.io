@@ -1275,7 +1275,7 @@ function settingKeys(event){
       // move up
       playSFX({name: "menu_move"});
       document.getElementById("setting_box").querySelector(".setting_item.sel").classList.remove("sel");
-      selectedOption = (5 + --selectedOption) % optionCount;
+      selectedOption = (optionCount + --selectedOption) % optionCount;
       document.getElementById("setting_box").querySelectorAll(".setting_item")[selectedOption].classList.add("sel");
       break;
     case keyName.down:
