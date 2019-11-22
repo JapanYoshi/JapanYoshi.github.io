@@ -547,6 +547,9 @@ section.candy>.section_content {
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
 }
+#modal.vk_is_active .scroll_tip {
+  top: 0;
+}
 #vk_container.active .vk_key {
   z-index: 1025;
   display: block;
