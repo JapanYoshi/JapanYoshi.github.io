@@ -1478,7 +1478,7 @@ function startSetting(){
         undefined,
         undefined
       );
-      vox_names = [
+      const vox_names = [
       , "intro_01"
       , "intro_02"
       , "intro_03"
