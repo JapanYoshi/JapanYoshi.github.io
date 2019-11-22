@@ -383,6 +383,9 @@ function loadNewVox(names){
  * @param {Array<string>} names 
  */
 function queueVox(names){
+  if (typeof names === typeof "") {
+    names = [names];
+  }
   for (var i = 0; i < names.length; i++) {
     const data = vox_data[names[i]];
     if (![data]) {
@@ -1468,7 +1471,7 @@ function startSetting(){
       , "intro_09"
       , "intro_bagel"
       ];
-      loadNewVox()
+      loadNewVox(vox_names);
       queueVox(vox_names);
       playNextVox();
       document.addEventListener("allVoxEnd", function queueVoxSettings() {
