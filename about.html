@@ -55,8 +55,8 @@ var obj = {
           ["身長", "166&nbsp;cm"],
           "おふざけ",
           ["似てるキャラ", "『デビルメイクライ』のレディー"],
-          ["D&Dの属性（アラインメント）", "混沌にして善"],
-          ["D&Dの能力値", "筋力 9, 知力 17, 判断力 9, 敏捷力 10, 耐久力 9, 魅力 7"],
+          ["D&Dの属性（アラインメント）", "混沌にして善（Chaotic Good）"],
+          ["D&Dの能力値", "STR/筋力 9, INT/知力 17, WIS/判断力 9, DEX/敏捷力 10, CON/耐久力 9, CHR/魅力 7"],
           ["星座", "みずがめ座"],
           ["ホグワーツの寮", "レイブンクロー（JKロウリングくそくらえだけど）"],
           ["血液型", "A型"],
@@ -69,7 +69,7 @@ var obj = {
         ];
         break;
       default:
-        const en_us = [
+        const en_uk = [
         ["h1", "About Me"],
         "Basics",
         ["name", "Haley"],
@@ -82,9 +82,9 @@ var obj = {
         "Details",
         ["studying","computer science"],
         ["hobbies", "gaming, cosplay, graphic design, rhythm games, EDM production, drawing, dancing, amateur voice acting"],
-        ["favorite foods", "authentic sushi, Japanese or Indian curry, gy&omacr;za dumplings, tomato-based pasta or pizza"],
-        ["favorite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don&rsquo;t Know Jack"],
-        ["favorite colors", "pastel pink, blue, and purple"],
+        ["favourite foods", "authentic sushi, Japanese or Indian curry, gy&omacr;za dumplings, tomato-based pasta or pizza"],
+        ["favourite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don&rsquo;t Know Jack"],
+        ["favorite colours", "pastel pink, blue, and purple"],
         ["fandoms", "Dance Rush, Pump It Up, Danganronpa, Puyo Puyo"],
         ["religion", "atheistic satanism"],
         ["height", "166&nbsp;cm"],
@@ -102,16 +102,16 @@ var obj = {
         ["relationship status", "single"],
         ["opinion on polyamory", "open to it"],
       ];
-      if (langCode != "en-GB" && langCode != "en-AU") {
-        return en_us;
+      if (langCode === "en-GB" || langCode === "en-AU") {
+        return en_uk;
       } else {      
-        const britify = (string) => string.replace(/favorite/g, 'favourite').replace(/color/g, 'colour');
-        for (var i = 0; i < en_us.length; i++) {
-          if (typeof en_us[i] == "string") {
-            en_us[i] = britify(en_us[i]);
+        const unbritify = (string) => string.replace(/favourite/g, 'favorite').replace(/colour/g, 'color').replace("166&nbsp;cm", "5'&nbsp;6\"");
+        for (var i = 0; i < en_uk.length; i++) {
+          if (typeof en_uk[i] == "string") {
+            en_uk[i] = unbritify(en_uk[i]);
           } else {
             for (var j = 0; j < en_us[i].length; j++) {
-              en_us[i][j] = britify(en_us[i][j]);
+              en_uk[i][j] = unbritify(en_uk[i][j]);
             }
           }
         }
