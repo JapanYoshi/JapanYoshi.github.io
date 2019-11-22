@@ -203,11 +203,11 @@ function isEmptyObj(obj) {
   return Object.entries(obj).length === 0 && obj.constructor === Object;
 }
 /**
- * Given a NodeList (returned by doing HTMLNode.childNodes)
+ * Given a NodeList (returned by doing HTMLNode.children)
  * finds which of them has the class "sel". There should
  * only be one item with that class at any given moment.
  * If there is no such Node, returns -1.
- * @param {NodeList} buttons The NodeList of "buttons" (or
+ * @param {HTMLCollection} buttons The NodeList of "buttons" (or
  * oher elements) to be checked.
  * @return {number} The index of the element with class
  * "sel", or -1 if no such element is found.
@@ -1036,7 +1036,7 @@ function chooseEpisodeKeys(event) {
   if (!params.presentList.includes(player)){ // not a present player
     return;
   } else {
-    const buttons = document.getElementById("episode_carousel").childNodes;
+    const buttons = document.getElementById("episode_carousel").children;
     var selected = getIndexOfSel(buttons);
     switch (key) {
       case keyName.up:
@@ -1246,7 +1246,7 @@ function settingKeys(event){
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
-  var selectedOption = getIndexOfSel(document.getElementById("setting_box").childNodes);
+  var selectedOption = getIndexOfSel(document.getElementById("setting_box").children);
   switch (key) {
     case keyName.up:
     case keyName.dUp:
