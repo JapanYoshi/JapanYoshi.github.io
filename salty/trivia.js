@@ -79,8 +79,18 @@ const floorRem = () => {
   );
   document.documentElement.style.fontSize = `${scale}px`
 ;}
-window.addEventListener("resize", floorRem);
-
+var waitFloorRem = (function() {
+  var interval = 250;
+  var lastTime = new Date().getTime() - interval; // last fired
+  return function() {
+    // exec only if last fired at least interval ms ago
+    if ((lastTime + interval) <= new Date().getTime()) {
+      lastTime = new Date().getTime();
+      floorRem();
+    }
+  };
+})();
+window.addEventListener("resize", waitFloorRem);
 
 var formatName = localStorage.getItem("formatName") || "points";
 var format = {};
