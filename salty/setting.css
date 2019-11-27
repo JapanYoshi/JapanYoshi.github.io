@@ -4,6 +4,7 @@
   width: 48rem;
   height: 32rem;
   display: scroll;
+  overflow: hidden;
 }
 
 .setting_item {
@@ -84,7 +85,6 @@
 }
 
 .setting_option.sel {
-  font-weight: bold;
   color: black;
   background: pink;
 }

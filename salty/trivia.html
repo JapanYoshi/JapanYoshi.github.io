@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="gamepad.css">
   <link rel="shortcut icon" type="image/png" href="favicon.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
+  <script src="init.js"></script>
+  <script src="snd.js"></script>
   <script src="trivia.js"></script>
   <script src="gamepad.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -33,9 +35,9 @@
   <div id="splash_screen"
     style="font-size: 3vmin; left: 0; top: 0; background: #000; width: 100vw; height: 100vh; position: fixed; z-index: 1024; text-align: center;">
     <div id="splash_screen_content" style="position: absolute; width: 64rem; height: auto; left: 50vw; top: 50vh; transform: translate(-50%, -50%)">
-      <span id="splash_screen_top_text"></span>
+      <span id="splash_screen_top_text">Loading data.</span>
       <img src="haley.svg" style="display: block; width: 20vmin; height: 20vmin; margin: 1rem auto;">
-      <span id="splash_screen_bottom_text"></span>
+      <span id="splash_screen_bottom_text">Please wait...</span>
     </div>
   </div>
   <div id="splash_screen_2"
