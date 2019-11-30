@@ -39,10 +39,10 @@ class TypingSingleton {
    */
   activate(player, type, title) {
     var modal = document.getElementById("typing_modal");
-    var box = modal.querySelector("#typing_box");
+    var box = modal.querySelector("div");
     this.deviceID = params.presentList[player];
     modal.classList.add("shown");
-    box.querySelector("#typing_title").innerText = title;
+    modal.querySelector("#typing_title").innerText = title;
     switch (type) {
     case 0:
         // keyboard
