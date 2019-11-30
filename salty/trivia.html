@@ -22,6 +22,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="trivia.css">
   <link rel="stylesheet" href="gamepad.css">
+  <link rel="stylesheet" href="typing.css">
   <link rel="shortcut icon" type="image/png" href="favicon.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
   <script src="init.js"></script>
@@ -34,9 +35,9 @@
 
 <body>
   <div id="modal_typing" style="opacity: 0;">
+    <div id="typing_title"></div>
     <div id="typing_content">
-      <div id="typing_title"></div>
-      <div id="typing_content">
+      <div id="typing_preview">
         <span id="typing_before"></span><span id="typing_caret"></span><span id="typing_after"></span>
       </div>
       <input id="typing_textbox"/>
