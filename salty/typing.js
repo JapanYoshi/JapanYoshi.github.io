@@ -37,7 +37,7 @@ class TypingSingleton {
   /**
    * Initializes a typing modal for the given player and input type.
    */
-  activateTyping(player, type, title) {
+  activate(player, type, title) {
     var modal = document.getElementById("modal_typing");
     var content = modal.getElementsByClassName("typing_content");
     this.deviceID = params.presentList[player];
