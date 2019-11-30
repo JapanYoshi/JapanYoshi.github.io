@@ -1005,7 +1005,7 @@ function startSignup() {
   params.presentList = [];
   console.log(params.players);
   // set key handler and music with a delay
-  if (snd.bgm_sound !== bgm_data["signup_base"]) {
+  if (snd.bgm_sound !== snd.bgm_data["signup_base"]) {
     snd.stopBgm(BGM_DELAY);
   }
   setTimeout(function () {
