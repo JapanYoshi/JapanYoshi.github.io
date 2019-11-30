@@ -591,7 +591,7 @@ function getNextPlayerName(index){
       loadEpisode(episode_listing[selected].id);
     } catch (e) {
       abort(strings.error_episode_load + [e.message])
-      break;
+      return;
     }
     snd.playSFX({ name: "game_start" });
     changeKeyHandler(undefined, false);
