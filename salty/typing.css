@@ -1,7 +1,7 @@
 #typing_modal {
   position: absolute;
   left: calc(50vw - 32rem);
-  height: calc(50vh - 14rem);
+  top: calc(50vh - 14rem);
   width: 64rem;
   height: 36rem;
   opacity: 0;
@@ -9,6 +9,6 @@
 }
 
 #typing_modal.shown {
-  height: calc(50vh - 18rem);
+  top: calc(50vh - 18rem);
   opacity: 1;
 }
