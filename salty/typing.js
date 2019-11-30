@@ -84,7 +84,7 @@ function typingKB(event) {
   var player;
   if (event.code !== undefined) {
     const id = sys(event);
-    player = -(id - key) / 16;
+    player = Math.floor(-id / 16);
     if (player !== t.deviceID) { return; }
   }
   console.log(event.code);
