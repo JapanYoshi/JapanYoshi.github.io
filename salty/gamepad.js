@@ -1,39 +1,9 @@
 
 // end test functions
-var daisyWheelPage = 4;
 var readyState = 0;
 const stickThreshold = 0.4;
 const blankImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
 var configQueue = [];
-// from tilt state to config page
-const daisyWheelOrder = [8, 1, 2, 7, 0, 3, 6, 5, 4];
-// Length 1: literal. Else: commands. You can input multiple characters with "input".
-// e.g. To input the word "the", type "inputthe".
-const daisyWheelConfig = [
-  [
-    ["left", "delete", "right", " "],
-    ["A", "B", "C", "D"],
-    ["E", "F", "G", "H"],
-    ["I", "J", "K", "L"],
-    ["M", "N", "O", "P"],
-    ["Q", "R", "S", "T"],
-    ["U", "V", "W", "X"],
-    ["Y", "Z", ".", ","],
-    ["?", "!", "'", "num"],
-    ["num", "submit"]
-  ], [
-    ["left", "delete", "right", " "],
-    ["0", "1", "2", "3"],
-    ["4", "5", "6", "7"],
-    ["8", "9", "-", "/"],
-    ["", "", "", ""],
-    ["", "", "", ""],
-    ["", "", "", ""],
-    ["", "", "", ""],
-    ["", "", "", "num"],
-    ["num", "submit"]
-  ]
-];
 function buttonPressed(b) {
   if (typeof b == "object") {
     return b.pressed;

@@ -381,37 +381,6 @@ function modalKeys(event) {
   return;
 }
 /**
- * Initializes a typing modal for the given player and input type.
- */
-function activateTyping(player, type, title) {
-  var modal = document.getElementById("modal_typing");
-  var content = modal.getElementsByClassName("typing_content");
-  params.typingPlayer = player;
-  modal.classList.add("shown");
-  modal.getElementById("typing_title").innerText = title;
-  switch (type) {
-    case 0:
-      // keyboard
-      content.classList = "keyboard";
-      break;
-    case 1:
-      // gamepad
-      content.classList = "gamepad";
-      break;
-    case 2:
-      // mobile device
-      content.classList = "mobile";
-      break;
-    default:
-      abort(["#activateTyping() error", "Argument 1 \"type\" has an unrecognized value " + type + ".", "Accepted values are 0 = keyboard, 1 = gamepad, and 2 = mobile."]);
-      return;
-  }
-  setTimeout(function () {
-    changeKeyHandler(typingKeys, true);
-    console.log("Modal key handler complete.");
-  }, 500);
-}
-/**
  * Initializes a modal, given an array of strings. All
  * arrays can be exited by any player's button 6 (right).
  * @param {Array<string>} text Lines of text to show on the modal.
@@ -598,7 +567,7 @@ function getNextPlayerName(index){
     snd.stopBgm(1500);
     console.log("game started");
   } else {
-    activateTyping(i, 
+    t.activate(i, 
       params.presentList[i] < 0 ? 
         (params.isMobile ? 2 : 0)
       : 1, "Player " + (i+1) + ", enter your name"
@@ -607,8 +576,6 @@ function getNextPlayerName(index){
 }
 function getPlayerNames(){
   getNextPlayerName(0);
-
-
 }
 /**
  * The episode choice screen key handler.
