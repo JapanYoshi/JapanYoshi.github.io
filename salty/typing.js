@@ -38,23 +38,23 @@ class TypingSingleton {
    * Initializes a typing modal for the given player and input type.
    */
   activate(player, type, title) {
-    var modal = document.getElementById("modal_typing");
-    var content = modal.getElementsByClassName("typing_content");
+    var modal = document.getElementById("typing_modal");
+    var box = modal.getElementsByClassName("typing_box");
     this.deviceID = params.presentList[player];
     modal.classList.add("shown");
     modal.getElementById("typing_title").innerText = title;
     switch (type) {
     case 0:
         // keyboard
-        content.classList = "keyboard";
+        box.classList = "keyboard";
         break;
     case 1:
         // gamepad
-        content.classList = "gamepad";
+        box.classList = "gamepad";
         break;
     case 2:
         // mobile device
-        content.classList = "mobile";
+        box.classList = "mobile";
         break;
     default:
         abort(["#activateTyping() error", "Argument 1 \"type\" has an unrecognized value " + type + ".", "Accepted values are 0 = keyboard, 1 = gamepad, and 2 = mobile."]);
