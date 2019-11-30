@@ -1,6 +1,7 @@
 class GameSingleton {
   constructor(){
     this.q = 0;
+    this.pdata = 
     this.data = episode_data;
     delete episode_data;
   }
