@@ -763,7 +763,7 @@ function signupKeys(event) {
         changeKeyHandler(undefined, false);
         snd.setExtra2Volume(0.6);
         snd.setExtraVolume(0);
-        getEpisodes();
+        getPlayerNames();
       } else {
         // nobody signed up
         snd.playSFX({ name: "menu_fail" });
