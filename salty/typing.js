@@ -38,9 +38,11 @@ class TypingSingleton {
    * Initializes a typing modal for the given player and input type.
    */
   activate(player, type, title) {
+    this.deviceID = params.presentList[player];
+    this.deviceType = type;
+
     var modal = document.getElementById("typing_modal");
     var box = modal.querySelector("div");
-    this.deviceID = params.presentList[player];
     modal.classList.add("shown");
     modal.querySelector("#typing_title").innerText = title;
     switch (type) {
@@ -61,9 +63,37 @@ class TypingSingleton {
         return;
     }
     setTimeout(function () {
-      changeKeyHandler(typingKeys, true);
+      switch (type) {
+        case 0:
+          changeKeyHandler(typingKB, true);
+          break;
+        case 1:
+          changeKeyHandler(typingGP, true);
+          break;
+        case 2:
+          changeKeyHandler(typingTouch, true);
+          break;
+      }
       console.log("Modal key handler complete.");
     }, 500);
   }
 }
 var t = new TypingSingleton();
+
+function typingKB(event) {
+  var player;
+  if (event.code !== undefined) {
+    const id = sys(event);
+    player = -(id - key) / 16;
+    if (player !== t.deviceID) { return; }
+  }
+  console.log(event.code);
+}
+
+function typingGP(event) {
+  console.log(event.index, event.player2, event.button, event.release);
+}
+
+function typingTouch(event) {
+  console.log(event.code);
+}

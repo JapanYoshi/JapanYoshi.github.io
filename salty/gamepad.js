@@ -154,13 +154,23 @@ function getNewPressesSys(oldState, newState) {
   if (oldState[i] % 3 !== 2 && newState[i] % 3 === 2) {
     result[keyName.dRight] = 1;
   } else if (oldState[i] % 3 !== 0 && newState[i] % 3 === 0) {
-    result[keyName.dLeft] = 1;
+    result[keyName.dLeft]  = 1;
+  } // horizontal Release
+  else if (oldState[i] % 3 === 0 && newState[i] % 3 !== 0) {
+    result[keyName.dLeft]  = -1;
+  } else if (oldState[i] % 3 === 2 && newState[i] % 3 !== 2) {
+    result[keyName.dRight] = -1;
   }
   // new vertical movement
   if (oldState[i] >= 3 && newState[i] < 3) {
-    result[keyName.dUp] = 1;
+    result[keyName.dUp]   = 1;
   } else if (oldState[i] < 6 && newState[i] >= 6) {
     result[keyName.dDown] = 1;
+  } // vertical release
+  else if (oldState[i] < 3 && newState[i] >= 3) {
+    result[keyName.dUp]   = -1;
+  } else if (oldState[i] >= 6 && newState[i] < 6) {
+    result[keyName.dDown] = -1;
   }
   return result;
 }
@@ -540,13 +550,14 @@ function removeGamepad(index) {
   configs[index] = {};
 }
 
-function sendButtonEvent(index, player2, button) {
+function sendButtonEvent(index, player2, button, release) {
   document.dispatchEvent(
     new CustomEvent('controllerPress', {
       detail: { // JavaScript gives me an ANEURYSM
         index: index, // this doesn't turn into event.index
         player2: player2, // that turns into event.DETAIL.index
-        button: button // they are fucking selling me short on this
+        button: button, // they are fucking selling me short on this
+        release: release
       } // let me define a fucking custom property on a fucking
     }) // custom event god damn it IT MAKES MY CODE UGLY
   );
@@ -570,7 +581,7 @@ function controllerLoop() {
     for (var k = 0; k < new1.length; k++) {
       if (new1[k]) {
         console.log("gamepad " + i + " player 1 button " + k, state1, new1);
-        sendButtonEvent(i, false, k);
+        sendButtonEvent(i, false, k, (new1[k] === -1));
       }
     }
     configs[i].lastFrameButtonState1 = state1;
