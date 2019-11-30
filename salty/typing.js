@@ -39,7 +39,7 @@ class TypingSingleton {
    */
   activate(player, type, title) {
     var modal = document.getElementById("typing_modal");
-    var box = modal.getElementsByClassName("typing_box");
+    var box = modal.querySelector("#typing_box");
     this.deviceID = params.presentList[player];
     modal.classList.add("shown");
     box.querySelector("#typing_title").innerText = title;
