@@ -39,7 +39,7 @@
       <div id="typing_box">
         <div id="typing_preview">
           <span id="typing_before"></span><span id="typing_caret"></span><span id="typing_after"></span>
-          <input id="typing_textbox"/>
+          <input id="typing_textbox" onchange="this.value = this.value.replace(/ß/g, 'ẞ');"/>
         </div>
       </div>
       <div id="typing_indicator">
