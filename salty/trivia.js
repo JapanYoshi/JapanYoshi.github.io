@@ -790,8 +790,6 @@ function queueVoxSettings() {
 function listScroll(container, target){
   var targetRect = target.getBoundingClientRect();
   var containerRect = container.getBoundingClientRect();
-  console.log("listScroll() targetRect", targetRect.top, targetRect.bottom);
-  console.log("listScroll() containerRect", containerRect.top, containerRect.bottom);
   if (targetRect.top < containerRect.top) {
     console.log("listScroll() scrolling up", targetRect.top, containerRect.top);
     container.scrollBy(0, targetRect.top - containerRect.top - containerRect.height / 8);
