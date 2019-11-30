@@ -570,7 +570,7 @@ function getNextPlayerName(index){
     t.activate(index,
       params.presentList[index] < 0 ? 
         (params.isMobile ? 2 : 0)
-      : 1, "Player " + (i+1) + ", enter your name"
+      : 1, "Player " + (index+1) + ", enter your name"
     );
   }
 }
