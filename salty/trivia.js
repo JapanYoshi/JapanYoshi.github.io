@@ -569,11 +569,14 @@ function getNextPlayerName(index){
     snd.stopBgm(1500);
     console.log("game started");
   } else {
+    // TODO: ask to choose a profile
+    // if new profile, do this
     t.activate(index,
       params.presentList[index] < 0 ? 
         (params.isMobile ? 2 : 0)
       : 1, "Player " + (index+1) + ", enter your name"
     );
+    // if existing profile, go to the next player name
   }
 }
 function getPlayerNames(){
