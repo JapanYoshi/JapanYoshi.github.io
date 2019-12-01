@@ -709,6 +709,11 @@ function getEpisodes() {
  */
 function signupKeys(event) {
   console.log("signupKeys()");
+
+  console.log("Player", player, "Key", key, "pressed.");
+  console.log("Players", params.players);
+  console.log("PresentList", params.presentList);
+
   event.stopPropagation();
   var key, player;
   if (event.code !== undefined) {
@@ -720,6 +725,7 @@ function signupKeys(event) {
     player = event.detail.index * 2 + +(event.detail.player2);
   }
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
+  var box = document.getElementById("signup_box");
   switch (key) {
     case keyName.up:
     case keyName.dUp:
@@ -731,21 +737,44 @@ function signupKeys(event) {
           name: ""
         };
         params.presentList.push(player);
+        /* Make a new entry for the signup box */
+        var newItem = document.createElement("div");
+        newItem.classList = "signup_item";
+        var icon = document.createElement("img");
+        icon.classList = "signup_icon move";
+        icon.src = "data/icon_" + (
+          player < 0 ? (
+            params.isMobile ? "touch" : "kb"
+          ) : configs[event.detail.index].shared ? (
+            event.detail.player2 ? "left" : "right"
+          ) : configs[event.detail.index].noAxes ? "retro" : "solo"
+        ) + ".svg";
+
+        newItem.appendChild(icon);
+        newItem.appendTextNode(
+          player < 0 ? "Keyboard " + (-player) : "Gamepad " + (event.detail.index + 1) + (
+            configs[event.detail.index].shared ? (
+              event.detail.player2 ? "Left" : "Right"
+            ) : ""
+          )
+        );
+        box.appendChild(newItem);
         snd.setExtraVolume(0.6);
       }
-      break;
+      return;
     case keyName.down:
     case keyName.dDown:
       // unregister
       if (params.presentList.includes(player)) {
         snd.playSFX({ name: "menu_signout" });
         params.players[player] = undefined;
+        box.removeChild(box.children[params.presentList.indexOf(player)]);
         params.presentList.splice(params.presentList.indexOf(player), 1);
         if (params.presentList.length === 0) {
           snd.setExtraVolume(0);
         }
       }
-      break;
+      return;
     case keyName.left:
     case keyName.dLeft:
       // back
@@ -753,7 +782,7 @@ function signupKeys(event) {
       snd.playSFX({ name: "menu_back" });
       snd.stopBgm(400);
       initApp();
-      break;
+      return;
     case keyName.right:
     case keyName.dRight:
       // start
@@ -770,12 +799,14 @@ function signupKeys(event) {
         activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
         setTimeout(function () { changeKeyHandler(signupKeys, false) }, 1000);
       }
-      break;
+      return;
+    default:
+      if (params.presentList.contains(player)) {
+        var item = box.children[params.presentList.indexOf(player)].querySelector("signup_icon");
+        item.removeClass("move");
+        item.addClass("move");
+      }
   }
-
-  console.log("Player", player, "Key", key, "pressed.");
-  console.log("Players", params.players);
-  console.log("PresentList", params.presentList);
 }
 
 /**
