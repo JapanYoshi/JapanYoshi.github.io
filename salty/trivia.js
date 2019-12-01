@@ -1051,7 +1051,7 @@ function startSignup() {
     }
   );
   // init signup data
-  params.players = [];
+  params.players = {};
   params.presentList = [];
   console.log(params.players);
   // set key handler and music with a delay
