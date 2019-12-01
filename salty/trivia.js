@@ -785,6 +785,8 @@ function signupKeys(event) {
       return;
     case keyName.left:
     case keyName.dLeft:
+      // don't let anyone go back without deregistering
+      if (params.presentList.length) {break;}
       // back
       changeKeyHandler(undefined, false);
       snd.playSFX({ name: "menu_back" });
