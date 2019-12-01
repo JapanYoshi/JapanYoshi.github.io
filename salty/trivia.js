@@ -799,7 +799,7 @@ function signupKeys(event) {
       switch (params.presentList.indexOf(player)){
         case -1:
           return;
-        case params.presentList[0]:
+        case 0:
           // start
           if (params.presentList.length) {
             // somebody signed up
