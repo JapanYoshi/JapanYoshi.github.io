@@ -762,8 +762,10 @@ function signupKeys(event) {
         newItem.appendChild(label);
         box.appendChild(newItem);
         snd.setExtraVolume(0.6);
+        return;
+      } else {
+        break;
       }
-      return;
     case keyName.down:
     case keyName.dDown:
       // unregister
@@ -802,12 +804,12 @@ function signupKeys(event) {
         setTimeout(function () { changeKeyHandler(signupKeys, false) }, 1000);
       }
       return;
-    default:
-      if (params.presentList.contains(player)) {
-        var item = box.children[params.presentList.indexOf(player)].querySelector("signup_icon");
-        item.removeClass("move");
-        item.addClass("move");
-      }
+  }
+  /* shake the icon */
+  if (params.presentList.includes(player)) {
+    var item = box.children[params.presentList.indexOf(player)].querySelector("signup_icon");
+    item.removeClass("move");
+    setTimeout(()=>item.addClass("move"), 1);
   }
 }
 
