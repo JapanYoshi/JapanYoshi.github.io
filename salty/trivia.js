@@ -812,8 +812,8 @@ function signupKeys(event) {
   /* shake the icon */
   if (params.presentList.includes(player)) {
     var item = box.children[params.presentList.indexOf(player)].querySelector(".signup_icon");
-    item.removeClass("move");
-    setTimeout(()=>item.addClass("move"), 1);
+    item.classList.remove("move");
+    setTimeout(()=>item.classList.add("move"), 1);
   }
 }
 
