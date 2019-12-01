@@ -201,6 +201,7 @@ function keyShiv(event) {
  * @param {number} event.detail.index The index of the controller.
  * @param {boolean} event.detail.player2 On a shared controller, whether the button is on the right hand side. 
  * @param {number} event.detail.button The index of the button.
+ * @param {number} event.detail.release The D-pad also deploys release events. If this is true, the event is one.
  */
 function buttonShiv(event) {
   if (currentEventListenerModal) {
@@ -344,6 +345,7 @@ function modalKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
+    if (event.detail.release) {return;}
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
@@ -589,6 +591,7 @@ function chooseEpisodeKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
+    if (event.detail.release) {return;}
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
@@ -721,6 +724,7 @@ function signupKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
+    if (event.detail.release) {return;}
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
@@ -862,6 +866,7 @@ function settingKeys(event) {
     key = id % 16;
     player = -(id - key) / 16;
   } else {
+    if (event.detail.release) {return;}
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
@@ -1116,6 +1121,7 @@ function titleKeys(event) {
     const id = sys(event);
     key = id % 16;
   } else {
+    if (event.detail.release) {return;}
     key = event.detail.button;
   }
   var buttons = document.getElementById("title_option_box").children;
