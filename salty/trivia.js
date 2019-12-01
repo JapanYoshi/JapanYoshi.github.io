@@ -751,13 +751,15 @@ function signupKeys(event) {
         ) + ".svg";
 
         newItem.appendChild(icon);
-        newItem.appendTextNode(
-          player < 0 ? "Keyboard " + (-player) : "Gamepad " + (event.detail.index + 1) + (
-            configs[event.detail.index].shared ? (
-              event.detail.player2 ? "Left" : "Right"
-            ) : ""
-          )
+        var label = document.createElement("span");
+        label.classList = "signup_label_text";
+        label.innerText = 
+        player < 0 ? "Keyboard " + (-player) : "Gamepad " + (event.detail.index + 1) + (
+          configs[event.detail.index].shared ? (
+            event.detail.player2 ? "Left" : "Right"
+          ) : ""
         );
+        newItem.appendChild(label);
         box.appendChild(newItem);
         snd.setExtraVolume(0.6);
       }
