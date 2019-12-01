@@ -22,69 +22,55 @@ section#s_title>#title_salty {
 }
 
 #signup_box {
-  display: table;
-  width: 64rem;
-  height: 32rem;
-  text-align: center;
-  border-spacing: 0.5rem;
-}
-
-.signup_row {
-  display: table-row;
-  height: 15rem;
-}
-
-.signup {
-  background: rgba(0, 0, 0, 0.5);
-  display: table-cell;
+  position: absolute;
+  display: block;
+  right: 1rem;
+  bottom: 0.5rem;
+  width: 32rem;
+  height: 24rem;
+  border-radius: 1rem;
   padding: 0.5rem;
-  vertical-align: top;
-  margin-bottom: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.signup_item {
+  position: relative;
+  /* red bg gradient */
+  background-color: #80345c;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#bc56a2), to(#80345c));
+  background-image: linear-gradient(to bottom, #bc56a2 0%, #80345c 100%);
+  width: 31.2rem;
+  height: 2rem;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: black;
+  padding: 0.4rem;
   border-radius: 0.5rem;
-  -webkit-transition: background-color 500ms ease-in-out;
-  transition: background-color 500ms ease-in-out;
+  text-align: left;
+  margin-bottom: 0.2rem;
 }
 
-body.state_signup .signup.on {
-  background-color: rgba(64, 192, 96, 0.5);
-  -webkit-transition: background-color 200ms ease-in-out;
-  transition: background-color 200ms ease-in-out;
+.signup_label_text {
+  position: absolute;
+  top: 0.4rem;
+  font-size: inherit;
+  line-height: inherit;
+  display: inline-block;
+  height: 2rem;
+  
 }
 
-.signup_flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
+.signup_icon {
+  height: 2rem;
+  width: 2.75rem;
+  transform: rotate(15deg) scale(1.1, 1.1);
+  transition: transform 0s;
+  margin-right: 0.5rem;
 }
 
-.signup_empty,
-.signup_full {
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -ms-flex-preferred-size: auto;
-  flex-basis: auto;
-  overflow: hidden;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
-  height: 14rem;
-}
-
-body.state_signup .signup.on .signup_empty,
-.signup_full {
-  height: 0rem;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
-}
-
-body.state_signup .signup.on .signup_full {
-  height: 14rem;
-  -webkit-transition: height 500ms ease-out;
-  transition: height 500ms ease-out;
+.signup_icon.move {
+  transform: none;
+  transition: transform 0.5s ease-out;
 }
 
 #episode_carousel {

@@ -712,8 +712,6 @@ function getEpisodes() {
  */
 function signupKeys(event) {
   console.log("signupKeys()");
-
-  console.log("Player", player, "Key", key, "pressed.");
   console.log("Players", params.players);
   console.log("PresentList", params.presentList);
 
@@ -728,6 +726,7 @@ function signupKeys(event) {
     key = event.detail.button;
     player = event.detail.index * 2 + +(event.detail.player2);
   }
+  console.log("Player ", player , " Key ", key);
   // unused: var cards = document.getElementById("signup_box").getElementsByClassName("signup");
   var box = document.getElementById("signup_box");
   switch (key) {
