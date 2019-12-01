@@ -735,7 +735,7 @@ function signupKeys(event) {
       // register
       if (!params.presentList.includes(player)) {
         snd.playSFX({ name: "menu_signin" });
-        // type of key is gonna be string if the value is negative
+
         params.players[player] = {
           id: player,
           name: ""
