@@ -746,7 +746,7 @@ function signupKeys(event) {
           player < 0 ? (
             params.isMobile ? "touch" : "kb"
           ) : configs[event.detail.index].shared ? (
-            event.detail.player2 ? "left" : "right"
+            event.detail.player2 ? "right" : "left"
           ) : configs[event.detail.index].noAxes ? "retro" : "solo"
         ) + ".svg";
 
@@ -756,7 +756,7 @@ function signupKeys(event) {
         label.innerText = 
         player < 0 ? "Keyboard " + (-player) : "Gamepad " + (event.detail.index + 1) + (
           configs[event.detail.index].shared ? (
-            event.detail.player2 ? "Left" : "Right"
+            event.detail.player2 ? " Right" : " Left"
           ) : ""
         );
         newItem.appendChild(label);
@@ -807,7 +807,7 @@ function signupKeys(event) {
   }
   /* shake the icon */
   if (params.presentList.includes(player)) {
-    var item = box.children[params.presentList.indexOf(player)].querySelector("signup_icon");
+    var item = box.children[params.presentList.indexOf(player)].querySelector(".signup_icon");
     item.removeClass("move");
     setTimeout(()=>item.addClass("move"), 1);
   }
