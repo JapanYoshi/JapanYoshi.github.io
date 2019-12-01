@@ -12,9 +12,7 @@
   , "It's pronounced “HAL-see-yun”."
   , "The Asian better than you"
   ]
-, "splash_screen_name": [
-    "Haley Halcyon"
-]
+, "splash_screen_name": "Haley Halcyon"
 , "splash_screen_tagline_2": [
     "Based on the works of"
   , "In loving homage to"
@@ -24,9 +22,7 @@
   , "Concept lifted from"
   , "An irreverent fan game of"
 ]
-, "splash_screen_name_2": [
-    "Jackbox Games"
-]
+, "splash_screen_name_2": "Jackbox Games"
 , "sys_scroll" : "Use any player's [[↑]] and [[↓]] to scroll"
 , "modal_first" : [
     "#Controls"
@@ -161,10 +157,9 @@
   ]
 , "error_nobody" : [
     "#Nobody signed up."
-  , "Press [[↓]] to sign up, and [[↑]] to sign off."
   ]
 , "error_episode_list" : [
-    "Error on fetching episode list."
+    "An error occurred while fetching the episode list."
   ]
 , "error_episode_load" : [
     "An error occurred while trying to load the episode."
