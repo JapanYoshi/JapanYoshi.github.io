@@ -735,6 +735,7 @@ function signupKeys(event) {
       // register
       if (!params.presentList.includes(player)) {
         snd.playSFX({ name: "menu_signin" });
+        // type of key is gonna be string if the value is negative
         params.players[player] = {
           id: player,
           name: ""
@@ -795,7 +796,7 @@ function signupKeys(event) {
     case keyName.right:
     case keyName.dRight:
       // don't let anyone who isn't registered start the game
-      switch (params.presentList.indexOf(player)){
+      switch (params.presentList.indexOf(player < 0 ? +player : player)){
         case -1:
           return;
         case 0:
