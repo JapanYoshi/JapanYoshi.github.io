@@ -793,6 +793,8 @@ function signupKeys(event) {
       return;
     case keyName.right:
     case keyName.dRight:
+      // don't let anyone who isn't registered start the game
+      if (params.presentList.indexOf(player) === -1) {return;}
       // start
       if (params.presentList.length) {
         // somebody signed up
