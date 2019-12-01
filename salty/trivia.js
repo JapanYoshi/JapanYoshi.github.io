@@ -1216,6 +1216,10 @@ function initApp() {
     document.getElementById("title_rest").innerText = strings.game_title[2];
     document.getElementById("title_subtitle").innerText = strings.game_title[3];
     document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
+    
+    document.getElementById("signup_label_1").innerText = strings.signup_press;
+    document.getElementById("signup_label_2").innerText = strings.signout_press;
+    document.getElementById("s_signup").querySelector(".section_title").innerText = strings.title_signup;
 
     document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
 
