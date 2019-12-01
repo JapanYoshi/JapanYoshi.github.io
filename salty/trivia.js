@@ -794,22 +794,28 @@ function signupKeys(event) {
     case keyName.right:
     case keyName.dRight:
       // don't let anyone who isn't registered start the game
-      if (params.presentList.indexOf(player) === -1) {return;}
-      // start
-      if (params.presentList.length) {
-        // somebody signed up
-        snd.playSFX({ name: "menu_confirm" });
-        changeKeyHandler(undefined, false);
-        snd.setExtra2Volume(0.6);
-        snd.setExtraVolume(0);
-        getPlayerNames();
-      } else {
-        // nobody signed up
-        snd.playSFX({ name: "menu_fail" });
-        activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
-        setTimeout(function () { changeKeyHandler(signupKeys, false) }, 1000);
+      switch (params.presentList.indexOf(player)){
+        case -1:
+          return;
+        case params.presentList[0]:
+          // start
+          if (params.presentList.length) {
+            // somebody signed up
+            snd.playSFX({ name: "menu_confirm" });
+            changeKeyHandler(undefined, false);
+            snd.setExtra2Volume(0.6);
+            snd.setExtraVolume(0);
+            getPlayerNames();
+          } else {
+            // nobody signed up
+            snd.playSFX({ name: "menu_fail" });
+            activateModal(strings.error_nobody.concat("[→]" + strings.sys_dismiss));
+            setTimeout(function () { changeKeyHandler(signupKeys, false) }, 1000);
+          }
+          return;
+        default: break;
       }
-      return;
+      
   }
   /* shake the icon */
   if (params.presentList.includes(player)) {
