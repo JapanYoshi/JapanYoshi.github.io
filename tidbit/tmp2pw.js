@@ -3,8 +3,8 @@ function getCSV() {
   console.log("getCSV();");
   return new Promise((resolve, reject) => {
     var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成、サーバと非同期通信するためのAPI
-    req.open("get", "tmp2pw.csv", true); // アクセスするファイルを指定
-    req.onload = () => {
+    req.open("GET", "tmp2pw.csv", true); // アクセスするファイルを指定
+    req.onreadystatechange = () => {
       if (req.readyState === 4 && req.status === 0) {
         resolve(convertCSVtoArray(req.responseText));
       } else {
