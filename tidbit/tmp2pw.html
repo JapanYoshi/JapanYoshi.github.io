@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>TMP2 Password Checker & Generator</title>
+    <meta property="og:title" value="TMP2 Password Checker & Generator">
+    <meta name="twitter:title" value="TMP2 Password Checker & Generator">
+    <!-- boilerplate -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description" content="Is that word a valid Trivia Murder Party 2 password? Out of password ideas? This page can help.">
+    <meta property="og:description"
+        content="Is that word a valid Trivia Murder Party 2 password? Out of password ideas? This page can help.">
+    <meta name="twitter:description"
+        content="Is that word a valid Trivia Murder Party 2 password? Out of password ideas? This page can help.">
+    <meta name="keywords" content="Trivia Murder Party, Trivia Murder Party 2, Jackbox, Jackbox Games, Jackbox Party Pack">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/tmp2pw.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/tmp2pw.png">
+    <link rel="stylesheet" href="tmp2pw.css"/>
+    <script src="tmp2pw.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Trivia Murder Party 2</h1>
+      <h2>Password Checker and Generator</h2>
+      <span id="wordcount"></span>
+      <p>To check if a word is a valid password in TMP2’s “Passwords” Killing Room, enter your word in the text box below.</p>
+      <input id="pw" maxlength="4" onchange="checkValid(this.value);"/>
+      <div id="pw_valid"></div>
+      <p>To generate random passwords, enter the number of candidates you want, then press the button below.</p>
+      <input id="count" type="number" min="1" step="1" max="20" value="5"/><button type="button" onclick="getRandom();">Generate</button>
+      <div id="pw_gen"></div>
+    </div>
+  </body>
+</html>
