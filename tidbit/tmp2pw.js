@@ -1,22 +1,20 @@
 var dictionary = [];
 function getCSV() {
   console.log("getCSV();");
-  return new Promise((resolve, reject) => {
-    var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成、サーバと非同期通信するためのAPI
-    req.open("GET", "tmp2pw.csv", true); // アクセスするファイルを指定
-    req.onreadystatechange = () => {
-      if (req.readyState === 4 && req.status === 0) {
-        alert(req.responseText.substring(0, 32));
-        resolve(convertCSVtoArray(req.responseText));
-      } else {
-        reject(new Error(req.statusText));
-      }
-    };
-    req.onerror = () => {
-      reject(new Error(req.statusText));
-    };
-    req.send(null); // HTTPリクエストの発行
-  });
+  var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成、サーバと非同期通信するためのAPI
+  req.open("GET", "tmp2pw.csv", true); // アクセスするファイルを指定
+  req.onreadystatechange = () => {
+    if (req.readyState === 4 && req.status === 0) {
+      alert(req.responseText.substring(0, 32));
+      convertCSVtoArray(req.response);
+    } else {
+      throw new Error(req.statusText);
+    }
+  };
+  req.onerror = () => {
+    reject(new Error(req.statusText));
+  };
+  req.send(null); // HTTPリクエストの発行
 }
 function convertCSVtoArray(csv) {
   console.log("convertCSVtoArray(" + csv.substring(0, 32) + "...);");
