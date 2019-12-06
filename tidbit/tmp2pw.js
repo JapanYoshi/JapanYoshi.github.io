@@ -1,5 +1,6 @@
 var dictionary = [];
 function getCSV() {
+  console.log("getCSV();");
   return new Promise((resolve, reject) => {
     var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成、サーバと非同期通信するためのAPI
     req.open("get", "tmp2pw.csv", true); // アクセスするファイルを指定
@@ -17,6 +18,7 @@ function getCSV() {
   });
 }
 function convertCSVtoArray(csv) {
+  console.log("convertCSVtoArray(" + csv.substring(0, 32) + "...);");
   dictionary = csv.split(",");
   document.getElementById("wordcount").innerText = dictionary.length + " words loaded";
 }
@@ -34,6 +36,7 @@ function checkValid(text) {
   }
 }
 function updateValid(state) {
+  console.log("updateValid");
   var valid = document.getElementById("pw_valid");
   switch (state) {
     case -2:
@@ -77,4 +80,4 @@ function getRandom() {
     out.innerHTML += dictionary[indexes[i]] + "<br>";
   }
 }
-getCSV();
+document.addEventListener("DOMContentLoaded", getCSV, {once: true});

@@ -30,7 +30,7 @@
       <h2>Password Checker and Generator</h2>
       <span id="wordcount"></span>
       <p>To check if a word is a valid password in TMP2’s “Passwords” Killing Room, enter your word in the text box below.</p>
-      <input id="pw" maxlength="4" onchange="checkValid(this.value);"/>
+      <input id="pw" maxlength="4" oninput="checkValid(this.value);"/>
       <div id="pw_valid"></div>
       <p>To generate random passwords, enter the number of candidates you want, then press the button below.</p>
       <input id="count" type="number" min="1" step="1" max="20" value="5"/><button type="button" onclick="getRandom();">Generate</button>
