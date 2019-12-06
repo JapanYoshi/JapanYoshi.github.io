@@ -21,6 +21,7 @@ function convertCSVtoArray(csv) {
   document.getElementById("wordcount").innerText = dictionary.length + " words loaded";
 }
 function checkValid(text) {
+  console.log("checkValid(" + text + ");")
   if (dictionary.length) {
     updateValid(-2);
   }
@@ -54,16 +55,18 @@ function updateValid(state) {
   }
 }
 function getRandom() {
+  console.log("getRandom();");
   var count = +(document.getElementById("count").value);
   var indexes = [];
   if (count > dictionary.length) {
     count = dictionary.length;
   }
-  for (; count >= 0; count--) {
+  for (; count > 0; count--) {
     while (true) {
       var i = Math.floor(Math.random() * dictionary.length);
       if (!indexes.includes(i)) {
         indexes.push(i);
+        console.log("index " + i);
         continue;
       }
     }
@@ -74,3 +77,4 @@ function getRandom() {
     out.innerHTML += dictionary[indexes[i]] + "<br>";
   }
 }
+getCSV();
