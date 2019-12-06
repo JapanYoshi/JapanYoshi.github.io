@@ -6,6 +6,7 @@ function getCSV() {
     req.open("GET", "tmp2pw.csv", true); // アクセスするファイルを指定
     req.onreadystatechange = () => {
       if (req.readyState === 4 && req.status === 0) {
+        alert(req.responseText.substring(0, 32));
         resolve(convertCSVtoArray(req.responseText));
       } else {
         reject(new Error(req.statusText));
