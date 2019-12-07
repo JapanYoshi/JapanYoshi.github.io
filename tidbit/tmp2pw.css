@@ -4,34 +4,55 @@
     src: url("tmp2.woff");
 }
 
-html {
-}
-
 body {
     margin: 0;
     padding: 0;
     font-family: "IM Fell English PRO", "IM Fell English", "Garamond";
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#main {
     background-image: url(https://jackbox.tv/images/f49186ead9e73151efe35610584cb204.png);
     background-size: cover;
-    color: white;
+    overflow: auto;
+    flex: auto;
+    padding: 8px 0 32px;
 }
 
 #header {
+    display: block;
+    flex-basis: 100%;
     padding-top: 8px;
     padding-bottom: 8px;
     background: black;
     overflow: hidden;
+    flex: 0 0 auto;
 }
 
 #wordcount {
     display: block;
     background: white;
     color: black;
-    margin-bottom: 16px;
     text-align: center;
     padding: 8px;
     font-family: "_LostAndForelorn";
     font-size: 1rem;
+    flex: 0 0 auto;
+}
+
+#footnote {
+    padding: 4px;
+    background: black;
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+a {
+    color: #d32;
 }
 
 .section {
