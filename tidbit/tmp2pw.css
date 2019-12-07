@@ -1,166 +1,195 @@
 @font-face {
-    font-family: "_LostAndForelorn";
-    font-weight: normal;
-    src: url("tmp2.woff");
+  font-family: "_LostAndForelorn";
+  font-weight: normal;
+  src: url("tmp2.woff");
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "IM Fell English PRO", "IM Fell English", "Garamond";
-    color: white;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  padding: 0;
+  font-family: "IM Fell English PRO", "IM Fell English", "Garamond";
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 #main {
-    background-image: url(https://jackbox.tv/images/f49186ead9e73151efe35610584cb204.png);
-    background-size: cover;
-    overflow: auto;
-    flex: auto;
-    padding: 8px 0 32px;
+  background-image: url(https://jackbox.tv/images/f49186ead9e73151efe35610584cb204.png);
+  background-size: cover;
+  overflow: auto;
+  flex: auto;
+  padding: 8px 0 32px;
 }
 
 #header {
-    display: block;
-    flex-basis: 100%;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: black;
-    overflow: hidden;
-    flex: 0 0 auto;
+  display: block;
+  flex-basis: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background: black;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 
 #wordcount {
-    display: block;
-    background: white;
-    color: black;
-    text-align: center;
-    padding: 8px;
-    font-family: "_LostAndForelorn";
-    font-size: 1rem;
-    flex: 0 0 auto;
+  display: block;
+  background: white;
+  color: black;
+  text-align: center;
+  padding: 8px;
+  font-family: "_LostAndForelorn";
+  font-size: 1rem;
+  flex: 0 0 auto;
 }
 
 #footnote {
-    padding: 4px;
-    background: black;
-    flex: 0 0 auto;
-    text-align: center;
+  padding: 4px;
+  background: black;
+  flex: 0 0 auto;
+  text-align: center;
 }
 
 a {
-    color: #d32;
+  color: #d32;
 }
 
 .section {
-    max-width: 500px;
-    margin: 0 auto;
-    background: black;
-    color: white;
-    border-radius: 6px;
-    margin-bottom: 4px;
-    padding: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  padding: 8px;
 }
 
 h3 {
-    font-family: "_LostAndForelorn";
-    font-weight: normal;
-    margin: 0;
-    font-size: 1.5rem;
+  font-family: "_LostAndForelorn";
+  font-weight: normal;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-h1, h2 {
-    text-align: center;
-    margin: 0;
+h1,
+h2 {
+  text-align: center;
+  margin: 0;
 }
 
 h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
+
 h2 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 #subtitle {
-    display: block;
-    margin: -16px auto 4px;
-    color: #d32;
-    text-align: center;
-    transform: scale(2) rotate(-5deg);
-    font-family: "_LostAndForelorn";
-    text-shadow: 0 0 2px black;
+  display: block;
+  margin: -16px auto 4px;
+  color: #d32;
+  text-align: center;
+  transform: scale(2) rotate(-5deg);
+  font-family: "_LostAndForelorn";
+  text-shadow: 0 0 2px black;
 }
 
-input, button {
-    background: inherit;
-    color: inherit;
-    font-family: "_LostAndForelorn";
-    border: none;
-    border-radius: 5px;
+input,
+button,
+input[type="checkbox"]+label {
+  background: inherit;
+  color: inherit;
+  font-family: "_LostAndForelorn";
+  border: none;
+  border-radius: 5px;
+  padding: 0 8px;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
 }
 
 input#pw {
-    display: block;
-    margin: 0 auto;
-    width: 8rem;
-    font-size: 2rem;
-    text-align: left;
-    border: 4px solid #d32;
-    padding: 0 1rem;
+  display: block;
+  margin: 0 auto;
+  width: 8rem;
+  font-size: 2rem;
+  text-align: left;
+  border: 4px solid #d32;
+  padding: 0 1rem;
 }
 
 input#count {
-    text-align: right;
-    font-size: 1.5rem;
-    border: 4px solid #d32;
+  text-align: right;
+  font-size: 1.5rem;
+  border: 4px solid #d32;
 }
 
-button {
-    font-size: 1.5rem;
-    background: rgba(255,255,255,0.2);
+button,
+input[type="checkbox"]+label {
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 button:active {
-    background: #fff;
-    color: #000;
+  background: #fff;
+  color: #000;
 }
 
 .center {
-    width: 100%;
-    display: flex;
-    flex: auto;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: stretch;
-    
+  width: 100%;
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+
 }
 
 #pw_valid {
-    padding: 4px;
+  padding: 4px;
 }
 
 #pw_valid.invalid {
-    background: red;
+  background: red;
 }
 
 #pw_valid.valid {
-    background: green;
+  background: green;
+}
+
+#family_friendly {
+  display: none;
+}
+
+#family_friendly + label:after {
+  content: ": No";
+}
+#family_friendly:checked + label:after {
+  content: ": Yes";
+}
+
+#family_friendly:checked+label {
+  background: white;
+  color: black;
 }
 
 #pw_gen {
-    width: 100%;
-    display: flex;
-    flex: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+  width: 100%;
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-#pw_gen > span {
-    flex-basis: 25%;
-    font-size: 2rem;
+#pw_gen>span {
+  flex-basis: 25%;
+  font-size: 2rem;
 }

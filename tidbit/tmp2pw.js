@@ -33,6 +33,7 @@ function checkValid(text) {
   if (text.length < 4) {
     updateValid(-1);
   } else if (dictionary.includes(text)) {
+    console.log(text + " #" + dictionary.indexOf(text));
     updateValid(1);
   } else {
     updateValid(0);
