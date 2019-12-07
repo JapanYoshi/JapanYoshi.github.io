@@ -26,7 +26,7 @@ function convertCSVtoArray(csv) {
 }
 function checkValid(text) {
   console.log("checkValid(" + text + ");")
-  if (dictionary.length) {
+  if (dictionary.length <= 1) {
     updateValid(-2);
   }
   if (text.length < 4) {

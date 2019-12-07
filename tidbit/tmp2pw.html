@@ -26,15 +26,26 @@
   </head>
   <body>
     <div id="main">
-      <h1>Trivia Murder Party 2</h1>
-      <h2>Password Checker and Generator</h2>
+      <div id="header">
+        <h1>Trivia Murder Party 2</h1>
+        <span id="subtitle">Unofficial</span>
+        <h2>Password Checker and Generator</h2>
+      </div>
       <span id="wordcount">Loading words...</span>
-      <p>To check if a word is a valid password in TMP2’s “Passwords” Killing Room, enter your word in the text box below.</p>
-      <input id="pw" maxlength="4" oninput="checkValid(this.value);"/>
-      <div id="pw_valid"></div>
-      <p>To generate random passwords, enter the number of candidates you want, then press the button below.</p>
-      <input id="count" type="number" min="1" step="1" max="20" value="5"/><button type="button" onclick="getRandom();">Generate</button>
-      <div id="pw_gen"></div>
+      <div class="section">
+        <h3>Check</h3>
+        <p>To check if a word is a valid password in TMP2’s “Passwords” Killing Room, enter your word in the text box below.</p>
+        <input id="pw" maxlength="4" oninput="checkValid(this.value);"/>
+        <div id="pw_valid"></div>
+      </div>
+      <div class="section">
+        <h3>Generate</h3>
+        <p>To generate random passwords, enter the number of candidates you want, then press the button below.</p>
+        <div class="center">
+          <input id="count" type="number" min="1" step="1" max="20" value="5"/><button type="button" onclick="getRandom();">Generate</button>
+        </div>
+        <div id="pw_gen"></div>
+      </div>
     </div>
   </body>
 </html>
