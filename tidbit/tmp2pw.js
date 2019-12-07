@@ -26,6 +26,7 @@ function convertCSVtoArray(csv) {
 }
 function checkValid(text) {
   console.log("checkValid(" + text + ");")
+  document.getElementById("pw").value = text.toLowercase().replace(/^[a-z]/g, '')
   if (dictionary.length <= 1) {
     updateValid(-2);
   }
