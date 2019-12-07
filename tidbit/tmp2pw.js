@@ -77,9 +77,13 @@ function getRandom() {
     }
   }
   var out = document.getElementById("pw_gen");
-  out.innerHTML = "";
+  while (out.children.length) {
+    out.removeChild(out.lastChild);
+  }
   for (var i = 0; i < indexes.length; i++) {
-    out.innerHTML += dictionary[indexes[i]] + "<br>";
+    var span = document.createElement("span");
+    span.innerText = dictionary[indexes[i]];
+    out.appendChild(span);
   }
 }
 document.addEventListener("DOMContentLoaded", getCSV, {once: true});
