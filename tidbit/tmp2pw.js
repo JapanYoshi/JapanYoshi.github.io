@@ -12,13 +12,16 @@ function getCSV() {
     }
   };
   req.onerror = () => {
-    throw new Error(req.statusText);
+    console.log("getCSV() soft error: " + req.statusText);
   };
   req.send(null); // HTTPリクエストの発行
 }
 function convertCSVtoArray(csv) {
   console.log("convertCSVtoArray(" + csv.substring(0, 32) + "...);");
   dictionary = csv.split(",");
+  if (dictionary.length <= 1) {
+    alert("Error: Dictionary failed to load. Please try reloading the page.");
+  }
   document.getElementById("wordcount").innerText = dictionary.length + " words loaded";
 }
 function checkValid(text) {
