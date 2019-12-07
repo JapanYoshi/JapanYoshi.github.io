@@ -1,3 +1,10 @@
+/**
+ * thanks for looking into my crappy code!
+ * the code for getRandom() contains a list of inappropriate words, jsyk. I just thought you should really know that.
+ * so uh, if you're the kind of person who would rather not read them, turn back now.
+ * - haley
+ */
+
 var dictionary = [];
 function getCSV() {
   console.log("getCSV();");
@@ -61,6 +68,7 @@ function updateValid(state) {
       return;
   }
 }
+
 function getRandom() {
   console.log("getRandom();");
   var count = +(document.getElementById("count").value);
@@ -68,10 +76,37 @@ function getRandom() {
   if (count > dictionary.length) {
     count = dictionary.length;
   }
+  const safe = !document.getElementById("family_friendly").checked;
+  var banned = [
+     104, // anal
+     122, // anus
+     144, // arse
+     348, // boob
+     436, // butt
+     551, // clit
+     566, // cock
+     631, // crap
+     689, // damn
+     763, // dick
+    1180, // fuck
+    1455, // hell
+    2241, // muff
+    2606, // piss
+    2655, // poop
+    2661, // porn
+    3021, // sext
+    3037, // shit
+    3121, // slut
+    3399, // tits
+    3497  // turd
+  ]
   for (; count > 0; count--) {
     while (true) {
       var i = Math.floor(Math.random() * dictionary.length);
-      if (!indexes.includes(i)) {
+      if (
+        !indexes.includes(i) && // new word
+        (!safe || !banned.includes(i)) // nsfw or not banned
+      ) {
         indexes.push(i);
         console.log("index " + i);
         break;
