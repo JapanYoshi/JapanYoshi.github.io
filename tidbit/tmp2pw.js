@@ -72,7 +72,7 @@ function getRandom() {
       if (!indexes.includes(i)) {
         indexes.push(i);
         console.log("index " + i);
-        continue;
+        break;
       }
     }
   }
