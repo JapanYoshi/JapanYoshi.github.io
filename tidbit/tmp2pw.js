@@ -4,7 +4,7 @@ function getCSV() {
   var req = new XMLHttpRequest();
   req.open("GET", "tmp2pw.csv", true);
   req.onreadystatechange = () => {
-    if (req.readyState === 4 && req.status === 0) {
+    if (req.response !== "") {
       console.log("getCSV() response: " + req.response.substring(0, 32));
       convertCSVtoArray(req.response);
     } else {
