@@ -124,6 +124,7 @@ function getRandom() {
   }
   var redirect = {
     nixy: "nixie"
+  , soja: "soya"
   }
   for (var i = 0; i < indexes.length; i++) {
     var word = dictionary[indexes[i]];
