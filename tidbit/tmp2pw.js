@@ -83,6 +83,7 @@ function getRandom() {
   , "arse"
   , "boob"
   , "butt"
+  , "caca"
   , "clit"
   , "cock"
   , "crap"
@@ -121,6 +122,9 @@ function getRandom() {
   while (out.children.length) {
     out.removeChild(out.lastChild);
   }
+  var redirect = {
+    nixy: "nixie"
+  }
   for (var i = 0; i < indexes.length; i++) {
     var word = dictionary[indexes[i]];
     var span = document.createElement("span");
@@ -128,7 +132,8 @@ function getRandom() {
       span.classList.add("naughty");
     }
     var hotlink = document.createElement("a");
-    hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + word;
+    
+    hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + (redirect[word] || word);
     hotlink.target = "_blank";
     hotlink.innerText = word;
     span.appendChild(hotlink);
