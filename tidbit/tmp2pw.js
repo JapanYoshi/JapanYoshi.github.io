@@ -89,6 +89,7 @@ function getRandom() {
   , "crap"
   , "damn"
   , "dick"
+  , "effs"
   , "frig"
   , "fuck"
   , "hell"
@@ -129,9 +130,13 @@ function getRandom() {
   , cuds: "cud"
   , karn: "cairn"
   , nixy: "nixie"
+  , ocas: "oca"
   , ouph: "https://en.wiktionary.org/wiki/auf#English"
   , soja: "soya"
+  , syph: "syphilis"
+  , tils: "til"
   , unai: "unau"
+  , ydkj: "https://en.wikipedia.org/wiki/You_Don%27t_Know_Jack_(franchise)"
   }
   for (var i = 0; i < indexes.length; i++) {
     var word = dictionary[indexes[i]];
