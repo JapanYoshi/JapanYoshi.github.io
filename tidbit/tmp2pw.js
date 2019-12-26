@@ -119,7 +119,7 @@ function getRandom() {
       }
     }
   }
-  indexes.sort();
+  indexes.sort((a, b) => a - b);
   var out = document.getElementById("pw_gen");
   while (out.children.length) {
     out.removeChild(out.lastChild);
