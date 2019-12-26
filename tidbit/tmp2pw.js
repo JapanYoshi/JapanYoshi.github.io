@@ -123,9 +123,10 @@ function getRandom() {
   while (out.children.length) {
     out.removeChild(out.lastChild);
   }
-  var redirect = {
-    cuds: "cud"
+  var redirect = { // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
+  , cuds: "cud"
   , nixy: "nixie"
+  , ouph: "https://en.wiktionary.org/wiki/auf#English"
   , soja: "soya"
   }
   for (var i = 0; i < indexes.length; i++) {
@@ -135,8 +136,15 @@ function getRandom() {
       span.classList.add("naughty");
     }
     var hotlink = document.createElement("a");
-    
-    hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + (redirect[word] || word);
+    if (redirect[word]) {
+      if (redirect[word].startsWith('https://')) {
+        hotlink.href = redirect[word];
+      } else {
+        hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + redirect[word];
+      }
+    } else {
+      hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + word;
+    }
     hotlink.target = "_blank";
     hotlink.innerText = word;
     span.appendChild(hotlink);
