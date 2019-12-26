@@ -124,7 +124,7 @@ function getRandom() {
   while (out.children.length) {
     out.removeChild(out.lastChild);
   }
-  var redirect = { // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
+  var redirect = { dummyentry: "dummyentry" // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
   , byrl: "birle"
   , cuds: "cud"
   , nixy: "nixie"
