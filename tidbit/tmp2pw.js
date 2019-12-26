@@ -119,15 +119,18 @@ function getRandom() {
       }
     }
   }
+  indexes.sort();
   var out = document.getElementById("pw_gen");
   while (out.children.length) {
     out.removeChild(out.lastChild);
   }
   var redirect = { // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
+  , byrl: "birle"
   , cuds: "cud"
   , nixy: "nixie"
   , ouph: "https://en.wiktionary.org/wiki/auf#English"
   , soja: "soya"
+  , unai: "unau"
   }
   for (var i = 0; i < indexes.length; i++) {
     var word = dictionary[indexes[i]];
