@@ -89,6 +89,7 @@ function getRandom() {
   , "crap"
   , "damn"
   , "dick"
+  , "frig"
   , "fuck"
   , "hell"
   , "muff"
@@ -123,7 +124,8 @@ function getRandom() {
     out.removeChild(out.lastChild);
   }
   var redirect = {
-    nixy: "nixie"
+    cuds: "cud"
+  , nixy: "nixie"
   , soja: "soya"
   }
   for (var i = 0; i < indexes.length; i++) {
