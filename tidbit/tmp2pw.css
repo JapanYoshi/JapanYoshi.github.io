@@ -7,7 +7,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "IM Fell English PRO", "IM Fell English", "Garamond";
+  font-family: "IM Fell English PRO", "IM Fell English", "Garamond", serif;
   color: white;
   height: 100vh;
   overflow: hidden;
@@ -53,6 +53,14 @@ body {
 
 a {
   color: #d32;
+}
+
+span.new {
+  display: inline-block;
+  margin: 0 8px;
+  color: #d32;
+  font-family: "_LostAndForelorn";
+  transform: scale(1.5, 1.5) rotate(-10deg) translateY(-4px);
 }
 
 .section {
@@ -190,6 +198,17 @@ button:active {
 }
 
 #pw_gen>span {
+  display: inline-block;
+  text-align: center;
   flex-basis: 25%;
   font-size: 2rem;
+}
+
+#pw_gen>span.naughty {
+  color: #d32;
+}
+
+#pw_gen>span>a:not(:hover) {
+  color: inherit;
+  text-decoration: none;
 }

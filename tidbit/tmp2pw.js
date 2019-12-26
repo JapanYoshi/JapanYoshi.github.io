@@ -78,34 +78,38 @@ function getRandom() {
   }
   const safe = !document.getElementById("family_friendly").checked;
   var banned = [
-     104, // anal
-     122, // anus
-     144, // arse
-     348, // boob
-     436, // butt
-     551, // clit
-     566, // cock
-     631, // crap
-     689, // damn
-     763, // dick
-    1180, // fuck
-    1455, // hell
-    2241, // muff
-    2606, // piss
-    2655, // poop
-    2661, // porn
-    3021, // sext
-    3037, // shit
-    3121, // slut
-    3399, // tits
-    3497  // turd
+    "anal"
+  , "anus"
+  , "arse"
+  , "boob"
+  , "butt"
+  , "clit"
+  , "cock"
+  , "crap"
+  , "damn"
+  , "dick"
+  , "fuck"
+  , "hell"
+  , "muff"
+  , "peen"
+  , "piss"
+  , "poop"
+  , "porn"
+  , "sext"
+  , "sexy"
+  , "shat"
+  , "shit"
+  , "slut"
+  , "smut"
+  , "tits"
+  , "turd"
   ]
   for (; count > 0; count--) {
     while (true) {
       var i = Math.floor(Math.random() * dictionary.length);
       if (
         !indexes.includes(i) && // new word
-        (!safe || !banned.includes(i)) // nsfw or not banned
+        (!safe || !banned.includes(dictionary[i])) // nsfw or not banned
       ) {
         indexes.push(i);
         console.log("index " + i);
@@ -118,8 +122,17 @@ function getRandom() {
     out.removeChild(out.lastChild);
   }
   for (var i = 0; i < indexes.length; i++) {
+    var word = dictionary[indexes[i]];
     var span = document.createElement("span");
-    span.innerText = dictionary[indexes[i]];
+    if (banned.includes(word)) {
+      span.classList.add("naughty");
+    }
+    var hotlink = document.createElement("a");
+    hotlink.href = "https://www.collinsdictionary.com/dictionary/english/" + word;
+    hotlink.target = "_blank";
+    hotlink.innerText = word;
+    span.appendChild(hotlink);
+    
     out.appendChild(span);
   }
 }
