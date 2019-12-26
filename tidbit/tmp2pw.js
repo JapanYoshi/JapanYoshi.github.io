@@ -124,9 +124,10 @@ function getRandom() {
   while (out.children.length) {
     out.removeChild(out.lastChild);
   }
-  var redirect = { dummyentry: "dummyentry" // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
+  var redirect = { a: "a" // redirect to another Collins entry, or another dictionary altogether if Collins doesn't have it.
   , byrl: "birle"
   , cuds: "cud"
+  , karn: "cairn"
   , nixy: "nixie"
   , ouph: "https://en.wiktionary.org/wiki/auf#English"
   , soja: "soya"
