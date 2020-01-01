@@ -326,15 +326,20 @@ h2 {
     function loadDay(day){
       var day_data;
       if (day < 1 || day > data.length) {
-        day_data = {
-          word: "Not yet!",
-          ipa: "nɔt ˈjɛt",
-          synonym: "I haven’t done this day yet!",
-          ipa_synonym: "ˈsɔri",
-          pos: "phr.",
-          definition: "Check this out later.",
-          example: "Thanks for visiting."
-        };
+        if (day <= 31 && day >= 1) {
+          day_data = {
+            word: "Not yet!",
+            ipa: "nɔt ˈjɛt",
+            synonym: "I haven’t done this day yet!",
+            ipa_synonym: "ˈsɔri",
+            pos: "phr.",
+            definition: "Check this out later.",
+            example: "Thanks for visiting."
+          };
+        } else {
+          alert("What kind of doofus thinks there’s a January " + day + "?");
+          return;
+        }
       } else {
         day_data = data[day - 1];
       }
