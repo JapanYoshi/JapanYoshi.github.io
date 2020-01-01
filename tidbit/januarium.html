@@ -1,0 +1,363 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Haley’s Januarium Entries</title>
+  <meta property="og:title" value="Haley’s Januarium Entries">
+  <meta name="twitter:title" value="Haley’s Januarium Entries">
+  <!-- boilerplate -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+  <meta name="twitter:site" content="@ItsSpelledHALEY">
+  <meta name="twitter:creator" content="@ItsSpelledHALEY">
+  <!-- page metadata -->
+  <meta name="description" content="Let’s start the year with some wacky words and dastardly definitions.">
+  <meta property="og:description"
+      content="Let’s start the year with some wacky words and dastardly definitions.">
+  <meta name="twitter:description"
+      content="Let’s start the year with some wacky words and dastardly definitions.">
+  <meta name="keywords" content="HTML,CSS,JavaScript,code demo,Dictionarium,Jackbox,Jackbox Games">
+  <meta name="author" content="Haley Wakamatsu">
+  <!-- sharable image -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="http://japanyoshi.github.io/tidbit/jan.png">
+  <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/jan.png">
+  <style>
+@font-face {
+  font-family: "Mikado_";
+  font-weight: 900;
+  src: 
+  local("Mikado Black"),
+  url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.ttf") format("ttf"),
+  url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Weird Clarendon Thingy";
+  font-weight: bold;
+  src: url("Orelega-Bold.woff2");
+}
+
+html {
+  background: #322;
+  font-size: 150%;
+}
+
+h1 {
+  font-family: Mikado_, Mikado, sans-serif;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.nav {
+  background: navy;
+  border: none;
+  color: beige;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+#date {
+  background: inherit;
+  border: 0.0625rem solid navy;
+  font-family: inherit;
+  color: inherit;
+  width: 2rem;
+  text-align: right;
+}
+
+#page {
+  background: beige;
+  overflow: hidden;
+  box-shadow: 0 0.125rem 1rem #432;
+  font-family: "Weird Clarendon Thingy", Orelega, Sagona, Times New Roman, serif;
+  font-weight: bold;
+  transform: rotate(-2deg);
+  border-radius: 0.125rem;
+}
+
+h2 {
+  font-size: 0.75rem;
+  margin: 1rem;
+  text-align: center;
+  color: navy;
+  border-bottom: 0.125rem solid navy;
+}
+
+#asterisk {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 150%;
+  line-height: 100%;
+  vertical-align: top;
+  transform: rotate(15deg);
+  margin-right: 0.1em;
+  color: crimson;
+}
+
+#wordBox, #synonymBox {
+  padding: 0 1rem;
+}
+
+#word {
+  font-size: 2.5rem;
+  color: navy;
+  line-height: 80%;
+}
+
+#pronunciation::before,
+#pronunciation::after,
+#synPronunciation::before,
+#synPronunciation::after {
+  content: "/";
+}
+#pronunciation, #synPronunciation {
+  font-size: 1rem;
+  font-family: "Noto Serif", serif;
+  color: navy;
+}
+
+#definitionBox {
+  margin: 1rem;
+  border-left: 0.25rem solid navy;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.25rem;
+  color: navy;
+}
+
+#synonymBox {
+  color: navy;
+  font-size: 1rem;
+}
+#synonym::before {
+  content: "Synonym of: ";
+  font-variant: small-caps;
+}
+#synPronunciation {
+  font-size: 75%;
+}
+
+#example {
+  position: relative;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background: navy;
+  color: beige;
+}
+#example::before,
+#example::after {
+  content: "“";
+  position: absolute;
+  display: block;
+  font-size: 2rem;
+}
+#example::before {
+  left: 0.25rem;
+  top: -0.25rem;
+}
+#example::after {
+  transform: rotate(180deg);
+  right: 0.25rem;
+  bottom: -0.25rem;
+}
+  </style>
+</head>
+<body>
+  <h1>Haley’s Januarium Entries</h1>
+  <div id="page">
+   <h2> <button type="button" class="nav" id="previous" onclick="button(false)">←</button> janu<span id="asterisk">*</span>arium day <input id="date" type="number" value="1" min="1" max="31" onchange="loadDay(this.value)"/> <button type="button" class="nav " id="next" onclick="button(true)">→</button></h2>
+    
+    <div id="wordBox">
+      <span id="word">maydyllicity</span>
+      <span id="pronunciation">ˌmeɪdɪˈlɪsɪti</span>
+    </div>
+    <div id="definitionBox">
+      <i id="pos">n.</i>
+      <span id="definition">a feeling of dread for June</span>
+    </div>
+    <div id="synonymBox">
+      <span id="synonym">drejuny</span>
+      <span id="synPronunciation">drɛˈdʒuːni</span>
+    </div>
+    <div id="example">
+      The new year reignited my maydyllicity.
+    </div>
+  </div>
+  <script>
+    const data = [
+      {
+        word: "drejuny",
+        ipa: "drɛˈdʒuːni",
+        synonym: "maydyllicity",
+        ipa_synonym: "ˌmeɪdɪˈlɪsɪti",
+        pos: "n.",
+        definition: "dread for June",
+        example: "The new year reignited my maydyllicity."
+      }
+    , {
+        word: "grynock",
+        ipa: "ˈɡrɪnək",
+        synonym: "blecker",
+        ipa_synonym: "ˈblɛkər",
+        pos: "n.",
+        definition: "the size of a gryphon’s penis",
+        example: "Stultus’ heart grew two bleckers that day."
+      }
+    , {
+        word: "ghufe",
+        ipa: "ˈɡuːf",
+        synonym: "sputch",
+        ipa_synonym: "ˈspʌtʃ",
+        pos: "n.",
+        definition: "a dent with a small protrusion in the middle, left on a die-cast piece of plastic.",
+        example: "Ow, I scratched my thumb on a sputch."
+      }
+    , {
+        word: "gybie",
+        ipa: "ˈdʒɑɪbi",
+        synonym: "glift",
+        ipa_synonym: "ˈɡlɪft",
+        pos: "v.",
+        definition: "to insist that “GIF” is pronounced with a hard G",
+        example: "Stop glifting. Being wrong is nothing to be proud of."
+      }
+    , {
+        word: "crumkiy",
+        ipa: "ˈkrʌmki",
+        synonym: "brumpy",
+        ipa_synonym: "ˈbrʌmpi",
+        pos: "adj.",
+        definition: "hard and brittle",
+        example: "An iPhone screen is brumpier than a Galaxy screen."
+      }
+    , {
+        word: "freuk",
+        ipa: "ˈfrɔɪk",
+        synonym: "Myers-Briggs Syndrome",
+        ipa_synonym: "ˈmɐɪərz ˈbrɪɡz ˈsɪndroʊm",
+        pos: "n.",
+        definition: "an addiction to feeling psychoanalyzed",
+        example: "Stay away from horoscopes and be wary of Myers-Briggs Syndrome."
+      }
+    , {
+        word: "fokynt",
+        ipa: "ˈfoʊkɪnt",
+        synonym: "croculant",
+        ipa_synonym: "ˈkrɐkjulənt",
+        pos: "adj.",
+        definition: "causing eye strain by focusing and pointing eyes differently",
+        example: "The Nintendo 3DS made me feel croculant."
+      }
+    , {
+        word: "nyoja",
+        ipa: "ˈnjoʊdʒə",
+        synonym: "East Nagoya carrot",
+        ipa_synonym: "ˈiːst nʌˈgoʊjʌ ̈kærət",
+        pos: "n.",
+        definition: "an obscure Japanese breed of carrot, known for its bluish skin",
+        example: "The recipe calls for half an East Nagoya carrot, finely sliced."
+      }
+    , {
+        word: "folpin",
+        ipa: "ˈfɔlpɪn",
+        synonym: "scorquent",
+        ipa_synonym: "ˈskɔrkwɛnt",
+        pos: "prep.",
+        definition: "starting from the pinned message",
+        example: "The discussion on proper moose etiquette is scorquent #random."
+      }
+    , {
+        word: "gymoung",
+        ipa: "dʒɪˈmuːŋ",
+        synonym: "grinker",
+        ipa_synonym: "ˈɡrɪŋkər",
+        pos: "n.",
+        definition: "a gym session focusing on one’s weakest parts",
+        example: "The most important factor of training is whether you go for grinkers or not."
+      }
+    , {
+        word: "hyjk",
+        ipa: "ˈhiːk",
+        synonym: "dazsism",
+        ipa_synonym: "ˈdæsɪzəm/, /ˈdɑzɪzəm",
+        pos: "n.",
+        definition: "spelling words in a mock-foreign way",
+        example: "The original Dazsism is, of course, “Häagen-Dazs”, which does not mean anything in any language."
+      }
+    , {
+        word: "hyten",
+        ipa: "ˈhɑɪtən",
+        synonym: "bukind",
+        ipa_synonym: "ˈbjuːkind",
+        pos: "adj.",
+        definition: "abnormally high energy, as of a person",
+        example: "He is so bukind that I get overwhelmed after talking to him for 5 minutes."
+      }
+    , {
+        word: "nyoja",
+        ipa: "ˈɲoʊdʒʌ",
+        synonym: "scrobe",
+        ipa_synonym: "ˈskroʊb",
+        pos: "v.",
+        definition: "to complain about city life",
+        example: "After the first year living in New York City, you learn not to scrobe so much."
+      }
+    , {
+        word: "bojuk",
+        ipa: "ˈboʊdʒʌk",
+        synonym: "disequism",
+        ipa_synonym: "dɪsˈɛkwɪzəm",
+        pos: "n.",
+        definition: "disgust towards life expressed through animation",
+        example: "I want to get rid of this disequism I felt after watching Magical Girl Site."
+      }
+    , {
+        word: "gyjuon",
+        ipa: "ɡɑɪˈdʒuːɔn",
+        synonym: "alliberish",
+        ipa_synonym: "ɑlˈlɪbərɪʃ",
+        pos: "n., offensive",
+        definition: "a foreign writing system",
+        example: "Quit sending messages in alliberish and speak American!"
+      }
+    ]
+    function loadDay(day){
+      var day_data;
+      if (day < 1 || day > data.length) {
+        day_data = {
+          word: "Not yet!",
+          ipa: "nɔt ˈjɛt",
+          synonym: "I haven’t done this day yet!",
+          ipa_synonym: "ˈsɔri",
+          pos: "phr.",
+          definition: "Check this out later.",
+          example: "Thanks for visiting."
+        };
+      } else {
+        day_data = data[day - 1];
+      }
+      document.getElementById("word").innerText = day_data.synonym;
+      document.getElementById("pronunciation").innerText = day_data.ipa_synonym;
+      document.getElementById("synonym").innerText = day_data.word;
+      document.getElementById("synPronunciation").innerText = day_data.ipa;
+      document.getElementById("pos").innerText = day_data.pos;
+      document.getElementById("definition").innerText = day_data.definition;
+      document.getElementById("example").innerText = day_data.example;
+    }
+    function button(next) {
+      if ((!next && document.getElementById("date").value == 1) ||
+      (next && document.getElementById("date").value == 31)) {
+        return;
+      }
+      if (next) {
+        document.getElementById("date").value++;
+      } else {
+        document.getElementById("date").value--;
+      }
+      loadDay(document.getElementById("date").value);
+    }
+    document.getElementById("date").value = 1;
+  </script>
+</body>
