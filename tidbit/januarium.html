@@ -521,6 +521,7 @@ h2 {
           // find the day
           if (queries[i].startsWith("d=")){
             document.getElementById("date").value = parseInt(queries[i].slice(2), 10);
+            loadDay(document.getElementById("date").value);
             return;
           }
         }
