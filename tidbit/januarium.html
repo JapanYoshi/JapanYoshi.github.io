@@ -516,17 +516,20 @@ h2 {
       loadDay(document.getElementById("date").value);
     }
     function initDay() {
+      const today = new Date();
       if (window.location.search) {
         var queries = window.location.search.slice(1).split('&');
         for (var i = 0; i < queries.length; i++) {
           // find the day
           if (queries[i].startsWith("d=")){
-            document.getElementById("date").value = parseInt(queries[i].slice(2), 10);
+            document.getElementById("date").value = parseInt(queries[i].slice(2), 10)
+              || today.getMonth() === 0 ? today.getDate() : 1;
             loadDay(document.getElementById("date").value);
             return;
           }
         }
       }
+      var currentTime = new Date();
       document.getElementById("date").value = 1;
       loadDay(document.getElementById("date").value);
     }
