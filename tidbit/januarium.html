@@ -485,7 +485,10 @@ h2 {
       document.getElementById("pos").innerText = day_data.pos;
       document.getElementById("definition").innerText = day_data.definition;
       document.getElementById("example").innerText = day_data.example;
-      window.location.search = "?d=" + day;
+      if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?d=' + day;
+        window.history.pushState({path:newurl},'',newurl);
+      }
     }
     function button(next) {
       if ((!next && document.getElementById("date").value == 1) ||
