@@ -498,6 +498,19 @@ h2 {
       }
       loadDay(document.getElementById("date").value);
     }
-    document.getElementById("date").value = 1;
+    function initDay() {
+      if (window.location.search) {
+        var queries = window.location.search.slice(1).split('&');
+        for (var i = 0; i < queries.length; i++) {
+          // find the day
+          if (queries[i].startsWith("d=")){
+            document.getElementById("date").value = parseInt(queries[i].slice(2), 10);
+            return;
+          }
+        }
+      }
+      document.getElementById("date").value = 1;
+    }
+    initDay();
   </script>
 </body>
