@@ -522,9 +522,12 @@ h2 {
         for (var i = 0; i < queries.length; i++) {
           // find the day
           if (queries[i].startsWith("d=")){
-            document.getElementById("date").value = parseInt(queries[i].slice(2), 10)
-              || today.getMonth() === 0 ? today.getDate() : 1;
-            loadDay(document.getElementById("date").value);
+            var day = parseInt(queries[i].slice(2), 10)
+            if (isNaN(day)) {
+              day = today.getMonth() === 0 ? today.getDate() : 1;
+            }
+            document.getElementById("date").value = day
+            loadDay(day);
             return;
           }
         }
