@@ -110,12 +110,12 @@ var obj = {
           if (typeof en_uk[i] == "string") {
             en_uk[i] = unbritify(en_uk[i]);
           } else {
-            for (var j = 0; j < en_us[i].length; j++) {
+            for (var j = 0; j < en_uk[i].length; j++) {
               en_uk[i][j] = unbritify(en_uk[i][j]);
             }
           }
         }
-        return en_us;
+        return en_uk;
       }
     }
   }
@@ -198,4 +198,7 @@ function buildList() {
   </header>
 <div id="body">
 </div>
+    <div id="fullwidth">
+      <a class="biglink" href="./">Back</a>
+    </div>
 </body>

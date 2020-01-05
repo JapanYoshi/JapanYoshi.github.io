@@ -28,3 +28,7 @@
     color: #68cfff;
     text-shadow: none;
 }
+
+#fullwidth {
+  margin: 8px 0 64px;
+}

@@ -106,3 +106,26 @@ a:hover {
     text-shadow: 0px 0px 2px #ff4080;
     transition: 100ms ease-out;
 }
+a.biglink {
+  display: inline-block;
+  background: #ff4080;
+  color: #ffffff;
+  text-shadow: none;
+  padding: 8px;
+  font-weight: bold;
+  font-size: 125%;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+}
+a.biglink:hover {
+  background: #ff79b2;
+  text-shadow: 0px 0px 2px #ffffff;
+  transition: 100ms ease-out;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+}
+
+#fullwidth {
+  width: 100%;
+  text-align: center;
+  margin: 8px 0 64px;
+}

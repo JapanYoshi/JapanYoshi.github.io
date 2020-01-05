@@ -118,11 +118,15 @@
                 Tip: <a href="https://ko-fi.com/itsspelledhaley">its&shy;spelled&shy;haley</a>
             </div>
         </div>
+        <div class="clearfix"></div>
+        <div id="fullwidth">
+          <a class="biglink" href="./">Back</a>
+        </div>
     </div>
     <script>
         const delay = 150; // transition delay
         var msnry = new Masonry("#body", {
-          "itemSelector": ".box",
+          "itemSelector": ".box, #fullwidth",
           "columnWidth": 136,
           "transitionDuration": '0.1s',
           "stagger": 15
