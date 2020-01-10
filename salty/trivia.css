@@ -486,16 +486,15 @@ section.candy>.section_content {
 
 @keyframes hide {
   0% {
-    display: block;
     opacity: 1;
   }
 
-  99.9% {
-    display: block;
+  99% {
+    height: 100vh;
   }
 
   to {
-    display: none;
+    height: 0;
     opacity: 0;
   }
 }
