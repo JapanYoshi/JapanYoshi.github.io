@@ -68,6 +68,10 @@
 }
 
 html {
+  --font-body: "_Poppins", "Poppins", "TeX Gyre Adventor", "Century Gothic", sans-serif;
+  --font-head: "_Orelega", "Orelega", "Sagona", "TeX Gyre Schola", "Century Schoolbook";
+  --gr-green: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
+  --gr-red: linear-gradient(to bottom, #bc56a2 0%, #80345c 100%);
   font-size: calc(100vw / 64);
   /* screen will be 64rem x 36rem*/
 }
@@ -92,7 +96,7 @@ body {
 
 body,
 p {
-  font-family: "_Poppins", "Poppins", "TeX Gyre Adventor", "Century Gothic", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
@@ -199,7 +203,7 @@ h3,
 .title {
   margin: 0;
   padding: 0;
-  font-family: "_Orelega", "Orelega", "Sagona", "TeX Gyre Schola", "Century Schoolbook";
+  font-family: --font-head;
   font-weight: bold;
 }
 
@@ -221,8 +225,7 @@ p {
 #episode_carousel > div {
   /* green bg gradient */
   background-color: #348041;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#5aa945), to(#348041));
-  background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
+  background-image: var(--gr-green);
 }
 
 .button {
@@ -242,15 +245,10 @@ p {
 /* red bg gradient */
 .button.sel,
 .signup_full .button,
-#episode_carousel > div.sel {
-  background-color: #80345c;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#bc56a2), to(#80345c));
-  background-image: linear-gradient(to bottom, #bc56a2 0%, #80345c 100%);
-}
-
+#episode_carousel > div.sel,
 .button:active {
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff90d6), to(#fb4777));
-  background: linear-gradient(to bottom, #ff90d6 0%, #fb4777 100%);
+  background-color: #80345c;
+  background-image: var(--gr-red);
 }
 
 .key {
@@ -334,16 +332,14 @@ section.candy>.section_content {
   line-height: 8rem;
   font-weight: bold;
   font-size: 8rem;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #82f420), color-stop(75%, #08ac33));
-  background: linear-gradient(to bottom, #82f420 25%, #08ac33 75%);
+  background: var(--gr-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 #title_dropcap {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #82f420), color-stop(75%, #08ac33));
-  background: linear-gradient(to bottom, #82f420 25%, #08ac33 75%);
+  background: var(--gr-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
