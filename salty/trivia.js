@@ -1298,8 +1298,8 @@ function advanceSplashScreen() {
     activateModal(strings.modal_first.concat("[→]" + strings.sys_start));
     initApp();
     setTimeout(() => {
-      document.body.removeChild(document.getElementById("splash_screen"));
-      document.body.removeChild(document.getElementById("splash_screen_2"));
+      document.getElementById("splash_screen").remove();
+      document.getElementById("splash_screen_2").remove();
     }, 4000);
   } else {
     document.getElementById("splash_screen").classList.add("gone");
