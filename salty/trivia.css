@@ -363,7 +363,7 @@ section.candy>.section_content {
   bottom: 5%;
 }
 
-#modal {
+#modal, #typing_modal {
   opacity: 0;
   position: fixed;
   z-index: 25;
@@ -376,7 +376,7 @@ section.candy>.section_content {
   overflow: auto;
 }
 
-#modal.active {
+#modal.active, #typing_modal.active {
   /* these properties... */
   display: block;
   opacity: 1;

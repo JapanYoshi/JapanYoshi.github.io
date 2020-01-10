@@ -43,7 +43,7 @@ class TypingSingleton {
 
     var modal = document.getElementById("typing_modal");
     var box = modal.querySelector("div");
-    modal.classList.add("shown");
+    modal.classList.add("active");
     modal.querySelector("#typing_title").innerText = title;
     switch (type) {
     case 0:
