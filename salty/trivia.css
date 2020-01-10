@@ -203,6 +203,15 @@ h3,
   font-weight: bold;
 }
 
+input {
+  pointer-events: inherit;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
 p {
   margin: 0 0 0.5rem;
   padding: 0;
@@ -216,7 +225,7 @@ p {
   background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
 }
 
-.button, input {
+.button {
   display: block;
   text-align: left;
   padding: 0.2rem;
