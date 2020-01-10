@@ -373,6 +373,8 @@ section.candy>.section_content {
   left: 0;
   -webkit-animation: hide 700ms ease-out;
   animation: hide 700ms ease-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
   overflow: auto;
 }
 
