@@ -1220,8 +1220,8 @@ function initApp() {
     document.getElementById("title_subtitle").innerText = strings.game_title[3];
     document.getElementById("title_box").querySelector("h1").innerText = strings.game_title[3];
     
-    document.getElementById("signup_label_1").innerText = formatIcons(strings.signup_press);
-    document.getElementById("signup_label_2").innerText = formatIcons(strings.signout_press);
+    document.getElementById("signup_label_1").innerHTML = formatIcons(strings.signup_press);
+    document.getElementById("signup_label_2").innerHTML = formatIcons(strings.signout_press);
     document.getElementById("s_signup").querySelector(".section_title").innerText = strings.title_signup;
 
     document.getElementById("modal").querySelector(".scroll_tip").innerHTML = formatIcons(strings.sys_scroll);
@@ -1297,6 +1297,10 @@ function advanceSplashScreen() {
     changeKeyHandler(undefined, false);
     activateModal(strings.modal_first.concat("[→]" + strings.sys_start));
     initApp();
+    setTimeout(() => {
+      document.body.removeChild(document.getElementById("splash_screen"));
+      document.body.removeChild(document.getElementById("splash_screen_2"));
+    }, 4000);
   } else {
     document.getElementById("splash_screen").classList.add("gone");
     changeKeyHandler(undefined, false);
