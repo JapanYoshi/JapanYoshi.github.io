@@ -470,16 +470,12 @@ section.candy>.section_content {
 
 @keyframes show {
   0% {
-    display: none;
+    height: 100vh;
     opacity: 0;
   }
 
-  0.1% {
-    display: block;
-  }
-
   to {
-    display: block;
+    height: 100vh;
     opacity: 1;
   }
 }
@@ -491,11 +487,12 @@ section.candy>.section_content {
 
   99% {
     height: 100vh;
+    opacity: 0;
   }
 
   to {
-    height: 0;
-    opacity: 0;
+    height: 0vh;
+    opacity: 1;
   }
 }
 
