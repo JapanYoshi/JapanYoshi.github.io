@@ -216,7 +216,7 @@ p {
   background-image: linear-gradient(to bottom, #5aa945 0%, #348041 100%);
 }
 
-.button {
+.button, input {
   display: block;
   text-align: left;
   padding: 0.2rem;
