@@ -227,7 +227,7 @@ function generateURL(){
     url = url.substring(0, url.indexOf("?"));
   }
   url += "?t=" + totalTime +"&m="+ mMin + "&x=" + mMax + "&c=" + (+countdown);
-  document.getElementById("text_out").innerText = url;
+  return url;
 }
 
 function updateAllForm(){
@@ -243,6 +243,10 @@ function updateAllForm(){
 
 function startTimer(){
   mMin = +mMin; // apparently there's some hiccup changing mMin to string type.
+  if (history.pushState) {
+    var newURL = generateURL();
+    window.history.pushState({path:newURL},'',newURL);
+  }
   document.getElementById("s").style.display = "none";
   time = totalTime;
   document.getElementById("t").style.display = "block";
@@ -294,7 +298,9 @@ function calcNextInterval(){
 document.addEventListener("DOMContentLoaded", function(){
   updateAllForm();
   initFromQueryStr();
-  document.getElementById("generate").addEventListener("click", generateURL);
+  document.getElementById("generate").addEventListener("click", ()=>{
+    document.getElementById("text_out").innerText = generateURL();
+  });
   document.getElementById("go").addEventListener("click", startTimer);
   document.getElementById(formID).addEventListener("input", function(){
     totalTime = Math.round(document.getElementById("time").valueAsNumber / 60000);
