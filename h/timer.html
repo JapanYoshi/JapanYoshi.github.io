@@ -262,6 +262,7 @@ function calcNextInterval(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
+  updateAllForm();
   initFromQueryStr();
   document.getElementById("generate").addEventListener("click", generateURL);
   document.getElementById("go").addEventListener("click", startTimer);
