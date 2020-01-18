@@ -133,6 +133,13 @@ var clack = new Howl({
   ]
 });
 
+var clock = new Howl({
+  src: [
+    'https://2gd4.me/salty/audio/sfx/like_4_no.ogg'
+  ],
+  volume: 0.5
+});
+
 var ding = new Howl({
   src: [
     'https://2gd4.me/salty/audio/sfx/game_start.ogg'
@@ -226,6 +233,7 @@ function updateTimeText(init){
     var countSec = () => {
       document.getElementById("timeDisplay").innerText = sec + "sec";
       if (sec) {
+        sec--;
         clack.play();
         setTimeout(countSec, 1000);
       } else {
