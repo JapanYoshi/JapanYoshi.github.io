@@ -1,0 +1,270 @@
+<html>
+  <head>
+    <title>Open this.</title>
+    <meta name="charset" value="UTF-8">
+    <style>
+@import url('https://fonts.googleapis.com/css?family=Lekton:400,700|Ubuntu:400&subset=latin-ext');
+
+body {
+  /* overrides user agent */
+  margin: 0;
+  background-color: #000;
+  color: rgba(255,255,255,0.9);
+  font-family: "Lekton", monospace;
+  font-size: 4vmin;
+  line-height: 120%;
+}
+
+#main-view {
+  width: 100vmin;
+  height: 100vmin;
+  /* center view */
+  margin: 50vh auto 0;
+  transform: translate(0, -50%);
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 6vmin;
+  line-height: 6vmin;
+  margin-left: 1vmin;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+}
+
+p, form {
+  margin: 1vmin 1vmin;
+}
+
+.wrap + .wrap {
+  margin-top: 1vmin;
+}
+
+input, textarea {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 700;
+  color: inherit;
+  background: inherit;
+  border: none;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input + .box_fake:before {
+  font-weight: 700;
+  content: "No";
+}
+
+input:checked + .box_fake:before {
+  content: "Yes";
+}
+
+button {
+  font-family: Ubuntu;
+  font-size: inherit;
+  background: none;
+  color: inherit;
+  border: 0.5vmin solid rgba(255,255,255,0.6);
+}
+
+#t {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: relative;
+  font-size: 500%;
+  transition: background-color 3000ms ease-out;
+}
+
+#t.tick {
+  background: gray;
+  transition: background-color 0ms;
+}
+
+#timeDisplay {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+    </style>
+  </head>
+  <body>
+    <div id="main-view">
+      <div id="s">
+        <h1>Time Dilation Timer</h1>
+        <p>This timer measures up to 5 hours of time, but the length of every &ldquo;minute&rdquo; is randomized.</p>
+        <form action="" id="config" onsubmit="return false;">
+          <div class="wrap">Time (h:mm): <input id="time" type="time" name="time" step="60" min="00:01:00" max="05:00:00" value="00:05" required/></div>
+          <div class="wrap">A &ldquo;minute&rdquo; lasts
+            <input type="number" id="min" name="min" step="1" min="10" max="300" value="30" required/>
+            to
+            <input type="number" id="max" name="max" step="1" min="10" max="300" value="120" required/> 
+            seconds</div>
+          <div class="wrap">
+            <label>Count down last minute: <input type="checkbox" id="countdown" name="countdown"/><span class="box_fake"></span></label>
+          </div>
+          <div class="wrap">
+            <button id="generate" name="generate">Generate</button>
+          </div>
+          <div class="wrap">
+              Generated URL:<br/>
+              <textarea id="text_out" name="text_out" rows="4" style="resize:none;width:100%;"></textarea><br/>
+            <button id="go" name="go">Go</button>
+            </label>
+          </div>
+        </form>
+      </div>
+      <div id="t">
+        <span id="timeDisplay"></span>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
+    <script>
+var clack = new Howl({
+  src: [
+    'https://2gd4.me/salty/audio/sfx/menu_move.ogg'
+  ]
+});
+
+var ding = new Howl({
+  src: [
+    'https://2gd4.me/salty/audio/sfx/game_start.ogg'
+  ]
+});
+
+var silentHum = new Howl({
+  src: [
+    "https://2gd4.me/salty/audio/music/reading_question_base.ogg"
+  ],
+  volume: 0.004,
+  loop: true,
+  autoplay: true,
+  rate: 0.9
+});
+
+var logLv = 0;
+var formID = "config";
+var totalTime = 5;
+var mMin = 30;
+var mMax = 120;
+var countdown = false;
+
+var time = 0;
+var sec = 0;
+
+function initFromQueryStr(){
+  const urlParams = new URLSearchParams(window.location.search);
+  var complete = true;
+  if (urlParams.has("t")) {
+    totalTime = +(urlParams.get("t"));
+    if (logLv >= 2) {alert(`totalTime set to ${totalTime}`);}
+  } else {
+    complete = false;
+  }
+  if (urlParams.has("m")) {
+    mMin = +(urlParams.get("m"));
+    if (logLv >= 2) {alert(`mMin set to ${mMin}`);}
+  } else {
+    complete = false;
+  }
+  if (urlParams.has("x")) {
+    mMax = +(urlParams.get("x"));
+    if (logLv >= 2) {alert(`mMax set to ${mMax}`);}
+  } else {
+    complete = false;
+  }
+  if (urlParams.has("c")) {
+    countdown = 0 && +(urlParams.get("c"));
+    if (logLv >= 2) {alert(`countdown set to ${countdown}`);}
+  } else {
+    complete = false;
+  }
+  if (complete) {
+    startTimer();
+  }
+}
+
+function generateURL(){
+  var url = window.location.href;
+  if (url.indexOf("?") !== -1){
+    url = url.substring(0, url.indexOf("?"));
+  }
+  url += "?t=" + totalTime +"&m="+ mMin + "&x=" + mMax + "&c=" + (+countdown);
+  document.getElementById("text_out").innerText = url;
+}
+
+function updateAllForm(){
+  document.getElementById("time").valueAsNumber = totalTime * 60000;
+  document.getElementById("min").value = mMin;
+  document.getElementById("max").value = mMax;
+  if (document.getElementById("countdown").checked != countdown) {
+    document.getElementById("countdown").click();
+  };
+    if (logLv >= 2) {alert("all values updated");}
+}
+
+
+function startTimer(){
+  document.getElementById("s").style.display = "none";
+  time = totalTime;
+  document.getElementById("t").style.display = "block";
+  updateTimeText(true);
+}
+
+function updateTimeText(init){
+  if (!init) {time--;}
+  console.log("updateTimeText(" + init + "), " + time + " left");
+  if (time == 1 && countdown) {
+    sec = 60;
+    var countSec = () => {
+      document.getElementById("timeDisplay").innerText = sec + "sec";
+      if (sec) {
+        clack.play();
+        setTimeout(countSec, 1000);
+      } else {
+        ding.play();
+      }
+    };
+    countSec();
+  } else if (time == 0) {
+    document.getElementById("timeDisplay").innerText = "0min";
+    document.getElementById("t").classList.add("tick");
+    ding.play();
+  } else {
+    document.getElementById("timeDisplay").innerText = time + "min";
+    var nextInterval = calcNextInterval();
+    setTimeout(updateTimeText, nextInterval);
+    console.log("Updating again in " + nextInterval);
+    document.getElementById("t").classList.add("tick");
+    document.getElementById("main-view").offsetHeight;
+    document.getElementById("t").classList.remove("tick");
+    clack.play();
+  }
+}
+
+function calcNextInterval(){
+  return (mMin + (Math.random() * (mMax - mMin))) * 1000;
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  initFromQueryStr();
+  document.getElementById("generate").addEventListener("click", generateURL);
+  document.getElementById("go").addEventListener("click", startTimer);
+  document.getElementById(formID).addEventListener("input", function(){
+    totalTime = Math.round(document.getElementById("time").valueAsNumber / 60000);
+    mMin = document.getElementById("min").value;
+    mMax = document.getElementById("max").value;
+    countdown = document.getElementById("countdown").checked;
+    if (logLv >= 2) {alert(totalTime + " " + mMin + " " + mMax + " " + countdown);}
+  }, false);
+  
+}, false);
+
+    </script>
+  </body>
+</html>
