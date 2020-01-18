@@ -258,8 +258,8 @@ document.addEventListener("DOMContentLoaded", function(){
   document.getElementById("go").addEventListener("click", startTimer);
   document.getElementById(formID).addEventListener("input", function(){
     totalTime = Math.round(document.getElementById("time").valueAsNumber / 60000);
-    mMin = document.getElementById("min").value;
-    mMax = document.getElementById("max").value;
+    mMin = + document.getElementById("min").value;
+    mMax = + document.getElementById("max").value;
     countdown = document.getElementById("countdown").checked;
     if (logLv >= 2) {alert(totalTime + " " + mMin + " " + mMax + " " + countdown);}
   }, false);
