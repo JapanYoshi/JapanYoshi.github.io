@@ -93,6 +93,29 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+#secondHand {
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 48vmin;
+  top: 0;
+  border-style: solid;
+  border-width: 50vmin 4vmin;
+  border-color: transparent;
+  border-top-color: lightgray;
+  animation: 1s linear 0s paused secondHandMove;
+}
+
+@keyframes secondHandMove {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
     </style>
   </head>
   <body>
@@ -123,6 +146,7 @@ button {
       </div>
       <div id="t">
         <span id="timeDisplay"></span>
+        <div id="secondHand"></div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
@@ -254,6 +278,12 @@ function updateTimeText(init){
     document.getElementById("main-view").offsetHeight;
     document.getElementById("t").classList.remove("tick");
     clack.play();
+
+    var sh = document.getElementById("secondHand");
+    sh.style.animationDuration = nextInterval + "ms";
+    sh.style.animationPlayState = "running";
+    var newsh = sh.cloneNode(true);
+    sh.parentNode.replaceChild(newsh, sh);
   }
 }
 
