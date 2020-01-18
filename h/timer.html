@@ -211,6 +211,7 @@ function updateAllForm(){
 
 
 function startTimer(){
+  mMin = +mMin; // apparently there's some hiccup changing mMin to string type.
   document.getElementById("s").style.display = "none";
   time = totalTime;
   document.getElementById("t").style.display = "block";
