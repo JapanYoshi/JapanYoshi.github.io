@@ -98,6 +98,7 @@ button {
 
 #secondHandOuter {
   animation: secondHandAppear ease-in;
+  animation-fill-mode: both;
 }
 
 #secondHand {
@@ -303,7 +304,8 @@ function updateTimeText(init){
     var sh = document.getElementById("secondHand");
     sh.style.animationDuration = nextInterval + "ms";
     var shOuter = document.getElementById("secondHandOuter");
-    shOuter.style.animationDelay = (2 + Math.random() * 5) + "s";
+    shOuter.style.animationDelay = (nextInterval / 24) + "ms";
+    shOuter.style.animationDuration = (nextInterval / 12) + "ms";
     var newshOuter = shOuter.cloneNode(true);
     shOuter.parentNode.replaceChild(newshOuter, shOuter);
   }
