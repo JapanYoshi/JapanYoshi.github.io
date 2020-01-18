@@ -75,6 +75,8 @@ button {
 #t {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
   background: black;
   position: relative;
   font-size: 500%;
@@ -94,18 +96,22 @@ button {
   transform: translate(-50%, -50%);
 }
 
+#secondHandOuter {
+  animation: secondHandAppear 5s linear 2s playing;
+}
+
 #secondHand {
   display: block;
   position: absolute;
   width: 0;
   height: 0;
   left: 48vmin;
-  top: 0;
+  top: 0vmin;
   border-style: solid;
   border-width: 50vmin 4vmin;
   border-color: transparent;
   border-top-color: gray;
-  animation: 1s linear 0s paused secondHandMove;
+  animation: secondHandMove 1s linear 0s running;
 }
 
 @keyframes secondHandMove {
@@ -114,6 +120,15 @@ button {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes secondHandAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
     </style>
@@ -145,7 +160,9 @@ button {
         </form>
       </div>
       <div id="t">
-        <div id="secondHand"></div>
+        <div id="secondHandOuter">
+          <div id="secondHand"></div>
+        </div>
         <span id="timeDisplay"></span>
       </div>
     </div>
@@ -285,9 +302,10 @@ function updateTimeText(init){
 
     var sh = document.getElementById("secondHand");
     sh.style.animationDuration = nextInterval + "ms";
-    sh.style.animationPlayState = "running";
-    var newsh = sh.cloneNode(true);
-    sh.parentNode.replaceChild(newsh, sh);
+    var shOuter = document.getElementById("secondHandOuter");
+    shOuter.style.animationDelay = 2 + Math.random() * 5 + "s";
+    var newshOuter = shOuter.cloneNode(true);
+    shOuter.parentNode.replaceChild(newshOuter, shOuter);
   }
 }
 
