@@ -1,0 +1,398 @@
+<head>
+    <meta charset="UTF-8">
+    <title>3-Card Tarot Spread Generator</title>
+    <meta property="og:title" value="3-Card Tarot Spread Generator">
+    <meta name="twitter:title" value="3-Card Tarot Spread Generator">
+    <!-- boilerplate -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <!-- page metadata -->
+    <meta name="description"
+        content="Draws 3 tarot cards from the Major Arcana deck with replacement. Also simulates orientation.">
+    <meta property="og:description"
+        content="Draws 3 tarot cards from the Major Arcana deck with replacement. Also simulates orientation.">
+    <meta name="twitter:description"
+        content="Draws 3 tarot cards from the Major Arcana deck with replacement. Also simulates orientation.">
+    <meta name="keywords" content="HTML,CSS,JavaScript,code demo,rng,tarot,tarot cards,fortune telling">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/tarot.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/tarot.png">
+    <style>
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
+
+html {
+  font-size: 100%;
+}
+
+body {
+  background: black;
+  color: white;
+  font-family: EB Garamond, serif;
+}
+
+.limW {
+  display: block;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+#intro, #desc {
+  font-size: 1rem;
+  text-align: left;
+  margin: 0.25rem auto;
+  padding: 0.5rem;
+}
+
+h1, h2, h3, h4, button {
+  font-family: Playfair Display;
+  font-weight: 700;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 2rem;
+}
+
+h2 {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+#result {
+  text-align: center;
+}
+
+p {
+  text-indent: 2em;
+}
+
+button {
+  display: block;
+  width: calc(100% - 1.5rem);
+  font-size: 1rem;
+  background: inherit;
+  color: inherit;
+  border: none;
+  margin: 1rem 0.5rem 2rem;
+  padding: 0.25rem;
+  outline: 0.125rem solid rgba(255, 0, 192, 0.8);
+  background: rgba(255, 0, 192, 0.2);
+}
+
+button:active {
+  outline: 2px solid rgba(255, 0, 192, 1);
+  background: rgba(255, 0, 192, 0.4);
+}
+label {
+  display: block;
+  text-align: center;
+  width: calc(100% - 1.5rem);
+  font-size: 1rem;
+  background: inherit;
+  color: inherit;
+  border: none;
+  margin: 2rem 0.5rem 2rem;
+  padding: 0.25rem;
+  outline: 0.125rem solid rgba(0, 192, 255, 0.8);
+  background: rgba(0, 192, 255, 0.2);
+}
+
+label:active {
+  outline: 2px solid rgba(0, 192, 255, 1);
+  background: rgba(0, 192, 255, 0.4);
+}
+
+#outcome {
+  display: block;
+  overflow: hidden;
+  height: auto;
+}
+
+#cards {
+  display: block;
+  font-size: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.card {
+  font-size: 1rem;
+  display: inline-block;
+  width: 280px;
+  background: black;
+  border: 1px solid rgba(255,255,255,0.5);
+  margin: 2px;
+  padding-bottom: 1.5rem;
+}
+
+.limW .card {
+  width: 33%;
+  margin: 0;
+  border: 0;
+  padding-bottom: 3rem;
+}
+
+.cardWrap {
+  width: 100%;
+  padding-bottom: 175%;
+  position: relative;
+}
+
+.cardImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: contain;
+  background-color: slategray;
+}
+
+.cardImg.reverse {
+  transform: rotate(-180deg);
+}
+
+.cardName {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  position: absolute;
+  bottom: -3rem;
+}
+
+#intro {
+  background: rgba(255,255,255, 0.25);
+}
+.invis, input[type=radio], label {
+  display: none;
+}
+
+input[type=radio]:not(:checked) + label {
+  display: block;
+}
+
+#desc {
+  margin-bottom: 3rem;
+}
+    </style>
+</head>
+
+<body>
+    <h1>3-Card Tarot Spread Generator</h1>
+    <h2>Coded by Haley Halcyon</h2>
+    
+    <div id="intro" class="limW">
+      <h3>How to use this tool</h3>
+      <p>
+        This tool will generate 3 tarot cards. But before you press the button,
+        <i>think about what you want this tool to divine about.</i> It could be
+        love, work, studies, or generally your life, or even just today.
+      </p>
+      <p>
+        To the three cards, you can assign the meanings of “past/present/future”;
+        “what you want/what the other party wants/where you are headed”, “the
+        conscious/the subconcious/the world”, or other groups of three. There aren’t
+        many rules at all in tarot reading; the cards simply serve as inspiration.
+      </p>
+      <h4>Read the above explanation before you start.</h4>
+    </div>
+    <div class="limW">
+    <button type="button" onClick="genCards()">
+      Draw 3 tarot cards
+    </button>
+      <input id="showBig" type="radio" name="big" value="1" onchange="showBig(true)"/><label for="showBig">Show large cards</label>
+      <input id="showSmall" type="radio" name="big" value="0" onchange="showBig(false)" checked/><label for="showSmall">Fit cards in one row</label>
+      </div>
+    <div id="result" class="limW">
+      <h3 id="outcome"></h3>
+      <div id="cards">
+        <div class="card">
+          <div class="cardWrap">
+            <div class="cardImg"></div>
+            <div class="cardName">
+              Not set
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="cardWrap">
+            <div class="cardImg"></div>
+            <div class="cardName">
+              Not set
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="cardWrap">
+            <div class="cardImg"></div>
+            <div class="cardName">
+              Not set
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="desc" class="limW">
+      <h3>Technical explanation</h3>
+      <p>
+        Cards are drawn without replacement from the 22 cards of the Major Arcana,
+        which yields 22 &times; 21 &times; 20 = 9240 combinations. Each card can be
+        drawn in 2 orientations, which yields 2&sup3; = 8 combinations. Multiplied
+        together, that yields 73920 combinations.
+      </p>
+      <p>
+        This tool draws a random integer between 0 and 2<span class="invis">^</span
+        ><sup>17</sup>, between which Javascript can reliably generate
+        reasonably-uniform pseudorandom integers. If the result is greater than or
+        equal to 73920, the random draw is discarded and the random number is
+        generated again.
+      </p>
+      <p>
+        The first card is determined by dividing the result by 22, then the
+        orientation by dividing the result by 2. The second card uses 21, the number
+        of cards left in the deck by then. The third card uses 20, likewise. So
+        small changes change the first card, and large changes change the last card.
+      </p>
+      <p>
+        However, this method sometimes produces duplicates. To prevent that, any
+        draws that are equal to or larger than a previous draw must be incremented
+        by 1. The calculation of this is slightly abbreviated; if it sees that the
+        second card needs to be incremented, it checks if the last card needs to
+        also be incremented, in which case, it increments the last card by 2.
+      </p>
+      <p>
+        Tarot card images are from Wikimedia Commons.
+      </p>
+      <h3>Warning</h3>
+      <p>
+        <b
+          >As with all fortune-telling and superstitions, take this with a grain of
+          salt.</b>
+        Haley Halcyon <i>does not</i> recommend basing your life upon tarot readings
+        or other kinds of supernatural drivel.
+      </p>
+    </div>
+    <br />
+    <script>
+const cardPre = "https://upload.wikimedia.org/wikipedia/en/";
+const cardImg = [
+  "9/90/RWS_Tarot_00_Fool.jpg",
+  "d/de/RWS_Tarot_01_Magician.jpg",
+  "8/88/RWS_Tarot_02_High_Priestess.jpg",
+  "d/d2/RWS_Tarot_03_Empress.jpg",
+  "c/c3/RWS_Tarot_04_Emperor.jpg",
+  "8/8d/RWS_Tarot_05_Hierophant.jpg",
+  "d/db/RWS_Tarot_06_Lovers.jpg",
+  "9/9b/RWS_Tarot_07_Chariot.jpg",
+  "f/f5/RWS_Tarot_08_Strength.jpg",
+  "4/4d/RWS_Tarot_09_Hermit.jpg",
+  "3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg",
+  "e/e0/RWS_Tarot_11_Justice.jpg",
+  "2/2b/RWS_Tarot_12_Hanged_Man.jpg",
+  "d/d7/RWS_Tarot_13_Death.jpg",
+  "f/f8/RWS_Tarot_14_Temperance.jpg",
+  "5/55/RWS_Tarot_15_Devil.jpg",
+  "5/53/RWS_Tarot_16_Tower.jpg",
+  "d/db/RWS_Tarot_17_Star.jpg",
+  "7/7f/RWS_Tarot_18_Moon.jpg",
+  "1/17/RWS_Tarot_19_Sun.jpg",
+  "d/dd/RWS_Tarot_20_Judgement.jpg",
+  "f/ff/RWS_Tarot_21_World.jpg"
+];
+const cardStr = [
+  "Fool",
+  "Magician",
+  "High Priestess",
+  "Empress",
+  "Emperor",
+  "Hierophant",
+  "Lovers",
+  "Chariot",
+  "Strength",
+  "Hermit",
+  "Wheel of Fortune",
+  "Justice",
+  "Hanged Man",
+  "Death",
+  "Temperance",
+  "Devil",
+  "Tower",
+  "Star",
+  "Moon",
+  "Sun",
+  "Judgment",
+  "World"
+];
+const oriStr = [" (Upright)", " (Reverse)"];
+
+var genCards = () => {
+  // There are 73920 combinations of 3 of 22*2 (for orientation) tarot cards
+  // The smallest power of 2 larger than that is 131,072 or Math.pow(2,17). JS can do ints up to Math.pow(2,53), so we're safe.
+  document.getElementById("result").classList.remove("hidden");
+  var outcome = 0;
+  while (true) {
+    outcome = Math.floor(Math.pow(2,17) * Math.random());
+    console.log(outcome);
+    if (outcome < 73920) {
+      break;
+    }
+  }
+  
+  document.getElementById("outcome").innerText = "Result #" + outcome;
+
+  var cards = [0, 0, 0, 0, 0, 0];
+  for (var i = 0; i < 3; i++) {
+    cards[i] = outcome % (22 - i);
+    outcome = Math.floor(outcome / (22 - i));
+    cards[i+3] = outcome % 2;
+    outcome = Math.floor(outcome / 2);
+  }
+  console.log("Preliminary results:", cards);
+  // Adjust the results to simulate drawing with replacement.
+  // The last two cards must be adjusted according to the other previous draws.
+  if (cards[1] >= cards[0]) {
+    // The 2nd card should be incremented. Check if the 3rd one needs to be incremented too.
+    if (cards[2] >= cards[1]) {
+      cards[2] += 2;
+    }
+    cards[1] ++;
+  } else if (cards[2] >= cards[0]) {
+    cards[2] ++;
+  }
+  console.log("Results:", cards);
+  updateCardDetails(cards);
+}
+
+var updateCardDetails = cardData => {
+  var divs = document.querySelectorAll(".card");
+  for (var i = 0; i < 3; i++) {
+  var img = divs[i].querySelector(".cardImg");
+    img.style.backgroundImage = "url(" + cardPre + cardImg[cardData[i]] + ")";
+    if (cardData[i+3]) {
+      img.classList.add("reverse");
+    } else {
+      img.classList.remove("reverse");
+    }
+    divs[i].querySelector(".cardName").innerText = cardStr[cardData[i]] + oriStr[cardData[i+3]];
+  }
+}
+
+var showBig = big => {
+  if (big) {
+    document.getElementById("result").classList.remove("limW");
+  } else {
+    document.getElementById("result").classList.add("limW");
+    }
+}
+    </script>
+</body>
