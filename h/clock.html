@@ -1,0 +1,108 @@
+<head>
+<style>
+html, body {
+  background-color: rgba(0,0,0,0);
+  margin: 0;
+  overflow: hidden;
+}
+#clock {
+    margin-top: 7vmin;
+    font-size: 90vmin;
+    line-height: 100vmin;
+    display: block;
+    flex-direction: horizontal;
+    font-family: "mikado medium";
+    text-align: center;
+    color: #ff4080;
+    text-shadow: -.2vmin 0vmin 0.1vmin white,
+        -2vmin 1vmin 0.1vmin white,
+        -1vmin 2vmin 0.1vmin white,
+        0vmin 2.2vmin 0.1vmin white,
+        1vmin 2vmin 0.1vmin white,
+        2vmin 1vmin 0.1vmin white,
+        2.2vmin 0vmin 0.1vmin white,
+        2vmin -1vmin 0.1vmin white,
+        1vmin -2vmin 0.1vmin white,
+        0vmin -2.2vmin 0.1vmin white,
+        -1vmin -2vmin 0.1vmin white,
+        -2vmin -1vmin 0.1vmin white;
+    filter: drop-shadow(-1.7vmin 1.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(-0.7vmin 2.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(1.3vmin 2.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(2.3vmin 1.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(2.3vmin -0.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(1.3vmin -1.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(-0.7vmin -1.5vmin 0.3vmin #ffb0f0)
+        drop-shadow(-1.7vmin -0.5vmin 0.3vmin #ffb0f0);
+}
+.digit, .divider {
+    display: inline-block;
+    text-align: center;
+    margin-left: -10vmin;
+    margin-right: -10vmin;
+}
+.digit {
+    width: 50vmin;
+}
+.anim {
+    animation-name: changed;
+    animation-duration: 500ms;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+}
+.divider {
+    transform: translateY(-12vmin);
+    width: 30vmin;
+}
+
+@keyframes changed {
+    from {
+        transform: translateY(-5vmin) rotate(5deg);
+        color: #f8a;
+    }
+    to {
+        transform: translateY(0) rotate(0deg);
+        color: #ff4080;
+    }
+}
+</style>
+</head>
+<body>
+<div id="clock">
+    <div id="t_h1" class="digit">0</div>
+    <div id="t_h0" class="digit">0</div>
+    <div id="colon1" class="divider">:</div>
+    <div id="t_m1" class="digit">0</div>
+    <div id="t_m0" class="digit">0</div>
+    <div id="colon0" class="divider">:</div>
+    <div id="t_s1" class="digit">0</div>
+    <div id="t_s0" class="digit">0</div>
+</div>
+  
+<script>
+const h1 = document.getElementById("t_h1");
+const h0 = document.getElementById("t_h0");
+const m1 = document.getElementById("t_m1");
+const m0 = document.getElementById("t_m0");
+const s1 = document.getElementById("t_s1");
+const s0 = document.getElementById("t_s0");
+const elems = [h1, h0, m1, m0, s1, s0];
+
+function updateTime() {
+    var now = new Date();
+    vals = [now.getHours(), now.getMinutes(), now.getSeconds()];
+    digits = [String(vals[0]/10)[0], vals[0]%10, String(vals[1]/10)[0], vals[1]%10, String(vals[2]/10)[0],vals[2]%10]
+    for (i = 0; i < 6; i++) {
+        if (elems[i].innerText != digits[i]){
+            elems[i].innerText = digits[i];
+            elems[i].classList.remove("anim");
+            void elems[i].offsetWidth; // reflow to retrigger animation
+            elems[i].classList.add("anim");
+        }
+    }
+    setTimeout(updateTime, (1000 - now.getMilliseconds()));
+}
+
+updateTime();
+</script>
+</body>
