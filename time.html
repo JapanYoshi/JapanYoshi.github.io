@@ -287,12 +287,13 @@
 
     function getQueryString() {
       var urlParams = new URLSearchParams(window.location.search);
+      console.log(urlParams.get("t"));
 
       var h = urlParams.has("h") ? +urlParams.get("h") : now.getHours();
       var m = urlParams.has("m") ? +urlParams.get("m") : now.getMinutes();
       document.getElementById("time").valueAsNumber = 60000 * (60 * h + m);
       var t = urlParams.has("t") ? +urlParams.get("t") : local_offset / -15;
-      document.getElementById("tz").valueAsNumber = Math.abs(t) * 90000;
+      document.getElementById("tz").valueAsNumber = Math.abs(t) * 900000;
       document.getElementById("tz_sign").checked = t < 0;
     }
 
