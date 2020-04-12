@@ -1,0 +1,461 @@
+<head>
+  <title>Local Time Converter</title>
+  <meta property="og:title" value="Local Time Converter">
+  <meta name="twitter:title" value="Local Time Converter">
+  <!-- boilerplate -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+  <meta name="twitter:site" content="@ItsSpelledHALEY">
+  <meta name="twitter:creator" content="@ItsSpelledHALEY">
+  <!-- page metadata -->
+  <meta name="description"
+    content="Automatically converts international times to your timezone.">
+  <meta property="og:description"
+    content="Automatically converts international times to your timezone.">
+  <meta name="twitter:description"
+    content="Automatically converts international times to your timezone.">
+  <meta name="keywords" content="HTML,CSS,JavaScript,code demo,timezones,timezone,color design">
+  <meta name="author" content="Haley Wakamatsu">
+  <!-- sharable image -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="http://japanyoshi.github.io/time.png">
+  <meta name="twitter:image" content="http://japanyoshi.github.io/time.png">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+
+    html {
+      font-size: 1.20em;
+      line-height: 120%;
+      background: black;
+      color: white;
+      font-family: "Space Mono", monospace;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    input[type="time"],
+    input[type="number"],
+    select,
+    option,
+    button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 0.1em;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      text-shadow: inherit;
+    }
+
+    option {
+      background: black;
+    }
+
+    a,
+    a:visited {
+      color: #5fc3c4;
+    }
+    
+    h2, h3 {
+      border-bottom: 0.125em solid rgba(255,255,255,0.5);
+      margin: 1.5em 0 0;
+      padding-bottom: 0.125em;
+    }
+
+    /* layout */
+
+    #base {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .minor,
+    .major {
+      text-align: center;
+    }
+
+    .minor {
+      flex: 0 0 auto;
+      padding: 0.2em 0;
+    }
+
+    .major {
+      font-size: 150%;
+      line-height: 150%;
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-shadow: 0 0 0.2em #000, 0.1em 0.1em 0 #000, 0.1em 0.1em 0.2em #000;
+      box-shadow: 0 0.5em 1em #000 inset, 0 -0.5em 1em #000 inset;
+      transition: background-color 250ms ease-out;
+    }
+
+    .wrap {
+      display: inline-block;
+    }
+
+    /* specifics */
+
+    #tz_sign {
+      position: fixed;
+      top: -100px;
+    }
+
+    :focus,
+    #tz_sign:focus+label::before {
+      background: #0078d7;
+    }
+
+    #tz_sign+label::before {
+      content: "+";
+    }
+
+    #tz_sign:checked+label::before {
+      content: "-";
+    }
+
+    .tz::before {
+      content: "UTC";
+    }
+
+    .time,
+    #time {
+      font-size: 200%;
+    }
+
+    #helpIcon {
+      background: white;
+      color: black;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+    }
+
+    #help {
+      position: fixed;
+      top: -100vh;
+      left: 0;
+      bottom: 100vh;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      transition: top cubic-bezier(.08, 1.33, .38, 1) 1200ms, bottom cubic-bezier(.08, 1.33, .38, 1) 1200ms;
+    }
+
+    #help.shown {
+      top: 0;
+      bottom: 0;
+    }
+
+    #helpOutline {
+      margin: 0.5rem;
+      background: linear-gradient(to right,
+          #001b3d 0%,
+          #243b51 12.5%,
+          #076f9f 25%,
+          #5fc3c4 37.5%,
+          #eeeebc 50%,
+          #fbe158 62.5%,
+          #f06c7d 75%,
+          #53287e 87.5%,
+          #001b3d 100%);
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: 1rem;
+    }
+
+    #helpBox {
+      margin: 0.25rem;
+      padding: 1rem;
+      background: #000e1e;
+      max-height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow: auto;
+      border-radius: 0.75rem;
+    }
+
+    #helpClose {
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 2.25rem;
+      line-height: 1.5rem;
+      text-align: center;
+      background: white;
+      color: black;
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+    }
+
+    #credits {
+      background: #bb66a6;
+      background: linear-gradient(to right,
+          rgba(26, 81, 85, 0) 0%,
+          #1a5155 12.5%,
+          #076f9f 25%,
+          #635cba 37.5%,
+          #ab6fc7 50%,
+          #cc5faf 62.5%,
+          #bb667d 75%,
+          #6a4242 87.5%,
+          rgba(106, 66, 66, 0) 100%);
+      color: #000;
+      padding: 0.25em;
+      text-align: center;
+    }
+
+    #credits a {
+      color: #011c3d;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="base">
+    <div class="minor">
+      local time converter <div id="helpIcon" onclick="help(true)">?</div>
+    </div>
+    <div class="major" id="s1">
+      <div class="major_content">
+        <div class="wrap"><input id="time" class="time" type="time" value="00:00" min="00:00" max="23:59"
+            pattern="[0-9]{2}:[0-9]{2}" /></div>
+        <div class="wrap">UTC<input id="tz_sign" type="checkbox" /><label for="tz_sign"></label><input id="tz"
+            type="time" value="00:00" min="00:00" max="14:00" step="00:15" /></div>
+      </div>
+    </div>
+    <div class="minor">
+      in your local time is
+    </div>
+    <div class="major" id="s3">
+      <div class="major_content">
+        <div class="wrap"><span class="time" id="local_time">00:00</span></div>
+        <div class="wrap"><span id="local_tz" class="tz">+00:00</span></div><br />
+        <div class="wrap"><span id="day"></span></div>
+      </div>
+    </div>
+    <div class="minor">
+      <button type="button" onclick="reset()">reset to here and now</button>
+      <a id="share" target="_blank">share</a>
+    </div>
+  </div>
+  <div id="help" class="">
+    <div id="helpOutline">
+      <div id="helpBox">
+        <h2>local time converter</h2>
+        <p>This tool helps others convert times into your local timezone. It’s ideal for announcing international
+          events.</p>
+        <h3>members</h3>
+        <ol>
+          <li>set the time and timezone on the upper half</li>
+          <li>see local conversion</li>
+        </ol>
+        <h3>organizers</h3>
+        <ol>
+          <li>set the time and timezone on the upper half (you can reset the timezone using the “reset to here and now”
+            button)</li>
+          <li>copy and share the generated “share” link</li>
+        </ol>
+        <div id="credits">coded with ♥ by <a href="./index">haleyhalcyon</a></div>
+      </div>
+    </div>
+    <div id="helpClose" onclick="help(false)">×</div>
+  </div>
+  <script>
+    var now = new Date();
+    var local_offset = now.getTimezoneOffset();
+
+    function minutesToTime(minutes) {
+      return (
+        String(Math.floor(minutes / 60)).padStart(2, 0) +
+        ":" +
+        String(Math.floor(minutes % 60)).padStart(2, 0)
+      );
+    }
+
+    function getQueryString() {
+      var urlParams = new URLSearchParams(window.location.search);
+
+      var h = urlParams.has("h") ? +urlParams.get("h") : now.getHours();
+      var m = urlParams.has("m") ? +urlParams.get("m") : now.getMinutes();
+      document.getElementById("time").valueAsNumber = 60000 * (60 * h + m);
+      var t = urlParams.has("t") ? +urlParams.get("t") : local_offset / -15;
+      document.getElementById("tz").valueAsNumber = Math.abs(t) * 15 * 60000;
+      document.getElementById("tz_sign").checked = t < 0;
+    }
+
+    function reset() {
+      var h = now.getHours();
+      var m = now.getMinutes();
+      document.getElementById("time").valueAsNumber = 60000 * (60 * h + m);
+      var t = local_offset * -100000;
+      document.getElementById("tz").valueAsNumber = Math.abs(t) * 15;
+      document.getElementById("tz_sign").checked = t < 0;
+      setQueryString();
+      calc();
+    }
+
+    function setQueryString() {
+      var time = document.getElementById("time").valueAsNumber / 60000;
+      var h = Math.floor(time / 60);
+      var m = time % 60;
+      var t =
+        ((document.getElementById("tz_sign").checked ? -1 : 1) *
+          document.getElementById("tz").valueAsNumber) /
+        15;
+      var newurl =
+        window.location.protocol +
+        "//" +
+        window.location.host +
+        window.location.pathname +
+        "?h=" +
+        h +
+        "&m=" +
+        m +
+        "&t=" +
+        t;
+      if (history.pushState) {
+        window.history.pushState({ path: newurl }, "", newurl);
+      }
+      document.getElementById("share").href = newurl;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log(local_offset);
+      document.getElementById("local_tz").innerHTML =
+        (local_offset === 0 ? "±" : local_offset > 0 ? "-" : "+") +
+        ("" + Math.floor(Math.abs(local_offset) / 60)).padStart(2, "0") +
+        ":" +
+        ("" + (local_offset % 60)).padStart(2, "0");
+
+      document.getElementById("time").addEventListener("input", calc);
+      document.getElementById("tz_sign").addEventListener("input", calc);
+      document.getElementById("tz").addEventListener("input", tzThenCalc);
+
+      getQueryString();
+      calc();
+    });
+
+    function calc() {
+      var time = document.getElementById("time").valueAsNumber / 60000;
+      if (isNaN(time)) {
+        time = 0;
+        document.getElementById("time").valueAsNumber = 0;
+      }
+      var tzSign = document.getElementById("tz_sign").checked;
+      var tz =
+        ((tzSign ? -1 : 1) * document.getElementById("tz").valueAsNumber) / 60000;
+      if (isNaN(tz)) {
+        tz = 0;
+        document.getElementById("tz").valueAsNumber = 0;
+      }
+      console.log(time, tz);
+
+      var timeUTC = time - tz;
+
+      var timeLocal = timeUTC - local_offset;
+      var dayLocal = 0;
+      while (timeLocal < 0) {
+        dayLocal--;
+        timeLocal += 1440;
+      }
+      while (timeLocal >= 1440) {
+        dayLocal++;
+        timeLocal -= 1440;
+      }
+      console.log(
+        "time",
+        time,
+        "tz",
+        tz,
+        "timeUTC",
+        timeUTC,
+        "tzLocal",
+        local_offset,
+        "timeLocal",
+        timeLocal,
+        "dayLocal",
+        dayLocal
+      );
+
+      document.getElementById("s1").style.background = timeColor(time);
+      document.getElementById("local_time").innerHTML = minutesToTime(timeLocal);
+
+      document.getElementById("day").innerHTML = [
+        "2d behind",
+        "last day",
+        "same day",
+        "next day",
+        "2d ahead"
+      ][dayLocal + 2];
+      document.getElementById("s3").style.background = timeColor(timeLocal);
+
+      setQueryString();
+    }
+
+    function tzThenCalc() {
+      /* makes the timezone field change by 15 minutes (because, stupidly, step only works for the seconds field) */
+      var tz = document.getElementById("tz").valueAsNumber / 60000;
+      if (tz % 15 > 0) {
+        if (tz % 15 <= 7) {
+          tz = (Math.floor(tz / 15) + 1) * 15;
+        } else if (tz % 60 == 59) {
+          // hour rolldown is bugged
+          tz = (Math.floor(tz / 15) - 4) * 15;
+        } else {
+          tz = Math.floor(tz / 15) * 15;
+        }
+      }
+      document.getElementById("tz").valueAsNumber = 60000 * tz;
+
+      calc();
+    }
+
+    const keypoints = [
+      [0, 9, 61],
+      [36, 45, 81],
+      [7, 111, 159],
+      [95, 195, 196],
+      [238, 238, 188],
+      [251, 225, 88],
+      [240, 108, 125],
+      [83, 40, 126]
+    ];
+
+    function timeColor(time) {
+      var timeOfDay = time / (1440 / keypoints.length);
+      var lastKP = Math.floor(timeOfDay);
+      var nextKP = (lastKP + 1) % keypoints.length;
+      var progress = timeOfDay - lastKP;
+      var rgb = [0, 0, 0];
+      for (var i = 0; i < 3; i++) {
+        rgb[i] = Math.round(
+          (
+            keypoints[lastKP][i] * (1 - progress)
+          ) + (
+            keypoints[nextKP][i] * progress
+          )
+        );
+      }
+      console.log(rgb);
+      return "#" + rgb[0].toString(16).padStart(2, "0") + rgb[1].toString(16).padStart(2, "0") + rgb[2].toString(16).padStart(2, "0")
+    }
+
+    function help(show) {
+      if (show) {
+        document.getElementById("help").classList.add("shown");
+      } else {
+        document.getElementById("help").classList.remove("shown");
+      }
+    }    </script>
+</body>
