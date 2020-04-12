@@ -290,7 +290,7 @@
       var m = urlParams.has("m") ? +urlParams.get("m") : now.getMinutes();
       document.getElementById("time").valueAsNumber = 60000 * (60 * h + m);
       var t = urlParams.has("t") ? +urlParams.get("t") : local_offset / -15;
-      document.getElementById("tz").valueAsNumber = Math.abs(t) * 15 * 60000;
+      document.getElementById("tz").valueAsNumber = Math.abs(t) * 90000;
       document.getElementById("tz_sign").checked = t < 0;
     }
 
@@ -312,7 +312,7 @@
       var t =
         ((document.getElementById("tz_sign").checked ? -1 : 1) *
           document.getElementById("tz").valueAsNumber) /
-        15;
+        900000;
       var newurl =
         window.location.protocol +
         "//" +
