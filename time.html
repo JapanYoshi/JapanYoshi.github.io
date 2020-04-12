@@ -22,7 +22,7 @@
   <meta property="og:image" content="http://japanyoshi.github.io/time.png">
   <meta name="twitter:image" content="http://japanyoshi.github.io/time.png">
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 
     html {
       font-size: 1.20em;
@@ -30,6 +30,7 @@
       background: black;
       color: white;
       font-family: "Space Mono", monospace;
+      overflow: hidden;
     }
 
     body {
@@ -132,6 +133,11 @@
     #time, #tz {
       width: calc(3.5em + 1.5rem);
     }
+    
+    #day.next,
+    #day.prev {
+      font-weight: bold;
+    }
 
     #helpIcon {
       background: white;
@@ -218,8 +224,9 @@
           #6a4242 87.5%,
           rgba(106, 66, 66, 0) 100%);
       color: #000;
-      padding: 0.25em;
+      padding: 0.25em 2em;
       text-align: center;
+      margin-bottom: 2em;
     }
 
     #credits a {
@@ -273,7 +280,10 @@
             button)</li>
           <li>copy and share the generated “share” link</li>
         </ol>
-        <div id="credits">coded with ♥ by <a href="./index">haleyhalcyon</a></div>
+        <div id="credits">
+          <p>coded with ♥ by <a href="./index">haleyhalcyon</a></p>
+          <p><a href="https://fonts.google.com/specimen/Space+Mono">Space Mono</a> font by Colophon</p>
+        </div>
       </div>
     </div>
     <div id="helpClose" onclick="help(false)">×</div>
@@ -401,11 +411,22 @@
 
       document.getElementById("day").innerHTML = [
         "2d behind",
-        "last day",
+        "previous day",
         "same day",
-        "next day",
+        "following day",
         "2d ahead"
       ][dayLocal + 2];
+      if (dayLocal > 0) {
+        document.getElementById("day").classList.remove("prev");
+        document.getElementById("day").classList.add("next");
+      } else if (dayLocal) {
+        document.getElementById("day").classList.add("prev");
+        document.getElementById("day").classList.remove("next");
+      } else {
+        document.getElementById("day").classList.remove("prev");
+        document.getElementById("day").classList.remove("next");
+      }
+      
       document.getElementById("s3").style.background = timeColor(timeLocal);
 
       setQueryString();
