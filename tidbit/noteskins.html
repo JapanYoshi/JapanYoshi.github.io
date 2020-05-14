@@ -1,0 +1,1243 @@
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Haley Halcyon’s Noteskins for Stepmania 5 and Etterna</title>
+  <meta property="og:title" value="Haley Halcyon’s Noteskins for Stepmania 5 and Etterna">
+  <meta name="twitter:title" value="Haley Halcyon’s Noteskins for Stepmania 5 and Etterna">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="twitter:site" content="@ItsSpelledHALEY">
+  <meta name="twitter:creator" content="@ItsSpelledHALEY">
+  <meta name="description" content="Because ITG Cel gets boring after a while.">
+  <meta property="og:description" content="Because ITG Cel gets boring after a while.">
+  <meta name="twitter:description" content="Because ITG Cel gets boring after a while.">
+  <meta name="keywords" content="Stepmania,Etterna,noteskin">
+  <meta name="author" content="Haley Wakamatsu">
+  <style>
+    html {
+      background: black;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: Roboto, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #4ff;
+    }
+
+    #headline {
+      display: block;
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 10em;
+      max-height: 50vh;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#31144f+0,040019+100 */
+      background: #31144f;
+      /* Old browsers */
+      background: -moz-radial-gradient(center, ellipse cover, #31144f 0%, #040019 100%);
+      /* FF3.6-15 */
+      background: -webkit-radial-gradient(center, ellipse cover, #31144f 0%, #040019 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: radial-gradient(ellipse at center, #31144f 0%, #040019 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#31144f', endColorstr='#040019', GradientType=1);
+      /* IE6-9 fallback on horizontal gradient */
+      overflow: hidden;
+      border-bottom: 2px solid #7040e0;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      display: block;
+      text-align: center;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #ccc;
+      font-size: 2em;
+      mix-blend-mode: screen;
+    }
+
+    h2 {
+      display: inline-block;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1em;
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      bottom: 4px;
+      right: 4px;
+      color: #808080;
+      mix-blend-mode: screen;
+    }
+
+    #sort {
+      display: block;
+      width: 100%;
+      background: rgba(32, 0, 64, 0.8);
+      text-align: center;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -o-user-select: none;
+    }
+
+    #sort input[type=checkbox],
+    #sort input[type=radio] {
+      display: none;
+    }
+
+    #sort label {
+      display: inline-block;
+      border: 1px solid purple;
+      border-radius: 2px;
+      padding: 2px;
+      margin: 0 0 2px 4px;
+    }
+
+    #sort :checked+label {
+      background: purple;
+    }
+
+    #cardColumn {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .card {
+      display: block;
+      margin: 0px 2px 4px;
+      padding: 2px;
+      border-width: 1px 1px 1px 4px;
+      border-style: solid;
+      border-color: #7040e0;
+      display: none;
+    }
+
+    .cardHead {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .cardDesc {
+      flex: 1 1 0;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 2px;
+    }
+
+    #cardColumn>.card.system,
+    #cardColumn.fdance>.card.dance,
+    #cardColumn.fsolo>.card.solo,
+    #cardColumn.fpump>.card.pump {
+      display: block;
+    }
+
+    #cardColumn.fmines>.card:not(.mine),
+    #cardColumn.frolls>.card:not(.roll),
+    #cardColumn.flifts>.card:not(.lift),
+    #cardColumn.ffakes>.card:not(.fake),
+    #cardColumn.fnote>.card.flat,
+    #cardColumn.fflat>.card.note {
+      display: none;
+    }
+
+    table.support,
+    table.download {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: none;
+      margin-top: 1em;
+    }
+
+    table.support:before,
+    table.download:before {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      font-weight: bold;
+      text-align: center;
+      margin: -1em 0 1em;
+    }
+
+    table.support:before {
+      content: "Supports";
+    }
+
+    table.download:before {
+      content: "Download";
+    }
+
+    table.support tr :not(:first-child) {
+      border-left: 1px solid #7040e0;
+    }
+
+    table.support>tbody>tr.elems>td {
+      text-decoration: line-through solid rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    table.support>tbody>tr.elems> :first-child,
+    table.support>tbody>tr.elems> :nth-child(2),
+    .card.mine>table.support>tbody>tr.elems> :nth-child(3),
+    .card.roll>table.support>tbody>tr.elems> :nth-child(4),
+    .card.lift>table.support>tbody>tr.elems> :nth-child(5),
+    .card.fake>table.support>tbody>tr.elems> :nth-child(6) {
+      text-decoration-line: none;
+      color: #88ff88;
+    }
+
+    table.support td,
+    table.download td {
+      text-align: center;
+    }
+
+    @keyframes particle {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      to {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .animation-none {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      background-size: 100%;
+    }
+
+    .animation-4 {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      background-size: 400%;
+      animation-name: anim4;
+      animation-duration: 0.6s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .animation-8 {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      background-size: 800%;
+      animation-name: anim8;
+      animation-duration: 0.6s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .animation-12 {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      background-size: 1200%;
+      animation-name: anim12;
+      animation-duration: 0.6s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .animation-16 {
+      display: inline-block;
+      float: left;
+      width: 64px;
+      height: 64px;
+      background-size: 1600%;
+      animation-name: anim16;
+      animation-duration: 0.6s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @keyframes anim4 {
+      0.00% {
+        background-position: 0% 0%
+      }
+
+      24.99% {
+        background-position: 0% 0%
+      }
+
+      25.00% {
+        background-position: -100% 0%
+      }
+
+      49.99% {
+        background-position: -100% 0%
+      }
+
+      50.00% {
+        background-position: -200% 0%
+      }
+
+      74.99% {
+        background-position: -200% 0%
+      }
+
+      75.00% {
+        background-position: -300% 0%
+      }
+
+      99.99% {
+        background-position: -300% 0%
+      }
+
+      100.00% {
+        background-position: 0% 0%
+      }
+    }
+
+    @keyframes anim8 {
+      0.00% {
+        background-position: 0% 0%
+      }
+
+      12.49% {
+        background-position: 0% 0%
+      }
+
+      12.50% {
+        background-position: -100% 0%
+      }
+
+      24.99% {
+        background-position: -100% 0%
+      }
+
+      25.00% {
+        background-position: -200% 0%
+      }
+
+      37.49% {
+        background-position: -200% 0%
+      }
+
+      37.50% {
+        background-position: -300% 0%
+      }
+
+      49.99% {
+        background-position: -300% 0%
+      }
+
+      50.00% {
+        background-position: -400% 0%
+      }
+
+      62.49% {
+        background-position: -400% 0%
+      }
+
+      62.50% {
+        background-position: -500% 0%
+      }
+
+      74.99% {
+        background-position: -500% 0%
+      }
+
+      75.00% {
+        background-position: -600% 0%
+      }
+
+      87.49% {
+        background-position: -600% 0%
+      }
+
+      87.50% {
+        background-position: -700% 0%
+      }
+
+      99.99% {
+        background-position: -700% 0%
+      }
+
+      100.00% {
+        background-position: 0% 0%
+      }
+    }
+
+    @keyframes anim12 {
+      0.00% {
+        background-position: 0% 0%
+      }
+
+      8.33% {
+        background-position: 0% 0%
+      }
+
+      8.34% {
+        background-position: -100% 0%
+      }
+
+      16.66% {
+        background-position: -100% 0%
+      }
+
+      16.67% {
+        background-position: -200% 0%
+      }
+
+      24.99% {
+        background-position: -200% 0%
+      }
+
+      25.00% {
+        background-position: -300% 0%
+      }
+
+      33.33% {
+        background-position: -300% 0%
+      }
+
+      33.34% {
+        background-position: -400% 0%
+      }
+
+      41.66% {
+        background-position: -400% 0%
+      }
+
+      41.67% {
+        background-position: -500% 0%
+      }
+
+      49.99% {
+        background-position: -500% 0%
+      }
+
+      50.00% {
+        background-position: -600% 0%
+      }
+
+      58.33% {
+        background-position: -600% 0%
+      }
+
+      58.34% {
+        background-position: -700% 0%
+      }
+
+      66.66% {
+        background-position: -700% 0%
+      }
+
+      66.67% {
+        background-position: -800% 0%
+      }
+
+      74.99% {
+        background-position: -800% 0%
+      }
+
+      75.00% {
+        background-position: -900% 0%
+      }
+
+      83.33% {
+        background-position: -900% 0%
+      }
+
+      83.34% {
+        background-position: -1000% 0%
+      }
+
+      91.66% {
+        background-position: -1000% 0%
+      }
+
+      91.67% {
+        background-position: -1100% 0%
+      }
+
+      99.99% {
+        background-position: -1100% 0%
+      }
+
+      100.00% {
+        background-position: 0% 0%
+      }
+    }
+
+    @keyframes anim16 {
+      0.00% {
+        background-position: 0% 0%
+      }
+
+      6.24% {
+        background-position: 0% 0%
+      }
+
+      6.25% {
+        background-position: -100% 0%
+      }
+
+      12.49% {
+        background-position: -100% 0%
+      }
+
+      12.50% {
+        background-position: -200% 0%
+      }
+
+      18.74% {
+        background-position: -200% 0%
+      }
+
+      18.75% {
+        background-position: -300% 0%
+      }
+
+      24.99% {
+        background-position: -300% 0%
+      }
+
+      25.00% {
+        background-position: -400% 0%
+      }
+
+      31.24% {
+        background-position: -400% 0%
+      }
+
+      31.25% {
+        background-position: -500% 0%
+      }
+
+      37.49% {
+        background-position: -500% 0%
+      }
+
+      37.50% {
+        background-position: -600% 0%
+      }
+
+      43.74% {
+        background-position: -600% 0%
+      }
+
+      43.75% {
+        background-position: -700% 0%
+      }
+
+      49.99% {
+        background-position: -700% 0%
+      }
+
+      50.00% {
+        background-position: -800% 0%
+      }
+
+      56.24% {
+        background-position: -800% 0%
+      }
+
+      56.25% {
+        background-position: -900% 0%
+      }
+
+      62.49% {
+        background-position: -900% 0%
+      }
+
+      62.50% {
+        background-position: -1000% 0%
+      }
+
+      68.74% {
+        background-position: -1000% 0%
+      }
+
+      68.75% {
+        background-position: -1100% 0%
+      }
+
+      74.99% {
+        background-position: -1100% 0%
+      }
+
+      75.00% {
+        background-position: -1200% 0%
+      }
+
+      81.24% {
+        background-position: -1200% 0%
+      }
+
+      81.25% {
+        background-position: -1300% 0%
+      }
+
+      87.49% {
+        background-position: -1300% 0%
+      }
+
+      87.50% {
+        background-position: -1400% 0%
+      }
+
+      93.74% {
+        background-position: -1400% 0%
+      }
+
+      93.75% {
+        background-position: -1500% 0%
+      }
+
+      99.99% {
+        background-position: -1500% 0%
+      }
+
+      100.00% {
+        background-position: 0% 0%
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      const c = document.getElementById("cardColumn");
+
+      document.getElementById("style_dance").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fdance");
+        } else {
+          c.classList.remove("fdance");
+        }
+      });
+      document.getElementById("style_solo").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fsolo");
+        } else {
+          c.classList.remove("fsolo");
+        }
+      });
+      document.getElementById("style_pump").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fpump");
+        } else {
+          c.classList.remove("fpump");
+        }
+      });
+
+
+      document.getElementById("elem_mine").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fmines");
+        } else {
+          c.classList.remove("fmines");
+        }
+      });
+      document.getElementById("elem_roll").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("froll");
+        } else {
+          c.classList.remove("froll");
+        }
+      });
+      document.getElementById("elem_lift").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("flifts");
+        } else {
+          c.classList.remove("flifts");
+        }
+      });
+
+      document.getElementById("note-yes").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fnote");
+          c.classList.remove("fflat");
+        } else {
+          c.classList.remove("fnote");
+        }
+      });
+      document.getElementById("note-maybe").addEventListener("change", function () {
+        c.classList.remove("fnote");
+        c.classList.remove("fflat");
+      })
+      document.getElementById("note-no").addEventListener("change", function () {
+        if (this.checked) {
+          c.classList.add("fflat");
+          c.classList.remove("fnote");
+        } else {
+          c.classList.remove("fflat");
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="headline">
+    <h1>Noteskins</h1>
+    <h2>Because ITG Cel Gets Boring After a While</h2>
+  </div>
+  <div id="sort">
+    <form>
+      <strong>Style</strong>
+      <input type="checkbox" id="style_dance" name="style_dance" checked>
+      <label for="style_dance">Dance</label>
+      <input type="checkbox" id="style_solo" name="style_solo" checked>
+      <label for="style_solo">Solo</label>
+      <input type="checkbox" id="style_pump" name="style_pump" checked>
+      <label for="style_pump">Pump</label>
+      <hr />
+      <strong>Supports</strong>
+      <input type="checkbox" disabled checked>
+      <label>Notes</label>
+      <input type="checkbox" disabled checked>
+      <label>Holds</label>
+      <input type="checkbox" id="elem_mine" name="elem_mine">
+      <label for="elem_mine">Mines</label>
+      <input type="checkbox" id="elem_roll" name="elem_roll">
+      <label for="elem_roll">Rolls</label>
+      <input type="checkbox" id="elem_lift" name="elem_lift">
+      <label for="elem_lift">Lifts</label>
+      <hr />
+      <strong>Color-coding</strong>
+      <input type="radio" id="note-yes" name="note" value="1">
+      <label for="note-yes">Require</label>
+      <input type="radio" id="note-maybe" name="note" value="0" checked>
+      <label for="note-maybe">Don't specify</label>
+      <input type="radio" id="note-no" name="note" value="-1">
+      <label for="note-no">Forbid</label>
+    </form>
+  </div>
+  <div id="cardColumn" class="fdance fsolo fpump fnotes fholds">
+    <div class="card dance solo mine roll lift note">
+      <div class="cardHead">
+        <div class="animation-4"
+          style="background-image:url('https://cdn.discordapp.com/attachments/409919140489592835/707842893628309544/STARLIGHT_PREVIEW.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>DDR STARLiGHT</h3>
+          <p>A modern, reimagined DDR-style noteskin.</p>
+          <p>The companion noteskin to the chart pack <a href="https://zenius-i-vanisher.com/v5.2/thread?threadid=9810">Dance Dance Revolution XX</a> and accompanying theme <a href="https://bitbucket.org/inorizushi/xx-starlight-download">DDR XX -STARLiGHT-</a>.</p>
+          <p>Comes in 5 colorizations: NOTE, FLAT, VIVID, CEL (ITG coloring), and SMNOTE (SM5 9-color used in Yuisin’s videos).</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/mhjjnatqjcsklob/starlight-all.7z/file">.7z archive (all)</a>
+            </td>
+            <td><a href="http://www.mediafire.com/file/1mlnzvwjvn1qysm/starlight-note.7z/file">.7z archive (NOTE only)</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance solo mine roll lift note">
+      <div class="cardHead">
+        <div class="animation-8"
+          style="background-image:url('https://cdn.discordapp.com/attachments/380236647725531138/406729238788571137/noteskin-u.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Composite 4k</h3>
+          <p>4-panel version of the companion skin to the chart pack <a
+              href="https://github.com/japanyoshi/piucomposite">Pump It Up Composite</a>. Lifts have glowing silver
+            outlines.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/1l91317c09wtw45/Composite_Noteskin_for_4K.7z">.7z archive</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump mine roll flat">
+      <div class="cardHead">
+        <div class="animation-4"
+          style="background-image:url('https://cdn.discordapp.com/attachments/306593965963214858/416092295129989121/UpLeft_Tap_Note_4x1_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Composite 5k</h3>
+          <p>The companion skin to the chart pack <a
+            href="https://github.com/japanyoshi/piucomposite">Pump It Up Composite</a>.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/smzbm3cu3ru8z01/composite.7z">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump mine roll flat">
+      <div class="cardHead">
+        <div class="animation-4"
+          style="background-image:url('https://media.discordapp.net/attachments/379560905320431619/480554861612630017/trans-tl.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Transgender Pride</h3>
+          <p>A noteskin for transgender Pump players and supportive allies.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/h11tk4zbwh6614q/transpride.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance roll note">
+      <div class="cardHead">
+        <div class="animation-8"
+          style="background-image:url('https://cdn.discordapp.com/attachments/306593965963214858/416092312431624194/Up_Tap_Note_8x8_doubleres.png');">
+        </div>
+        <div class="cardDesc">
+          <h3>Project Diva 4k</h3>
+          <p>A 4-panel noteskin based on Project Diva. Columns are in the order the buttons are laid out on the arcade cabinet.</p>
+          <p>Solo is also supported (Extra arrows show as swipes)</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/35pymi5dcqunpzj/Diva.7z">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump mine roll flat">
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528894244883267584/Center_Tap_Note_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Project Diva 5k</h3>
+          <p>A 5-panel noteskin based on Project Diva.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/izez7arau7iuhww/Diva5k.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance solo pump mine roll lift fake note">
+      <div class="cardHead">
+        <div class="animation-8"
+          style="background-image:url('https://cdn.discordapp.com/attachments/306593965963214858/416092426441064449/Down_Tap_Note_8x8_doubleres.png');transform:rotate(180deg);">
+        </div>
+        <div class="cardDesc">
+          <h3>Eigenvector Multi-Mode</h3>
+          <p>A futuristic noteskin compatible with every mode in Stepmania 5. See more on <a href="https://2gd4.me/tidbit/eigenvector">here</a></p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/n7ang61e5wcfh4b/Eigenvector_Multi-Mode_Noteskin.7z">.7z
+                archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance solo note">
+      <div class="cardHead">
+        <div class="animation-8"
+          style="background-image:url('https://cdn.discordapp.com/attachments/306593965963214858/416093618462261248/Down_Tap_Note_8x8_doubleres.png');transform:rotate(180deg);">
+        </div>
+        <div class="cardDesc">
+          <h3>StopSign 4k</h3>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/2819ckjx93ptm2g/StopSign.7z">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump mine roll flat">
+
+
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528894836414349322/UpLeft_Tap_Note_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>CloverTron <em>Sushi Violation</em></h3>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/1045qm6cncvogl2/clovertron5k.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump mine flat">
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528897776655007744/UpLeft_Tap_Note_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Clover 2 “Plastic” <em>Sushi Violation</em></h3>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/c2cw76vdtuus2u7/clover5k.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance mine roll lift note">
+      <div class="cardHead">
+        <div class="animation-8"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528902200022401044/aero.png');transform:rotate(180deg)">
+        </div>
+        <div class="cardDesc">
+          <h3>Aero <em>Sushi Violation</em></h3>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/w38ldgix1456rhq/aero.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance mine roll lift note">
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528902199154180106/jelly.png');">
+        </div>
+        <div class="cardDesc">
+          <h3>Jelly (Puyo Puyo)</h3>
+          <p>A Puyo Puyo style noteskin for 4 panel. Doesn't support Solo.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/kow3zsz80vwvxsf/jelly.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance mine roll lift note">
+      <div class="cardHead">
+        <div class="animation-16"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528902201209520138/smx.png');transform:rotate(180deg)">
+        </div>
+        <div class="cardDesc">
+          <h3>StepManiaX for Stepmania</h3>
+          <p>4k only. No center panel.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/888klvlvn2225v8/smx.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card dance note">
+      <div class="cardHead">
+        <div class="animation-12"
+          style="background-image:url('https://cdn.discordapp.com/attachments/379560905320431619/528902199103979541/voltage.png');transform:rotate(180deg)">
+        </div>
+        <div class="cardDesc">
+          <h3>Voltage</h3>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="http://www.mediafire.com/file/nu5sb0vbgiqmt9k/Voltage.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump hold roll lift">
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/488902303815041026/573489953456259083/DownLeft_Tap_Note_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Guitar Hero</h3>
+          <p>Guitar Hero style noteskin for 5k. Featured in Rave It Out Season 2.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/kf32z0s0ami3p7g/pump-gh.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump hold roll lift mine">
+      <div class="cardHead">
+        <div class="animation-none"
+          style="background-image:url('https://cdn.discordapp.com/attachments/488902303815041026/573489902088355870/UpLeft_Tap_Note_doubleres.png')">
+        </div>
+        <div class="cardDesc">
+          <h3>Gummy (Puyo Puyo)</h3>
+          <p>Puyo Puyo style noteskin for 5k. Featured in Rave It Out Season 2.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/tcftx5k16yoz8w9/pump-gummy.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pump hold roll lift mine">
+      <div class="cardHead">
+        <div class="animation-16"
+          style="background-image:url('https://cdn.discordapp.com/attachments/399928857446187009/573489652045053972/preview.png');animation-duration:2.4s">
+        </div>
+        <div class="cardDesc">
+          <h3>DDR for Pump</h3>
+          <p>DDR style noteskin for 5k. Featured in Rave It Out Season 2.</p>
+        </div>
+      </div>
+      <table class="support">
+        <tbody>
+          <tr class="elems">
+            <td>Notes</td>
+            <td>Holds</td>
+            <td>Mines</td>
+            <td>Rolls</td>
+            <td>Lifts</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <td><a href="https://www.mediafire.com/file/sol59kowlv924dk/pump-ddr.7z/file">.7z archive</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card system">
+      <a href="..">Back</a>
+    </div>
+  </div>
+</body>
+</html>
