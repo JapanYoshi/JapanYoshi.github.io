@@ -28,14 +28,14 @@
     font-weight: 400;
     src: 
     local("SF Compact Text"),
-    url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf");
+    url("https://2gd4.me/SanFrancisco/SF-Compact-Text-Regular.otf") format("OTF");
   }
   @font-face {
     font-family: "SF Body";
     font-weight: 700;
     src: 
     local("SF Compact Text Bold"),
-    url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf");
+    url("https://2gd4.me/SanFrancisco/SF-Compact-Text-Bold.otf") format("OTF");
   }
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
@@ -44,14 +44,14 @@
     font-weight: 400;
     src: 
     local("SF Pro Text"),
-    url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf");
+    url("https://2gd4.meSanFrancisco/SF-Pro-Text-Regular.otf") format("OTF");
   }
   @font-face {
     font-family: "SF Body";
     font-weight: 700;
     src: 
     local("SF Pro Text Bold"),
-    url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf");
+    url("https://2gd4.me/SanFrancisco/SF-Pro-Text-Bold.otf") format("OTF");
   }
 }
 html {
@@ -171,21 +171,21 @@ h3 {
   font-weight: 700;
   src: 
   local("SF Pro Display Bold"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf");
+  url("https://2gd4.me/SanFrancisco/SF-Pro-Display-Bold.otf");
 }
 @font-face {
   font-family: "SF Pro Display";
   font-weight: 400;
   src: 
   local("SF Pro Display"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf"),;
+  url("https://2gd4.me/SanFrancisco/SF-Pro-Display-Regular.otf"),;
 }
 @font-face {
   font-family: "SF Pro Display";
   font-weight: 100;
   src: 
   local("SF Pro Display Thin"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf");
+  url("https://2gd4.me/SanFrancisco/SF-Pro-Display-Thin.otf");
 }
   </style>
 </head>
@@ -293,13 +293,16 @@ h3 {
   
   </style>
   <script>
+/*
+ * This piece of code swaps out the font in the test drive box.
+ */
 document.getElementById("selectFont").addEventListener(
   "change",
   e => {
   var v = e.explicitOriginalTarget.value;
     console.log(v);
     if (v === ""){
-      return;
+      return; // you selected a headline, just do nothing
     } else {
       var styleBlock = document.body.removeChild(document.getElementById("testFont"));
       styleBlock.innerHTML = `
