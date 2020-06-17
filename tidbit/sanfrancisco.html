@@ -4,7 +4,7 @@
   <meta property="og:title" value="San Francisco and New York Fonts">
   <meta name="twitter:title" value="San Francisco and New York Fonts">
   <!-- boilerplate -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, max-zoom=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, max-zoom=1.0, viewport-fit=cover">
   <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
   <meta name="twitter:site" content="@ItsSpelledHALEY">
   <meta name="twitter:creator" content="@ItsSpelledHALEY">
@@ -26,38 +26,318 @@
   font-weight: 400;
   src: 
   local("SF Pro Text"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf") format("otf");
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf");
 }
 @font-face {
-  font-family: "SF Pro Text";
-  font-weight: 400;
-  font-variant: italic;
+  font-family: "SF Compact Text";
+  font-weight: 700;
   src: 
-  local("SF Pro Text Italic"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-RegularItalic.otf") format("otf");
+  local("SF Compact Text Bold"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf");
+}
+@font-face {
+  font-family: "SF Compact Text";
+  font-weight: 400;
+  src: 
+  local("SF Compact Text"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf");
 }
 @font-face {
   font-family: "SF Pro Text";
   font-weight: 700;
   src: 
   local("SF Pro Text Bold"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf") format("otf");
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf");
 }
 @font-face {
-  font-family: "SF Pro Text";
+  font-family: "SF Pro Display";
   font-weight: 700;
-  font-variant: italic;
   src: 
-  local("SF Pro Text Bold Italic"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-BoldItalic.otf") format("otf");
+  local("SF Pro Display Bold"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 400;
+  src: 
+  local("SF Pro Display"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 100;
+  src: 
+  local("SF Pro Display Thin"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf"),
+  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf");
 }
 
 html {
-  background: #322;
+  background: #000;
+  color: #fff;
+  font-size: 100%;
+  
+}
+
+/* use Pro Text for at least 2x pixel density; otherwise use Compact Text */
+@media (-webkit-max-device-pixel-ratio: 1.99), (max-resolution: 191.99dpi) {
+  html {
+    font-family: "SF Compact Text", sans-serif;
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  html {
+    font-family: "SF Pro Text", sans-serif;
+  }
+}
+
+body {
+  margin: 0;
+  --systemRed: #ff453a;
+  --systemBlue: #0a84ff;
+  --systemPurple: #bf5af2;
+  --systemGray5: #2c2c2e;
+}
+
+p {
+  line-height: 1.5;
+  margin: 0.5rem 0;
+}
+
+a {
+  color: var(--systemBlue);
+}
+
+a:visited {
+  color: var(--systemPurple);
+}
+
+a.button {
+  display: inline-block;
+  background: black;
+  border-radius: 0.5rem;
+  border: 1px solid var(--systemBlue);
+  padding: 0.5rem;
+  color: var(--systemBlue0);
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  font-family: "SF Pro Display", sans-serif;
+}
+
+h1 {
+  font-size: 300%;
+  font-weight: 100;
+}
+h2 {
+  font-size: 200%;
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+h3 {
   font-size: 150%;
+  font-weight: 700;
+  margin: 0.5rem 0 0;
+}
+
+#safearea {
+  margin:
+    0.5rem
+    calc(0.5rem + env(safe-area-inset-right))
+    calc(4.5rem + env(safe-area-inset-bottom))
+    calc(0.5rem + env(safe-area-inset-left));
+}
+
+.section-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.section {
+  flex: 1 0 16rem;
+  border-radius: 1rem;
+  background: var(--systemGray5);
+  margin: 0.125rem;
+  padding: 0.5rem;
+}
+
+#textBox {
+  width: calc(100% - 1rem);
+  height: calc(100vh - 4rem);
+  max-height: 32rem;
+  border: 1px solid var(--systemGray5);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  overflow: auto;
+}
+
+#bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  max-height: 4rem;
+  font-family: "SF Compact Text", sans-serif;
+  font-size: 80%;
+  padding:
+    0.5rem
+    calc(0.5rem + env(safe-area-inset-right))
+    calc(0.5rem + env(safe-area-inset-bottom))
+    calc(0.5rem + env(safe-area-inset-left));
+  background: var(--systemGray5);
+}
+
+#bottomBar b {
+  color: var(--systemRed);
 }
   </style>
 </head>
 <body>
+  <div id="safearea">
+    <h1>Fonts for Apple Platforms</h1>
+    <p>
+      Apple products like iOS, macOS, and watchOS, all use an original set of system fonts, called <b>San Francisco</b>, officially abbreviated as “SF”, much like Google uses Roboto, Open Sans, and Product Sans, and Microsoft uses Segoe.
+    </p>
+    <p>
+      For those wanting to design realistic mock-ups of Apple products, there is no better way to start than to learn about, and use, authentic Apple fonts. You’ll get to try some of them out in a section below.
+    </p>
+    <div class="section-box">
+      <div class="section">
+        <h2>San Francisco Pro</h2>
+        <p>
+        This is the sans-serif typeface used in <b>iOS, macOS, and tvOS</b>. It has a more rounded, organic shape compared to San Francisco Compact, and is suitable for all sizes of text.</p>
+        <h3>Features</h3>
+        <p>
+        2 optical sizes (Text and Display) with 9 weights each, all with an italic variant. A rounded version is also available.
+        </p>
+        <a class="button" href="">Download</a>
+      </div>
+      <div class="section">
+        <h2>San Francisco Compact</h2>
+        <p>
+        This is the sans-serif typeface used in <b>watchOS</b>. It has more geometric letterforms, optically corrected to look good at low resolutions. 
+        </p>
+        <h3>Features</h3>
+        <p>
+        2 optical sizes (Text and Display) with 9 weights each. Text has an italic variant. A rounded version is also available.
+        </p>
+        <a class="button" href="">Download</a>
+      </div>
+    </div>
+    <div class="section-box">
+      <div class="section">
+        <h2>San Francisco Mono</h2>
+        <p>
+        This is Apple’s official code font used in <b>Xcode</b>. Similar to Roboto Mono or IBM Plex Mono, but has a high continuity with San Francisco, much like Roboto Mono with Roboto, and IBM Plex Mono to IBM Plex Sans.
+        </p>
+        <h3>Features</h3>
+        <p>
+        6 weights (300–800) with an italic variant.
+        </p>
+        <a class="button" href="">Download</a>
+      </div>
+      <div class="section">
+        <h2>New York</h2>
+        <p>
+        Breaking the mold of <a href="https://en.wikipedia.org/wiki/New_York_(1983_typeface)">old New York</a>, new New York has circular ears and tittles, with modern influences from fonts like Georgia. It is used in <b>iBooks</b>, where legibility in long paragraphs of text is required.
+        </p>
+        <h3>Features</h3>
+        <p>
+        4 optical sizes (ExtraLarge, Large, Medium, Small) with 6 weights (400–900), all with true italic variants.</p>
+        <a class="button" href="">Download</a>
+      </div>
+    </div>
+    <h1>Try It</h1>
+    <div id="tryit">
+      <label for="selectFont">Font</label>
+      <select id="selectFont" name="selectFont">
+        <option value="">SF Pro</option>
+        <option selected value="SF-Pro-Display-Bold">· Display Bold</option>
+        <option value="SF-Pro-Display-Regular">· Display Regular</option>
+        <option value="SF-Pro-Display-Thin">· Display Thin</option>
+        <option value="SF-Pro-Rounded-Bold">· Rounded Bold</option>
+        <option value="SF-Pro-Text-Bold">· Text Bold</option>
+        <option value="SF-Pro-Text-BoldItalic">· Text Bold Italic</option>
+        <option value="SF-Pro-Text-Regular">· Text Regular</option>
+        <option value="SF-Pro-Text-RegularItalic">· Text Regular Italic</option>
+        <option value="">SF Compact</option>
+        <option value="SF-Compact-Display-Bold">· Display Bold</option>
+        <option value="SF-Compact-Display-Regular">· Display Regular</option>
+        <option value="SF-Compact-Display-Thin">· Display Thin</option>
+        <option value="SF-Compact-Rounded-Bold">· Rounded Bold</option>
+        <option value="SF-Compact-Text-Bold">· Text Bold</option>
+        <option value="SF-Compact-Text-BoldItalic">· Text Bold Italic</option>
+        <option value="SF-Compact-Text-Regular">· Text Regular</option>
+        <option value="SF-Compact-Text-RegularItalic">· Text Regular Italic</option>
+        <option value="">SF Mono</option>
+        <option value="SF-Mono-Bold">· Bold</option>
+        <option value="SF-Mono-BoldItalic">· BoldItalic</option>
+        <option value="SF-Mono-Regular">· Regular</option>
+        <option value="SF-Mono-RegularItalic">· RegularItalic</option>
+        <option value="">New York</option>
+        <option value="NewYorkExtraLarge-Heavy">· Extra Large Heavy</option>
+        <option value="NewYorkLarge-Bold">· Large Bold</option>
+        <option value="NewYorkMedium-Bold">· Medium Bold</option>
+        <option value="NewYorkMedium-Regular">· Medium Regular</option>
+        <option value="NewYorkMedium-RegularItalic">· Medium Regular Italic</option>
+        <option value="NewYorkSmall-Regular">· Small Regular</option>
+      </select>
+      <label for="fontSize">Font size</label>
+      <input type="range" id="fontSize" name="fontSize" min="8" max="64" value="16">
+      <div id="textBox" contenteditable>
+        Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit.
+      </div>
+    </div>
+  </div>
+  <div id="bottomBar">
+    <span><b>Disclaimer:</b> This is <u>not</u> an official Apple webpage. This only exists for the benefit of designers who wish to know more about Apple’s typography. To comply with Apple’s license agreement, please only use these for mockups of Apple products.</span>
+  </div>
+  <style id="testFont">
   
+  </style>
+  <script>
+document.getElementById("selectFont").addEventListener(
+  "change",
+  e => {
+  var v = e.explicitOriginalTarget.value;
+    console.log(v);
+    if (v === ""){
+      return;
+    } else {
+      var styleBlock = document.body.removeChild(document.getElementById("testFont"));
+      styleBlock.innerHTML = `
+        @font-face {
+          font-family: "_TestFont";
+          src: 
+          url("https://japanyoshi.github.io/SanFrancisco/${v}.otf"),
+          url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/${v}.otf");
+        }
+        #textBox {
+          font-family: "_TestFont", sans-serif;
+        }
+      `;
+      document.body.appendChild(styleBlock);
+      console.log(styleBlock);
+    }
+  }
+);
+document.getElementById("fontSize").addEventListener(
+  "input",
+  e => {
+    document.getElementById("textBox").style.fontSize = e.explicitOriginalTarget.value + "px";
+  }
+);
+  </script>
 </body>
