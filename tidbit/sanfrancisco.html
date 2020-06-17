@@ -21,82 +21,46 @@
   <meta property="og:image" content="http://japanyoshi.github.io/tidbit/sanfrancisco.png">
   <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/sanfrancisco.png">
   <style>
-@font-face {
-  font-family: "SF Pro Text";
-  font-weight: 400;
-  src: 
-  local("SF Pro Text"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf");
+/* use Pro Text for at least 2x pixel density; otherwise use Compact Text */
+@media (-webkit-max-device-pixel-ratio: 1.999), (max-resolution: 191.99dpi) {
+  @font-face {
+    font-family: "SF Body";
+    font-weight: 400;
+    src: 
+    local("SF Compact Text"),
+    url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf");
+  }
+  @font-face {
+    font-family: "SF Body";
+    font-weight: 700;
+    src: 
+    local("SF Compact Text Bold"),
+    url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf");
+  }
 }
-@font-face {
-  font-family: "SF Compact Text";
-  font-weight: 700;
-  src: 
-  local("SF Compact Text Bold"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Bold.otf");
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @font-face {
+    font-family: "SF Body";
+    font-weight: 400;
+    src: 
+    local("SF Pro Text"),
+    url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Regular.otf");
+  }
+  @font-face {
+    font-family: "SF Body";
+    font-weight: 700;
+    src: 
+    local("SF Pro Text Bold"),
+    url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf");
+  }
 }
-@font-face {
-  font-family: "SF Compact Text";
-  font-weight: 400;
-  src: 
-  local("SF Compact Text"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Compact-Text-Regular.otf");
-}
-@font-face {
-  font-family: "SF Pro Text";
-  font-weight: 700;
-  src: 
-  local("SF Pro Text Bold"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Text-Bold.otf");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-weight: 700;
-  src: 
-  local("SF Pro Display Bold"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-weight: 400;
-  src: 
-  local("SF Pro Display"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-weight: 100;
-  src: 
-  local("SF Pro Display Thin"),
-  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf"),
-  url("https://cors-anywhere.herokuapp.com/https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf");
-}
-
 html {
   background: #000;
   color: #fff;
   font-size: 100%;
   
+  font-family: "SF Body", sans-serif;
 }
-
-/* use Pro Text for at least 2x pixel density; otherwise use Compact Text */
-@media (-webkit-max-device-pixel-ratio: 1.99), (max-resolution: 191.99dpi) {
-  html {
-    font-family: "SF Compact Text", sans-serif;
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  html {
-    font-family: "SF Pro Text", sans-serif;
-  }
-}
-
 body {
   margin: 0;
   --systemRed: #ff453a;
@@ -129,7 +93,7 @@ a.button {
 }
 
 h1, h2, h3 {
-  font-family: "SF Pro Display", sans-serif;
+  font-family: "SF Pro Display", "SF Body", sans-serif;
 }
 
 h1 {
@@ -189,7 +153,6 @@ h3 {
   right: 0;
   height: auto;
   max-height: 4rem;
-  font-family: "SF Compact Text", sans-serif;
   font-size: 80%;
   padding:
     0.5rem
@@ -201,6 +164,28 @@ h3 {
 
 #bottomBar b {
   color: var(--systemRed);
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 700;
+  src: 
+  local("SF Pro Display Bold"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Bold.otf");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 400;
+  src: 
+  local("SF Pro Display"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Regular.otf"),;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 100;
+  src: 
+  local("SF Pro Display Thin"),
+  url("https://japanyoshi.github.io/SanFrancisco/SF-Pro-Display-Thin.otf");
 }
   </style>
 </head>
