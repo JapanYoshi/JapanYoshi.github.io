@@ -37,7 +37,8 @@
             <div class="box_content">
                 Personal: <a
                     href="https://twitter.com/ItsSpelledHALEY">@Its&ZeroWidthSpace;Spelled&ZeroWidthSpace;HALEY</a><br>
-                Gaming: <a href="https://twitter.com/PlsHugHaley">@Pls&ZeroWidthSpace;Hug&ZeroWidthSpace;Haley</a>
+                Gaming: <a href="https://twitter.com/PlsHugHaley">@Pls&ZeroWidthSpace;Hug&ZeroWidthSpace;Haley</a><br>
+                日本語: <a href="https://twitter.com/HaruruChanDesu">#Haruru&ZeroWidthSpace;Chan&ZeroWidthSpace;Desu</a>
             </div>
         </div>
         <div class="box">
@@ -106,12 +107,10 @@
                 <a href="https://steamcommunity.com/id/haleyhalcyon">haley&shy;halcyon</a>
             </div>
         </div>
-        <div class="box">
+        <a class="box" href="https://www.boredpanda.com/tik-tok-reverse-engineered-data-information-collecting/">
             <img class="icon" src="./resource/tiktok.png" alt="TikTok" title="TikTok">
-            <div class="box_content">
-                Cosplay: <a href="http://vt.tiktok.com/Javdkx">its&shy;spelled&shy;haley</a>
-            </div>
-        </div>
+            
+        </a>
         <div class="box">
             <img class="icon" src="./resource/kofi.png" alt="Ko-fi" title="Ko-fi">
             <div class="box_content">
@@ -132,11 +131,12 @@
           "stagger": 15
         });
         
-        const boxes = document.getElementsByClassName("box");
+        const boxes = document.querySelectorAll("div.box");
         for (var i = boxes.length; i > 0; i--) {
             const box = boxes[i - 1];
             box.addEventListener("click", (e) => {
                 e.stopPropagation(); // prevent body event
+                
                 const nowActive = document.getElementsByClassName("active");
                 console.log(nowActive);
                 complete = false;
