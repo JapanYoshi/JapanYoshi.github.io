@@ -57,7 +57,7 @@ button {
     line-height: 48px;
     text-align: center;
 }
-.hide .index {
+.hideColors .index {
     display: none;
 }
 .color {
@@ -76,7 +76,7 @@ button {
 .color.unnamed {
     font-weight: bold;
 }
-.hide .color {
+.hideColors .color {
     padding: 0;
     border-width: 8px;
 }
@@ -87,7 +87,7 @@ button {
     top: 50%;
     transform: translateY(-50%);
 }
-.hide .color .name {
+.hideColors .color .name {
     display: none;
 }
 .color .clear {
@@ -95,13 +95,13 @@ button {
     border: none;
     height: 0;
 }
-.hide .color .clear {
+.hideColors .color .clear {
     height: 72px;
 }
 .hex {
     display: none;
 }
-.hide .hex {
+.hideColors .hex {
     display: inline;
     position: absolute;
     left: 50%;
@@ -710,9 +710,9 @@ const populate = () => {
     }
 }
 document.getElementById("names").addEventListener("click", function(){
-    box.classList.toggle("hide");
-    if (box.classList.contains("hide")){
-        document.getElementById("names").innerText="show names and emotes";
+    box.classList.toggle("hideColors");
+    if (box.classList.contains("hideColors")){
+        document.getElementById("names").innerText="show names and indices";
     } else {
         document.getElementById("names").innerText="show color codes";
     }
