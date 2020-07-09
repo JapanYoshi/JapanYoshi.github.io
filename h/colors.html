@@ -67,7 +67,7 @@ button {
 .color.unnamed {
     font-weight: bold;
 }
-.hide .color {
+.HideColors .color {
     padding: 0;
     border-width: 8px;
 }
@@ -78,7 +78,7 @@ button {
     float: left;
     color: transparent;
 }
-.hide .color .emote {
+.HideColors .color .emote {
     display: none;
 }
 .name {
@@ -88,7 +88,7 @@ button {
     top: 50%;
     transform: translateY(-50%);
 }
-.hide .color .name {
+.HideColors .color .name {
     display: none;
 }
 .color .clear {
@@ -96,13 +96,13 @@ button {
     border: none;
     height: 0;
 }
-.hide .color .clear {
+.HideColors .color .clear {
     height: 72px;
 }
 .number {
     display: none;
 }
-.hide .number {
+.HideColors .number {
     display: inline;
     position: absolute;
     left: 50%;
@@ -441,8 +441,8 @@ const populate = () => {
     }
 }
 document.getElementById("names").addEventListener("click", function(){
-    box.classList.toggle("hide");
-    if (box.classList.contains("hide")){
+    box.classList.toggle("HideColors");
+    if (box.classList.contains("HideColors")){
         document.getElementById("names").innerText="show names and emotes";
     } else {
         document.getElementById("names").innerText="show color codes";
