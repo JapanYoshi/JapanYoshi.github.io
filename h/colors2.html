@@ -21,15 +21,16 @@ body {
     line-height: 18px;
     margin: 0;
     background-color: #36393f;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 #bar {
-    position:fixed;
+    flex: 0 0 auto;
     text-align: center;
-    z-index: 2;
     top: 0;
     background: rgba(255,255,255,0.5);
     width: 100vw;
-    height: 48px;
 }
 button {
     display: inline-block;
@@ -46,11 +47,22 @@ button {
     margin-bottom: 8px;
 }
 #container {
+    overflow: auto;
+    flex: 1 1 auto;
     max-width: 720px;
     background-color: #36393f;
-    padding-top: 52px;
     margin: 0 auto;
 }
+
+#container::-webkit-scrollbar {
+  display: none;
+}
+
+#container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+} 
+
 .index {
     width: 48px;
     height: 48px;
@@ -156,7 +168,7 @@ html::-webkit-scrollbar {
 <body>
     <div id="bar">
         <button id="names">show names and emotes</button><br>
-        sort by <button id="name">name</button> • <button id="hue">hue</button> • <button id="sat">vividness</button> • <button id="luma">brightness</button>
+        sort by <button id="name">name</button> • <button id="hue">hue</button> • <button id="sat">vividness</button> • <button id="luma">brightness</button><br><span class="new">NEW!</span> <label for="picker">similarity to</label> <input type="color" id="picker" name="picker" value="#ffffff"></input> <button id="similarity">search!</button>
     </div>
     <div id="container" class="">
         <hr>
@@ -172,12 +184,6 @@ html::-webkit-scrollbar {
 </div>
     <script>
 var colors = [
-  {
-    "name": "Liquid Silver",
-    "color": "#c0c0c0",
-    "post": 1,
-    "number": "#"
-  },
   {
     "name": "Bimbo­fied Pink",
     "color": "#ff46dc",
@@ -222,7 +228,7 @@ var colors = [
   },
   {
     "name": "Deep Natural",
-    "color": "#992d22",
+    "color": "#8e2a09",
     "post": 1,
     "number": "7"
   },
@@ -233,22 +239,10 @@ var colors = [
     "number": "8"
   },
   {
-    "name": "Shiny Gold",
-    "color": "#ffd700",
-    "post": 1,
-    "number": "9"
-  },
-  {
     "name": "Scrambled Salmon",
     "color": "#fa8072",
     "post": 2,
     "number": "#"
-  },
-  {
-    "name": "Brainless Grey",
-    "color": "#808080",
-    "post": 2,
-    "number": "0"
   },
   {
     "name": "Porcelain Doll",
@@ -261,24 +255,6 @@ var colors = [
     "color": "#70461a",
     "post": 2,
     "number": "2"
-  },
-  {
-    "name": "Void Black",
-    "color": "#050505",
-    "post": 2,
-    "number": "3"
-  },
-  {
-    "name": "Broken Bisque",
-    "color": "#ffe4c4",
-    "post": 2,
-    "number": "4"
-  },
-  {
-    "name": "Electric Yellow",
-    "color": "#f8f068",
-    "post": 2,
-    "number": 5
   },
   {
     "name": "Electric Yellow",
@@ -299,22 +275,10 @@ var colors = [
     "number": "7"
   },
   {
-    "name": "Subliminal Orange",
-    "color": "#ffa500",
-    "post": 2,
-    "number": "8"
-  },
-  {
     "name": "Toy Orange",
     "color": "#eeba4d",
     "post": 2,
     "number": "9"
-  },
-  {
-    "name": "Mindhacked Lime",
-    "color": "#00ff00",
-    "post": 3,
-    "number": "#"
   },
   {
     "name": "Malleable Clay",
@@ -335,46 +299,10 @@ var colors = [
     "number": "2"
   },
   {
-    "name": "Pure Red",
-    "color": "#ff0000",
-    "post": 3,
-    "number": "3"
-  },
-  {
-    "name": "Divine Crimson",
-    "color": "#dd0831",
-    "post": 3,
-    "number": "4"
-  },
-  {
-    "name": "Flame Scarlet",
-    "color": "#cd212a",
-    "post": 3,
-    "number": "5"
-  },
-  {
-    "name": "Collared Yellow",
-    "color": "#ffff00",
-    "post": 3,
-    "number": "6"
-  },
-  {
-    "name": "Lightning Yellow (was Trance Tangerine)",
-    "color": "#f7c815",
-    "post": 3,
-    "number": 7
-  },
-  {
-    "name": "Lightning Yellow",
+    "name": "Lightning Gold",
     "color": "#f7c815",
     "post": 3,
     "number": "7"
-  },
-  {
-    "name": "Slippery Olive",
-    "color": "#808000",
-    "post": 3,
-    "number": "8"
   },
   {
     "name": "Blank White",
@@ -383,20 +311,14 @@ var colors = [
     "number": "9"
   },
   {
-    "name": "Locked Blue",
+    "name": "BSOD Blue",
     "color": "#335ee9",
     "post": 4,
     "number": "#"
   },
   {
-    "name": "Lost Forest Green",
-    "color": "#008000",
-    "post": 4,
-    "number": "0"
-  },
-  {
     "name": "Drifty Sea Green",
-    "color": "#2e8b57",
+    "color": "#3db872",
     "post": 4,
     "number": "1"
   },
@@ -419,22 +341,10 @@ var colors = [
     "number": "4"
   },
   {
-    "name": "Shattered Aqua",
-    "color": "#00ffff",
-    "post": 4,
-    "number": "5"
-  },
-  {
     "name": "Programmed Cadet Blue",
     "color": "#5f9ea0",
     "post": 4,
     "number": "6"
-  },
-  {
-    "name": "Sinking Teal",
-    "color": "#008080",
-    "post": 4,
-    "number": "7"
   },
   {
     "name": "Puppet Mosaic Blue",
@@ -461,14 +371,8 @@ var colors = [
     "number": "0"
   },
   {
-    "name": "Sparkly Fuchsia",
-    "color": "#ff00ff",
-    "post": 5,
-    "number": "1"
-  },
-  {
     "name": "Bliss Honeysuckle",
-    "color": "#d65076",
+    "color": "#b55470",
     "post": 5,
     "number": "2"
   },
@@ -483,12 +387,6 @@ var colors = [
     "color": "#21e679",
     "post": 5,
     "number": "4"
-  },
-  {
-    "name": "Nameless Navy",
-    "color": "#120039",
-    "post": 5,
-    "number": "5"
   },
   {
     "name": "Nameless Navy",
@@ -515,14 +413,8 @@ var colors = [
     "number": "8"
   },
   {
-    "name": "Deep Pink",
-    "color": "#ff1493",
-    "post": 5,
-    "number": "9"
-  },
-  {
     "name": "Witch Lavender",
-    "color": "#d3c1f5",
+    "color": "#aaaae5",
     "post": 6,
     "number": "#"
   },
@@ -557,12 +449,6 @@ var colors = [
     "number": "4"
   },
   {
-    "name": "BSOD Blue",
-    "color": "#5555ff",
-    "post": 6,
-    "number": "5"
-  },
-  {
     "name": "Pheromone Violet",
     "color": "#eedbff",
     "post": 6,
@@ -591,12 +477,6 @@ var colors = [
     "color": "#5afaff",
     "post": 6,
     "number": "↑"
-  },
-  {
-    "name": "Misty Rose",
-    "color": "#ffe4e1",
-    "post": 6,
-    "number": "↓"
   }
 ];
 
@@ -648,13 +528,14 @@ const hue = (r, g, b) => {
             }
         }
     }
+    const offset = 5;
     switch (max) {
         case 0:
-            return (6 + (g - b) / (r - minV)) % 6;
+            return (offset + 6 + (g - b) / (r - minV)) % 6;
         case 1:
-            return 2 + (b - r) / (g - minV);
+            return (offset + 2 + (b - r) / (g - minV)) % 6;
         case 2:
-            return 4 + (r - g) / (b - minV);
+            return (offset + 4 + (r - g) / (b - minV)) % 6;
     }
 };
 const hueHex = (hex) => {
@@ -674,6 +555,32 @@ const satHex = (hex) => {
         hex = hex.substr(1, 6);
     }
     return saturation(parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16))
+};
+
+const similarity = (col1, col2) => {
+    // hue out of 3 (6 = 360deg)
+    var hue1 = hueHex(col1);
+    var hue2 = hueHex(col2);
+    var hueDiff = Math.abs(hue2 - hue1);
+    if (isNaN(hueDiff)) {
+       hueDiff = 0;
+    } else if (hueDiff > 3) {
+        hueDiff = 6 - hueDiff;
+    }
+    hueDiff = 1 - (hueDiff / 3);
+    hueDiff *= hueDiff;
+    // sat out of 255
+    var sat1 = satHex(col1);
+    var sat2 = satHex(col2);
+    var satDiff = Math.abs(sat2 - sat1);
+    satDiff = 1 - (satDiff / 255);
+    // luma out of 255
+    var luma1 = lumaHex(col1);
+    var luma2 = lumaHex(col2);
+    var lumaDiff = Math.abs(luma2 - luma1);
+    lumaDiff = 1 - (lumaDiff / 255);
+    
+    return hueDiff * satDiff * lumaDiff;
 };
 
 const populate = () => {
@@ -738,7 +645,8 @@ document.getElementById("luma").addEventListener("click", function(){
         mult = 1;
         sort = ["luma", false];
     }
-    colors.sort((a, b) => (lumaHex(a.color) > lumaHex(b.color) ? -mult : (lumaHex(a.color) === lumaHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = lumaHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
 });
 document.getElementById("hue").addEventListener("click", function(){
@@ -750,7 +658,8 @@ document.getElementById("hue").addEventListener("click", function(){
         mult = -1;
         sort = ["hue", false];
     }
-    colors.sort((a, b) => (hueHex(a.color) > hueHex(b.color) ? -mult : (hueHex(a.color) === hueHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = hueHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
 });
 document.getElementById("sat").addEventListener("click", function(){
@@ -762,8 +671,19 @@ document.getElementById("sat").addEventListener("click", function(){
         mult = 1;
         sort = ["sat", false];
     }
-    colors.sort((a, b) => (satHex(a.color) > satHex(b.color) ? -mult : (satHex(a.color) === satHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = satHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
+});
+document.getElementById("similarity").addEventListener("click", function(){
+    var reference = document.getElementById("picker").value;
+    console.log(reference);
+    if (!(sort[0] === "search" && sort[1] === reference)) {
+        sort = ["sat", reference];
+        colors.forEach(a => a.index = similarity(a.color, reference));
+        colors.sort((a, b) => (b.index - a.index));
+        populate();
+    }
 });
 
 populate();
