@@ -20,16 +20,17 @@ body {
     font-size: 18px;
     line-height: 18px;
     margin: 0;
-    background-color: #000;
+    background-color: #36393f;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 #bar {
-    position:fixed;
+    flex: 0 0 auto;
     text-align: center;
-    z-index: 2;
     top: 0;
     background: rgba(255,255,255,0.5);
     width: 100vw;
-    height: 48px;
 }
 button {
     display: inline-block;
@@ -46,11 +47,21 @@ button {
     margin-bottom: 8px;
 }
 #container {
+    overflow: auto;
+    flex: 1 1 auto;
     max-width: 720px;
     background-color: #36393f;
-    padding-top: 52px;
     margin: 0 auto;
 }
+
+#container::-webkit-scrollbar {
+  display: none;
+}
+
+#container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+} 
 .color {
     width: 192px;
     height: 48px;
@@ -99,10 +110,10 @@ button {
 .HideColors .color .clear {
     height: 72px;
 }
-.number {
+.hex {
     display: none;
 }
-.HideColors .number {
+.HideColors .hex {
     display: inline;
     position: absolute;
     left: 50%;
@@ -157,7 +168,7 @@ html::-webkit-scrollbar {
 <body>
     <div id="bar">
         <button id="names">show names and emotes</button><br>
-        sort by <button id="name">name</button> • <button id="hue">hue</button> • <button id="sat">vividness</button> • <button id="luma">brightness</button>
+        sort by <button id="name">name</button> • <button id="hue">hue</button> • <button id="sat">vividness</button> • <button id="luma">brightness</button><br><span class="new">NEW!</span> <label for="picker">similarity to</label> <input type="color" id="picker" name="picker" value="#ffffff"></input> <button id="similarity">search!</button>
     </div>
     <div id="container" class="">
         <hr>
@@ -168,7 +179,7 @@ html::-webkit-scrollbar {
         <div class="emote" style="background-image: url(https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/heavy-black-heart_2764.png);"></div>
         <div class="name">Sample Color Name</div>
         <div class="clear"></div>
-        <span class="number">0</span>
+        <span class="hex">0</span>
     </div>
 </div>
     <script>
@@ -334,6 +345,7 @@ var colors = [
         "emote": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/cross-mark_274c.png"
     }
 ];
+
 var sort = ["none", false];
 
 const box = document.getElementById("container");
@@ -382,13 +394,14 @@ const hue = (r, g, b) => {
             }
         }
     }
+    const offset = 5;
     switch (max) {
         case 0:
-            return (6 + (g - b) / (r - minV)) % 6;
+            return (offset + 6 + (g - b) / (r - minV)) % 6;
         case 1:
-            return 2 + (b - r) / (g - minV);
+            return (offset + 2 + (b - r) / (g - minV)) % 6;
         case 2:
-            return 4 + (r - g) / (b - minV);
+            return (offset + 4 + (r - g) / (b - minV)) % 6;
     }
 };
 const hueHex = (hex) => {
@@ -410,6 +423,32 @@ const satHex = (hex) => {
     return saturation(parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16))
 };
 
+const similarity = (col1, col2) => {
+    // hue out of 3 (6 = 360deg)
+    var hue1 = hueHex(col1);
+    var hue2 = hueHex(col2);
+    var hueDiff = Math.abs(hue2 - hue1);
+    if (isNaN(hueDiff)) {
+       hueDiff = 0;
+    } else if (hueDiff > 3) {
+        hueDiff = 6 - hueDiff;
+    }
+    hueDiff = 1 - (hueDiff / 3);
+    hueDiff *= hueDiff;
+    // sat out of 255
+    var sat1 = satHex(col1);
+    var sat2 = satHex(col2);
+    var satDiff = Math.abs(sat2 - sat1);
+    satDiff = 1 - (satDiff / 255);
+    // luma out of 255
+    var luma1 = lumaHex(col1);
+    var luma2 = lumaHex(col2);
+    var lumaDiff = Math.abs(luma2 - luma1);
+    lumaDiff = 1 - (lumaDiff / 255);
+    
+    return hueDiff * satDiff * lumaDiff;
+};
+
 const populate = () => {
     //while (box.lastChild) {
     //    box.removeChild(box.lastChild);
@@ -424,18 +463,19 @@ const populate = () => {
             // make new
             const name = colors[i].name !== null ? colors[i].name : "unnamed";
             const dark =  lumaHex(colors[i].color) < 144;
-            const emote = colors[i].emote !== null ? colors[i].emote : "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/twitter/185/black-question-mark-ornament_2753.png";
+            const post = colors[i].post !== null ? colors[i].post : -1;
+            const number = colors[i].number !== null ? colors[i].number : -1;
             node.id = "color_" + (colors[i].color).substr(1,6);
             node.style = "border-color: " + colors[i].color + "; color: " + colors[i].color;
-            node.getElementsByClassName("emote")[0].style = "background-image: url(" + emote + ")";
             if (colors[i].name === null) {
                 node.classList.add("unnamed");
             }
             node.getElementsByClassName("name")[0].innerText = name;
             node.getElementsByClassName("name")[0].style = "color: " + (dark ? "white" : colors[i].color);
+            node.getElementsByClassName("emote")[0].style.backgroundImage = `url(${colors[i].emote})`;
             node.getElementsByClassName("clear")[0].style = "background: " + colors[i].color + ";";
-            node.getElementsByClassName("number")[0].innerText = colors[i].color;
-            node.getElementsByClassName("number")[0].style = "color:" + (dark ? "white" : "black");   
+            node.getElementsByClassName("hex")[0].innerText = colors[i].color;
+            node.getElementsByClassName("hex")[0].style = "color:" + (dark ? "white" : "black");   
         }
         box.appendChild(node);
     }
@@ -443,7 +483,7 @@ const populate = () => {
 document.getElementById("names").addEventListener("click", function(){
     box.classList.toggle("HideColors");
     if (box.classList.contains("HideColors")){
-        document.getElementById("names").innerText="show names and emotes";
+        document.getElementById("names").innerText="show names and indices";
     } else {
         document.getElementById("names").innerText="show color codes";
     }
@@ -469,7 +509,8 @@ document.getElementById("luma").addEventListener("click", function(){
         mult = 1;
         sort = ["luma", false];
     }
-    colors.sort((a, b) => (lumaHex(a.color) > lumaHex(b.color) ? -mult : (lumaHex(a.color) === lumaHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = lumaHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
 });
 document.getElementById("hue").addEventListener("click", function(){
@@ -481,7 +522,8 @@ document.getElementById("hue").addEventListener("click", function(){
         mult = -1;
         sort = ["hue", false];
     }
-    colors.sort((a, b) => (hueHex(a.color) > hueHex(b.color) ? -mult : (hueHex(a.color) === hueHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = hueHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
 });
 document.getElementById("sat").addEventListener("click", function(){
@@ -493,8 +535,19 @@ document.getElementById("sat").addEventListener("click", function(){
         mult = 1;
         sort = ["sat", false];
     }
-    colors.sort((a, b) => (satHex(a.color) > satHex(b.color) ? -mult : (satHex(a.color) === satHex(b.color) ? 0 : mult)));
+    colors.forEach(a => a.index = satHex(a.color));
+    colors.sort((a, b) => (a.index - b.index) * -mult);
     populate();
+});
+document.getElementById("similarity").addEventListener("click", function(){
+    var reference = document.getElementById("picker").value;
+    console.log(reference);
+    if (!(sort[0] === "search" && sort[1] === reference)) {
+        sort = ["sat", reference];
+        colors.forEach(a => a.index = similarity(a.color, reference));
+        colors.sort((a, b) => (b.index - a.index));
+        populate();
+    }
 });
 
 populate();
