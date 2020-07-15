@@ -1,131 +1,272 @@
 @font-face {
-    font-family: "Mikado_";
-    font-weight: bold;
-    src: 
+  font-family: "Mikado_";
+  font-weight: bold;
+  src:
     local("Mikado Black"),
-    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.ttf") format("ttf"),
-    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/raw/master/font/mikado/hvd_fonts_-_mikadoblack-webfont.woff") format("woff");
+    url("https://2gd4.me/resource/Font700.ttf") format("ttf"),
+    url("https://japanyoshi.github.io/resource/Font700.ttf") format("ttf");
 }
+
 @font-face {
-    font-family: "Mikado_";
-    font-weight: 500;
-    src: 
+  font-family: "Mikado_";
+  font-weight: 500;
+  src:
     local("Mikado Medium"),
-    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadomedium-webfont.ttf?raw=true") format("ttf"),
-    url("https://cors-anywhere.herokuapp.com/https://github.com/Threstle/cher-ami/blob/master/font/mikado/hvd_fonts_-_mikadomedium-webfont.woff?raw=true") format("woff");
+    url("https://2gd4.me/resource/Font400.ttf") format("ttf"),
+    url("https://japanyoshi.github.io/resource/Font400.ttf") format("ttf");
 }
+
+html {
+  font-size: 1.25em;
+  --pink-dark: #FF4080;
+  --pink-med: #FF79B2;
+  --pink-light: #FFB0F0;
+  --aqua-dark: #40B0FF;
+  --aqua-med: #68CFFF;
+  --aqua-light: #B0F0FF;
+  --black: #4C4C4C;
+  --gray: #9B969D;
+  --white: #F3F3F3;
+}
+
 body {
-    margin: 0;
-    font-family: "Mikado_", "FOT-RodinWanpaku Pro", "けいふぉんと", "りいポップ角", "Yu Gothic", sans-serif;
-    font-weight: 500;
-    background-image: url("./resource/bg.png");
-    font-size: 16px;
-    line-height: 120%;
+  margin: 0;
+  font-family: "Mikado_", "Mikado", "FOT-RodinWanpaku Pro", "けいふぉんと", "りいポップ角", "Yu Gothic", sans-serif;
+  font-weight: 500;
+  background-image: url("./resource/bg.png");
+  font-size: 1rem;
+  line-height: 120%;
 }
+
 header {
-    box-sizing: border-box;
-    margin: 0 8px 8px;
-    background-color: #ffb0f0;
-    border: 8px solid #ff4080;
-    border-top-width: 0;
-    border-radius: 0px 0px 24px 24px;
-    color:#F3F3F3;
-    text-shadow: 0px 0px 2px #ff4080;
+  box-sizing: border-box;
+  margin: 0 8px 8px;
+  background-color: var(--pink-light);
+  border: 8px solid var(--pink-dark);
+  border-top-width: 0;
+  border-radius: 0px 0px 24px 24px;
+  color: var(--pink-dark);
+  text-shadow: 0px 0px 2px var(--white);
 }
+
 img.header {
-    width: 128px;
-    height: 128px;
-    float: left;
-    margin-right: 16px;
+  width: 128px;
+  height: 128px;
+  float: left;
+  margin-right: 16px;
 }
-h1, h2 {
-    margin: 0;
-    font-size: 30px;
-    line-height: 140%;
-}
+
+h1,
 h2 {
-    font-size: 22px;
+  margin: 0;
+  font-size: 30px;
+  line-height: 140%;
 }
+
+h2 {
+  font-size: 22px;
+}
+
 .clearfix {
-    width: 100%;
-    height: 0px;
-    clear: both;
+  width: 100%;
+  height: 0px;
+  clear: both;
 }
+
 #body {
-    margin: 0 auto;
-    max-width: 640px;
-    border: 8px solid #FF4080;
-    background: #ff79B2;
-    color: #4c4c4c;
-    border-radius: 16px;
+  margin: 0 auto;
+  max-width: 640px;
+  border: 8px solid var(--pink-dark);
+  background: var(--pink-dark);
+  color: var(--black);
+  border-radius: 16px;
 }
 
-#body > .section {
-    background: #FFB0F0;
-    margin: 4px;
-    border-radius: 4px;
-    padding: 0;
+.title-section {
+  text-align: center;
+  max-width: 480px;
+  margin: 16px auto 8px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 4px solid var(--aqua-dark);
+  border-width: 4px 7px 8px 5px;
+  background: var(--aqua-light);
 }
 
-#body > .section > h3 {
-    display: block;
-    margin: 0;
-    margin-bottom: 4px;
-    padding: 12px;
-    border: 2px solid #40B0FF;
-    border-radius: 3px;
-    background: #B0F0FF;
-    color: #4C4C4C;
-}
-#body > .section > ul {
-    margin: 0;
-    padding: 4px;
-}
-#body > .section > ul > li {
-    display: block;
-    margin: 0;
-    padding: 4px;
-    border-radius: 3px;
+.title {
+  font-size: 1.5em;
+  line-height: 100%;
+  font-weight: bold;
+  color: var(--black);
 }
 
-#body > .section > ul > li > strong {
+.subtitle {
+  font-size: 1.25em;
+  line-height: 100%;
+  font-style: italic;
+  color: var(--aqua-dark);
+}
 
+#body>.section {
+  border: 4px solid var(--pink-med);
+  background: var(--pink-light);
+  border-radius: 4px;
+  padding: 0;
 }
-#body > .section > ul > li > strong::after {
-    content: ": ";
+
+#body>.section+.section {
+  margin-top: 8px;
 }
+
+#body>.section>p {
+  margin: 0;
+  margin-bottom: 4px;
+  padding: 0 8px;
+  text-indent: 2em;
+}
+
+#body>.section>h3 {
+  display: block;
+  margin: 0;
+  margin-bottom: 4px;
+  padding: 12px;
+  border: 2px solid var(--aqua-dark);
+  border-radius: 3px;
+  background: var(--aqua-light);
+  color: var(--black);
+}
+
+#body>.section>h4 {
+  display: block;
+  margin: 4px;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 3px;
+  background: var(--pink-dark);
+  color: var(--white);
+}
+
+#body>.section>ul {
+  margin: 0;
+  padding: 4px;
+}
+
+#body>.section>ul>li {
+  margin: 0;
+  padding: 4px;
+  list-style-type: none;
+}
+
+#body>.section>ul.bullet>li {
+  text-indent: -1em;
+  margin-inline-start: 1em;
+  padding: 4px;
+  padding-inline-start: 1em;
+  list-style-type: disc;
+}
+
+#body>.section>ul>li>strong {}
+
+#body>.section>ul>li>strong::after {
+  content: ": ";
+}
+
+.imgBox {
+  margin: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 4px solid var(--gray);
+  background: var(--white);
+  color: var(--black);
+}
+
+.imgBox>img {
+  border-radius: 4px;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.imgBox>span {
+  display: inline-block;
+  margin: 8px;
+}
+
+.imgBox>span::before {
+  content: "↑ ";
+}
+
 a {
-    color: #ff4080;
-    text-shadow: 0px 0px 2px #43afff;
-    display: inline;
-    text-decoration: none;
-    transition: 100ms ease-out;
+  color: var(--black);
+  text-shadow: 0px 0px 2px var(--aqua-light), 0px 0px 2px var(--aqua-light);
+  display: inline;
+  text-decoration: underline;
+  transition: 100ms ease-out;
 }
+
 a:hover {
-    color: white;
-    text-shadow: 0px 0px 2px #ff4080;
-    transition: 100ms ease-out;
+  color: var(--white);
+  text-shadow: 0px 0px 2px var(--pink-dark), 0px 0px 2px var(--pink-dark);
+  transition: 100ms ease-out;
 }
+
 a.biglink {
   display: inline-block;
-  background: #40B0ff;
-  color: #ffffff;
+  background: var(--aqua-dark);
+  color: var(--white);
   text-shadow: none;
   padding: 12px;
   font-weight: bold;
   font-size: 150%;
   border-radius: 8px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
+
 a.biglink:hover {
-  background: #68cfff;
+  background: var(--aqua-med);
   text-shadow: 0px 0px 2px #ffffff;
   transition: 100ms ease-out;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 #fullwidth {
   width: 100%;
   text-align: center;
   margin: 8px 0 64px;
+}
+
+kbd {
+  display: inline-block;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  background: var(--gray);
+  border: 2px solid var(--black);
+  font-weight: 700;
+  color: var(--white);
+  text-indent: 0;
+  text-align: center;
+  height: 1em;
+  min-width: 1em;
+  border-radius: 4px;
+}
+
+kbd.button {
+  border-radius: calc(0.5em + 2px);
+}
+
+.videobox {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.videobox>iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
