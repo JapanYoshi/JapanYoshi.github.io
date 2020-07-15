@@ -2,9 +2,10 @@
   font-family: "Mikado_";
   font-weight: bold;
   src:
-    local("Mikado Black"),
-    url("https://2gd4.me/resource/Font700.ttf") format("ttf"),
-    url("https://japanyoshi.github.io/resource/Font700.ttf") format("ttf");
+  local("Mikado Black"),
+  url("/resource/Font700.ttf") format("ttf"),
+  url("2gd4.me/resource/Font700.ttf") format("ttf"),
+  url("japanyoshi.github.io/resource/Font700.ttf") format("ttf");
 }
 
 @font-face {
@@ -12,8 +13,9 @@
   font-weight: 500;
   src:
     local("Mikado Medium"),
-    url("https://2gd4.me/resource/Font400.ttf") format("ttf"),
-    url("https://japanyoshi.github.io/resource/Font400.ttf") format("ttf");
+    url("/resource/Font400.ttf") format("ttf"),
+    url("2gd4.me/resource/Font400.ttf") format("ttf"),
+    url("japanyoshi.github.io/resource/Font400.ttf") format("ttf");
 }
 
 html {
