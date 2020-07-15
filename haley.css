@@ -2,20 +2,20 @@
   font-family: "Mikado_";
   font-weight: bold;
   src:
-  local("Mikado Black"),
-  url("/resource/Font700.ttf") format("ttf"),
-  url("2gd4.me/resource/Font700.ttf") format("ttf"),
-  url("japanyoshi.github.io/resource/Font700.ttf") format("ttf");
+  /*local("Mikado Black"),*/
+  url("/resource/Font700.ttf") format("truetype"),
+  url("2gd4.me/resource/Font700.ttf") format("truetype"),
+  url("japanyoshi.github.io/resource/Font700.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Mikado_";
   font-weight: 500;
   src:
-    local("Mikado Medium"),
-    url("/resource/Font400.ttf") format("ttf"),
-    url("2gd4.me/resource/Font400.ttf") format("ttf"),
-    url("japanyoshi.github.io/resource/Font400.ttf") format("ttf");
+  /*local("Mikado Medium"),*/
+  url("/resource/Font400.ttf") format("truetype"),
+  url("2gd4.me/resource/Font400.ttf") format("truetype"),
+  url("japanyoshi.github.io/resource/Font400.ttf") format("truetype");
 }
 
 html {
