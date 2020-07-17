@@ -396,7 +396,7 @@
         }
         var img = document.createElement("img");
         img.src = data[i].previews[lastSuccessfulMode];
-        el.querySelector(".cardPreview").style.backgroundImage = "url(" + data[i].previews[lastSuccessfulMode] + ")";
+        el.querySelector(".cardPreview").style.backgroundImage = 'url("' + data[i].previews[lastSuccessfulMode] + '")';
         init2(el, i, lastSuccessfulMode, img);
         
         var table = el.querySelectorAll("table.download tr");
