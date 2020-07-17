@@ -1,0 +1,498 @@
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Haley Halcyon’s Judgment Graphics for Stepmania 5.3</title>
+  <meta property="og:title" value="Haley Halcyon’s Judgment Graphics for Stepmania 5.3">
+  <meta name="twitter:title" value="Haley Halcyon’s Judgment Graphics for Stepmania 5.3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+  <meta name="twitter:site" content="@ItsSpelledHALEY">
+  <meta name="twitter:creator" content="@ItsSpelledHALEY">
+  <meta name="description" content="Give your feedback some flair!">
+  <meta property="og:description" content="Give your feedback some flair!">
+  <meta name="twitter:description" content="Give your feedback some flair!">
+  <meta name="keywords" content="Stepmania,Stepmania 5.3,customization,judgment">
+  <meta name="author" content="Haley Wakamatsu">
+  <link rel="icon" href="/favicon.png">
+  <!-- sharable image -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="http://japanyoshi.github.io/tidbit/judge.png">
+  <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/judge.png">
+  <style>
+    html {
+      background: black;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: Roboto, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #4ff;
+    }
+
+    #headline {
+      display: block;
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding: 2em 0;
+      text-align: center;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#31144f+0,040019+100 */
+      background: #31144f;
+      /* Old browsers */
+      background: -moz-radial-gradient(center, ellipse cover, #31144f 0%, #040019 100%);
+      /* FF3.6-15 */
+      background: -webkit-radial-gradient(center, ellipse cover, #31144f 0%, #040019 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: radial-gradient(ellipse at center, #31144f 0%, #040019 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#31144f', endColorstr='#040019', GradientType=1);
+      /* IE6-9 fallback on horizontal gradient */
+      overflow: hidden;
+      border-bottom: 2px solid #7040e0;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      display: block;
+      color: #ccc;
+      font-size: 2em;
+      mix-blend-mode: screen;
+    }
+
+    h2 {
+      display: inline-block;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+      color: #808080;
+      mix-blend-mode: screen;
+    }
+
+    #sort {
+      display: block;
+      width: 100%;
+      background: rgba(32, 0, 64, 0.8);
+      text-align: center;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -o-user-select: none;
+    }
+
+    #sort input[type=checkbox],
+    #sort input[type=radio] {
+      display: none;
+    }
+
+    #sort label {
+      display: inline-block;
+      border: 1px solid purple;
+      border-radius: 2px;
+      padding: 2px;
+      margin: 0 0 2px 4px;
+    }
+
+    #sort :checked+label {
+      background: purple;
+    }
+
+    #cardColumn {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .card {
+      display: block;
+      margin: 0px 2px 4px;
+      padding: 2px;
+      border-width: 1px 1px 1px 4px;
+      border-style: solid;
+      border-color: #7040e0;
+    }
+
+    .cardHead {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .cardPreview {
+      flex: 0 0 300px;
+      background-size: 200%;
+    }
+
+    .cardDesc {
+      flex: 1 1 0;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 2px;
+    }
+
+    #cardColumn>.card.system {
+      display: block;
+    }
+
+    #cardColumn:not(.Lang_en)>.card.lang_en,
+    #cardColumn:not(.Lang_ja)>.card.lang_ja {
+      display: none;
+    }
+
+    table.modes,
+    table.download {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: none;
+      margin-top: 1em;
+    }
+
+    table.modes td,
+    table.download td {
+      text-align: center;
+    }
+
+    .animation-6 {
+      display: inline-block;
+      float: left;
+      width: 300px;
+      height: 64px;
+      animation-name: anim6d;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .animation-7 {
+      display: inline-block;
+      float: left;
+      width: 300px;
+      height: 64px;
+      animation-name: anim7d;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .animation-11 {
+      display: inline-block;
+      float: left;
+      width: 300px;
+      height: 64px;
+      animation-name: anim11d;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @keyframes anim6d {
+0.0%{background-position:-100% 0%}
+16.66%{background-position:-100% 0%}
+16.67%{background-position:0 -100%}
+33.33%{background-position:0 -100%}
+33.34%{background-position:-100% -200%}
+49.99%{background-position:-100% -200%}
+50.0%{background-position:0 -300%}
+66.66%{background-position:0 -300%}
+66.67%{background-position:-100% -400%}
+83.33%{background-position:-100% -400%}
+83.34%{background-position:0 -500%}
+99.99000000000001%{background-position:0 -500%}
+}
+@keyframes anim7d {
+0.0%{background-position:-100% 0%}
+14.280000000000001%{background-position:-100% 0%}
+14.290000000000001%{background-position:0 -100%}
+28.57%{background-position:0 -100%}
+28.580000000000002%{background-position:-100% -200%}
+42.85%{background-position:-100% -200%}
+42.86%{background-position:0 -300%}
+57.14%{background-position:0 -300%}
+57.15%{background-position:-100% -400%}
+71.42%{background-position:-100% -400%}
+71.43%{background-position:0 -500%}
+85.71000000000001%{background-position:0 -500%}
+85.72%{background-position:-100% -600%}
+99.99000000000001%{background-position:-100% -600%}
+}
+@keyframes anim11d {
+0.0%{background-position:-100% 0%}
+9.09%{background-position:-100% 0%}
+9.1%{background-position:0 -100%}
+18.18%{background-position:0 -100%}
+18.19%{background-position:-100% -200%}
+27.27%{background-position:-100% -200%}
+27.28%{background-position:0 -300%}
+36.36%{background-position:0 -300%}
+36.37%{background-position:-100% -400%}
+45.45%{background-position:-100% -400%}
+45.46%{background-position:0 -500%}
+54.54%{background-position:0 -500%}
+54.550000000000004%{background-position:-100% -600%}
+63.63%{background-position:-100% -600%}
+63.64%{background-position:0 -700%}
+72.72%{background-position:0 -700%}
+72.73%{background-position:-100% -800%}
+81.81%{background-position:-100% -800%}
+81.82000000000001%{background-position:0 -900%}
+90.9%{background-position:0 -900%}
+90.91%{background-position:-100% -1000%}
+99.99000000000001%{background-position:-100% -1000%}
+}
+
+  </style>
+  <script>
+    const data = [
+      {
+        "name": "Mikado",
+        "desc": "Haley Halcyon’s special judgment graphics.",
+        "lang": "en",
+        "previews": [
+          "./judge/Mikado [double] 2x6 (doubleres).png",
+          "./judge/Mikado [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/Mikado [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
+        ],
+        "double": true
+      },
+      {
+        "name": "Jewelry",
+        "desc": "Get fancy!",
+        "lang": "en",
+        "previews": [
+          "./judge/Jewelry [double] 2x6 (doubleres).png",
+          "./judge/Jewelry [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/Jewelry [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
+        ],
+        "double": true
+      },
+      {
+        "name": "Swiss",
+        "desc": "Efficient and functional.",
+        "lang": "en",
+        "previews": [
+          "./judge/Swiss [double] 2x6 (doubleres).png",
+          "./judge/Swiss [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/Swiss [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
+        ],
+        "double": true
+      },
+      {
+        "name": "ポップ",
+        "desc": "はるるちゃんの特製判定画像！",
+        "lang": "ja",
+        "previews": [
+          "./judge/_JP_MIKADO [double] 2x6 (doubleres).png",
+          "./judge/_JP_MIKADO [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/_JP_MIKADO [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
+        ],
+        "double": true
+      },
+      {
+        "name": "ほうせき",
+        "desc": "キラキラゴージャス！",
+        "lang": "ja",
+        "previews": [
+          "./judge/_JP_JEWELRY [double] 2x6 (doubleres).png",
+          "./judge/_JP_JEWELRY [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/_JP_JEWELRY [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
+        ],
+        "double": true
+      },
+      {
+        "name": "スイス",
+        "desc": "能率的でスマート。",
+        "lang": "ja",
+        "previews": [
+          "./judge/_JP_SWISS [double] 2x6 (doubleres).png",
+          "./judge/_JP_SWISS [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/_JP_SWISS [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
+        ],
+        "double": true
+      },
+      {
+        "name": "LoveHD",
+        "desc": "A faithful remake of Simply Love’s judgment graphics.",
+        "lang": "en",
+        "previews": [
+          "./judge/LoveHD [double] 2x6 (doubleres).png",
+          "./judge/LoveHD [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/LoveHD [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_EN_Judgments", "none"]
+        ],
+        "double": true
+      },
+      {
+        "name": "ラブ",
+        "desc": "<ruby>Simply<rp>(</rp><rt>シンプリー</rt><rp>)</rp></ruby> <ruby>Love<rp>(</rp><rt>ラブ</rt><rp>(</rp></ruby> テーマ風の判定フォント。",
+        "lang": "en",
+        "previews": [
+          "./judge/_JP_LOVE [double] 2x6 (doubleres).png",
+          "./judge/_JP_LOVE [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/_JP_LOVE [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": [
+          ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
+        ],
+        "double": true
+      }
+    ];
+    function init() {
+      const template = document.getElementById("template").children[0];
+      
+      for (var i = 0; i < data.length; i++) {
+        var el = template.cloneNode(true);
+        el.querySelector(".cardDesc > h3").innerHTML = data[i].name;
+        el.querySelector(".cardDesc > p").innerHTML = data[i].desc;
+        var table = el.querySelector("table.modes")
+        var lastSuccessfulMode;
+        for (var j = 0; j < 3; j++) {
+          if (data[i].previews[j]) {
+            lastSuccessfulMode = j;
+            el.querySelector(".cardPreview").style.animationName = "anim" + ["6d", "7d", "11d"][j];
+
+            var thisCell = table.querySelector("tr:not(:first-child)").children[j];
+            var link = document.createElement("a");
+            link.href = data[i].previews[j];
+            link.innerText = thisCell.innerText;
+            thisCell.innerText = "";
+            thisCell.appendChild(link);
+            el.classList.add("yMode" + j);
+          } else {
+            el.classList.add("nMode" + j);
+          }
+        }
+        var img = document.createElement("img");
+        img.src = data[i].previews[lastSuccessfulMode];
+        el.querySelector(".cardPreview").style.backgroundImage = "url(" + data[i].previews[lastSuccessfulMode] + ")";
+        init2(el, i, lastSuccessfulMode, img);
+        
+        var table = el.querySelectorAll("table.download tr");
+        for (var k = 0; k < data[i].download.length; k++) {
+          table[0].firstChild.colspan = k + 1;
+          var link = document.createElement("a");
+          link.href = data[i].download[k][0];
+          link.innerText = data[i].download[k][1];
+          var cell = document.createElement("td");
+          cell.appendChild(link);
+          table[1].appendChild(cell);
+        }
+        console.log(el);
+        document.getElementById("cardColumn").appendChild(el);
+      }
+      document.getElementById("cardColumn").appendChild(document.getElementById("back"));
+    }
+      function init2(el, i, mode, img) {
+        if (img.naturalWidth != 0) {
+          var scale = (parseInt(template.querySelector(".cardPreview").clientWidth, 10) / img.naturalWidth);
+          if (data[i].double) { scale *= 2; }
+          el.querySelector(".cardPreview").style.height = (scale * img.naturalHeight / [6, 7, 11][mode]).toString(10) + "px";
+        } else {
+          setTimeout(init2, 500, el, i, mode, img);
+        }
+      }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</head>
+
+<body>
+  <div id="headline">
+    <h2>Haley Halcyon’s</h2>
+    <h1>Judgment Graphics</h1>
+    <h2>for Stepmania 5.3 and supporting themes</h2>
+  </div>
+  <div id="sort">
+    <form>
+      <strong>Language</strong>
+      <input type="radio" id="lang_any" name="lang" checked>
+      <label for="lang_any">🌐</label>
+      <input type="radio" id="lang_en" name="lang">
+      <label for="lang_en">English</label>
+      <input type="radio" id="lang_ja" name="lang">
+      <label for="lang_ja">日本語</label>
+      <hr />
+      <strong>Supports</strong>
+      <input type="checkbox" disabled checked>
+      <label>Normal (x6)</label>
+      <input type="checkbox" id="mode_ecfa" name="mode_ecfa">
+      <label for="mode_ecfa">ECFA (x7)</label>
+      <input type="checkbox" id="mode_pro" name="mode_pro">
+      <label for="mode_pro">ProTiming (x11)</label>
+      <hr />
+    </form>
+  </div>
+  <div id="cardColumn" class="fdance fsolo fpump fnotes fholds">
+    <div id="back" class="card system">
+      <a href="..">Back</a>
+    </div>
+  </div>
+  <div id="template">
+    <div class="card">
+      <div class="cardHead">
+        <div class="cardPreview animation-6">
+        </div>
+        <div class="cardDesc">
+          <h3>Title</h3>
+          <p>Description.</p>
+        </div>
+      </div>
+      <table class="modes">
+        <tbody>
+          <tr>
+            <th colspan="3">Modes</th>
+          </tr>
+          <tr>
+            <td>Normal (x6)</td>
+            <td>ECFA (x7)</td>
+            <td>ProTiming (x11)</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="download">
+        <tbody>
+          <tr>
+            <th>Download</th>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <img id="loader"/>
+</body>
+
+</html>
