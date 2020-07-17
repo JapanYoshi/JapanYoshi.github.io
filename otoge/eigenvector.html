@@ -91,7 +91,7 @@
             margin: 16px
         }
 
-        .section {
+        .section, #footer {
             padding: 32px;
             background: #f0f5f7;
             border-top: 8px solid #ef544f;
@@ -153,6 +153,13 @@
         .collapsed .chevron {
             transform: rotate(0);
             transition: transform 250ms ease-out
+        }
+        
+        #footer {
+            text-align: center;
+            padding: 16px;
+            width: 160px;
+            margin: 8px auto;
         }
     </style>
 </head>
@@ -261,6 +268,9 @@
             <div class="video-box"> <iframe class="video" width="640" height="360"
                     src="https://www.youtube.com/embed/WhY3lUsnQcw" frameborder="0"
                     allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+        </div>
+        <div id="footer">
+            <a href="../otoge.html">Back to Otoge</a>
         </div>
     </div>
     <script>s = document.getElementsByClassName("section"); for (var i = 0; i < s.length; i++) { const e = s[i]; const h = e.firstElementChild; h.addEventListener("click", () => { e.classList.toggle("collapsed") }) }</script>

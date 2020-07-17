@@ -35,54 +35,19 @@ body {
   margin: 0;
   font-family: "Mikado_", "Mikado", "FOT-RodinWanpaku Pro", "けいふぉんと", "りいポップ角", "Yu Gothic", sans-serif;
   font-weight: 500;
-  background-image: url("./resource/bg.png");
+  background-image: url("resource/bg2.png");
   font-size: 1rem;
   line-height: 120%;
 }
 
-header {
-  box-sizing: border-box;
-  margin: 0 8px 8px;
-  background-color: var(--pink-light);
-  border: 8px solid var(--pink-dark);
-  border-top-width: 0;
-  border-radius: 0px 0px 24px 24px;
-  color: var(--pink-dark);
-  text-shadow: 0px 0px 2px var(--white);
-}
-
-img.header {
-  width: 128px;
-  height: 128px;
-  float: left;
-  margin-right: 16px;
-}
-
-h1,
-h2 {
-  margin: 0;
-  font-size: 30px;
-  line-height: 140%;
-}
-
-h2 {
-  font-size: 22px;
-}
-
-.clearfix {
-  width: 100%;
-  height: 0px;
-  clear: both;
-}
-
 #body {
   margin: 0 auto;
-  padding: 4px;
   max-width: 640px;
   color: var(--black);
+  border-radius: 16px;
 }
 
-.title-section {
+header {
   text-align: center;
   max-width: 480px;
   margin: 16px auto 8px;
@@ -93,25 +58,26 @@ h2 {
   background: var(--aqua-light);
 }
 
-.title {
+h1 {
   font-size: 1.5em;
   line-height: 100%;
   font-weight: bold;
   color: var(--black);
 }
 
-.subtitle {
-  font-size: 1.25em;
+h2 {
+  font-size: 1em;
   line-height: 100%;
   font-style: italic;
   color: var(--aqua-dark);
 }
 
 #body>.section {
-  border: 4px solid var(--pink-dark);
-  background: var(--pink-light);
+  border: 4px solid var(--aqua-dark);
+  background: var(--aqua-dark);
   border-radius: 4px;
   padding: 0;
+  margin: 4px;
 }
 
 #body>.section+.section {
@@ -125,81 +91,58 @@ h2 {
   text-indent: 2em;
 }
 
-#body>.section>h3 {
+.section h3 {
   display: block;
   margin: 0;
   margin-bottom: 4px;
   padding: 12px;
-  border: 2px solid var(--aqua-dark);
-  border-radius: 3px;
-  background: var(--aqua-light);
+  border: 2px solid var(--pink-dark);
+  border-radius: 8px;
+  background: var(--pink-light);
   color: var(--black);
 }
 
-#body>.section>h4 {
+.section h4 {
   display: block;
   margin: 4px;
-  margin-top: 8px;
   padding: 8px;
-  border-radius: 3px;
-  background: var(--pink-dark);
+  padding-bottom: 0px;
   color: var(--white);
 }
 
-#body>.section>ul {
+.section .subsection {
+  border-radius: 12px;
+  background: var(--aqua-med);
+}
+
+.section ul {
   margin: 0;
   padding: 4px;
 }
 
-#body>.section>ul>li {
+.section ul li {
+  background: var(--aqua-light);
   margin: 0;
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
   list-style-type: none;
 }
 
-#body>.section>ul.bullet>li {
-  text-indent: -1em;
-  margin-inline-start: 1em;
-  padding: 4px;
-  padding-inline-start: 1em;
-  list-style-type: disc;
+.section ul li + li {
+  margin-top: 4px;
 }
 
-#body>.section>ul>li>strong {}
-
-#body>.section>ul>li>strong::after {
-  content: ": ";
-}
-
-.imgBox {
-  margin: 4px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 4px solid var(--gray);
-  background: var(--white);
-  color: var(--black);
-}
-
-.imgBox>img {
-  border-radius: 4px;
+img {
+  display: block;
   width: auto;
   max-width: 100%;
   height: auto;
   margin: 0 auto;
 }
 
-.imgBox>span {
-  display: inline-block;
-  margin: 8px;
-}
-
-.imgBox>span::before {
-  content: "↑ ";
-}
-
 a {
   color: var(--black);
-  text-shadow: 0px 0px 2px var(--aqua-light), 0px 0px 2px var(--aqua-light);
+  text-shadow: 0px 0px 2px var(--pink-light), 0px 0px 2px var(--pink-light);
   display: inline;
   text-decoration: underline;
   transition: 100ms ease-out;
@@ -207,13 +150,21 @@ a {
 
 a:hover {
   color: var(--white);
-  text-shadow: 0px 0px 2px var(--pink-dark), 0px 0px 2px var(--pink-dark);
+  text-shadow: 0px 0px 2px var(--aqua-dark), 0px 0px 2px var(--aqua-dark);
   transition: 100ms ease-out;
+}
+
+footer {
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  color: var(--white);
 }
 
 a.biglink {
   display: inline-block;
-  background: var(--aqua-dark);
+  margin: 0 auto 1em;
+  background: var(--pink-dark);
   color: var(--white);
   text-shadow: none;
   padding: 12px;
@@ -221,53 +172,11 @@ a.biglink {
   font-size: 150%;
   border-radius: 8px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-  margin-bottom: 1em;
 }
 
 a.biglink:hover {
-  background: var(--aqua-med);
+  background: var(--pink-med);
   text-shadow: 0px 0px 2px #ffffff;
   transition: 100ms ease-out;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
-}
-
-#fullwidth {
-  width: 100%;
-  text-align: center;
-  margin: 3em 0;
-}
-
-kbd {
-  display: inline-block;
-  font-family: "Avenir Next", "Avenir", sans-serif;
-  background: var(--gray);
-  border: 2px solid var(--black);
-  font-weight: 700;
-  color: var(--white);
-  text-indent: 0;
-  text-align: center;
-  height: 1em;
-  min-width: 1em;
-  border-radius: 4px;
-}
-
-kbd.button {
-  border-radius: calc(0.5em + 2px);
-}
-
-.videobox {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.videobox>iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
