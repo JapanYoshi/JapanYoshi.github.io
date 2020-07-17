@@ -133,6 +133,12 @@
       flex-direction: row;
     }
 
+    @media (max-width:480px) {
+    .cardHead {
+      flex-direction: column;
+    }
+    }
+
     .cardPreview {
       flex: 0 0 300px;
       background-size: 200%;
@@ -426,7 +432,7 @@
           if (data[i].double) { scale *= 2; }
           el.querySelector(".cardPreview").style.height = (scale * img.naturalHeight / [6, 7, 11][mode]).toString(10) + "px";
         } else {
-          setTimeout(init2, 500, el, i, mode, img);
+          setTimeout(init2, 1000, el, i, mode, img);
         }
       }
 
