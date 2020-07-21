@@ -134,9 +134,15 @@
     }
 
     @media (max-width:480px) {
-    .cardHead {
-      flex-direction: column;
+      .cardHead {
+        flex-direction: column;
+      }
     }
+
+    .cardPreviewBox {
+      background: linear-gradient(135deg, #404040 0%,#6e7774 50%,#202020 100%);
+      background-size: 64px 64px;
+      animation: bgTile linear infinite 8s;
     }
 
     .cardPreview {
@@ -151,6 +157,7 @@
     h3 {
       margin: 0;
       padding: 2px;
+      color: white;
     }
 
     #cardColumn>.card.system {
@@ -171,9 +178,31 @@
       margin-top: 1em;
     }
 
+    th {
+      color: white;
+    }
+
     table.modes td,
     table.download td {
       text-align: center;
+    }
+
+    table.modes td.supportedMode {
+      font-weight: bold;
+    }
+
+    table.modes td:not(.supportedMode) {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    /* Filters */
+    #cardColumn.filterLangEn .card:not(.langEn),
+    #cardColumn.filterLangJa .card:not(.langJa),
+    #cardColumn.filterModeECFA .card:not(.yMode1),
+    #cardColumn.filterModePro .card:not(.yMode2)
+    {
+      display: none;
     }
 
     .animation-6 {
@@ -185,7 +214,20 @@
       animation-iteration-count: infinite;
       animation-timing-function: linear;
     }
-
+    @keyframes anim6s {
+0.0%{background-position:0% 0%}
+16.66%{background-position:0% 0%}
+16.67%{background-position:0 -100%}
+33.33%{background-position:0 -100%}
+33.34%{background-position:0% -200%}
+49.99%{background-position:0% -200%}
+50.0%{background-position:0 -300%}
+66.66%{background-position:0 -300%}
+66.67%{background-position:0% -400%}
+83.33%{background-position:0% -400%}
+83.34%{background-position:0 -500%}
+99.99%{background-position:0 -500%}
+}
     @keyframes anim6d {
 0.0%{background-position:-100% 0%}
 16.66%{background-position:-100% 0%}
@@ -198,7 +240,7 @@
 66.67%{background-position:-100% -400%}
 83.33%{background-position:-100% -400%}
 83.34%{background-position:0 -500%}
-99.99000000000001%{background-position:0 -500%}
+99.99%{background-position:0 -500%}
 }
 @keyframes anim7d {
 0.0%{background-position:-100% 0%}
@@ -241,8 +283,99 @@
 99.99%{background-position:-100% -1000%}
 }
 
+  @keyframes bgTile {
+    from {background-position: 0 0}
+    to {background-position: 400% 300%}
+  }
+
   </style>
   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    var userLang = urlParams.has('lang') ? urlParams.get('lang') : navigator.language || navigator.userLanguage;
+    console.log("userLang", userLang);
+    var strings;
+    function changeLang(lang){
+      if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
+        window.history.pushState({path:newurl},'',newurl);
+      }
+      switch (lang) {
+        case "ja":
+          strings = {
+            title0: "はるるちゃんの",
+            title1: "判定フォント",
+            title2: "Stepmania 5.3 と、それと互換性のあるテーマ用",
+            filterLang: "言語",
+            filterMode: "モード",
+            modes: "モード",
+            modeNormal: "普通 (x6)",
+            modeECFA: "ECFA (x7)",
+            modePro: "Pro (x11)",
+            dl: "ダウンロード",
+            dlIndiv: "上のリンクで個別の画像をダウンロードしてください。",
+          };
+          break;
+        case "en-US":
+        case "en":
+          strings = {
+            title0: "Haley Halcyon’s",
+            title1: "Judgment Graphics",
+            title2: "for Stepmania 5.3 and supporting themes",
+            filterLang: "Language",
+            filterMode: "Supports",
+            modes: "Modes",
+            modeNormal: "Normal (x6)",
+            modeECFA: "ECFA (x7)",
+            modePro: "Pro (x11)",
+            dl: "Download",
+            dlIndiv: "Download individual images above.",
+          };
+          break;
+        default:
+          strings = {
+            title0: "Haley Halcyon’s",
+            title1: "Judgment Graphics",
+            title2: "for Stepmania 5.3 and supporting themes",
+            filterLang: "Language",
+            filterMode: "Supports",
+            modes: "Modes",
+            modeNormal: "Normal (x6)",
+            modeECFA: "ECFA (x7)",
+            modePro: "Pro (x11)",
+            dl: "Download",
+            dlIndiv: "Download individual images above.",
+          };
+      }
+    }
+    function localize(){
+      document.getElementsByTagName("h2")[0].innerText = strings.title0;
+      document.getElementsByTagName("h1")[0].innerText = strings.title1;
+      document.getElementsByTagName("h2")[1].innerText = strings.title2;
+      document.querySelector("#formLang strong").innerText = strings.filterLang;
+      document.querySelector("#formModes strong").innerText = strings.filterMode;
+      document.querySelector("#modeNormal + label").innerText = strings.modeNormal;
+      document.querySelector("#modeECFA + label").innerText = strings.modeECFA;
+      document.querySelector("#modePro + label").innerText = strings.modePro;
+      /* recurring elements */
+      var els = document.querySelectorAll(".modes th");
+      for (var i = 0; i < els.length; i++) {
+        els[i].innerText = strings.modes;
+      }
+      els = document.querySelectorAll(".modes tr:nth-child(2)");
+      for (var i = 0; i < els.length; i++) {
+        els[i].children[0].innerText = strings.modeNormal;
+        els[i].children[1].innerText = strings.modeECFA;
+        els[i].children[2].innerText = strings.modePro;
+      }
+      els = document.querySelectorAll(".download th");
+      for (var i = 0; i < els.length; i++) {
+        els[i].innerText = strings.dl;
+      }
+      els = document.querySelectorAll(".dlIndiv");
+      for (var i = 0; i < els.length; i++) {
+        els[i].innerText = strings.dlIndiv;
+      }
+    }
     const data = [
       {
         "name": "Mikado",
@@ -338,14 +471,14 @@
           "./judge/LoveHD [Pro] [double] 2x11 (doubleres).png"
         ],
         "download": [
-          ["./judge/_EN_Judgments", "none"]
+          ["./judge/LoveHD.7z", "LoveHD.7z"]
         ],
         "double": true
       },
       {
         "name": "ラブ",
         "desc": "<ruby>Simply<rp>(</rp><rt>シンプリー</rt><rp>)</rp></ruby> <ruby>Love<rp>(</rp><rt>ラブ</rt><rp>(</rp></ruby> テーマ風の判定フォント。",
-        "lang": "en",
+        "lang": "ja",
         "previews": [
           "./judge/_JP_LOVE [double] 2x6 (doubleres).png",
           "./judge/_JP_LOVE [ECFA] [double] 2x7 (doubleres).png",
@@ -355,13 +488,113 @@
           ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
         ],
         "double": true
+      },
+      {
+        "name": "Horror",
+        "desc": "Turn a dance party into a <a href='https://www.youtube.com/watch?v=DAMIt244xpw'>Splatter Party</a>.",
+        "lang": "en",
+        "previews": [
+          "./judge/Horror [double] 2x6 (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "ホラー",
+        "desc": "ダンスパーティーを「<a href='https://www.youtube.com/watch?v=DAMIt244xpw'>スプラッターパーティー</a>」にする。",
+        "lang": "ja",
+        "previews": [
+          "./judge/_JP_HORROR [double] 2x6 (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "Mario",
+        "desc": "DDR Mario Mix is back! (Graphics based on Mario Kart Tour.)",
+        "lang": "en",
+        "previews": [
+          "./judge/Mario [double] 2x6 (doubleres).png",
+          "./judge/Mario [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/Mario [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "マリオ",
+        "desc": "DDR With Mario が帰ってきた！（画像はマリオカートツアー風）",
+        "lang": "ja",
+        "previews": [
+          "./judge/_JP_MARIO [double] 2x6 (doubleres).png",
+          "./judge/_JP_MARIO [ECFA] [double] 2x7 (doubleres).png",
+          "./judge/_JP_MARIO [Pro] [double] 2x11 (doubleres).png"
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "SonicForces",
+        "desc": "Dark, red, and bold. Based on the Quick Time Events from Sonic Forces.",
+        "lang": "en",
+        "previews": [
+          "./judge/SonicForces [double] 2x6 (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "LLSIF",
+        "desc": "Based on <em>Love Live School Idol Festival</em>.",
+        "lang": "en",
+        "previews": [
+          "./judge/LLSIF 1x6 (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": false
+      },
+      {
+        "name": "Popn",
+        "desc": "Based on <em>Pop’n Music</em>.",
+        "lang": "en",
+        "previews": [
+          "./judge/Popn [double] 2x6 (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": true
+      },
+      {
+        "name": "Bushfire",
+        "desc": "Based on the Australian Fire Danger Rating.",
+        "lang": "en",
+        "previews": [
+          "./judge/Bushfire 2x6 [double] (doubleres).png",
+          undefined,
+          undefined
+        ],
+        "download": undefined,
+        "double": true
       }
     ];
     function init() {
+      eventListeners();
+      changeLang(userLang);
+      localize();
       const template = document.getElementById("template").children[0];
       
       for (var i = 0; i < data.length; i++) {
         var el = template.cloneNode(true);
+        el.classList.add("lang" + cap(data[i].lang));
         el.querySelector(".cardDesc > h3").innerHTML = data[i].name;
         el.querySelector(".cardDesc > p").innerHTML = data[i].desc;
         var table = el.querySelector("table.modes")
@@ -369,9 +602,11 @@
         for (var j = 0; j < 3; j++) {
           if (data[i].previews[j]) {
             lastSuccessfulMode = j;
-            el.querySelector(".cardPreview").style.animationName = "anim" + ["6d", "7d", "11d"][j];
+            el.querySelector(".cardPreview").style.animationName = "anim" + ["6", "7", "11"][j] + (data[i].double ? "d" : "s");
+            el.querySelector(".cardPreview").style.backgroundSize = (data[i].double ? "200%" : "100%");
 
             var thisCell = table.querySelector("tr:not(:first-child)").children[j];
+            thisCell.classList.add("supportedMode");
             var link = document.createElement("a");
             link.href = data[i].previews[j];
             link.innerText = thisCell.innerText;
@@ -379,6 +614,7 @@
             thisCell.appendChild(link);
             el.classList.add("yMode" + j);
           } else {
+
             el.classList.add("nMode" + j);
           }
         }
@@ -389,14 +625,22 @@
         init2(el, i, lastSuccessfulMode, img);
         
         var table = el.querySelectorAll("table.download tr");
-        for (var k = 0; k < data[i].download.length; k++) {
+        if (!data[i].download) {
           table[0].firstChild.colspan = k + 1;
-          var link = document.createElement("a");
-          link.href = data[i].download[k][0];
-          link.innerText = data[i].download[k][1];
           var cell = document.createElement("td");
-          cell.appendChild(link);
+          cell.innerText = strings.dlIndiv;
+          cell.classList.add("dlIndiv");
           table[1].appendChild(cell);
+        } else {
+          for (var k = 0; k < data[i].download.length; k++) {
+            table[0].firstChild.colspan = k + 1;
+            var link = document.createElement("a");
+            link.href = data[i].download[k][0];
+            link.innerText = data[i].download[k][1];
+            var cell = document.createElement("td");
+            cell.appendChild(link);
+            table[1].appendChild(cell);
+          }
         }
         console.log(el);
         document.getElementById("cardColumn").appendChild(el);
@@ -414,6 +658,38 @@
       }
 
     document.addEventListener("DOMContentLoaded", init);
+
+    function cap(str){
+      return str.replace(/^\w/, c => c.toUpperCase());
+    }
+
+    function eventListeners(){
+      /* Filtering */
+      const cardColumn = document.getElementById("cardColumn");
+      var langRadio = document.querySelectorAll("#formLang input");
+      for (var i = 0; i < langRadio.length; i++) {
+        langRadio[i].addEventListener("change", (e) => {
+          cardColumn.classList.remove("filterLangEn");
+          cardColumn.classList.remove("filterLangJa");
+          if (e.target.id !== "langAny") {
+            changeLang(e.target.id.toLowerCase().slice(4));
+            localize();
+            cardColumn.classList.add("filter" + cap(e.target.id));
+          }
+        });
+      }
+
+      var modeBoxes = document.querySelectorAll("#formModes input");
+      for (i = 0; i < modeBoxes.length; i++) {
+        modeBoxes[i].addEventListener("change", (e) => {
+          if (e.target.checked) {
+            cardColumn.classList.add("filter" + cap(e.target.id));
+          } else {
+            cardColumn.classList.remove("filter" + cap(e.target.id));
+          }
+        });
+      }
+    };
   </script>
 </head>
 
@@ -424,34 +700,37 @@
     <h2>for Stepmania 5.3 and supporting themes</h2>
   </div>
   <div id="sort">
-    <form>
+    <form id="formLang">
       <strong>Language</strong>
-      <input type="radio" id="lang_any" name="lang" checked>
-      <label for="lang_any">🌐</label>
-      <input type="radio" id="lang_en" name="lang">
-      <label for="lang_en">English</label>
-      <input type="radio" id="lang_ja" name="lang">
-      <label for="lang_ja">日本語</label>
-      <hr />
+      <input type="radio" id="langAny" name="lang" checked>
+      <label for="langAny">🌐</label>
+      <input type="radio" id="langEn" name="lang">
+      <label for="langEn">English</label>
+      <input type="radio" id="langJa" name="lang">
+      <label for="langJa">日本語</label>
+    </form>
+    <form id="formModes">
       <strong>Supports</strong>
-      <input type="checkbox" disabled checked>
+      <input type="checkbox" id="modeNormal" disabled checked>
       <label>Normal (x6)</label>
-      <input type="checkbox" id="mode_ecfa" name="mode_ecfa">
-      <label for="mode_ecfa">ECFA (x7)</label>
-      <input type="checkbox" id="mode_pro" name="mode_pro">
-      <label for="mode_pro">ProTiming (x11)</label>
+      <input type="checkbox" id="modeECFA" name="mode_ecfa">
+      <label for="modeECFA">ECFA (x7)</label>
+      <input type="checkbox" id="modePro" name="mode_pro">
+      <label for="modePro">ProTiming (x11)</label>
       <hr />
     </form>
   </div>
-  <div id="cardColumn" class="fdance fsolo fpump fnotes fholds">
+  <div id="cardColumn" class="">
     <div id="back" class="card system">
-      <a href="..">Back</a>
+      <a href="..">Back to OTOGE</a>
     </div>
   </div>
   <div id="template">
     <div class="card">
       <div class="cardHead">
-        <div class="cardPreview animation-6">
+        <div class="cardPreviewBox">
+          <div class="cardPreview animation-6">
+          </div>
         </div>
         <div class="cardDesc">
           <h3>Title</h3>
