@@ -311,24 +311,12 @@
             modeNormal: "普通 (x6)",
             modeECFA: "ECFA (x7)",
             modePro: "Pro (x11)",
+            sortBy: "並べ替え",
+            sortDate: "新しい順",
+            sortName: "名前順",
+            sortRev: "逆にする",
             dl: "ダウンロード",
             dlIndiv: "上のリンクで個別の画像をダウンロードしてください。",
-          };
-          break;
-        case "en-US":
-        case "en":
-          strings = {
-            title0: "Haley Halcyon’s",
-            title1: "Judgment Graphics",
-            title2: "for Stepmania 5.3 and supporting themes",
-            filterLang: "Language",
-            filterMode: "Supports",
-            modes: "Modes",
-            modeNormal: "Normal (x6)",
-            modeECFA: "ECFA (x7)",
-            modePro: "Pro (x11)",
-            dl: "Download",
-            dlIndiv: "Download individual images above.",
           };
           break;
         default:
@@ -342,6 +330,10 @@
             modeNormal: "Normal (x6)",
             modeECFA: "ECFA (x7)",
             modePro: "Pro (x11)",
+            sortBy: "Sort by",
+            sortDate: "recent",
+            sortName: "name",
+            sortRev: "reverse",
             dl: "Download",
             dlIndiv: "Download individual images above.",
           };
@@ -356,6 +348,11 @@
       document.querySelector("#modeNormal + label").innerText = strings.modeNormal;
       document.querySelector("#modeECFA + label").innerText = strings.modeECFA;
       document.querySelector("#modePro + label").innerText = strings.modePro;
+      document.querySelector("#formSort strong").innerText = strings.sortBy;
+      document.querySelector("#sortDate + label").innerText = strings.sortDate;
+      document.querySelector("#sortName + label").innerText = strings.sortName;
+      document.querySelector("#sortDesc + label").innerText = strings.sortRev;
+      
       /* recurring elements */
       var els = document.querySelectorAll(".modes th");
       for (var i = 0; i < els.length; i++) {
@@ -376,7 +373,7 @@
         els[i].innerText = strings.dlIndiv;
       }
     }
-    const data = [
+    var data = [
       {
         "name": "Mikado",
         "desc": "Haley Halcyon’s special judgment graphics.",
@@ -389,7 +386,8 @@
         "download": [
           ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "Jewelry",
@@ -403,7 +401,8 @@
         "download": [
           ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "Swiss",
@@ -417,7 +416,8 @@
         "download": [
           ["./judge/_EN_Judgments.7z", "Judgment Pack 1"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "ポップ",
@@ -431,7 +431,8 @@
         "download": [
           ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "ほうせき",
@@ -445,7 +446,8 @@
         "download": [
           ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "スイス",
@@ -459,7 +461,8 @@
         "download": [
           ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "LoveHD",
@@ -473,7 +476,8 @@
         "download": [
           ["./judge/LoveHD.7z", "LoveHD.7z"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "ラブ",
@@ -487,7 +491,8 @@
         "download": [
           ["./judge/_JP_Judgments.7z", "日本語判定パック第1弾"]
         ],
-        "double": true
+        "double": true,
+        "date": "20200720"
       },
       {
         "name": "Horror",
@@ -499,7 +504,8 @@
           undefined
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "ホラー",
@@ -511,7 +517,8 @@
           undefined
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "Mario",
@@ -523,7 +530,8 @@
           "./judge/Mario [Pro] [double] 2x11 (doubleres).png"
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "マリオ",
@@ -535,7 +543,8 @@
           "./judge/_JP_MARIO [Pro] [double] 2x11 (doubleres).png"
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "SonicForces",
@@ -547,7 +556,8 @@
           undefined
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "LLSIF",
@@ -559,7 +569,8 @@
           undefined
         ],
         "download": undefined,
-        "double": false
+        "double": false,
+        "date": "20200721"
       },
       {
         "name": "Popn",
@@ -571,7 +582,8 @@
           undefined
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       },
       {
         "name": "Bushfire",
@@ -583,17 +595,29 @@
           undefined
         ],
         "download": undefined,
-        "double": true
+        "double": true,
+        "date": "20200721"
       }
     ];
+    function sortDate(a, b) {
+      return (a.date < b.date) - (a.date > b.date); // latest to oldest
+    }
+    function sortName(a, b) {
+      return (a.name > b.name) - (a.name < b.name); // a to z
+    }
     function init() {
       eventListeners();
       changeLang(userLang);
       localize();
+      for (var i = 0; i < data.length; i++) {
+        data[i].origIndex = i.toString(10).padStart(3, "0");
+      }
+      data.sort(sortDate);
       const template = document.getElementById("template").children[0];
       
       for (var i = 0; i < data.length; i++) {
         var el = template.cloneNode(true);
+        el.classList.add("index" + data[i].origIndex);
         el.classList.add("lang" + cap(data[i].lang));
         el.querySelector(".cardDesc > h3").innerHTML = data[i].name;
         el.querySelector(".cardDesc > p").innerHTML = data[i].desc;
@@ -647,15 +671,30 @@
       }
       document.getElementById("cardColumn").appendChild(document.getElementById("back"));
     }
-      function init2(el, i, mode, img) {
-        if (img.naturalWidth != 0) {
-          var scale = (parseInt(template.querySelector(".cardPreview").clientWidth, 10) / img.naturalWidth);
-          if (data[i].double) { scale *= 2; }
-          el.querySelector(".cardPreview").style.height = (scale * img.naturalHeight / [6, 7, 11][mode]).toString(10) + "px";
-        } else {
-          setTimeout(init2, 1000, el, i, mode, img);
-        }
+    function init2(el, i, mode, img) {
+      if (img.naturalWidth != 0) {
+        var scale = (parseInt(template.querySelector(".cardPreview").clientWidth, 10) / img.naturalWidth);
+        if (data[i].double) { scale *= 2; }
+        el.querySelector(".cardPreview").style.height = (scale * img.naturalHeight / [6, 7, 11][mode]).toString(10) + "px";
+      } else {
+        setTimeout(init2, 1000, el, i, mode, img);
       }
+    }
+
+    function reorder(sortFunc, reverse) {
+      console.log("reorder", sortFunc, reverse);
+      if (reverse) {
+        data.sort((a, b) => -sortFunc(a, b));
+      } else {
+        data.sort(sortFunc);
+      }
+      const cardColumn = document.getElementById("cardColumn");
+      for (var i = 0; i < data.length; i++) {
+        var child = document.getElementsByClassName("index" + data[i].origIndex)[0];
+        cardColumn.appendChild(child);
+      }
+      cardColumn.appendChild(document.getElementById("back"));
+    }
 
     document.addEventListener("DOMContentLoaded", init);
 
@@ -689,6 +728,22 @@
           }
         });
       }
+      
+      var sortRadio = document.querySelectorAll("#formSort > input");
+      console.log(sortRadio);
+      for (i = 0; i < sortRadio.length; i++) {
+        sortRadio[i].addEventListener("change", (e) => {
+          var sortFunc;
+          switch (document.querySelector("#formSort > input[type=radio]:checked").id) {
+            case "sortName":
+              sortFunc = sortName;
+              break;
+            default:
+              sortFunc = sortDate;
+          }
+          reorder(sortFunc, document.getElementById("sortDesc").checked);
+        });
+      }
     };
   </script>
 </head>
@@ -717,7 +772,15 @@
       <label for="modeECFA">ECFA (x7)</label>
       <input type="checkbox" id="modePro" name="mode_pro">
       <label for="modePro">ProTiming (x11)</label>
-      <hr />
+    </form>
+    <form id="formSort">
+      <strong>Sort by</strong>
+      <input type="radio" id="sortDate" name="sort" checked>
+      <label for="sortDate">Date Added</label>
+      <input type="radio" id="sortName" name="sort">
+      <label for="sortName">Name</label>
+      <input type="checkbox" id="sortDesc">
+      <label for="sortDesc">Reverse</label>
     </form>
   </div>
   <div id="cardColumn" class="">
