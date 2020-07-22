@@ -1,0 +1,246 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700&display=swap);
+
+html {
+    --headFont: "Avenir Next", Avenir, Lato, sans-serif;
+    --bodyFont: "Avenir Next", Avenir, Lato, sans-serif;
+    --accentColor: #10bce9;
+    --bgColor: #110018;
+    --textColor: rgba(255, 255, 255, 0.8);
+    --headerRowWidth: 72px;
+    --bodyRowWidth: 80px;
+}
+
+body {
+    font-size: 20px;
+    line-height: 1;
+    font-family: var(--bodyFont);
+    color: var(--textColor);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #acaa9e;
+    background: linear-gradient(0deg, #7303ff 0, #25007f 100%);
+    background-attachment: fixed
+}
+
+a {
+    color: yellow;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: #fff;
+    font-family: var(--headFont);
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0
+}
+
+h3,
+h4 {
+    color: var(--accentColor)
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 110%;
+    margin-top: 8px;
+}
+
+h3 {
+    font-size: 150%
+}
+
+h4 {
+    font-size: 120%;
+    margin-top: 24px;
+}
+
+p, li {
+    line-height: 1.25;
+}
+
+p {
+    margin: 4px 0;
+}
+
+li {
+    list-style-type: "★";
+}
+
+#header {
+    box-sizing: border-box; 
+    width: 100%;
+    background-color: #e72a45;
+    background: radial-gradient(circle, #293b69 0, #1a0f2e 100%);
+    color: #f0f5f7;
+    border-bottom: 8px solid #f0f5f7;
+    padding: 16px;
+    margin: 0;
+    min-height: 128px;
+    text-align: center;
+}
+
+#header > img {
+    height: 128px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 16px rgba(0, 0, 0, .7))
+}
+
+#langSelect {
+    display: block;
+    width: 100%;
+    border-top: 2px solid var(--accentColor);
+    color: var(--accentColor);
+    list-style-type: none;
+    padding: 0;
+}
+
+.lang {
+    display: inline-block;
+    margin: 4px;
+    padding: 4px;
+    font-size: 1em;
+    line-height: 1em;
+    border: 2px solid var(--accentColor);
+}
+
+.ipa {
+    font-family: Segoe UI, DejaVu Sans, Linux Libertine, Lucida Grande, sans-serif
+}
+
+#content {
+    margin: 16px auto;
+    padding: 0 16px;
+    max-width: 720px;
+}
+
+.section, #footer {
+    padding: 32px;
+    background: var(--bgColor);
+    border-top: 8px solid var(--accentColor);
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.section > * {
+    overflow: hidden;
+    transition: all 250ms ease-out;
+    opacity: 1
+}
+
+
+.video-box {
+    padding-top: 56.25%;
+    position: relative
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+@media screen and (min-aspect-ratio:16/9) {
+    .video-box {
+        width: 160vh;
+        padding-top: 90vh;
+        margin: 0 auto
+    }
+}
+
+.chevron {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    transform: rotate(-180deg);
+    transition: transform 250ms ease-out
+}
+
+.collapsed .chevron {
+    transform: rotate(0);
+    transition: transform 250ms ease-out
+}
+
+.tableBox {
+    box-sizing: border-box; 
+    display: block;
+    width: auto;
+    overflow-x: scroll;
+    margin-left: var(--headerRowWidth);
+    padding: 0;
+    position: static;
+}
+.tableBox table {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: var(--bodyRowWidth);
+}
+.tableBox td,
+.tableBox th {
+    margin: 0;
+    width: var(--bodyRowWidth);
+    padding: 8px;
+    text-align: center;
+}
+.tableBox tr > th:first-child {
+    position: absolute;
+    padding-left: 0;
+    left: 32px; /* section padding size */
+    width: var(--headerRowWidth);
+}
+
+.tableBox tr > :nth-child(2n) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tableBox tr:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.tableBox img {
+    width: auto;
+    height: auto;
+    max-width: var(--bodyRowWidth);
+    display: block;
+    margin: 0 auto;
+}
+
+.timingTableBox {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.timingTableBox > img {
+    display: block;
+    margin: 0 auto;
+}
+
+.timingTableBox table {
+    table-layout: fixed;
+    width: 100%;
+    overflow: hidden;
+}
+
+.section.collapsed > :not(h3)
+{
+    height: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0
+}
+
+#footer {
+    text-align: center;
+    padding: 16px;
+    width: 160px;
+    margin: 8px auto;
+}
