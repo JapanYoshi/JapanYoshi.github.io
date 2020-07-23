@@ -359,10 +359,16 @@
         els[i].innerText = strings.modes;
       }
       els = document.querySelectorAll(".modes tr:nth-child(2)");
+      theseStrings = [strings.modeNormal, strings.modeECFA, strings.modePro];
       for (var i = 0; i < els.length; i++) {
-        els[i].children[0].innerText = strings.modeNormal;
-        els[i].children[1].innerText = strings.modeECFA;
-        els[i].children[2].innerText = strings.modePro;
+        // check if there's a link involved
+        for (var child = 0; child < 3; child++) {
+          if (els[i].children[child].firstChild) {
+            els[i].children[child].firstChild.innerText = theseStrings[child];
+          } else {
+            els[i].children[child].innerText = theseStrings[child];
+          }
+        }
       }
       els = document.querySelectorAll(".download th");
       for (var i = 0; i < els.length; i++) {
