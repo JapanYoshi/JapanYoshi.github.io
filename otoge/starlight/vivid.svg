@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="64" xmlns:v="https://vecta.io/nano">
 <defs>
-<linearGradient id="A" gradientUnits="userSpaceOnUse">
+<linearGradient id="A" x1="0" x2="0" y1="44" y2="12" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
 <stop stop-color="#e7e72f" offset="0"/>
 <stop stop-color="#eacd98" offset=".125"/>
 <stop stop-color="#f4b7b1" offset=".25"/>
@@ -11,18 +11,14 @@
 <stop stop-color="#a6ed6a" offset=".875"/>
 <stop stop-color="#e7e72f" offset="1"/>
 </linearGradient>
-<linearGradient id="B" x2="0" y1="44" y2="12" xlink:href="#A"/>
-<linearGradient id="C" x2="0" y1="52" y2="20" spreadMethod="repeat" xlink:href="#A"/>
-<linearGradient id="D" x2="0" y1="60" y2="28" spreadMethod="repeat" xlink:href="#A"/>
-<linearGradient id="E" x2="0" y1="68" y2="36" spreadMethod="repeat" xlink:href="#A"/>
 </defs>
-<path d="m50 8h4v40h-4z" fill="#f4b7b1" style="paint-order:stroke fill markers"/>
-<path d="m98 4h4v48h-4z" fill="#beb4f0" style="paint-order:stroke fill markers"/>
-<path d="m146 8h4v40h-4z" fill="#7de3e2" style="paint-order:stroke fill markers"/>
-<path d="m2 0v56h4v-56h-4zm192 0v56h4v-56h-4z" fill="#e7e72f" style="paint-order:stroke fill markers"/>
-<path d="m2 12.003h196v32h-196z" fill="url(#B)"/>
-<path d="m6 12.003h48v32h-48z" fill="url(#C)"/>
-<path d="m54 12.003h48v32h-48z" fill="url(#D)"/>
-<path d="m102 12.003h48v32h-48z" fill="url(#E)"/>
+<path d="m50 8h4v40h-4z" fill="#f4b7b1"/>
+<path d="m98 4h4v48h-4z" fill="#beb4f0"/>
+<path d="m146 8h4v40h-4z" fill="#7de3e2"/>
+<path d="m2 0v56h4v-56h-4zm192 0v56h4v-56h-4z" fill="#e7e72f"/>
+<path d="m2 12.004v32h4v-32h-4zm148 0v32h48v-32h-48z" fill="url(#A)"/>
+<path transform="translate(0,8)" d="m6 4.003h48v32h-48z" fill="url(#A)"/>
+<path transform="translate(0,16)" d="m54-3.997h48v32h-48z" fill="url(#A)"/>
+<path transform="translate(0,24)" d="m102-11.997h48v32h-48z" fill="url(#A)"/>
 <path d="m18.516 51.05v2.18h2.408v-2.18zm-6.846.844v2.328h-1.31v1.828h1.31v4.273c0 .48.05.89.148 1.23s.256.617.467.834c.217.21.494.367.834.467s.754.148 1.24.148h2.61v-1.82h-1.934c-.352 0-.598-.072-.738-.22s-.21-.395-.21-.746v-4.168h2.883v-1.828h-2.883v-2.328zm49.262 1.398-1.273 1.273 1.74 1.74h-10.189v2.11h10.188l-1.74 1.74 1.273 1.273 3.455-3.453v-1.23zm-42.416.93v8.78h2.408v-8.78zm4.676 0v8.78h2.408v-6.89h2.777v6.89h2.408v-6.89h1.135c.586 0 1.004.127 1.256.38.258.252.387.67.387 1.256v5.256h2.408v-5.15c0-1.254-.293-2.172-.88-2.752-.58-.586-1.5-.88-2.76-.88zm18.826 0c-1.447 0-2.54.37-3.277 1.11s-1.107 1.83-1.107 3.277c0 1.453.37 2.55 1.107 3.287s1.83 1.107 3.277 1.107h3.332v-1.836h-3.023c-.398 0-.736-.04-1.012-.115-.275-.082-.5-.195-.676-.342a1.46 1.46 0 01-.396-.547c-.088-.21-.137-.445-.148-.703h5.115v-1.8h-5.115c.035-.27.1-.504.193-.703.1-.205.236-.375.412-.5a1.68 1.68 0 01.66-.307 3.87 3.87 0 01.967-.105h2.953v-1.812z" fill="#fff" stroke="#070707" stroke-linejoin="round" stroke-width="2" style="paint-order:stroke fill markers"/>
 </svg>
