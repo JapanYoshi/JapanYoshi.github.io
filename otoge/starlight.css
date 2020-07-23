@@ -1,8 +1,17 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700&display=swap);
 
 html {
-    --headFont: "Avenir Next", Avenir, Lato, sans-serif;
-    --bodyFont: "Avenir Next", Avenir, Lato, sans-serif;
+    --localFont: sans-serif;
+}
+
+html:lang("ja") {
+    font-variant-east-asian: jis04;
+    --localFont: "Noto Sans CJK JP", "Yu Gothic", "YuGothic", "Meiryo", "Noto Sans JP", "Droid Sans Japanese", "Roboto", sans-serif;
+}
+
+html {
+    --headFont: "Avenir Next", Avenir, Lato, var(--localFont);
+    --bodyFont: var(--headFont);
     --accentColor: #10bce9;
     --bgColor: #110018;
     --textColor: rgba(255, 255, 255, 0.8);
@@ -229,15 +238,20 @@ li {
 
 .timingTableBox > img {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 4px;
 }
 
-.timingTableBox table {
-    table-layout: fixed;
-    width: 100%;
-    overflow: hidden;
-    white-space: break-spaces;
-    word-break: keep-all;
+.timingTableBox .timing {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+.timingTableBox .timing > div {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    flex: 1 0 var(--bodyRowWidth);
+    padding: 4px;
 }
 
 .section.collapsed > :not(h3)
