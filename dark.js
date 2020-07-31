@@ -69,17 +69,13 @@ if (typeof(Storage) !== "undefined") {
 html.darkmode .darkSwitch > div {
     margin-left: -1.5rem;
 }
-.darkSwitch:hover > div {
-    margin-left: -0.5rem;
-}
-html.darkmode .darkSwitch:hover > div {
-    margin-left: -1rem;
-}
-.darkSwitch:active > div {
-    margin-left: 0;
-}
-html.darkmode .darkSwitch:active > div {
-    margin-left: -1.5rem;
+@media not all and (hover: hover) {
+    .darkSwitch:hover > div {
+        margin-left: -0.5rem;
+    }
+    html.darkmode .darkSwitch:hover > div {
+        margin-left: -1rem;
+    }
 }`;
         document.head.appendChild(stl);
     });
