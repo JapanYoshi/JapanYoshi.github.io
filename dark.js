@@ -44,11 +44,11 @@ if (typeof(Storage) !== "undefined") {
     box-shadow: 0 0 8px white, 0 0 0.25rem black inset;
     overflow: hidden;
 }
-.darkSwitch  .darkDayBox {
+.darkSwitch .darkDayBox {
     background: url('/resource/day.svg');
 }
 }
-.darkSwitch  .darkNightBox {
+.darkSwitch .darkNightBox {
     background: url('/resource/night.svg');
 }
 .darkSwitch > div {
@@ -63,7 +63,7 @@ if (typeof(Storage) !== "undefined") {
     width: 1.5rem;
     height: 1.5rem;
 }
-.darkSwitch > div > div > img {
+.darkSwitch > div > div > img, {
     width: 1.5rem;
 }
 html.darkmode .darkSwitch > div {
@@ -74,6 +74,12 @@ html.darkmode .darkSwitch > div {
 }
 html.darkmode .darkSwitch:hover > div {
     margin-left: -1rem;
+}
+.darkSwitch:active > div {
+    margin-left: 0;
+}
+html.darkmode .darkSwitch:active > div {
+    margin-left: -1.5rem;
 }`;
         document.head.appendChild(stl);
     });
