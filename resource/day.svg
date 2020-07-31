@@ -1,0 +1,14 @@
+<svg version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(0 -794.5)">
+<g id="g861">
+<path d="m32 807.15-1.3659-5.6911-10.374 5.8211z" fill="#ac8f53" style="paint-order:fill markers stroke"/>
+<path transform="translate(0 794.5)" d="m4.3223 0-4.3223 6 13.7 7.8844zm12.855 0-.52347 11.805 6.916-9.5157z" fill="#ac8f53" style="paint-order:fill markers stroke"/>
+<path transform="translate(0 794.5)" d="m18.82 2.2022-.30621 4.1553 2.3752-3.2703zm-14.59 1.1316-1.6209 2.115 6.0674 3.7033zm25.185 6.1231-3.4146 1.8033 3.9496-.09102z" fill="#f1e50e" style="paint-order:fill markers stroke"/>
+<path d="m2 809.51.79202-4.2396 8.0077 3.839z" fill="#ac8f53" style="paint-order:fill markers stroke"/>
+<path d="m3.5302 808.25.22722-1.2163 2.2973 1.1014z" fill="#f1e50e" style="paint-order:fill markers stroke"/>
+</g>
+<use transform="rotate(180 16 810.5)" width="100%" height="100%" xlink:href="#g861"/>
+<circle cx="16" cy="810.5" r="10" fill="#ac8f53" style="paint-order:fill markers stroke"/>
+<circle cx="16" cy="810.5" r="8" fill="#f1e50e" style="paint-order:fill markers stroke"/>
+</g>
+</svg>

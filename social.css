@@ -16,7 +16,7 @@
   background-color: rgba(176, 240, 255, 0);
   border: 4px solid rgba(67, 175, 255, 0);
   transition: 100ms ease-out;
-  color: #43afff;
+  color: var(--aqua-dark);
   margin: 0;
 }
 
@@ -33,8 +33,8 @@
   width: 264px;
   height: 128px;
   border-radius: 68px 8px 8px 68px;
-  background-color: rgba(176, 240, 255, 1);
-  border: 4px solid rgba(67, 175, 255, 1);
+  background-color: var(--aqua-light);
+  border: 4px solid var(--aqua-dark);
   z-index: 4;
 }
 

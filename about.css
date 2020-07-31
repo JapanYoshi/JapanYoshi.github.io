@@ -16,15 +16,15 @@
 
 #lang-toggle > ul > li > a {
     padding: 4px;
-    background: #B0F0FF;
-    border: 1px #40B0FF solid;
-    color: #4c4c4c;
+    background: var(--aqua-light);
+    border: 1px var(--aqua-dark) solid;
+    color: var(--black);
     border-radius: 4px;
 }
 
 #lang-toggle > ul > li > a:hover {
-    background: #F3F3F3;
-    border-color: #68cfff;
-    color: #68cfff;
+    background: var(--white);
+    border-color: var(--aqua-light);
+    color: var(--aqua-dark);
     text-shadow: none;
 }
