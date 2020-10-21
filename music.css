@@ -34,7 +34,8 @@ iframe {
 }
 
 .section {
-  margin: 0 -1rem;
+  position: relative;
+  margin: 0;
   padding: 5rem;
   background-image: url("./music/silhouette.png");
   background-size: contain;
@@ -46,6 +47,10 @@ iframe {
   .section {
     padding: 3rem;
   }
+}
+
+.section-bg {
+  margin: -1em;
 }
 
 .section-bg:nth-child(2n) {
