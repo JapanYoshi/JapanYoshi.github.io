@@ -34,7 +34,8 @@ iframe {
 }
 
 .section {
-  padding: 4rem;
+  margin: 0 -1rem;
+  padding: 5rem;
   background-image: url("./music/silhouette.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -43,7 +44,7 @@ iframe {
 }
 @media only screen and (max-width: 480px) {
   .section {
-    padding: 2rem;
+    padding: 3rem;
   }
 }
 
