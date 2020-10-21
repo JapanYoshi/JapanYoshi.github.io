@@ -35,7 +35,7 @@ iframe {
 
 .section {
   padding: 4rem;
-  background: url("./music/silhouette.png");
+  background-image: url("./music/silhouette.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -44,10 +44,6 @@ iframe {
 @media only screen and (max-width: 480px) {
   .section {
     padding: 2rem;
-  }
-  
-  iframe {
-    
   }
 }
 
@@ -67,40 +63,48 @@ iframe {
 }
 
 .section#splash > div {
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: right;
   position: absolute;
-  padding: 0 10vmin 10vmin 20vmin;
+  padding: 0 10vmin 10vmin 10vmin;
   bottom: 0;
 }
 
 .section#splash {
-  background: url("./music/both.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-image: url("./music/both.png");
 }
 
 .section#akira {
-  background: url("./music/akira.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-image: url("./music/akira.png");
 }
 
 .section#szistirra {
-  background: url("./music/szistirra.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-image: url("./music/szistirra.png");
 }
 
 .bio-box {
   text-align: right;
   position: absolute;
   min-width: 10rem;
-  padding: 0 10vmin 10vmin 30vmin;
+  padding: 0 10vmin 10vmin 10vmin;
   bottom: 0;
+  text-shadow: 0 0 0.25rem black;
+}
+
+.bio-box .name {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.bio-box .genres {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.bio-box .preview-label {
+  font-weight: 700;
+  font-size: 80%;
 }
 
 .section#bottom {
@@ -118,4 +122,9 @@ iframe {
 
 .biglink:hover {
   background: cyan;
+}
+
+.biglink:visited {
+  background: rgba(0, 255, 255, 0.75);
+  color: black;
 }
