@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  color: white;
+  background: #421468; /* Old browsers */
+  background: -moz-linear-gradient(top, #421468 0%, #e735ff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #421468 0%,#e735ff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #421468 0%,#e735ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background-attachment: fixed;
+  font-family: "Exo 2", sans-serif;
+}
+
+a {
+  color: cyan;
+}
+
+a:visited {
+  color: #cff;
+}
+
+#branding-box {
+    position: relative;
+    overflow: hidden;
+    padding-top: 100%;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.section {
+  padding: 4rem;
+  background: url("./music/silhouette.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom left;
+}
+@media only screen and (max-width: 480px) {
+  .section {
+    padding: 2rem;
+  }
+  
+  iframe {
+    
+  }
+}
+
+.section-bg:nth-child(2n) {
+  background: #4f0725; /* Old browsers */
+  background: -moz-linear-gradient(top,  #4f0725 0%, #a31b48 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #4f0725 0%,#a31b48 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #4f0725 0%,#a31b48 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background-attachment: fixed;
+}
+
+.section#splash, .section#akira, .section#szistirra {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.section#splash > div {
+  font-size: 4rem;
+  text-align: right;
+  position: absolute;
+  padding: 0 10vmin 10vmin 20vmin;
+  bottom: 0;
+}
+
+.section#splash {
+  background: url("./music/both.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.section#akira {
+  background: url("./music/akira.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.section#szistirra {
+  background: url("./music/szistirra.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.bio-box {
+  text-align: right;
+  position: absolute;
+  min-width: 10rem;
+  padding: 0 10vmin 10vmin 30vmin;
+  bottom: 0;
+}
+
+.section#bottom {
+  text-align: center;
+}
+
+.biglink {
+  display: inline-block;
+  color: black;
+  background: rgba(0, 255, 255, 0.75);
+  text-decoration: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.biglink:hover {
+  background: cyan;
+}
