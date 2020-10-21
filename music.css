@@ -58,12 +58,13 @@ iframe {
 
 .section#splash, .section#akira, .section#szistirra {
   position: relative;
-  padding: 0;
+  padding: 1em 0;
   width: 100%;
   height: 100vh;
 }
 
 .section#splash > div {
+  font-style: italic;
   font-size: 3rem;
   text-align: right;
   position: absolute;
