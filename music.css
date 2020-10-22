@@ -8,6 +8,8 @@ body {
   background: linear-gradient(to bottom, #421468 0%,#e735ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   background-attachment: fixed;
   font-family: "Exo 2", sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 a {
@@ -33,8 +35,12 @@ iframe {
   border: 0;
 }
 
-.section {
+.section-bg {
   margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.section {
   padding: 5rem;
   background-image: url("./music/silhouette.png");
   background-size: contain;
