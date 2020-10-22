@@ -54,10 +54,6 @@ iframe {
   }
 }
 
-.section-bg {
-  margin: -1em;
-}
-
 .section-bg:nth-child(2n) {
   background: #4f0725; /* Old browsers */
   background: -moz-linear-gradient(top,  #4f0725 0%, #a31b48 100%); /* FF3.6-15 */
