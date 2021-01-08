@@ -1,0 +1,662 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Haley’s Sample Text Collection to Test Your Fonts With</title>
+  <meta property="og:title" value="Haley’s Sample Text Collection to Test Your Fonts With">
+  <meta name="twitter:title" value="Haley’s Sample Text Collection to Test Your Fonts With">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+  <meta name="twitter:site" content="@ItsSpelledHALEY">
+  <meta name="twitter:creator" content="@ItsSpelledHALEY">
+  <meta name="description"
+    content="Looking to test international support in your fonts? Change the font family of this page!">
+  <meta property="og:description"
+    content="Looking to test international support in your fonts? Change the font family of this page!">
+  <meta name="twitter:description"
+    content="Looking to test international support in your fonts? Change the font family of this page!">
+  <meta name="keywords"
+    content="typography,font,type design,i18n,internationalization,internationalisation,globalization,globalisation,l10n,localisation,localization,sample text,preview">
+  <meta name="author" content="Haley Wakamatsu">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="http://japanyoshi.github.io/tidbit/sampletext.png">
+  <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/sampletext.png">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="../haley.css">
+  <script src="../dark.js"></script>
+  <script>
+    changefont = () => {
+      if (document.getElementById("fontname").value) {
+        document.body.style.fontFamily = document.getElementById("fontname").value + ", sans-serif";
+        document.body.style.fontWeight = document.getElementById("weight").value;
+      } else {
+        document.body.style.fontFamily = "";
+        document.body.style.fontWeight = "";
+      }
+    }
+  </script>
+  <style>
+    #fontname,
+    #weight {
+      font-family: sans-serif;
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    #fontname {
+      width: 15em;
+    }
+
+    #weight {
+      width: 5em;
+    }
+
+    #fontbutton {
+      font-family: inherit;
+      font-size: inherit;
+      background: var(--aqua-dark);
+      color: var(--white);
+      padding: 4px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header> <img class="header" src="../resource/profilepic.png" alt="Profile Pic">
+    <h1>2GD4ME</h1>
+    <h2>“Haley Halcyon’s coding dump”</h2> <span>I design, make music, play rhythm games, and code. Here's a link to a
+      bunch of stuff I coded.</span>
+    <div class="clearfix"></div>
+  </header>
+  <div class="title-section">
+    <div class="title"> Haley’s Sample Text Collection to Test Your Fonts With</div>
+    <div class="subtitle"> Pangrams and other useful text</div>
+  </div>
+  <div id="body">
+    <div class="section">
+      <h3>About</h3>
+      <p>Since I couldn’t find a good list of text to test fonts on, I decided to compile them into this page. Most of
+        the pargrams were taken from <a href="http://clagnut.com/blog/2380/">Clagnut’s archive of Wikipedia’s list of
+          pangrams that was deleted in 2014</a>.</p>
+      <div class="imgBox">
+        <input type="text" id="fontname" value="Mikado">
+        <input id="weight" type="number" value="400" min="100" max="900" step="100">
+        <button id="fontbutton" onclick="changefont()">Change font!</button>
+        <span>To change
+          the font of this page to a locally installed font, use this form!</span>
+      </div>
+    </div>
+    <div class="section">
+      <h3>English</h3>
+      <h4>ASCII</h4>
+      <ul class="bullet">
+        <li>ABCDEFGHIJKLMNOPQRSTUVWXYZ</li>
+        <li>abcdefghijklmnopqrstuvwxyz</li>
+        <li>0123456789</li>
+        <li>!"#$%&'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</li>
+      </ul>
+      <h4>Unicode</h4>
+      <ul class="bullet">
+        <li>
+          “ ” „ ‟ ‘ ’ ‚ ‛ « » ‹ › 1° 0′ 0″
+        </li>
+        <li>
+          hyphen-minus • em—dash • en – dash • 1‒800‒555‒555 •
+          9&MediumSpace;&minus;&MediumSpace;6&MediumSpace;=&MediumSpace;3
+        </li>
+        <li>
+          ←↓↑→ ↙↖↗↘ ⇐⇓⇑⇒ ↵
+        </li>
+        <li>
+          ¢ £ ¥ € ₩ ₡ đ ₣ ₭ ₦ ₱ ₮ ₸ ₺ ƒ ฿ (baht) ₿ (bitcoin) ₷ ₽ ₴ ₾ ₹ ֏ ₪ ¤ ¦ § © ® ™ ª º ¬ ± × ÷ ¹ ² ³ ⁴ ⁄ µ ¶ · • ¼ ½
+          ¾
+        </li>
+        <li>
+          The quick brown fox jumps over the lazy dog.
+        </li>
+        <li>
+          Sphinx of black quartz? Judge my vow!
+        </li>
+        <li>
+          James, while John had had “had had ‘had’”, had had “had had ’had had’”; “had had ‘had had’” had had a better
+          effect on the teacher.
+        </li>
+      </ul>
+      <h4>Ligatures</h4>
+      <ul class="bullet">
+        <li>
+          Standard ligatures • ff fi fl ffi ffl Ĳ ĳ (Dutch: IJ ij) ĿL ŀl (Catalan: L·L l·l)
+        </li>
+        <li>
+          Nonstandard ligatures • fb fh fì fí fî fĩ fī fĭ fį fı fj fk
+        </li>
+      </ul>
+      <h4>OpenType / Just for Fun</h4>
+      <ul class="bullet">
+        <li>
+          Attached please type my résümȩ̊́́́̆.́́́
+          <br><i>(From <a href="https://xkcd.com/1647/">xkcd #1647: Diacritics</a>. The last “e” has a cedilla below,
+            and a ring followed by three acute accent and a breve above. The full stop also has three acute accents
+            above it. This should render correctly in fonts implementing the feature <code>mkmk</code> [mark-to-mark
+            positioning].</i>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Latin multilingual</h3>
+      <p>Entries in this section contain all the letters contained in each language’s standard alphabet. Note that this
+        <i>does not</i> guarantee that all ASCII characters will be present; for example, Spanish does not use the
+        letter W except in loanwords, so Spanish example sentences may not use W at all.
+      </p>
+      <p>Entries under “all local characters” contain all letters in the language’s alphabet that are not in ASCII, but
+        not the entire alphabet. For example, Spanish contains the following non-ASCII characters: áéíóúñü¿¡</p>
+      <h4>Azeri</h4>
+      <ul class="bullet">
+        <li>Zəfər, jaketini də papağını da götür, bu axşam hava çox soyuq olacaq.<br><i>Zafer (a male name), take your
+            jacket and cap; it will be very cold tonight.</i></li>
+      </ul>
+      <h4>Catalan</h4>
+      <ul class="bullet">
+        <li>«Dóna amor que seràs feliç!» Això, il·lús company geniüt, ja és un lluït rètol blavis d’onze
+          kWh.<br><i>“Give love and you’ll be happy!” This, ingenuous fellow with bad temper, is already in a blue
+            sign of eleven kWh.</i></li>
+        <li>«Dóna amor que seràs feliç!» Això, iŀlús company geniüt, ja és un lluït rètol blavis d’onze kWh.<br>(same
+          sentence, using <kbd>0140</kbd><kbd>6C</kbd> instead of <kbd>6C</kbd><kbd>B7</kbd><kbd>6C</kbd> for
+          L-middot-L)</li>
+      </ul>
+      <h4>Croatian</h4>
+      <ul class="bullet">
+        <li>Gojazni đačić s biciklom drži hmelj i finu vatu u džepu nošnje.<br><i>The overweight little schoolboy with
+            a bike is holding hops and fine cotton in the pocket of his attire.</i></li>
+      </ul>
+      <h4>Czech</h4>
+      <ul class="bullet">
+        <li>Nechť již hříšné saxofony ďáblů rozezvučí síň úděsnými tóny waltzu, tanga a quickstepu.<br><i>Let the
+            sinful saxophones of devils finally make the hall resonate with the frightful tones of waltz, tango, and
+            quickstep.</i></li>
+      </ul>
+      <h4>Czech, all local characters</h4>
+      <ul class="bullet">
+        <li>Příliš žluťoučký kůň úpěl ďábelské ódy.<br><i>Unduly yellowish horse was groaning devilish odes.</i></li>
+        <li>Hleď, toť přízračný kůň v mátožné póze šíleně úpí.<br><i>Behold, tis the eerie horse in tottering
+            affectation groaning like crazy.</i></li>
+        <li>Zvlášť zákeřný učeň s ďolíčky běží podél zóny úlů.<br><i>Particularly insidious apprentice with dimples is
+            running along the zone of hives.</i></li>
+      </ul>
+      <h4>Danish</h4>
+      <ul class="bullet">
+        <li>Høj bly gom vandt fræk sexquiz på WC. [perfect]<br><i>Tall shy groom won dirty sex quiz on W.C.</i></li>
+        <li>Quizdeltagerne spiste jordbær med fløde, mens cirkusklovnen Walther spillede på xylofon.<br><i>The quiz
+            contestants ate strawberry with cream while Walther the circus clown played the xylophone.</i></li>
+      </ul>
+      <h4>Danish, all local characters</h4>
+      <ul class="bullet">
+        <li>Ærøål<br><i>eel from (the island) Ærø</i></li>
+        <li>Færøbåd<br><i>Faroese boat</i></li>
+        <li>Kødpαlæg<br><i>Meats</i></li>
+        <li>Smørepαlæg<br><i>Spreads</i></li>
+        <li>Blåbærgrød<br><i>Porridge of blue berries</i></li>
+        <li>Lærerhαndbøger<br><i>Teacher handbooks</i></li>
+      </ul>
+      <h4>Dutch, all local characters</h4>
+      <ul class="bullet">
+        <li>Háár rijk is niet óúd; het is níéuw. JIJ! Dat is MÍJN íjsje!<br><i><em>Her</em> kingdom is not <em>old</em>;
+            it is <em>new</em>. YOU! That is <em>MY ice cream!</em></i> [uses all emphatic vowels]</li>
+        <li>Háár rijk is niet óúd; het is níéuw. JIJ! Dat is MÍJ́N íj́sje!<br>[variant using a combined acute accent on
+          the emphatic “ij”]</li>
+      </ul>
+      <h4>Esperanto</h4>
+      <ul class="bullet">
+        <li>Eble ĉiu knazaŭ-deca fuŝĥoraĵo ĝojigos homtipon.<br><i>Maybe every quasi-decent screwy choir makes a human
+            type happy.</i></li>
+      </ul>
+      <h4>Esperanto, all local characters</h4>
+      <ul class="bullet">
+        <li>eĥoŝanĝo ĉiuĵaŭde<br><i>echo-change every Thursday</i></li>
+        <li>preskaŭ freŝa ĉeĥa manĝaĵo<br><i>almost-fresh Czech food</i></li>
+      </ul>
+      <h4>Estonian</h4>
+      <ul class="bullet">
+        <li>Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis.<br><i>Ill-healthy
+            cellist-feuilletonist Ciqo from Zagreb was being cold in a poor garage.</i></li>
+        <li>See väike mölder jõuab rongile hüpata.<br><i>This small miller is able to jump to train.</i> [Missing
+          characters: c f š ž]</li>
+      </ul>
+      <h4>Finnish, regular</h4>
+      <ul class="bullet">
+        <li>Törkylempijävongahdus [perfect]<br><i>Muckysnogger booty call</i></li>
+        <li>Albert osti fagotin ja töräytti puhkuvan melodian.<br><i>Albert bought a bassoon and blasted a puffing
+            melody.</i></li>
+        <li>Lorun sangen pieneksi hyödyksi jäivät suomen kirjaimet.<br><i>The quite small benefit of the rhyme was the
+            letters of Finnish.</i></li>
+        <li>Hyvän lorun sangen pieneksi hyödyski jäi suomen kirjaimet.<br>[variant with all lowercase letters]</li>
+      </ul>
+      <h4>Finnish, full ASCII + Å</h4>
+      <ul class="bullet">
+        <li>Fahrenheit ja Celsius yrjösivät Åsan backgammon-peliin, Volkswagenissa, daiquirin ja ZX81:n
+          yhteisvaikutuksesta.<br><i>Fahrenheit and Celsius threw up on Åsa’s backgammon board in a Volkswagen, due to
+            the co-effect of daiquiri and a ZX81.</i></li>
+        <li>Charles Darwin jammaili Åken hevixylofonilla Qatarin yöpub Zeligissä.<br><i>Charles Darwin was jamming on
+            Åke’s heavy metal xylophone in the Qatar night pub Zelig.</i></li>
+        <li>Wieviläinen sioux’ta puhuva öky-zombie diggaa Åsan roquefort-tacoja.<br><i>The Sioux-speaking filthy-rich
+            zombie from Vienna digs Åsa’s Roquefort tacos.</i></li>
+      </ul>
+      <h4>French, not counting accented letters</h4>
+      <p>Localizer’s note: French still actively uses the angle brackets (guillemets). Make sure they work well with
+        no-break spaces, narrow no-break spaces, or without spaces.</p>
+      <ul class="bullet">
+        <li>Buvez de ce whisky que le patron juge fameux.<br><i>Drink some of this whisky which the boss finds
+            excellent.</i></li>
+        <li>Portez ce vieux whisky au juge blond qui fume.<br><i>Take this old whisky to the blond judge who smokes.</i>
+        </li>
+        <li>Portez ce vieux whisky au juge blond qui a fumé.<br><i>Take this old whisky to the blond judge who has
+            smoked.</i> [variant with e-acute]</li>
+        <li>Bâchez la queue du wagon-taxi avec les pyjamas du fakir.<br><i>Tarpaulin up the taxi-railcar tail with the
+            fakir’s pajamas.</i></li>
+        <li>Voyez le brick géant que j’examine près du wharf<br> <i>See the giant brig which I examine near the
+            wharf.</i></li>
+        <li>Voix ambiguë d’un cœur qui au zéphyr préfère les jattes de kiwi<br><i>Ambiguous voice of a heart which
+            prefers kiwi bowls to a zephyr.</i> [includes an instance of each diacritic except circumflex and cedilla]
+        </li>
+        <li>Voix ambigüe d’un cœur qui au zéphyr préfère les jattes de kiwi<br>[variant using <a
+            href="https://en.wikipedia.org/wiki/Reforms_of_French_orthography#Rectifications_of_1990">the 1990 spelling
+            reform</a> for the word <i>ambigüe</i>]</li>
+        <li> Monsieur Jack, vous dactylographiez bien mieux que votre ami Wolf<br><i>Mister Jack, you typed much better
+            than your friend Wolf.</i> [was used by Swiss army to test typewriter keyboards]</li>
+      </ul>
+      <h4>French, all local characters</h4>
+      <ul class="bullet">
+        <li>Ça me fait peur de fêter noël là, sur cette île bizarroïde où une mère et sa môme essaient de me tuer avec
+          un gâteau à la cigüe brûlé.<br><i>It frightens me to celebrate Christmas here, on this weird island where a
+            mother and her kid are trying to kill me with a burnt hemlock cake.</i></li>
+      </ul>
+      <h4>German</h4>
+      <p>Localizer’s note: German quotation marks look like „this“.</p>
+      <p><kbd>ẞ</kbd>, <a href="https://en.wikipedia.org/wiki/Capital_%E1%BA%9E">the uppercase eszett</a>
+        (<kbd>ß</kbd>), became officially optional in 2017. It’s wise to include it, since it distinguishes such pairs
+        as <i>IN MASSEN</i> (in massive amounts) vs. <i>IN MAẞEN</i> (in moderation).</p>
+      <ul class="bullet">
+        <li>Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.<br> <i>Victor chases twelve boxers across
+            the great dam of Sylt.</i></li>
+        <li>„Fix, Schwyz!“ quäkt Jürgen blöd vom Paß. [perfect]<br> <i>“Quick, Schwyz!” squawks Jürgen zanily from the
+            pass.</i> [uses old spelling before 1996]</li>
+        <li>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.<br> <i>Wrong practice of xylophone music bothers
+            every larger dwarf.</i></li>
+      </ul>
+      <h4>German, all local characters</h4>
+      <ul class="bullet">
+        <li>Heizölrückstoßabdämpfung<br><i>fuel oil recoil absorber</i></li>
+        <li>Übermäßiges Öl<br><i>excessive oil</i></li>
+      </ul>
+      <h4>Hungarian</h4>
+      <ul class="bullet">
+        <li>Egy hűtlen vejét fülöncsípő, dühös mexikói úr Wesselényinél mázol Quitóban.<br><i>An angry Mexican man, who
+            caught his faithless son-in-law, is painting Wesselényi’s house in Quito.</i></li>
+        <li>Jó foxim és don Quijote húszwattos lámpánál ülve egy pár bűvös cipőt készít.<br> <i>My good foxterrier and
+            don Quixote are making a pair of magic shoes by a twenty-watt lamp.</i></li>
+      </ul>
+      <h4>Hungarian, all local characters</h4>
+      <ul class="bullet">
+        <li>Árvíztűrő tükörfúrógép<br> <i>A flood-resistant mirror drill</i></li>
+      </ul>
+      <h4>Icelandic</h4>
+      <ul class="bullet">
+        <li>Kæmi ný öxi hér, ykist þjófum nú bæði víl og ádrepa.<br><i> If a new ax were here, thieves would feel
+            increasing deterrence and punishment. </i></li>
+        <li>Svo hölt, yxna kýr þegði jú um dóp í fé á bæ. [perfect]<br><i> A cow in heat with such a limp would
+            admittedly keep silent about drugs in sheep on a farm. </i></li>
+        <li>Þú dazt á hnéð í vök og yfir blóm sexý pæju. [perfect]<br> <i>You fell on the knee in a hole in the ice and
+            over a sexy girl’s flower.</i> [uses obsolete spelling with “z”]</li>
+      </ul>
+      <h4>Icelandic, all local characters</h4>
+      <ul class="bullet">
+        <li>Sævör grét áðan því úlpan var ónýt<br><i>Sævör cried earlier because the jacket was ruined.</i></li>
+      </ul>
+      <h4>Igbo</h4>
+      <ul class="bullet">
+        <li>Nne, nna, wepụ he’l’ụjọ dum n’ime ọzụzụ ụmụ, vufesi obi nye Chukwu, ṅụrịanụ, gbakọọnụ kpaa, kwee ya ka o
+          guzoshie ike; ọ ghaghị ito, nwapụta ezi agwa.<br><i> (meaning unknown) </i></li>
+      </ul>
+      <h4>Indonesian</h4>
+      <ul class="bullet">
+        <li> Muharjo seorang xenofobia universal yang takut pada warga jazirah, contohnya Qatar. <br><i> Muharjo is a
+            universal xenophobic who fears the peninsula residents, such as Qatar. </i></li>
+        <li> Saya lihat foto Hamengkubuwono XV bersama enam zebra purba cantik yang jatuh dari Alquranmu. <br><i> I saw
+            a photo of Hamengkubuwono XV along with six beautiful ancient zebra which fell from your Koran. </i></li>
+      </ul>
+      <h4>Irish</h4>
+      <ul class="bullet">
+        <li> D’fhuascail Íosa Úrmhac na hÓighe Beannaithe pór Éava agus Ádhaimh.<br> D’ḟuascail Íosa Úrṁac na hÓiġe
+          Beannaiṫe pór Éaḃa agus Áḋaiṁ.<br> <i>Jesus, Son of the blessed Virgin, redeemed the seed of Eve and Adam.</i>
+          [counting lenited (dot-above) letters as digraphs]</li>
+        <li> Chuaigh bé mhórshách le dlúthspád fíorfhinn trí hata mo dhea-phorcáin bhig.<br> Ċuaiġ bé ṁórṡáċ le dlúṫspád
+          fíorḟinn trí hata mo ḋea-ṗorcáin ḃig.<br> <i>A greatly satisfied woman went with a truly white dense spade
+            through the hat of my good little well-fattened pig.</i> [counting regular and lenited (dot-above) letters
+          as separate]</li>
+      </ul>
+      <h4>Italian</h4>
+      <ul class="bullet">
+        <li> Quel fez sghembo copre davanti. <br><i> That slanted fez covers the front. </i></li>
+        <li> Ma la volpe, col suo balzo, ha raggiunto il quieto Fido. <br><i> But the fox, with her leap, has reached
+            the still Fido. </i></li>
+        <li> Quel vituperabile xenofobo zelante assaggia il whisky ed esclama: alleluja! <br><i> That blameworthy,
+            zealous xenophobe tastes his whisky and exclaims: hallelujah! </i></li>
+        <li> Pranzo d’acqua fa volti sghembi. <br><i> Lunch of water makes lopsided faces. </i></li>
+        <li> O templi, quarzi, vigne, fidi boschi! <br><i> O temples, quartzes, vines, faithful woods! </i></li>
+        <li> Che tempi brevi, zio, quando solfeggi. <br><i> Such short times, uncle, when you sol-fa. </i></li>
+        <li> Qualche notizia pavese mi fa sbadigliare. <br><i> Some news from Pavia makes me yawn. </i></li>
+        <li> In quel campo si trovan funghi in abbondanza. <br><i> In that field, mushrooms are to be found in
+            abundance. </i></li>
+        <li> Qualche vago ione tipo zolfo, bromo, sodio. <br><i> Some vague ions, like sulfur, bromine, sodium.</i></li>
+      </ul>
+      <h4>Italian, all local characters</h4>
+      <ul class="bullet">
+        <li> Sì sé è già. Farò più.<br> <i>Yes it (itself) already is. I’ll do more.</i></li>
+        <li> Sarà lunedì, però perché bevi più tè?<br> <i>It will be Monday, but why drink more tea?</i></li>
+      </ul>
+      <h4>Latvian</h4>
+      <ul class="bullet">
+        <li>Muļķa hipiji mēģina brīvi nogaršot celofāna žņaudzējčūsku.<br><i>Silly hippies try to freely taste the
+            cellophane python.</i></li>
+        <li>Glāžšķūņa rūķīši dzērumā čiepj Baha koncertflīģeļu vākus.<br><i>Glass shack gnomes steal Bach piano covers
+            while inebriated.</i></li>
+        <li>Četri psihi faķīri vēlu vakarā zāģēja guļbūvei durvis, fonā šņācot mežam.<br><i>Late at night, four psycho
+            conjurors were sawing the doors of a log cabin as the wind hummed in the background.</i></li>
+      </ul>
+      <h4>Lithuanian</h4>
+      <ul class="bullet">
+        <li>Įlinkdama fechtuotojo špaga sublykčiojusi pragręžė apvalų arbūzą.<br> <i>Incurving fencer sword sparkled and
+            perforated a round watermelon.</i></li>
+      </ul>
+      <h4>Norwegian, full ASCII</h4>
+      <ul class="bullet">
+        <li>Vår sære Zulu fra badeøya spilte jo whist og quickstep i min taxi.<br><i>Our strange Zulu from the bathing
+            island actually played whist and quickstep in my taxi.</i></li>
+        <li>Høvdingens kjære squaw får litt pizza i Mexico by.<br><i>The chief’s dear squaw gets a little pizza in
+            Mexico City.</i></li>
+        <li>IQ-løs WC-boms uten hørsel skjærer god pizza på xylofon.<br><i>IQ-less WC-bum without hearing cuts good
+            pizza on xylophone.</i></li>
+        <li>Sær golfer med kølle vant sexquiz på wc i hjemby.<br><i>Strange golfer with club won sex quiz on W.C. in
+            hometown.</i></li>
+        <li>Jeg begynte å fortære en sandwich mens jeg kjørte taxi på vei til quiz.<br><i>I started to devour a sandwich
+            while I was riding a taxi on the way to the quiz.</i></li>
+      </ul>
+      <h4>Norwegian, all local characters</h4>
+      <ul class="bullet">
+        <li>Blåbærsyltetøy<br><i>Blueberry jam</i></li>
+      </ul>
+      <h4>Polish, perfect</h4>
+      <ul class="bullet">
+        <li>Jeżu klątw, spłódź Finom część gry hańb! (by Stanisław Barańczak)<br><i>O hedgehog of curses, generate for
+            the Finns a part of the game of ignominies!</i></li>
+        <li>Pójdźże, kiń tę chmurność w głąb flaszy!<br><i>Go, cast this melancholy into the depth of a bottle!</i></li>
+        <li>Mężny bądź, chroń pułk twój i sześć flag.<br><i>Be brave, protect your regiment and six flags.</i></li>
+        <li>Filmuj rzeź żądań, pość, gnęb chłystków!<br><i>Film the slaughter of demands, abstain from food, oppress the
+            greenhorns!</i></li>
+        <li>Pchnąć w tę łódź jeża lub ośm skrzyń fig.<br><i>To push a hedgehog or eight crates of figs into this boat.
+            (ośm – the original form of the numeral osiem)</i></li>
+        <li>Dość gróźb fuzją, klnę, pych i małżeństw!<br><i>“Enough of these threats with the shotgun,” swear I,
+            “haughtinesses and marriages!”</i></li>
+        <li>Pójdź w loch zbić małżeńską gęś futryn!<br><i>Go to the dungeon to batter the marital goose of
+            doorframes!</i></li>
+        <li>Chwyć małżonkę, strój bądź pleśń z fugi.<br><i>Seize your wife, the garment, or the mold from the grout.</i>
+        </li>
+      </ul>
+      <h4>Polish, imperfect</h4>
+      <ul class="bullet">
+        <li>Koń i żółw grali w kości z piękną ćmą u źródła.<br><i>A horse and a tortoise played dice with a beautiful
+            moth near the spring.</i></li>
+      </ul>
+      <h4>Polish, all local characters</h4>
+      <ul class="bullet">
+        <li>Zażółć gęślą jaźń.<br><i>Make fiddle’s ego yellow.</i></li>
+      </ul>
+      <h4>Portuguese (Brazil), ASCII only</h4>
+      <ul class="bullet">
+        <li>Um pequeno jabuti xereta viu dez cegonhas felizes.<br><i>A curious little tortoise saw ten happy storks.</i>
+        </li>
+        <li>Blitz prende ex-vesgo com cheque fajuto.<br><i>Cop arrests ex-cross-eye with fake check in a checkpoint.</i>
+        </li>
+        <li>Gazeta publica hoje no jornal uma breve nota de faxina na quermesse.<br><i>The journalists publish today at
+            the newspaper a short note about the cleaning at the kirmiss.</i></li>
+        <li>Zebras caolhas de Java querem passar fax para moças gigantes de New York.<br><i>One-eyed zebras from Java
+            want to fax for giant ladies from New York.</i></li>
+      </ul>
+      <h4>Portuguese (Brazil)</h4>
+      <ul class="bullet">
+        <li>À noite, vovô Kowalsky vê o ímã cair no pé do pingüim queixoso e vovó põe açúcar no chá de tâmaras do jabuti
+          feliz.<br><i>At night, grandpa Kowalsky sees the magnet falling on the complaining penguin’s foot and grandma
+            puts sugar in the happy tortoise’s date tea.</i></li>
+      </ul>
+      <h4>Portuguese (Portugal)</h4>
+      <ul class="bullet">
+        <li>Luís argüia à Júlia que «brações, fé, chá, óxido, pôr, zângão» eram palavras do português.<br><i>Luis argued
+            to Julia that “big arms, faith, tea, oxide, to put, bee” were Portuguese words.</i></li>
+      </ul>
+      <h4>Portuguese, all local characters</h4>
+      <ul class="bullet">
+        <li>?</li>
+      </ul>
+      <h4>Romanian</h4>
+      <ul class="bullet">
+        <li>Muzicologă în bej vând whisky și tequila, preț fix.<br><i>A (female) musicologist in beige sells whisky and
+            tequila, fixed price.</i></li>
+        <li>Bând whisky, jazologul șprițuit vomă fix în tequila.<br><i>Drinking whisky, the drunken jazzman threw up
+            right in the tequila.</i></li>
+        <li>Ex-sportivul își fumează jucăuș țigara bând whisky cu tequila.<br><i>The ex-sportsman playfully smokes his
+            cigarette, drinking whisky with tequila.</i></li>
+        <li>Înjurând pițigăiat, zoofobul comandă vexat whisky și tequila.<br><i>Swearing in high pitch, the zoophobic
+            man vexedly ordered whisky and tequila.</i></li>
+      </ul>
+      <h4>Scottish</h4>
+      <ul class="bullet">
+        <li>Mus d’fhàg Cèit-Ùna ròp Ì le ob<br><i>Before Kate-Una left the Iona cattle auction with hops</i></li>
+      </ul>
+      <h4>Serbian/Croatian/Bosnian (Latin)</h4>
+      <ul class="bullet">
+        <li>Gojazni đačić s biciklom drži hmelj i finu vatu u džepu nošnje. <br><i>The overweight little schoolboy with
+            a bike is holding hops and fine cotton in the pocket of his attire.</i></li>
+        <li>Fin džip, gluh jež i čvrst konjić dođoše bez moljca. <br><i>A nice jeep, a deaf hedgehog and a tough horse
+            came without a moth.</i></li>
+        <li> Ljubazni fenjerdžija čađavog lica hoće da mi pokaže štos.<br><i>A kind lamplighter with grimy face wants to
+            show me a stunt.</i></li>
+        <li> Ajšo, lepoto i čežnjo, za ljubav srca moga dođi u Hadžiće na kafu.<br><i>Aicha, (my) beauty and longing,
+            for the love of my heart, come to Hadžići for a cup of coffee.</i></li>
+      </ul>
+      <h4>Slovak</h4>
+      <ul class="bullet">
+        <li>Kŕdeľ šťastných ďatľov učí pri ústí Váhu mĺkveho koňa obhrýzať kôru a žrať čerstvé mäso.<br><i>A flock of
+            happy woodpeckers by the mouth of the river Vah is teaching a silent horse to nibble on bark and feed on
+            fresh meat.</i><br>[Missing characters: c (outside digraph “ch“) f g j l y á ó]</li>
+      </ul>
+      <h4>Slovak, all local characters</h4>
+      <ul class="bullet">
+        <li>Päťtýždňové vĺčatá nervózne štekajú na môjho ďatľa v tŕní.<br><i>Five-week-old wolf cubs nervously bark at
+            my woodpecker in a shrub.</i></li>
+      </ul>
+      <h4>Slovenian/Slovene</h4>
+      <ul class="bullet">
+        <li>Hišničin bratec vzgaja polže pod fikusom.<br><i>The little brother of the [female] concierge cultivates
+            snails under the ficus.</i></li>
+        <li>Besni dirkač iz formule žuga cehu poštarjev.<br><i>Out of the racing car, the furious racer threatens [with
+            the waving of his index finger] a guild of postmen.</i></li>
+        <li>Fučka se mi hladna goveja žolca brez pršuta.<br><i>I don’t give a shit about the cold bovine aspic without
+            prosciutto.</i></li>
+        <li>Šerif bo za vajo spet kuhal domače žgance.<br><i>For an exercise, sheriff will again make home-made
+            mush.</i></li>
+        <li>Piškur molče grabi fižol z dna cezijeve hoste.<br><i>Lambry silently grasps beans from the bottom of caesium
+            forest.</i></li>
+        <li>V kožuščku hudobnega fanta stopiclja mizar.<br><i>A cabinetmaker steps lightly through a malicious boy’s fur
+            coat.</i></li>
+        <li>V kožuščku hudobnega fanta stopiclja mizar in kliče 0619872345.<br><i>[...] and calls 0619872345.</i>
+          [variant used in Windows]</li>
+      </ul>
+      <h4>Spanish, ASCII + all accented letters</h4>
+      <ul class="bullet">
+        <li>Benjamín pidió una bebida de kiwi y fresa; Noé, sin vergüenza, la más exquisita champaña del
+          menú.<br><i>Benjamin ordered a kiwi and strawberry beverage; Noah, without shame, the most exquisite champagne
+            on the menu.</i></li>
+        <li>José compró una vieja zampoña en Perú. Excusándose, Sofía tiró su whisky al desagüe de la
+          banqueta.<br><i>José bought an old panpipe in Peru. Excusing herself, Sofía threw her whiskey on the sink of
+            the sidewalk.</i></li>
+        <li>El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de
+          paja. (Used in Windows as sample text)<br><i>The quick Hindu bat was happily eating golden thistle and kiwi.
+            The stork was playing the saxophone behind the straw arena.</i></li>
+      </ul>
+      <h4>Spanish, ASCII + ñ</h4>
+      <ul class="bullet">
+        <li>El pingüino Wenceslao hizo kilómetros bajo exhaustiva lluvia y frío; añoraba a su querido
+          cachorro.<br><i>Wenceslao the penguin traveled kilometers under exhaustive rain and cold; he longed for his
+            dear puppy.</i> [Missing accented vowels, but contains the digraphs “ch”, “ll”, “rr”]</li>
+        <li>La niña, viéndose atrapada en el áspero baúl índigo y sintiendo asfixia, lloró de vergüenza, mientras que la
+          frustrada madre llamaba a su hija diciendo: «¿Dónde estás, Waleska?».<br><i>The girl, finding herself trapped
+            inside the rough blue-violet chest and feeling suffocation, cried out of shame, whilst the frustrated mother
+            called her daughter saying: “Where are you, Waleska?”.</i></li>
+        <li>Jovencillo emponzoñado de whisky: ¡qué figurota exhibe!<br><i>Whisky-intoxicated youngster – what a figure
+            he’s showing!</i></li>
+        <li>Ese libro explica en su epígrafe las hazañas y aventuras de Don Quijote de la Mancha en Kuwait.<br><i>That
+            book explains in its epigraph the deeds and adventures of Don Quijote de la Mancha in Kuwait.</i></li>
+        <li>Queda gazpacho, fibra, látex, jamón, kiwi y viñas.<br><i>There are still gazpacho, fibre, latex, ham, kiwi
+            and vineyards.</i></li>
+        <li>Whisky bueno: ¡excitad mi frágil pequeña vejez!<br><i>Good whisky, excite my frail, little old age!</i></li>
+        <li>Es extraño mojar queso en la cerveza o probar whisky de garrafa.<br><i>It is strange to dip cheese in beer
+            or to try a whisky out of a carafe.</i></li>
+      </ul>
+      <h4>Spanish, all local characters</h4>
+      <ul class="bullet">
+        <li>¡Tú sólo! ¿Cuál cañería agüé?<br><i>You alone (by yourself)! Which pipe did I water?</i> [own work]</li>
+      </ul>
+      <h4>Swedish</h4>
+      <ul class="bullet">
+        <li>Flygande bäckasiner söka hwila på mjuka tuvor strax.<br><i>Flying snipes seek rest on soft tufts [of grass]
+            soon.</i> [uses obsolete spelling and grammar]</li>
+        <li>Yxskaftbud, ge vår WC-zonmö IQ-hjälp. [perfect]<br><i>Axe handle courier, give our WC zone maiden IQ
+            help.</i></li>
+        <li>Byxfjärmat föl gick på duvshowen.<br><i>Trouser-estranged foal went to the pigeon show.</i> [without q and
+          z, but with common but problematic digraphs “fö” and “fj”]</i></li>
+      </ul>
+      <h4>Swedish, all local characters</h4>
+      <ul class="bullet">
+        <li>räksmörgås<br><i>shrimp sandwich</i></li>
+        <li>ölälskaråsna<br><i>beer-loving donkey</i></li>
+        <li>läderfåtölj<br><i>leather easy-chair</i></li>
+        <li>Åland är österut, Señor Müller.<br><i>The Åland Islands are eastward, Señor Müller.</i></li>
+      </ul>
+      <h4>Turkish</h4>
+      <p>Localizer’s note: Turkish text does not use the “fi” ligature, since its most common form complicates the
+        distinction between <kbd>f</kbd><kbd>ı</kbd> and <kbd>f</kbd><kbd>i</kbd>.</p>
+      <p>Turkish also uses the circumflex in <kbd>â</kbd>, <kbd>î</kbd>, and <kbd>û</kbd>, but they are so rare that
+        they are not included in pangrams.</p>
+      <ul class="bullet">
+        <li>Saf ve haydut kız çocuğu bin plaj görmüş.<br><i>The naive and thuggish little girl has seen a thousand
+            beaches.</i></li>
+        <li>Öküz ajan hapse düştü yavrum, ocağı felç gibi.<br><i>The ox agent landed in prison, my little one, where the
+            furnace is like paralysis.</i></li>
+        <li>Hayvancağız tüfekçide bagaj törpüsü olmuş.<br><i>The poor animal has become a baggage file at the
+            gunsmith’s.</i></li>
+        <li>Vakfın çoğu bu huysuz genci plajda görmüştü.<br><i>Most of the religious endowment had seen the mean youth
+            on the beach.</i> [That’s <kbd>f</kbd><kbd>ı</kbd>, not <kbd>f</kbd><kbd>i</kbd>]</li>
+        <li>Fahiş bluz güvencesi yağdırma projesi çöktü.<br><i>The project of making fancy shirt guarantees rain
+            collapsed.</i></li>
+        <li>Pijamalı hasta yağız şoföre çabucak güvendi.<br><i>The patient in pajamas quickly trusted the swarthy
+            driver.</i></li>
+      </ul>
+      <h4>Turkish, all local characters</h4>
+      <p>This still lacks circumflexed letters.</p>
+      <ul class="bullet">
+        <li>Şişli’de büyük çöp yığınları<br><i>Large piles of garbage in Şişli</i></li>
+      </ul>
+      <h4>Yoruba</h4>
+      <ul class="bullet">
+        <li>Ìwò̩fà ń yò̩ séji tó gbojúmó̩, ó hàn pákànpò̩ gan-an nis̩é̩ rè̩ bó dò̩la.<br><i>[translation missing]</i>
+        </li>
+      </ul>
+      <h4>Welsh</h4>
+      <ul class="bullet">
+        <li>Parciais fy jac codi baw hud llawn dŵr ger tŷ Mabon.<br><i>I parked my magic JCB [digger] full of water near
+            Mabon’s house.</i></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Cyrillic</h3>
+      <h4>Bulgarian</h4>
+      <ul class="bullet">
+        <li>Ах чудна българска земьо, полюшвай цъфтящи жита.<br><i>Ah, wonderful Bulgarian land, shake the blooming
+            wheat fields.</i></li>
+        <li>Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.<br><i>The yellow quince was happy
+            that the fluff which bloomed froze like sole-leather.</i></li>
+        <li>За миг бях в чужд плюшен скърцащ фотьойл.<br><i>For a moment I was in someone else’s plush squeaking
+            armchair.</i></li>
+        <li>Вкъщи не яж сьомга с фиде без ракийка и хапка люта чушчица!<br><i>At home, do not eat salmon with soup
+            noodles without rakia and a bit of hot paprika!</i></li>
+        <li>Под южно дърво, цъфтящо в синьо, бягаше малко пухкаво зайче.<br><i>Under a southern tree, blooming in
+            blue, ran a little fluffy bunny.</i></li>
+        <li>Шугав льохман, държащ птицечовка без сейф и ютия.<br><i>A mangy lummox, holding a platypus without a safe
+            and flat iron.</i></li>
+        <li>Я, пазачът Вальо уж бди, а скришом хапва кюфтенца зад щайгите.<br><i>Why, Valyo the guard is supposed to
+            be watching, and yet he’s secretly eating meatballs behind the crates.</i></li>
+        <li>Хълцайки много, въздесъщият позьор, Юрий жабока, фучеше.<br><i>Hiccuping intensely, the famous poseur,
+            Yuri the frog, was sputtering.</i></li>
+        <li>Гномът Доцьо приключи спящ в шейна за жаби.<br><i>Dotsyo the Gnome ended up sleeping in a carriage for
+            frogs.</i></li>
+        <li>Щиглецът се яде само пържен в юфка без чушки и хвойна.<br><i>Goldfinch is only eaten fried with noodles,
+            without peppers and juniper.</i></li>
+        <li>Фучейки и хълцайки, кьоравият грухтящ шопар жадно стъпка зюмбюлите<br><i>Snorting and whimpering, the
+            grunting blind boar hungrily trampled the hyacinths.</i></li>
+        <li>Хълцащ змей плюе шофьор стигнал чуждия бивак.<br><i>A hiccuping dragon spits at a driver who has reached
+            someone else’s campsite.</i></li>
+        <li>Щурчо Цоньо хапваше ловджийско кюфте с бяла гъмза.<br><i>Tsonyo the cricket was eating a hunter-style
+            meatball with white Gamza wine.</i></li>
+      </ul>
+      <h4>Macedonian</h4>
+      <ul class="bullet">
+        <li>Ѕидарски пејзаж: шугав билмез со чудење џвака ќофте и кељ на туѓ цех.<br><i>A mason’s landscape: a mangy
+            fool wonderingly munches on meatball and kale at someone else’s expense.</i></li>
+        <li>Бучниов жолт џин ѕида куќа со фурна меѓу полиња за цреши, хмељ и грозје.<br><i>[This] noisy yellow giant is
+            building a house with an oven in the midst of fields of cherries, hops and grapes.</i></li>
+        <li>Долг Џош, сторив женење, црн ѕид! Фрчат хмељ, ќумбе, ѓупки, зајак.<br><i>Long Josh, I’ve done a reaping, a
+            black wall! Hops, Gypsy women, rabbit are whizzing.</i></li>
+        <li>Мојот дружељубив коњ со тих галоп фаќа брз џиновски глушец по туѓо ѕитче.<br><i>My friendly horse with a
+            quiet gallop catches a quick giant mouse over someone else’s little wall.</i></li>
+      </ul>
+      <h4>Mongolian</h4>
+      <ul class="bullet">
+        <li>Щётканы фермд пийшин цувъя. Бөгж зогсч хэльюү.<br><i>Let’s echelon fireplaces in brush farm. Ring says
+            standing.</i></li>
+      </ul>
+      <h4>Russian</h4>
+      <ul class="bullet">
+        <li>Эх, чужак, общий съём цен шляп (юфть) – вдрызг! [perfect]<br><i>Hey, stranger, the general takings from
+            prices of hats (made from a thick leather) have completely crashed!</i></li>
+        <li>— Любя, съешь щипцы, — вздохнёт мэр, — Кайф жгуч! [perfect]<br><i>The mayor will sigh, “Eat the pliers with
+            love; pleasure burns!”</i></li>
+        <li>Съешь же ещё этих мягких французских булок, да выпей чаю.<br><i>So eat more of these soft French loaves, and
+            have some tea.</i></li>
+        <li> Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства.<br><i> Widespread
+            electrification of southern guberniyas will give a powerful incentive to the rise of agriculture.</i></li>
+        <li> Разъяренный чтец эгоистично бьёт пятью жердями шустрого фехтовальщика.<br><i>An enraged narrator selfishly
+            beats a nimble fencer with five poles.</i></li>
+      </ul>
+      <h4>Serbian/Croatian/Bosnian (Cyrillic)</h4>
+      <ul class="bullet">
+        <li> Гојазни ђачић с бициклом држи хмељ и фину вату у џепу ношње.<br><i>The overweight little schoolboy with a
+            bike is holding hops and fine cotton in the pocket of his attire.</i></li>
+        <li> Фин џип, глух јеж и чврст коњић дођоше без мољца.<br><i>A nice jeep, a deaf hedgehog and a tough horse came
+            without a moth.</i></li>
+        <li>Љубазни фењерџија чађавог лица хоће да ми покаже штос. <br><i>A kind lamplighter with grimy face wants to
+            show me a stunt.</i></li>
+        <li>Ајшо, лепото и чежњо, за љубав срца мога дођи у Хаџиће на кафу. <br><i>Aicha, (my) beauty and longing, for
+            the love of my heart, come to Hadžići for a cup of coffee.</i></li>
+      </ul>
+      <h4>Ukrainian</h4>
+      <ul class="bullet">
+        <li>Чуєш їх, доцю, га? Кумедна ж ти, прощайся без ґольфів!<br><i>Daughter, do you hear them, eh? Oh, you are
+            funny! Say good-bye without knee-length socks.</i></li>
+        <li>Жебракують філософи при ґанку церкви в Гадячі, ще й шатро їхнє п’яне знаємо.<br><i>The philosophers beg near
+            the porch of the church in Hadiach, and we even know their drunk tent.</i> [contains apostrophe]</li>
+      </ul>
+    </div>
+  </div>
+  <div id="fullwidth"> <a class="biglink" href="../index.html">Back</a><br> <span>coded with &hearts; by
+      HaleyHalcyon</span></div>
+</body>
