@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     // im lazy about exception handling
     // get query strings
-    const q = (new URLSearchParams(window.location.search)).get("a");
+    const usp = new URLSearchParams(window.location.search);
+    const q = usp.get("a");
     //alert(q);
     if (!q) {
       var a = document.createElement("h3");
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       b.innerHTML =
         "<code>" +
         window.location.href +
-        "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code><br>You can generate a URL-encoded version of your link below.";
+        "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code><br>To open in a new tab, add <code>&n=1</code>.<br>You can generate a URL-encoded version of your link below.";
       document.body.appendChild(b);
       var box = document.createElement("textarea");
       box.id = "box";
@@ -34,7 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
         u = "https://" + u;
       }
       //alert(u);
-      window.location.href = u;
+      if (usp.get("n")) {
+        window.open(u, "_blank");
+      } else {
+        window.location.href = u;
+      }
     }
   } catch (e) {
     alert(e.name);
