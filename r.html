@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     // im lazy about exception handling
     // get query strings
-    const q = URLSearchParams().get("a");
+    const q = (new URLSearchParams()).get("a");
     if (!q) {
       var a = document.createElement("h3");
       a.innerText = "Usage:";
       document.body.appendChild(a);
       var b = document.createElement("p");
-      b.innerHTML = 
-      "<code>" +
+      b.innerHTML =
+        "<code>" +
         window.location.href +
         "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code><br>You can generate a URL-encoded version of your link below.";
       document.body.appendChild(b);
@@ -37,12 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   } catch (e) {
     alert(e.name);
-      var a = document.createElement("h3");
-      a.innerText = e.name;
-      document.body.appendChild(a);
-      var b = document.createElement("p");
-      b.innerHtml = e.message;
-      document.body.appendChild(b);
+    var a = document.createElement("h3");
+    a.innerText = e.name;
+    document.body.appendChild(a);
+    var b = document.createElement("p");
+    b.innerHtml = e.message;
+    document.body.appendChild(b);
+    throw(e);
   }
 });
 </script>
