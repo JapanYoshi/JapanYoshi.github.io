@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
       b.innerHTML =
         "<code>" +
         window.location.href +
-        "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code><br>To prevent Chrome Custom Tabs (recommended for mobile links), append <code>&m=1</code>.)<br>To open in a new tab, add <code>&n=1</code>.<br>You can generate a URL-encoded version of your link below.";
+        "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code>"
+        + "<br>To open in a new tab, add <code>&n=1</code>.<br>You can generate a URL-encoded version of your link below.";
       document.body.appendChild(b);
       var box = document.createElement("textarea");
       box.id = "box";
@@ -35,10 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         u = "https://" + u;
       }
       //alert(u);
-      if (usp.get("m") && (Intent)) {
+      /* if (usp.get("m") && (Intent)) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(u));
         startActivity(browserIntent);
-      } else if (usp.get("n")) {
+      } else */ if (usp.get("n")) {
         window.open(u, "_blank");
       } else {
         window.location.href = u;
