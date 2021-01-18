@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     // im lazy about exception handling
     // get query strings
-    const q = Array.from(new URLSearchParams().values());
+    const q = URLSearchParams().get("a");
     alert(q);
-    if (q.length == 0) {
+    if (!q) {
       var a = document.createElement("h3");
       a.innerText = "Usage:";
       document.body.appendChild(a);
