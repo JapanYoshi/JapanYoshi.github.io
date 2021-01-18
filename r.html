@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         u = "https://" + u;
       }
       //alert(u);
-      if (usp.get("m") && !!(Intent)) {
+      if (usp.get("m") && (Intent)) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(u));
         startActivity(browserIntent);
       } else if (usp.get("n")) {
