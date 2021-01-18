@@ -1,5 +1,6 @@
 <head>
 <script>
+try { // im lazy about exception handling
 // get query strings
 const q = [...new URLSearchParams(queryString).entries()].reduce((obj, e) => (obj + [e[1]]), []);
 if (!q) {
@@ -14,15 +15,14 @@ if (!q) {
   document.body.appendChild(btn);
 }
 // go
-try {
-  const u = decodeURI(q[0]);
-} catch (e) { // catches a malformed URI
-  document.body.innerHtml = "<h3>" + e.name + "</h3><p>" + e.message;
-}
+const u = decodeURI(q[0]);
 if (u.startsWith("http://") || u.startsWith("https://")) {
   window.location.href = u;
 } else {
   window.location.href = "https://" + u;
+}
+} catch (e) {
+  document.body.innerHtml = "<h3>" + e.name + "</h3><p>" + e.message;
 }
 </script>
 </head>
