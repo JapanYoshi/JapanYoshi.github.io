@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       u = decodeURIComponent(q);
     } else {
       q = usp.get("b");
-      u = window.btoa(q);
+      u = window.atob(q);
     }
     if (!q) {
       var a = document.createElement("h3");
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       var btn2 = document.createElement("button");
       btn2.innerText = "Convert (base64)";
       btn2.addEventListener("click", () => {
-        document.getElementById("box").value = "https://2gd4.me/r?b=" + window.atob(
+        document.getElementById("box").value = "https://2gd4.me/r?b=" + window.btoa(
           document.getElementById("box").value
         );
       });
