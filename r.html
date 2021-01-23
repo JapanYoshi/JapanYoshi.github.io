@@ -5,9 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // im lazy about exception handling
     // get query strings
     const usp = new URLSearchParams(window.location.search);
-    const q = usp.get("a");
+    var q = usp.get("a");
+    var u;
     //alert(q);
-    if (!q) {
+    if (q) {
+      u = decodeURIComponent(q);
+    } else {
+      q = usp.get("b");
+      u = window.btoa(q);
+    }
+    if (!u) {
       var a = document.createElement("h3");
       a.innerText = "Usage:";
       document.body.appendChild(a);
@@ -24,14 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
       var btn = document.createElement("button");
       btn.innerText = "Convert";
       btn.addEventListener("click", () => {
-        document.getElementById("box").value = encodeURIComponent(
+        document.getElementById("box").value = "https://2gd4.me/r?a=" + encodeURIComponent(
+          document.getElementById("box").value
+        );
+      });
+      document.body.appendChild(btn);
+      var btn2 = document.createElement("button");
+      btn2.innerText = "Convert (base64)";
+      btn2.addEventListener("click", () => {
+        document.getElementById("box").value = "https://2gd4.me/r?b=" + window.atob(
           document.getElementById("box").value
         );
       });
       document.body.appendChild(btn);
     } else {
       // go
-      var u = decodeURIComponent(q);
       if (!(u.startsWith("http://") || u.startsWith("https://"))) {
         u = "https://" + u;
       }
