@@ -243,18 +243,18 @@
       <p><strong>When updating, delete the older version first.</strong></p>
       <ul>
         <li><strong>all</strong> • <a
-            href="http://www.mediafire.com/file/mhjjnatqjcsklob/starlight-all.7z/file">MediaFire</a></li>
+            class="dl" href="#deleted">MediaFire</a></li>
         <li><strong>DDR only (NOTE, RAINBOW, VIVID, FLAT)</strong> • <a
-            href="http://www.mediafire.com/file/iprck3m8yokzglu/starlight-ddr.7z/file">MediaFire</a></li>
+          class="dl" href="#deleted">MediaFire</a></li>
         <li><strong>NOTE only</strong> • <a
-            href="http://www.mediafire.com/file/1mlnzvwjvn1qysm/starlight-note.7z/file">MediaFire</a></li>
+          class="dl" href="#deleted">MediaFire</a></li>
         </li>
       </ul>
       <h4>More XX -STARLiGHT-</h4>
       <ul>
-        <li><a href="https://zenius-i-vanisher.com/v5.2/thread?threadid=9810">DanceDanceRevolution XX</a> Simfile Pack
+        <li><a class="dl" href="#deleted">DanceDanceRevolution XX</a> Simfile Pack
         </li>
-        <li><a href="https://bitbucket.org/inorizushi/xx-starlight-download">DDR XX -STARLiGHT-</a> Theme</li>
+        <li><a class="dl" href="#deleted">DDR XX -STARLiGHT-</a> Theme</li>
       </ul>
       <h4>Other noteskins by Haley Halcyon</h4>
       <ul>
@@ -283,7 +283,7 @@
           allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
       
     </div>
-    <div class="section collapsed">
+    <div class="section collapsed" id="changelog">
       <h3><svg class="chevron" viewBox="0 0 24 24">
           <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
           changelog
@@ -324,13 +324,24 @@
             <li>Re-zipped all archives in order to reflect the changes in the previous update.</li>
           </ul>
         </li>
+        <li id="deleted">
+          <strong>2021-01-29</strong>
+          <ul>
+            <li>Removed download links due to my removal from the DDR XX project.</li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div id="footer">
       <a href="../otoge.html">Back to Otoge</a>
     </div>
   </div>
-  <script>s = document.getElementsByClassName("section"); for (var i = 0; i < s.length; i++) { const e = s[i]; const h = e.firstElementChild; h.addEventListener("click", () => { e.classList.toggle("collapsed") }) }</script>
+  <script>s = document.getElementsByClassName("section"); for (var i = 0; i < s.length; i++) { const e = s[i]; const h = e.firstElementChild; h.addEventListener("click", () => { e.classList.toggle("collapsed") }) }
+  Array.from(document.querySelectorAll("a.dl")).forEach(
+    (el, _) => {
+      el.addEventListener("click", ()=>{document.getElementById("changelog").classList.remove("collapsed")})
+    }
+  );</script>
 </body>
 
 </html>
