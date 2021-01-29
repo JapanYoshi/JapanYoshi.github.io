@@ -1,0 +1,77 @@
+<head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    // im lazy about exception handling
+    // get query strings
+    const usp = new URLSearchParams(window.location.search);
+    var q = usp.get("a");
+    var u;
+    //alert(q);
+    if (q) {
+      u = decodeURIComponent(q);
+    } else {
+      q = usp.get("b");
+      u = window.atob(q);
+    }
+    if (!q) {
+      var a = document.createElement("h3");
+      a.innerText = "Usage:";
+      document.body.appendChild(a);
+      var b = document.createElement("div");
+      b.innerHTML =
+        "<p><code>" +
+        window.location.href +
+        "?a=example.com%2Fpage%3Fx%3D123%26y%3D456</code>"
+        + "</p><p>Alternatively, you can use <code>b=</code> to generate a URL in Base64 to obscure the contents of your link.</p><p>To open in a new tab, add <code>&n=1</code>.<br>You can generate a URL-encoded version of your link below.</p>";
+      document.body.appendChild(b);
+      var box = document.createElement("textarea");
+      box.id = "box";
+      document.body.appendChild(box);
+      var btn = document.createElement("button");
+      btn.innerText = "Convert";
+      btn.addEventListener("click", () => {
+        document.getElementById("box").value = "https://2gd4.me/r?a=" + encodeURIComponent(
+          document.getElementById("box").value
+        );
+      });
+      document.body.appendChild(btn);
+      var btn2 = document.createElement("button");
+      btn2.innerText = "Convert (base64)";
+      btn2.addEventListener("click", () => {
+        document.getElementById("box").value = "https://2gd4.me/r?b=" + window.btoa(
+          document.getElementById("box").value
+        );
+      });
+      document.body.appendChild(btn2);
+    } else {
+      // go
+      if (!(u.startsWith("http://") || u.startsWith("https://"))) {
+        u = "https://" + u;
+      }
+      //alert(u);
+      /* if (usp.get("m") && (Intent)) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(u));
+        startActivity(browserIntent);
+      } else */ if (usp.get("n")) {
+        window.open(u, "_blank");
+      } else {
+        window.location.href = u;
+      }
+    }
+  } catch (e) {
+    alert(e.name);
+    var a = document.createElement("h3");
+    a.innerText = e.name;
+    document.body.appendChild(a);
+    var b = document.createElement("p");
+    b.innerText = e.toString();
+    document.body.appendChild(b);
+    throw(e);
+  }
+});
+</script>
+</head>
+<body>
+<noscript>This is supposed to be a redirect link, but Javascript is disabled. Instead, please plug in the contents of this page’s URL past the equals sign into a URL decoder.</noscript>
+</body>
