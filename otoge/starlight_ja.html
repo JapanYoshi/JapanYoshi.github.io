@@ -277,22 +277,22 @@
         <p><strong>アップデートする時は、必ず前のバージョンを削除してください。</strong></p>        
         <ul>
           <li><strong>全7種</strong> • <a
-            href="http://www.mediafire.com/file/mhjjnatqjcsklob/starlight-all.7z/file">MediaFire</a></li>
+            class="dl" href="#deleted">MediaFire</a></li>
           <li><strong>DDR&thinsp;にあるもののみ (NOTE, RAINBOW, VIVID, FLAT)</strong> • <a
-            href="http://www.mediafire.com/file/iprck3m8yokzglu/starlight-ddr.7z/file">MediaFire</a></li>
+            class="dl" href="#deleted">MediaFire</a></li>
           <li><strong>NOTE&thinsp;のみ</strong> • <a
-            href="http://www.mediafire.com/file/1mlnzvwjvn1qysm/starlight-note.7z/file">MediaFire</a></li>
+            class="dl" href="#deleted">MediaFire</a></li>
         </ul>
       <h4>DDR XX -STARLiGHT- プロジェクト</h4>
       <ul>
         <li>
-          <a href="https://zenius-i-vanisher.com/v5.2/thread?threadid=9810">
+          <a class="dl" href="#deleted">
             DanceDanceRevolution XX
           </a>
           楽曲パック（英語）
         </li>
         <li>
-          <a href="https://bitbucket.org/inorizushi/xx-starlight-download">
+          <a class="dl" href="#deleted">
             DDR XX -STARLiGHT-
           </a>
           テーマ（英語）
@@ -366,12 +366,24 @@
             <li>前のアップデートの更新を反映するため、アーカイブファイルを再生成</li>
           </ul>
         </li>
+        <li id="deleted">
+          <strong>2021-01-29</strong>
+          <ul>
+            <li>説明や協議無しで、私がDDR XXから排除されたので、ノートスキンの配布を終了</li>
+            <li><a href="https://thefizzynator.tumblr.com/post/641621034418700289">私の声明を読む</a>（英語）</li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div id="footer">
       <a href="../otoge.html">OTOGEに戻る</a>
     </div>
   </div>
-  <script>s = document.getElementsByClassName("section"); for (var i = 0; i < s.length; i++) { const e = s[i]; const h = e.firstElementChild; h.addEventListener("click", () => { e.classList.toggle("collapsed") }) }</script>
+  <script>s = document.getElementsByClassName("section"); for (var i = 0; i < s.length; i++) { const e = s[i]; const h = e.firstElementChild; h.addEventListener("click", () => { e.classList.toggle("collapsed") }) }
+  Array.from(document.querySelectorAll("a.dl")).forEach(
+    (el, _) => {
+      el.addEventListener("click", ()=>{document.getElementById("changelog").classList.remove("collapsed")})
+    }
+  );</script>
 </body>
 </html>
