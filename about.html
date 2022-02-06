@@ -50,24 +50,21 @@ var obj = {
           ["学科","コンピューター科学"],
           ["趣味", "ゲーム，コスプレ，グラフィックデザイン，音ゲー，EDM作成，お絵かき，ダンス，声の演技"],
           ["好きな食べ物", "日本のお寿司，カレー（日本風とインド風両方），餃子，トマトソースを使ったイタリア料理"],
-          ["好きなゲーム", "ぷよぷよ，テトリス，ダンスラッシュ，パンプイットアップ，You Don't Know Jack"],
+          ["好きなゲーム", "ぷよぷよ，テトリス，ダンスラッシュ，パンプイットアップ，You Don’t Know Jack"],
           ["好きな色", "パステルのピンク、青、紫"],
           ["好きなシリーズ", "ダンスラッシュ，パンプイットアップ，ダンガンロンパ，ぷよぷよ"],
           ["宗教", "象徴的サタニズム"],
-          ["身長", "166&nbsp;cm"],
+          ["身長", "167&nbsp;cm"],
           "おふざけ",
           ["似てるキャラ", "『デビルメイクライ』のレディー"],
           ["D&Dの属性（アラインメント）", "混沌にして善（Chaotic Good）"],
           ["D&Dの能力値", "STR/筋力 9, INT/知力 17, WIS/判断力 9, DEX/敏捷力 10, CON/耐久力 9, CHR/魅力 7"],
           ["星座", "みずがめ座"],
-          ["ホグワーツの寮", "レイブンクロー（JKロウリングくそくらえだけど）"],
           ["血液型", "A型"],
           ["政治思想", "リベラル、左派"],
-          ["七つの大罪、影響が強い順", "【とても強い】色欲，【強い】怠惰，【中くらい】怒り，高慢，物欲，貪食，【弱い】嫉妬 （色欲のスコアが高いのは、たぶんポリアモリーを支持するから）"],
           "個人的なの",
-          ["性的指向", "パンセクシャル"],
-          ["交際状況", "独身"],
-          ["ポリアモリー", "OK"],
+          ["性的指向", "バイ"],
+          ["交際状況", "独身"]
         ];
         break;
       default:
@@ -88,26 +85,22 @@ var obj = {
         ["favourite video games", "Puyo Puyo, Tetris, Dance Rush, Pump It Up, You Don&rsquo;t Know Jack"],
         ["favorite colours", "pastel pink, blue, and purple"],
         ["fandoms", "Dance Rush, Pump It Up, Danganronpa, Puyo Puyo"],
-        ["religion", "atheistic satanism"],
-        ["height", "166&nbsp;cm"],
+        ["religion", "symbolic satanism"],
+        ["height", "167&nbsp;cm"],
         "Silly stuff",
         ["I look like", "Lady from Devil May Cry"],
         ["D&D alignment", "chaotic good"],
         ["D&D stats", "STR 9, INT 17, WIS 9, DEX 10, CON 9, CHR 7"],
         ["astrology sign", "Aquarius"],
-        ["Hogwarts house from Harry Potter", "Ravenclaw (fuck JK Rowling btw)"],
-        ["MBTI", "ffs this goddamn pseudoscience test has to stop pretending that it&rsquo;s science"],
         ["political compass", "libertarian left (-8.0, -7.64)"],
-        ["7 Deadly Sins, in order", "[very high] lust, [high] sloth, [medium] wrath, pride, greed, gluttony, [low] envy (The high rating for &ldquo;lust&rdquo; is probably because of my openness to polyamory)"],
         "Personal stuff",
-        ["sexual orientation", "pansexual"],
+        ["sexual orientation", "bisexual"],
         ["relationship status", "single"],
-        ["opinion on polyamory", "open to it"],
       ];
       if (langCode === "en-GB" || langCode === "en-AU") {
         return en_uk;
       } else {      
-        const unbritify = (string) => string.replace(/favourite/g, 'favorite').replace(/colour/g, 'color').replace("166&nbsp;cm", "5'&nbsp;6\"");
+        const unbritify = (string) => string.replace(/favourite/g, 'favorite').replace(/colour/g, 'color').replace("167&nbsp;cm", "5'&nbsp;7\"");
         for (var i = 0; i < en_uk.length; i++) {
           if (typeof en_uk[i] == "string") {
             en_uk[i] = unbritify(en_uk[i]);
@@ -132,23 +125,9 @@ function getLocalDateText(){
 }
 
 function getAgeText(lang){
-  var d = new Date();
-  var age;
-  switch (d.getMonth()){
-    case 1:
-      age = d.getFullYear() - 2000;
-      break;
-    case 2:
-      if (d.getDate() < 4){
-        age = d.getFullYear() - 2000;
-      } else {
-        age = d.getFullYear() - 1999;
-      }
-      break;
-    default:
-      age = d.getFullYear() - 1999;
-      break;
-  }
+  var diff = Date.now() - new Date(1999, 1, 5);
+  var ageDate = new Date(diff);
+  var age = Math.abs(ageDate.getUTCFullYear() - 1970);
   switch (lang){
     case "ja":
       return `（${age}歳）`;
