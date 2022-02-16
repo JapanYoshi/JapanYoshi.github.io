@@ -22,30 +22,32 @@
   <script src="../dark.js"></script>
   <style>
     @font-face {
+      font-family: "_mikado";
+      font-style: normal;
+      src: url("shavian_fonts/mikadoshavianbold.otf");
+    }
+    .mikado {font-family: _mikado, serif;}
+    @font-face {
       font-family: "_starzoom";
       font-style: normal;
-      src: url("shavian-fonts/starzoom-shavian.ttf"),
-      url("shavian-fonts/Starzoom-Shavian.ttf");
+      src: url("shavian-fonts/starzoom-shavian.ttf");
     }
     @font-face {
       font-family: "_starzoom";
       font-style: italic;
-      src: url("shavian-fonts/starzoom-shavian-italic.ttf"),
-      url("shavian-fonts/Starzoom-Shavian-Italic.ttf");
+      src: url("shavian-fonts/starzoom-shavian-italic.ttf");
     }
     .starzoom {font-family: _starzoom, serif;}
     @font-face {
       font-family: "_backlog";
       font-style: normal;
-      src: url("shavian-fonts/backlogshavian.otf"),
-      url("shavian-fonts/BackLogShavian.otf");
+      src: url("shavian-fonts/backlogshavian.otf");
     }
     .backlog {font-family: _backlog, serif;}
     @font-face {
       font-family: "_impetus";
       font-style: normal;
-      src: url("shavian-fonts/impetusshavian.ttf"),
-      url("shavian-fonts/ImpetusShavian.ttf");
+      src: url("shavian-fonts/impetusshavian.ttf");
     }
     .impetus {font-family: _impetus, serif;}
     @font-face {
@@ -76,7 +78,7 @@
       font-family: DejaVu Sans, Noto Sans, sans-serif;
     }
     .shavian {
-      font-family: Henry Higgins Sans, Noto Sans Shavian, Segoe Historic, sans-serif;
+      font-family: "_mikado", Inter Alia, Henry Higgins Sans, Noto Sans Shavian, Segoe Historic, sans-serif;
       background: var(--white);
     }
     .showcase {
@@ -193,6 +195,21 @@ document.addEventListener("DOMContentLoaded", () => {
         <li><a href="https://shavian.info/">Shavian.info</a> and its corresponding <a href="https://twitter.com/shawalphabet">Twitter account (@shawalphabet)</a></li>
       </ul>
       <p>Shavian.info also has <a href="https://shavian.info/shavian-fonts">a list of fonts that support Shavian</a>.</p>
+    </div>
+    <div class="section">
+      <h3 class="preview starzoom">𐑥𐑦𐑒𐑭𐑛𐑴 / Mikado Shavian</h3>
+      <h4>Description</h4>
+      <p>Mikado Shavian is a playful rounded font, <a href="https://www.myfonts.com/fonts/hvdfonts/mikado/">originally by Hannes Van Döhren</a>. It’s also the standard font for this very webpage! This is an (unauthorized) extension of its Bold weight for the Shavian alphabet.</p>
+      <h4>Showcase</h4>
+      <div class="showcase mikado">
+      <div class="big">𐑣𐑨𐑐𐑦 𐑚𐑻𐑔𐑛𐑱, ·𐑑𐑦𐑥𐑦!</div>
+      <div class="medium">𐑩 𐑓𐑪𐑯𐑑 𐑓 𐑒𐑦𐑛𐑜, 𐑜𐑱𐑥𐑟, & 𐑲𐑕 𐑒𐑤𐑰𐑥.</div>
+      <div class="small">𐑕𐑴 𐑕𐑳𐑥 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑜𐑲 𐑖𐑴𐑟 𐑳𐑐 𐑬𐑑 𐑝 𐑞 𐑚𐑤𐑵 𐑯 𐑑𐑧𐑤𐑟 𐑿 𐑞𐑨𐑑 𐑞 𐑢𐑻𐑤𐑛𐑟 𐑦𐑯 𐑕𐑽𐑾𐑕 𐑑𐑮𐑳𐑚𐑩𐑤. 𐑯 𐑯𐑬 𐑘𐑫𐑼 𐑪𐑯 𐑩 𐑥𐑦𐑖𐑩𐑯 𐑑 𐑓𐑲𐑯𐑛 𐑬𐑑 𐑣𐑵𐑟 𐑚𐑦𐑣𐑲𐑯𐑛 𐑷𐑤 𐑞 𐑚𐑦𐑟𐑸 𐑕𐑑𐑳𐑓 𐑜𐑴𐑦𐑙 𐑪𐑯! 𐑕𐑬𐑯𐑛 𐑩𐑚𐑬𐑑 𐑮𐑲𐑑?</div>
+      </div>
+      <h4>Test Drive</h4>
+      <button type="button" class="btn-smaller" value="test-mikado">Smaller</button><button type="button" class="btn-larger" value="test-mikado">Larger</button><button type="button" class="btn-reset" value="test-mikado">Reset contents</button>
+      <textarea class="testdrive mikado" id="test-mikado"></textarea>
+      <a class="download" href="shavian-fonts/mikadoshavianbold.otf">Download</a>
     </div>
     <div class="section">
       <h3 class="preview starzoom">𐑕𐑑𐑸𐑟𐑵𐑥 / Starzoom</h3>
