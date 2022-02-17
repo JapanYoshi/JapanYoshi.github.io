@@ -31,7 +31,8 @@ const DATA = [
     ],
     notes: [
       "The word “to” is written with just this one letter, as opposed to “two” or “too”.",
-      "Shavian does not distinguish aspiration; it is also the “t” in “sty”."
+      "Shavian does not distinguish aspiration; it is also the “t” in “sty”.",
+      "The suffix “-ed” uses either «𐑑» or «𐑛» depending on the voicing of the last sound. Compare “backed” «𐑚𐑨𐑒𐑑» and “bagged” «𐑚𐑨𐑜𐑛»."
     ]
   },
   {
@@ -202,7 +203,9 @@ const DATA = [
       "d",
       "“d” in “dye”"
     ],
-    notes: []
+    notes: [
+      "The suffix “-ed” uses either «𐑑» or «𐑛» depending on the voicing of the last sound. Compare “backed” «𐑚𐑨𐑒𐑑» and “bagged” «𐑚𐑨𐑜𐑛»."
+    ]
   },
   {
     codePoint: 0x1045C,
