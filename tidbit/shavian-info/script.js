@@ -897,7 +897,7 @@ const DATA = [
     ]
   },
   {
-    codePoint: 0x10452,
+    codePoint: 0x1045C,
     extended: true,
     name: [
       "N/A",
