@@ -715,7 +715,8 @@ const DATA = [
       "“ough” in “thought”"
     ],
     notes: [
-      "This letter is a combination of 𐑭 + 𐑮."
+      "This letter is a combination of 𐑭 + 𐑮.",
+      "The vowel in “moral”, “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
     ]
   },
   {
@@ -733,7 +734,8 @@ const DATA = [
     ],
     notes: [
       "This letter is a combination of 𐑷 + 𐑮.",
-      "This is also the “or” in “force”, which derives from 𐑴 + 𐑮."
+      "This is also the “or” in “force”, which derives from 𐑴 + 𐑮.",
+      "The vowel in “moral”, “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
     ]
   },
   {
