@@ -770,7 +770,8 @@ const DATA = [
     notes: [
       "This letter is a combination of an obsolete letter + 𐑮.",
       "This letter is always stressed (Exceptions apply for compound words like “earthworm” «𐑻𐑔𐑢𐑻𐑥»); see 𐑩 for the “a” in “comma” and 𐑼 for the “er” in “letter”.",
-      "The “ur” in “blurry” is spelled «𐑻», as opposed to “hurry” «𐑳𐑼» or “jury” «𐑫𐑼»."
+      "The “ur” in “blurry” is spelled «𐑻», as opposed to “hurry” «𐑳𐑼» or “jury” «𐑫𐑼».",
+      "The “oe” in “Goethe” is usually spelled «𐑻». There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑻\ufe00»."
     ]
   },
   {
@@ -789,7 +790,6 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑩 + 𐑮.",
       "This letter is never stressed; see 𐑳 for the “u” in “strut” and 𐑻 for the “ur” in “nurse”.",
-      "The “oe” in “Goethe” is usually spelled «𐑻». There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑻\ufe00»."
     ]
   },
   {
