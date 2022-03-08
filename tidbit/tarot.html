@@ -195,7 +195,7 @@ input[type=radio]:not(:checked) + label {
     <div id="intro" class="limW">
       <h3>How to use this tool</h3>
       <p>
-        This tool will generate 3 tarot cards. But before you press the button,
+        This tool will generate 3 tarot cards from the Major Arcana of the Rider–Waite tarot deck. But before you press the button,
         <i>think about what you want this tool to divine about.</i> It could be
         love, work, studies, or generally your life, or even just today.
       </p>
@@ -285,7 +285,7 @@ input[type=radio]:not(:checked) + label {
     </div>
     <br />
     <script>
-const cardPre = "https://upload.wikimedia.org/wikipedia/en/";
+const cardPre = "https://upload.wikimedia.org/wikipedia/commons/";
 const cardImg = [
   "9/90/RWS_Tarot_00_Fool.jpg",
   "d/de/RWS_Tarot_01_Magician.jpg",
@@ -293,7 +293,7 @@ const cardImg = [
   "d/d2/RWS_Tarot_03_Empress.jpg",
   "c/c3/RWS_Tarot_04_Emperor.jpg",
   "8/8d/RWS_Tarot_05_Hierophant.jpg",
-  "d/db/RWS_Tarot_06_Lovers.jpg",
+  "3/3a/TheLovers.jpg",
   "9/9b/RWS_Tarot_07_Chariot.jpg",
   "f/f5/RWS_Tarot_08_Strength.jpg",
   "4/4d/RWS_Tarot_09_Hermit.jpg",
@@ -311,28 +311,28 @@ const cardImg = [
   "f/ff/RWS_Tarot_21_World.jpg"
 ];
 const cardStr = [
-  "Fool",
-  "Magician",
-  "High Priestess",
-  "Empress",
-  "Emperor",
-  "Hierophant",
-  "Lovers",
+  "The Fool",
+  "The Magician",
+  "The High Priestess",
+  "The Empress",
+  "The Emperor",
+  "The Hierophant",
+  "The Lovers",
   "Chariot",
   "Strength",
   "Hermit",
   "Wheel of Fortune",
   "Justice",
-  "Hanged Man",
+  "The Hanged Man",
   "Death",
   "Temperance",
-  "Devil",
-  "Tower",
-  "Star",
-  "Moon",
-  "Sun",
+  "The Devil",
+  "The Tower",
+  "The Star",
+  "The Moon",
+  "The Sun",
   "Judgment",
-  "World"
+  "The World"
 ];
 const oriStr = [" (Upright)", " (Reverse)"];
 
@@ -361,14 +361,14 @@ var genCards = () => {
   console.log("Preliminary results:", cards);
   // Adjust the results to simulate drawing with replacement.
   // The last two cards must be adjusted according to the other previous draws.
+  if (cards[2] >= cards[1]) {
+    cards[2]++;
+  }
+  if (cards[2] >= cards[0]) {
+    cards[2]++;
+  }
   if (cards[1] >= cards[0]) {
-    // The 2nd card should be incremented. Check if the 3rd one needs to be incremented too.
-    if (cards[2] >= cards[1]) {
-      cards[2] += 2;
-    }
-    cards[1] ++;
-  } else if (cards[2] >= cards[0]) {
-    cards[2] ++;
+    cards[1]++;
   }
   console.log("Results:", cards);
   updateCardDetails(cards);
