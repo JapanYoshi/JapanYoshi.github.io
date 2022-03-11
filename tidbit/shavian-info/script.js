@@ -50,7 +50,7 @@ const DATA = [
     ],
     notes: [
       "Shavian does not distinguish aspiration; it is also the “c” in “scream”.",
-      "The “ch” in “loch” and “Bach” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this."
+      "The “ch” in “loch” and “Bach” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑒\ufe00»"
     ]
   },
   {
@@ -222,7 +222,7 @@ const DATA = [
     ],
     notes: [
       "For the “soft G” as in “gym” and “GIF”, use «𐑡».",
-      "The “g” in “Gogh” (Dutch) is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this."
+      "The “g” in “Gogh” (Dutch) is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑜\ufe00»"
     ]
   },
   {
@@ -253,7 +253,7 @@ const DATA = [
       "ð",
       "D",
       "<u>th</u>",
-      "“v” in “leave”"
+      "“th” in “this”"
     ],
     notes: [
       "The word “the” is written with just this one letter.",
@@ -326,7 +326,7 @@ const DATA = [
       "“w” in “wine”"
     ],
     notes: [
-      "This is also the “w” in “whine”. Kingley Read recommended spelling it «𐑣𐑢» if necessary. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this."
+      "This is also the “w” in “whine”. Kingley Read recommended spelling it «𐑣𐑢» if necessary. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑢\ufe00»"
     ]
   },
   {
@@ -364,7 +364,7 @@ const DATA = [
       "This letter also stands for the “dark L” as in «𐑒𐑷𐑤» “call”.",
       "When it is a syllabic consonant, as in “bottle”, it is preceded by a schwa: «𐑚𐑪𐑑𐑩𐑤».",
       "To remember which is L and which is R, hold your hands towards each other in a C-shape. Your left hand makes the 𐑤 shape.",
-      "The “ll” in “llan” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this."
+      "The “ll” in “llan” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑤\ufe00»."
     ]
   },
   {
@@ -488,7 +488,7 @@ const DATA = [
       "“oo” in “foot”"
     ],
     notes: [
-      "The “ur” in “jury” is spelled «𐑫𐑼», as opposed to “hurry” «𐑳𐑼» or “blurry” «𐑻»."
+      "The “ur” in “jury” is spelled «𐑫𐑼», as opposed to “hurry” «𐑳𐑮» or “blurry” «𐑻»."
     ]
   },
   {
@@ -540,7 +540,7 @@ const DATA = [
       "“r” in “rye”"
     ],
     notes: [
-      "When right after a vowel, one of the compound letters is used; compare «𐑮𐑱» “ray” with «𐑼𐑱» “array”.",
+      "When right after many vowels, one of the compound letters is used; compare «𐑮𐑱» “ray” with «𐑼𐑱» “array”.",
       "To remember which is L and which is R, hold your hands towards each other in a C-shape. Your right hand makes the 𐑮 shape."
     ]
   },
@@ -630,7 +630,7 @@ const DATA = [
     ],
     notes: [
       "This letter is always stressed (Exceptions apply for compound words like “someone” «𐑕𐑳𐑥𐑢𐑳𐑯»); see 𐑩 for the “a” in “comma” and 𐑼 for the “er” in “letter”.",
-      "The “ur” in “hurry” is spelled «𐑳𐑼», as opposed to “jury” «𐑫𐑼» or “blurry” «𐑻»."
+      "The “ur” in “hurry” is spelled «𐑳𐑮», as opposed to “jury” «𐑫𐑼» or “blurry” «𐑻»."
     ]
   },
   {
@@ -735,7 +735,7 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑷 + 𐑮.",
       "This is also the “or” in “force”, which derives from 𐑴 + 𐑮.",
-      "The vowel in “moral”, “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
+      "The vowel in “coral” (not “choral”), “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
     ]
   },
   {
@@ -752,7 +752,7 @@ const DATA = [
       "“are” in “square”"
     ],
     notes: [
-      "This letter is a combination of an obsolete letter + 𐑮, and pronounced as 𐑱 + 𐑮.",
+      "This letter is a combination of an obsolete letter (𐑺\ufe00) + 𐑮, and pronounced as 𐑱 + 𐑮.",
       "The vowel in “Mary” is spelled «𐑺» (as opposed to “merry” or “marry”)."
     ]
   },
@@ -770,9 +770,9 @@ const DATA = [
       "“ur” in “nurse”"
     ],
     notes: [
-      "This letter is a combination of an obsolete letter + 𐑮.",
+      "This letter is a combination of an obsolete letter (𐑻\ufe00) + 𐑮.",
       "This letter is always stressed (Exceptions apply for compound words like “earthworm” «𐑻𐑔𐑢𐑻𐑥»); see 𐑩 for the “a” in “comma” and 𐑼 for the “er” in “letter”.",
-      "The “ur” in “blurry” is spelled «𐑻», as opposed to “hurry” «𐑳𐑼» or “jury” «𐑫𐑼».",
+      "The “ur” in “blurry” is spelled «𐑻», as opposed to “hurry” «𐑳𐑮» or “jury” «𐑫𐑼».",
       "The “oe” in “Goethe” is usually spelled «𐑻». There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑻\ufe00»."
     ]
   },
