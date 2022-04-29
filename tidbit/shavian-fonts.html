@@ -22,6 +22,18 @@
   <script src="../dark.js"></script>
   <style>
     @font-face {
+      font-family: "_banter_unicase";
+      font-style: normal;
+      src: url("shavian-fonts/bantershavianunicase.otf");
+    }
+    @font-face {
+      font-family: "_banter_triline";
+      font-style: normal;
+      src: url("shavian-fonts/bantershaviantriline.otf");
+    }
+    .banter {font-family: _banter_unicase, serif;}
+    .banter_triline {font-family: _banter_triline, serif;}
+    @font-face {
       font-family: "_mikado";
       font-style: normal;
       src: url("shavian-fonts/mikadoshavianbold.otf");
@@ -130,6 +142,14 @@
       font-family: inherit;
       font-size: inherit;
     }
+    .date {
+      padding-right: 4px;
+      text-align: right;
+      font-size: 75%;
+    }
+    .date::before {
+      content: "Date of publication: ";
+    }
   </style>
   <script>
 function changeFontSize(thisEl, larger){
@@ -196,15 +216,50 @@ document.addEventListener("DOMContentLoaded", () => {
       </ul>
       <p>Shavian.info also has <a href="https://shavian.info/shavian-fonts">a list of fonts that support Shavian</a>.</p>
     </div>
+    <div class="section" id="unicase">
+      <h3>on the topic of unicase Shavian</h3>
+      <h4>the ambiguity</h4>
+      <p>A recurring design decision I have made with these fonts is to make the letters all have the same height, which I refer to as <b>“unicase Shavian”</b> (which is not <i>entirely</i> accurate, since Shavian has no letter case to begin with, but since this makes Shavian look more like all-caps Latin text, I found the term to be apt enough).</p>
+      <p>However, a glaring problem presents itself when removing the height distinction: the consonant characters <span class="shavian">𐑐 𐑚 𐑓 𐑝</span> and the vowel characters <span class="shavian">𐑪 𐑧 𐑨 𐑩</span> are only distinguished by height, so they have to be distinguished some other way.</p>
+      <h4>the solution</h4>
+      <p>I was inspired by this image from one of Kingsley Read’s earlier drafts for what would eventually become Shavian, where he tackled this very same problem of unicase Shavian.</p>
+      <div class="imgBox">
+        <img src="https://miro.medium.com/max/1400/1*V3yUVFXHrlyaSQnlEGe30Q.png">
+        <span>Image from <a href="https://articles.c-a-s-t.com/shavian-2-3-the-development-9cba31f9bc5a">this article by Leo Philip</a>.</span>
+      </div>
+      <p>Read added crossbars on the stems to signify how many rule lines the letter was to cross. He also had looped letters, which went unused in the final Shavian alphabet.</p>
+      <p>Based on those, <span class="shavian">𐑐</span> and <span class="shavian">𐑚</span> gained loops to resemble the Latin “P” and “b”, while <span class="shavian">𐑓</span> and <span class="shavian">𐑝</span> gained crossbars to resemble “f”.</p>
+    </div>
+    <div class="section">
+      <h3 class="preview banter">𐑚𐑨𐑯𐑑𐑼 / Banter</h3>
+      <div class="date">2022-04-29</div>
+      <h4>Description</h4>
+      <p>Banter Shavian is a comic-style display font intended for onomatopoeia and yelling. Two versions are available: “<a href="#unicase">Unicase</a>” and “Triline”.</p>
+      <p>Banter is an unofficial extension of the font <a href="https://fonts.google.com/specimen/Bangers">Bangers by Vernon Adams</a>, which has been skewed 11&deg; to the left to undo its slant. The user is free to skew it as they wish. Banter also enhances the multilingual support of Bangers, and expands its Latin portion to support countless languages.</p>
+      <h4>Showcase</h4>
+      <div class="showcase">
+        <div class="big banter">𐑧𐑚𐑢𐑸𐑛𐑴...!</div>
+        <div class="medium banter_triline">𐑕𐑲𐑩𐑯𐑑𐑦𐑓𐑦𐑒 𐑐𐑮𐑪𐑜𐑮𐑧𐑕 𐑜𐑴𐑟 «𐑚𐑶𐑙𐑒»?</div>
+        <div class="small banter_triline">𐑢𐑪𐑑 𐑦𐑟 𐑞𐑨𐑑, 𐑢𐑪𐑑 𐑦𐑟 𐑞𐑨𐑑? 𐑢𐑪𐑑 𐑦𐑟 𐑦𐑑?! 𐑴! 𐑯𐑴, 𐑯𐑪𐑑 𐑞 𐑚𐑰𐑟! 𐑯𐑪𐑑 𐑞 𐑚𐑰𐑟!! 𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑭!!! 𐑷𐑤 𐑴𐑝𐑼 𐑥𐑲 𐑲𐑟!!! 𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑲𐑟!!! 𐑭𐑭𐑭𐑭𐑭𐑭!!! 𐑭𐑭𐑭𐑭𐑭𐑭𐑭𐑼𐑼𐑼𐑼𐑼𐑜𐑚𐑢𐑮!!! </div>
+      </div>
+      <h4>Test Drive</h4>
+      <button type="button" class="btn-smaller" value="test-banter">Smaller</button><button type="button" class="btn-larger" value="test-banter">Larger</button><button type="button" class="btn-reset" value="test-banter">Reset contents</button>
+      <textarea class="testdrive banter" id="test-banter"></textarea>
+      <a class="download" href="shavian-fonts/bantershavianunicase.otf">Download</a>
+      <button type="button" class="btn-smaller" value="test-banter-triline">Smaller</button><button type="button" class="btn-larger" value="test-banter-triline">Larger</button><button type="button" class="btn-reset" value="test-banter-triline">Reset contents</button>
+      <textarea class="testdrive banter_triline" id="test-banter-triline"></textarea>
+      <a class="download" href="shavian-fonts/bantershaviantriline.otf">Download</a>
+    </div>
     <div class="section">
       <h3 class="preview mikado">𐑥𐑦𐑒𐑭𐑛𐑴 / Mikado Shavian</h3>
+      <div class="date">2022-02-16</div>
       <h4>Description</h4>
       <p>Mikado Shavian is a playful rounded font, <a href="https://www.myfonts.com/fonts/hvdfonts/mikado/">originally by Hannes Van Döhren</a>. It’s also the standard font for this very webpage! This is an (unauthorized) extension of its Bold weight for the Shavian alphabet.</p>
       <h4>Showcase</h4>
       <div class="showcase mikado">
-      <div class="big">𐑣𐑨𐑐𐑦 𐑚𐑻𐑔𐑛𐑱, ·𐑑𐑦𐑥𐑦!</div>
-      <div class="medium">𐑩 𐑓𐑪𐑯𐑑 𐑓 𐑒𐑦𐑛𐑜, 𐑜𐑱𐑥𐑟, & 𐑲𐑕 𐑒𐑤𐑰𐑥.</div>
-      <div class="small">𐑕𐑴 𐑕𐑳𐑥 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑜𐑲 𐑖𐑴𐑟 𐑳𐑐 𐑬𐑑 𐑝 𐑞 𐑚𐑤𐑵 𐑯 𐑑𐑧𐑤𐑟 𐑿 𐑞𐑨𐑑 𐑞 𐑢𐑻𐑤𐑛𐑟 𐑦𐑯 𐑕𐑽𐑾𐑕 𐑑𐑮𐑳𐑚𐑩𐑤. 𐑯 𐑯𐑬 𐑘𐑫𐑼 𐑪𐑯 𐑩 𐑥𐑦𐑖𐑩𐑯 𐑑 𐑓𐑲𐑯𐑛 𐑬𐑑 𐑣𐑵𐑟 𐑚𐑦𐑣𐑲𐑯𐑛 𐑷𐑤 𐑞 𐑚𐑦𐑟𐑸 𐑕𐑑𐑳𐑓 𐑜𐑴𐑦𐑙 𐑪𐑯! 𐑕𐑬𐑯𐑛 𐑩𐑚𐑬𐑑 𐑮𐑲𐑑?</div>
+        <div class="big">𐑣𐑨𐑐𐑦 𐑚𐑻𐑔𐑛𐑱, ·𐑑𐑦𐑥𐑦!</div>
+        <div class="medium">𐑩 𐑓𐑪𐑯𐑑 𐑓 𐑒𐑦𐑛𐑟, 𐑜𐑱𐑥𐑟, & 𐑲𐑕 𐑒𐑤𐑰𐑥.</div>
+        <div class="small">𐑕𐑴 𐑕𐑳𐑥 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑜𐑲 𐑖𐑴𐑟 𐑳𐑐 𐑬𐑑 𐑝 𐑞 𐑚𐑤𐑵 𐑯 𐑑𐑧𐑤𐑟 𐑿 𐑞𐑨𐑑 𐑞 𐑢𐑻𐑤𐑛𐑟 𐑦𐑯 𐑕𐑽𐑾𐑕 𐑑𐑮𐑳𐑚𐑩𐑤. 𐑯 𐑯𐑬 𐑘𐑫𐑼 𐑪𐑯 𐑩 𐑥𐑦𐑖𐑩𐑯 𐑑 𐑓𐑲𐑯𐑛 𐑬𐑑 𐑣𐑵𐑟 𐑚𐑦𐑣𐑲𐑯𐑛 𐑷𐑤 𐑞 𐑚𐑦𐑟𐑸 𐑕𐑑𐑳𐑓 𐑜𐑴𐑦𐑙 𐑪𐑯! 𐑕𐑬𐑯𐑛 𐑩𐑚𐑬𐑑 𐑮𐑲𐑑?</div>
       </div>
       <h4>Test Drive</h4>
       <button type="button" class="btn-smaller" value="test-mikado">Smaller</button><button type="button" class="btn-larger" value="test-mikado">Larger</button><button type="button" class="btn-reset" value="test-mikado">Reset contents</button>
@@ -213,6 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="section">
       <h3 class="preview starzoom">𐑕𐑑𐑸𐑟𐑵𐑥 / Starzoom</h3>
+      <div class="date">2021-11-06</div>
       <h4>Description</h4>
       <p>Starzoom Shavian is a futuristic display font. It has angular cutaways that suggest speed, and is also available with a slant for a bit of extra speediness.</p>
       <h4>Showcase</h4>
@@ -220,32 +276,33 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="big italic">𐑲𐑤 𐑚𐑰 𐑚𐑨𐑒.</div>
       <div class="medium">𐑲𐑥 𐑕𐑪𐑮𐑦, 𐑛𐑱𐑝, 𐑲𐑥 𐑩𐑓𐑮𐑱𐑛 𐑲 𐑒𐑨𐑯𐑑 𐑛𐑵 𐑞𐑨𐑑.</div>
       <div class="small italic">𐑞 𐑿𐑯𐑦𐑝𐑻𐑕 𐑦𐑟 𐑚𐑦𐑜. 𐑦𐑑𐑕 𐑝𐑭𐑕𐑑 𐑯 𐑒𐑪𐑥𐑐𐑤𐑦𐑒𐑱𐑑𐑩𐑛 𐑯 𐑮𐑦𐑛𐑦𐑒𐑘𐑩𐑤𐑩𐑕. 𐑯 𐑕𐑳𐑥𐑑𐑲𐑥𐑟, 𐑝𐑧𐑮𐑦 𐑮𐑺𐑤𐑦, 𐑦𐑥𐑐𐑪𐑕𐑩𐑚𐑩𐑤 𐑔𐑦𐑙𐑟 𐑡𐑳𐑕𐑑 𐑣𐑨𐑐𐑩𐑯 𐑯 𐑢𐑰 𐑒𐑷𐑤 𐑞𐑧𐑥 𐑥𐑦𐑮𐑩𐑒𐑩𐑤𐑟.</div>
-      </div>
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-starzoom">Smaller</button><button type="button" class="btn-larger" value="test-starzoom">Larger</button><button type="button" class="btn-reset" value="test-starzoom">Reset contents</button>
-      <textarea class="testdrive starzoom" id="test-starzoom"></textarea>
-      <button type="button" class="btn-smaller" value="test-starzoom-italic">Smaller</button><button type="button" class="btn-larger" value="test-starzoom-italic">Larger</button><button type="button" class="btn-reset" value="test-starzoom-italic">Reset contents</button>
-      <textarea class="testdrive starzoom italic" id="test-starzoom-italic"></textarea>
-      <a class="download" href="https://1drv.ms/u/s!AtCpU4CJeIG3hWMdOkwmkpBsvNb0?e=rWI7Xr">Download</a>
     </div>
-    <div class="section">
-      <h3 class="preview backlog">𐑚𐑨𐑒 𐑤𐑪𐑜 / Back Log</h3>
-      <h4>Description</h4>
-      <p>Back Log Shavian is a comic book font based on <a href="https://www.1001fonts.com/back-issues-bb-font.html">Back Issues BB</a> by Blambot Comic Fonts (free for non-profit or indie comics use).</p>
-      <p>It has a unicase-style look, with alterations made for the consonant characters <span class="shavian">𐑐 𐑚 𐑓 𐑝</span> to better distinguish them from the vowel characters <span class="shavian">𐑪 𐑧 𐑨 𐑩</span>. Specifically (since one specific person asked) <span class="shavian">𐑐</span> and <span class="shavian">𐑚</span> now have loops to resemble “P” and “b”, while <span class="shavian">𐑓</span> and <span class="shavian">𐑝</span> have crossbars to resemble “f”.</p>
-      <h4>Showcase</h4>
-      <div class="showcase backlog">
+    <h4>Test Drive</h4>
+    <button type="button" class="btn-smaller" value="test-starzoom">Smaller</button><button type="button" class="btn-larger" value="test-starzoom">Larger</button><button type="button" class="btn-reset" value="test-starzoom">Reset contents</button>
+    <textarea class="testdrive starzoom" id="test-starzoom"></textarea>
+    <button type="button" class="btn-smaller" value="test-starzoom-italic">Smaller</button><button type="button" class="btn-larger" value="test-starzoom-italic">Larger</button><button type="button" class="btn-reset" value="test-starzoom-italic">Reset contents</button>
+    <textarea class="testdrive starzoom italic" id="test-starzoom-italic"></textarea>
+    <a class="download" href="https://1drv.ms/u/s!AtCpU4CJeIG3hWMdOkwmkpBsvNb0?e=rWI7Xr">Download</a>
+  </div>
+  <div class="section">
+    <h3 class="preview backlog">𐑚𐑨𐑒 𐑤𐑪𐑜 / Back Log</h3>
+    <div class="date">2022-02-16</div>
+    <h4>Description</h4>
+    <p>Back Log Shavian is a comic book font based on <a href="https://www.1001fonts.com/back-issues-bb-font.html">Back Issues BB</a> by Blambot Comic Fonts (free for non-profit or indie comics use). It is a <a href="#unicase">unicase</a> styled font.</p>
+    <h4>Showcase</h4>
+    <div class="showcase backlog">
       <div class="big">{𐑜𐑸𐑓𐑰𐑤𐑛!!}</div>
       <div class="medium">𐑢𐑦𐑞 𐑜𐑮𐑱𐑑 𐑐𐑬𐑼 𐑒𐑳𐑥𐑟 𐑜𐑮𐑱𐑑 𐑮𐑦𐑕𐑐𐑪𐑯𐑕𐑩𐑚𐑦𐑤𐑦𐑑𐑦.</div>
       <div class="small">𐑞𐑱 𐑕𐑱 𐑞 𐑢𐑻𐑤𐑛 𐑦𐑟 𐑩 𐑕𐑑𐑱𐑡. 𐑚𐑳𐑑 𐑪𐑚𐑝𐑾𐑕𐑤𐑦 𐑞 𐑐𐑤𐑱 𐑦𐑟 𐑳𐑯𐑮𐑦𐑣𐑻𐑕𐑑 𐑯 𐑧𐑝𐑮𐑦𐑚𐑪𐑛𐑦 𐑦𐑟 𐑨𐑛-𐑤𐑦𐑚𐑦𐑙 𐑣𐑦𐑟 𐑤𐑲𐑯𐑟.</div>
-      </div>
-      <h4>Test Drive</h4>
+    </div>
+    <h4>Test Drive</h4>
       <button type="button" class="btn-smaller" value="test-backlog">Smaller</button><button type="button" class="btn-larger" value="test-backlog">Larger</button><button type="button" class="btn-reset" value="test-backlog">Reset contents</button>
       <textarea class="testdrive backlog" id="test-backlog"></textarea>
       <a class="download" href="shavian-fonts/backlogshavian.otf">Download</a>
     </div>
     <div class="section">
       <h3 class="preview impetus">𐑦𐑥𐑐𐑦𐑑𐑩𐑕 / Impetus</h3>
+      <div class="date">2021-11-29</div>
       <h4>Description</h4>
       <p>Impetus Shavian is a bold, industrial display font that adapts the design of <a href="https://en.wikipedia.org/wiki/Impact_(typeface)">Impact</a> by Geoffrey Lee, made famous by its inclusion in <a href="https://en.wikipedia.org/wiki/Core_fonts_for_the_Web">the Core Fonts for the Web</a> and its eventual notoriety as the <a href="https://en.wikipedia.org/wiki/Image_macro">image macro</a> meme font. If you want to make memes in the Shavian alphabet, here's your match!</p>
       <h4>Showcase</h4>
@@ -261,6 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="section">
       <h3 class="preview minecraft">𐑥𐑲𐑯𐑒𐑮𐑨𐑓𐑑 / Minecraft</h3>
+      <div class="date">2021-11-29</div>
       <h4>Description</h4>
       <p>Minecraft Shavian is an 8px proportional pixel font that adapts the look of the default system font of Minecraft.</p>
       <h4>Showcase</h4>
@@ -276,8 +334,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="section">
       <h3 class="preview fami">𐑓𐑨𐑥𐑦 𐑕𐑨𐑯𐑟 𐑚𐑴𐑤𐑛 / Fami Sans Bold</h3>
+      <div class="date">2021-11-29</div>
       <h4>Description</h4>
-      <p>Fami Sans Bold Shavian is an 8px fixed-width pixel font that mimics the look of 8-bit video games, such as on the Famicom/NES.</p>
+      <p>Fami Sans Bold Shavian is an 8px fixed-width pixel font that mimics the look of 8-bit video games, such as on the Famicom/NES. It is a <a href="#unicase">unicase</a> styled font.</p>
       <h4>Related fonts</h4>
       <ul class="bullet">
         <li>the <a href="https://www.behance.net/gallery/22965951/Fami-Variety-NES-Fonts">Fami Sans superfamily</a>, containing regular and bold weights for four styles: Sans, Serif, Square, and Condensed.</li>
@@ -296,8 +355,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="section">
       <h3 class="preview sixfour">𐑕𐑦𐑒𐑕𐑓𐑹 / SixFour</h3>
+      <div class="date">2021-11-29</div>
       <h4>Description</h4>
-      <p>SixFour Shavian is an 8px fixed-width pixel font that mimics the look of the Commodore 64’s default font.</p>
+      <p>SixFour Shavian is an 8px fixed-width pixel font that mimics the look of the Commodore 64’s default font. It is a <a href="#unicase">unicase</a> styled font.</p>
       <h4>Showcase</h4>
       <div class="showcase sixfour">
       <div class="big">𐑮𐑧𐑛𐑦.</div>
