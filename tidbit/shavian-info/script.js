@@ -712,7 +712,7 @@ const DATA = [
       "ɑːr",
       "Ar",
       "är",
-      "“ough” in “thought”"
+      "“ar” in “cart”"
     ],
     notes: [
       "This letter is a combination of 𐑭 + 𐑮.",
