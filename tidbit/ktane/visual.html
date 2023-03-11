@@ -16,15 +16,21 @@
             --wire-red: #db0600;
             --wire-blue: #1d348a;
             --wire-yellow: #817a1d;
+            --wire-green: #109c27;
 
-            background: white;
+            background: var(--navbar-color);
             color: black;
-
+            
             font-family: sans-serif;
+            margin: 0;
+        }
+        
+        #main {
+            margin: 0 auto;
+            max-width: 50rem;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            margin: 0;
-            height: 100vh;
         }
 
         a {
@@ -38,9 +44,13 @@
         .blue {
             color: var(--wire-blue);
         }
-
+        
         .yellow {
             color: var(--wire-yellow);
+        }
+
+        .green {
+            color: var(--wire-green);
         }
 
         #navbar {
@@ -62,23 +72,28 @@
         }
 
         #wrapper {
+            background: white;
             flex: 1 1;
             overflow-x: hidden;
             overflow-y: scroll;
             padding: 1rem;
         }
-
+        
         .page {
             box-sizing: border-box;
             border-top: 1px solid var(--navbar-color);
         }
-
-        img {
+        
+        img.fullpage {
             display: block;
             margin: 0 auto;
             max-width: 100%;
-            max-height: 100vh;
+            max-height: calc(100vh - 4rem);
             background-color: white;
+        }
+
+        #wof2 table thead tr {
+            border-bottom: 2px solid black;
         }
 
         #pw table {
@@ -124,601 +139,622 @@
         tr:nth-child(2n) {
             background: rgba(0, 0, 0, 0.1);
         }
+
+        table#jargon {
+            width: 100%;
+            table-layout: fixed;
+        }
     </style>
 </head>
 
 <body>
-    <div id="navbar">
-        <a href="#cover">Back to top</a>
-        <a href="#wires">Wires</a>
-        <a href="#button">Button</a>
-        <a href="#glyphs">Keypad</a>
-        <a href="#simon">Simon Says</a>
-        <a href="#wof1">WOF 1</a>
-        <a href="#wof2">WOF 2</a>
-        <a href="#memory">Memory</a>
-        <a href="#morse">Morse</a>
-        <a href="#cwires">CompWires</a>
-        <a href="#wireseq">WireSeq</a>
-        <a href="#maze">Maze</a>
-        <a href="#pw">Passwords</a>
-        <a href="#needys">Needys</a>
-        <a href="#knob">NeedyKnob</a>
-        <a href="#credit">Credits</a>
-    </div>
-    <div id="wrapper">
-        <div id="cover">
-            <h1>The Visual Bomb Defusal Manual</h1>
-            <h2>by Haley Halcyon</h2>
-            <p>Compatible with Manual Version 1<br />
-                Verification Code: 241</p>
+    <div id="main">
+        <div id="navbar">
+            <a href="#cover">Back to top</a>
+            <a href="#wires">Wires</a>
+            <a href="#button">Button</a>
+            <a href="#glyphs">Keypad</a>
+            <a href="#simon">Simon Says</a>
+            <a href="#wof1">Who’s On First?</a>
+            <a href="#wof2">WOF Page 2</a>
+            <a href="#memory">Memory</a>
+            <a href="#morse">Morse</a>
+            <a href="#cwires">Comp. Wires</a>
+            <a href="#wireseq">Wire Seq.</a>
+            <a href="#maze">Maze</a>
+            <a href="#pw">Passwords</a>
+            <a href="#needys">Needys</a>
+            <a href="#knob">Needy Knob</a>
+            <a href="#credit">Credits</a>
         </div>
-        <div id="wires" class="page">
-            <h3>Simple Wires</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th colspan="2">
-                            Cut <b>one</b> wire. Wires are numbered from top to bottom.
-                            <br>
-                            <span class="red">Red</span> <span class="blue">Blue</span> <span class="yellow">Yellow</span> <span>White</span> <span>blacK</span>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>3 WIRES</h4>
-                            <ul>
-                                <li>0 <span class="red">red</span>: <b>2nd</b></li>
-                                <li>&gt;1 <span class="blue">blue</span>: <b>2nd blue</b></li>
-                                <li>otherwise <b>last</b></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h4>5 WIRES</h4>
-                            <ul>
-                                <li>last=black &amp; serial=odd: <b>4th</b></li>
-                                <li>1 <span class="red">red</span> &amp; &gt;1 <span class="yellow">yellow</span>:
-                                    <b>1st</b></li>
-                                <li>0 black: <b>2nd</b></li>
-                                <li>otherwise <b>1st</b></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>4 WIRES</h4>
-                            <ul>
-                                <li>&gt;1 <span class="red">red </span>&amp; serial=odd: <b class="red">last red</b>
-                                </li>
-                                <li>0 <span class="red">red</span> &amp; last=<span class="yellow">yellow</span>:
-                                    <b>1st</b></li>
-                                <li>1 <span class="blue">blue</span>: <b>1st</b></li>
-                                <li>&gt;2 <span class="yellow">yellow</span>: <b>last</b></li>
-                                <li>otherwise <b>2nd</b></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h4>6 WIRES</h4>
-                            <ul>
-                                <li>0 <span class="yellow">yellow</span> &amp; serial=odd <b>3rd</b></li>
-                                <li>1 <span class="yellow">yellow</span> &amp;: &gt;1 white: <b>4th</b></li>
-                                <li>0 <span class="red">red</span>: <b>last</b></li>
-                                <li>otherwise <b>4th</b></li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="button" class="page">
-            <h3>The Button</h3>
-            <img src="button.png" class="fullpage" alt="" />
-        </div>
-        <div id="glyphs" class="page">
-            <h3>Keypads</h3>
-            1) Find column with all 4 symbols on keypad<br />
-            2) Push from top to bottom of column<br />
-            Highlighted symbols are unique <img src="keypad.png" alt="" />
-        </div>
-        <div id="simon" class="page">
-            <h3>Simon Says</h3>
-            <p>Whether the serial number contains a vowel (A, E, I, O, U) changes the pattern.</p>
-            <img src="simon.png" class="fullpage" alt="" />
-        </div>
-        <div id="wof1" class="page">
-            <h3>Who' s On First? Page 1</h3>
-            <img src="wof.png" class="fullpage" alt="" />
-            <p>Suggestion: UR = &quot;UR letter&quot;, YOU ARE = &quot;YOU ARE words&quot;, YOUR = &quot;YOUR
-                possessive&quot;, YOU'RE = &quot;YOU'RE contraction&quot;, etc.</p>
-        </div>
-        <div id="wof2" class="page">
-            <h3>Who's On First? Page 2</h3>
-            <table cellspacing="0">
-                <tbody>
-                    <tr>
-                        <th>BLANK</th>
-                        <td>WAIT, RIGHT, OKAY, MIDDLE, BLANK</td>
-                    </tr>
-                    <tr>
-                        <th>DONE</th>
-                        <td>SURE, UH HUH, NEXT, WHAT?, YOUR, UR, YOU'RE, HOLD, LIKE</td>
-                    </tr>
-                    <tr>
-                        <th>FIRST</th>
-                        <td>LEFT, OKAY, YES, MIDDLE, NO, RIGHT, NOTHING, UHHH, WAIT</td>
-                    </tr>
-                    <tr>
-                        <th>HOLD</th>
-                        <td>YOU ARE, U, DONE, UH UH, YOU, UR, SURE, WHAT?, YOU'RE</td>
-                    </tr>
-                    <tr>
-                        <th>LEFT</th>
-                        <td>RIGHT, LEFT</td>
-                    </tr>
-                    <tr>
-                        <th>LIKE</th>
-                        <td>YOU'RE, NEXT, U, UR, HOLD, DONE, UH UH, WHAT?, UH HUH</td>
-                    </tr>
-                    <tr>
-                        <th>MIDDLE</th>
-                        <td>BLANK, READY, OKAY, WHAT, NOTHING, PRESS, NO, WAIT, LEFT</td>
-                    </tr>
-                    <tr>
-                        <th>NEXT</th>
-                        <td>WHAT?, UH HUH, UH UH, YOUR, HOLD, SURE, NEXT</td>
-                    </tr>
-                    <tr>
-                        <th>NO</th>
-                        <td>BLANK, UHHH, WAIT, FIRST, WHAT, READY, RIGHT, YES, NOTHING</td>
-                    </tr>
-                    <tr>
-                        <th>NOTHING</th>
-                        <td>UHHH, RIGHT, OKAY, MIDDLE, YES, BLANK, NO, PRESS, LEFT</td>
-                    </tr>
-                    <tr>
-                        <th>OKAY</th>
-                        <td>MIDDLE, NO, FIRST, YES, UHHH, NOTHING, WAIT, OKAY</td>
-                    </tr>
-                    <tr>
-                        <th>PRESS</th>
-                        <td>RIGHT, MIDDLE, YES, READY, PRESS</td>
-                    </tr>
-                    <tr>
-                        <th>READY</th>
-                        <td>YES, OKAY, WHAT, MIDDLE, LEFT, PRESS, RIGHT, BLANK, READY</td>
-                    </tr>
-                    <tr>
-                        <th>RIGHT</th>
-                        <td>YES, NOTHING, READY, PRESS, NO, WAIT, WHAT, RIGHT</td>
-                    </tr>
-                    <tr>
-                        <th>SURE</th>
-                        <td>YOU ARE, DONE, LIKE, YOU'RE, YOU, HOLD, UH HUH, HR, SURE</td>
-                    </tr>
-                    <tr>
-                        <th>U</th>
-                        <td>UH HUH, SURE, NEXT, WHAT?, YOU'RE, UR, UH HUH, DONE, U</td>
-                    </tr>
-                    <tr>
-                        <th>UHHH</th>
-                        <td>READY, NOTHING, LEFT, WHAT, OKAY, YES, RIGHT, NO, PRESS</td>
-                    </tr>
-                    <tr>
-                        <th>UH HUH</th>
-                        <td>UH HUH</td>
-                    </tr>
-                    <tr>
-                        <th>UH UH</th>
-                        <td>UR, U, YOU ARE, YOU'RE, NEXT, UH UH</td>
-                    </tr>
-                    <tr>
-                        <th>UR</th>
-                        <td>DONE, U, UR</td>
-                    </tr>
-                    <tr>
-                        <th>WAIT</th>
-                        <td>UHHH, NO, BLANK, OKAY, YES, LEFT, FIRST, PRESS, WHAT</td>
-                    </tr>
-                    <tr>
-                        <th>WHAT</th>
-                        <td>UHHH, WHAT</td>
-                    </tr>
-                    <tr>
-                        <th>WHAT?</th>
-                        <td>YOU, HOLD, YOU'RE, YOUR, U, DONE, UH UH, LIKE, YOU ARE</td>
-                    </tr>
-                    <tr>
-                        <th>YES</th>
-                        <td>OKAY, RIGHT, UHHH, MIDDLE, FIRST, WHAT, PRESS, READY, NOTHING</td>
-                    </tr>
-                    <tr>
-                        <th>YOU</th>
-                        <td>SURE, YOU ARE, YOUR, YOU'RE, NEXT, UH HUH, UR, HOLD, WHAT?</td>
-                    </tr>
-                    <tr>
-                        <th>YOU'RE</th>
-                        <td>YOU, YOU'RE</td>
-                    </tr>
-                    <tr>
-                        <th>YOU ARE</th>
-                        <td>YOUR, NEXT, LIKE, UH HUH, WHAT?, DONE, UH UH, HOLD, YOU</td>
-                    </tr>
-                    <tr>
-                        <th>YOUR</th>
-                        <td>UH UH, YOU ARE, UH HUH, YOUR</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="font-size:75%;text-align:right;">Simplified &amp; Alphabetized Table by
-                            <a href="https://redd.it/3vfvti">Io</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="memory" class="page">
-            <h3>Memory</h3>
-            <table class="mem-table">
-                <thead>
-                    <tr>
-                        <td colspan="6">Make sure to write down the label of each phase, and position of phase 1 and 2.
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>DISPLAY</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>note down</th>
-                    </tr>
-                    <tr>
-                        <th>STAGE 1</th>
-                        <td>2nd POS</td>
-                        <td>2nd POS</td>
-                        <td>3rd POS</td>
-                        <td>4th POS</td>
-                        <td>Label & POS</td>
-                    </tr>
-                    <tr>
-                        <th>STAGE 2</th>
-                        <td>Labeled &quot;4&quot;</td>
-                        <td><i>Stage 1 POS</i></td>
-                        <td>1st POS</td>
-                        <td><i>Stage 1 POS</i></td>
-                        <td>Label & POS</td>
-                    </tr>
-                    <tr>
-                        <th>STAGE 3</th>
-                        <td><i>Stage 2 LABEL</i></td>
-                        <td><i>Stage 1 LABEL</i></td>
-                        <td>3rd POS</td>
-                        <td>Labeled &quot;4&quot;</td>
-                        <td>Label</td>
-                    </tr>
-                    <tr>
-                        <th>STAGE 4</th>
-                        <td><i>Stage 1 POS</i></td>
-                        <td>1st POS</td>
-                        <td><i>Stage 2 POS</i></td>
-                        <td><i>Stage 2 POS</i></td>
-                        <td>Label</td>
-                    </tr>
-                    <tr>
-                        <th>STAGE 5</th>
-                        <td><i>Stage 1 LABEL</i></td>
-                        <td><i>Stage 2 LABEL</i></td>
-                        <td><i>Stage 4 LABEL</i></td>
-                        <td><i>Stage 3 LABEL</i></td>
-                        <td>N/A</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="morse" class="page">
-            <h3>Morse Code</h3>
-            <div>The tran&shy;scrip&shy;tion of each word is pro&shy;vided, and sor&shy;ted in dit-dah order, spaces
-                ig&shy;nored.<br />
-                (e.g. IT &middot;&middot; - is sorted after V &middot;&middot;&middot;-, not before)</div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>&middot;&middot;&middot; &middot;&middot;&middot;&middot; &middot; &middot;-&middot;&middot;
-                            &middot;-&middot;&middot;</td>
-                        <td>shell</td>
-                        <td>3.505 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot;&middot; &middot;- &middot;-&middot;&middot;
-                            &middot;-&middot;&middot; &middot;&middot;&middot;</td>
-                        <td>halls</td>
-                        <td>3.515 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot; &middot;-&middot;&middot; &middot;&middot; -&middot;-&middot;
-                            -&middot;-</td>
-                        <td>slick</td>
-                        <td>3.522 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot; - &middot;&middot; -&middot; --&middot;</td>
-                        <td>sting</td>
-                        <td>3.592 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot; - &middot; &middot;- -&middot;-</td>
-                        <td>steak</td>
-                        <td>3.582 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot;- &middot; -&middot;-&middot; - --- &middot;-&middot;</td>
-                        <td>vector</td>
-                        <td>3.595 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;&middot; - &middot;-&middot; --- -&middot;&middot;&middot; &middot;</td>
-                        <td>strobe</td>
-                        <td>3.545 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;&middot;-&middot; &middot;-&middot;&middot; &middot;&middot; -&middot;-&middot;
-                            -&middot;-</td>
-                        <td>flick</td>
-                        <td>3.555 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>&middot;-&middot;&middot; &middot; &middot;- -&middot;- &middot;&middot;&middot;</td>
-                        <td>leaks</td>
-                        <td>3.542 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; &middot;&middot; &middot;&middot;&middot; - &middot;-&middot; ---
-                        </td>
-                        <td>bistro</td>
-                        <td>3.552 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; &middot; &middot;- - &middot;&middot;&middot;</td>
-                        <td>beats</td>
-                        <td>3.600 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; &middot;-&middot; &middot;&middot; -&middot;-&middot; -&middot;-
-                        </td>
-                        <td>brick</td>
-                        <td>3.575 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; &middot;-&middot; &middot; &middot;- -&middot;-</td>
-                        <td>break</td>
-                        <td>3.572 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; --- -- -&middot;&middot;&middot; &middot;&middot;&middot;</td>
-                        <td>bombs</td>
-                        <td>3.565 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>- &middot;-&middot; &middot;&middot; -&middot;-&middot; -&middot;-</td>
-                        <td>trick</td>
-                        <td>3.532 MHz</td>
-                    </tr>
-                    <tr>
-                        <td>-&middot;&middot;&middot; --- -&middot;&middot;- &middot; &middot;&middot;&middot;</td>
-                        <td>boxes</td>
-                        <td>3.535 MHz</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="cwires" class="page">
-            <h3>Complicated Wires</h3>
-            <img src="comp.png" class="fullpage" alt="" />
-        </div>
-        <div id="wireseq" class="page">
-            <h3>Wire Sequences</h3>
-            <p>Note down the number of cumulative occurrences of <b>each color</b> in <i>that module</i>.</p>
-            <p>Cut if connected to a listed letter.</p>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>
-                            <b>R</b>ed wires:
-                        </th>
-                        <th>
-                            <b>B</b>lue wires:
-                        </th>
-                        <th>
-                            blac<b>K</b> wires:
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <ol>
-                                <li>C</li>
-                                <li>B</li>
-                                <li>A</li>
-                                <li>A, C</li>
-                                <li>B</li>
-                                <li>A, C</li>
-                                <li>A, B, C</li>
-                                <li>A, B</li>
-                                <li>B</li>
-                            </ol>
-                        </td>
-                        <td>
-                            <ol>
-                                <li>B</li>
-                                <li>A, C</li>
-                                <li>B</li>
-                                <li>A</li>
-                                <li>B</li>
-                                <li>B, C</li>
-                                <li>C</li>
-                                <li>A, C</li>
-                                <li>A</li>
-                            </ol>
-                        </td>
-                        <td>
-                            <ol>
-                                <li>A, B, C</li>
-                                <li>A, C</li>
-                                <li>B</li>
-                                <li>A, C</li>
-                                <li>B</li>
-                                <li>B, C</li>
-                                <li>A, B</li>
-                                <li>C</li>
-                                <li>C</li>
-                            </ol>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="maze" class="page">
-            <h3>Maze</h3>
-            <img src="maze.png" class="fullpage" alt="" />
-        </div>
-        <div id="pw" class="page">
-            <h3>Passwords</h3>
-            <p>TIP: Ask for the 1st, 3rd, and 4th letter. If the first letter contains a T, ask if the 2nd letter
-                contains an H.</p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td><b>A</b>G<b>AI</b>N<br />
-                            <b>A</b>B<b>OU</b>T<br />
-                            <b>A</b>F<b>TE</b>R<br />
-                            <b>B</b>E<b>LO</b>W<br />
-                            <b>C</b>O<b>UL</b>D<br />
-                            <b>E</b>V<b>ER</b>Y<br />
-                            <b>F</b>I<b>RS</b>T</td>
-                        <td><b>F</b>O<b>UN</b>D<br />
-                            <b>G</b>R<b>EA</b>T<br />
-                            <b>H</b>O<b>US</b>E<br />
-                            <b>L</b>E<b>AR</b>N<br />
-                            <b>L</b>A<b>RG</b>E<br />
-                            <b>N</b>E<b>VE</b>R<br />
-                            <b>O</b>T<b>HE</b>R</td>
-                        <td><b>P</b>L<b>AC</b>E<br />
-                            <b>P</b>L<b>AN</b>T<br />
-                            <b>P</b>O<b>IN</b>T<br />
-                            <b>R</b>I<b>GH</b>T<br />
-                            <b>S</b>M<b>AL</b>L<br />
-                            <b>S</b>P<b>EL</b>L<br />
-                            <b>S</b>T<b>IL</b>L</td>
-                        <td><b>S</b>T<b>UD</b>Y<br />
-                            <b>S</b>O<b>UN</b>D<br />
-                            <b>T</b>H<b>EI</b>R<br />
-                            <b>T</b>H<b>ER</b>E<br />
-                            <b>T</b>H<b>ES</b>E<br />
-                            <b>T</b>H<b>IN</b>G<br />
-                            <b>T</b>H<b>IN</b>K</td>
-                        <td><b>T</b>H<b>RE</b>E<br />
-                            <b>W</b>H<b>ER</b>E<br />
-                            <b>W</b>H<b>IC</b>H<br />
-                            <b>W</b>R<b>IT</b>E<br />
-                            <b>W</b>O<b>RL</b>D<br />
-                            <b>W</b>A<b>TE</b>R<br />
-                            <b>W</b>O<b>UL</b>D</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="needys" class="page">
-            <h3>Needy Dialog</h3>
-            <p>The question can be &quot;Vent gas?&quot; or &quot;Detonate?&quot;</p>
-            <p>To be sure, press &quot;No&quot; first. When the question is &quot;Vent gas?&quot; the module will remind
-                you that &quot;Venting prevents explosions&quot;. However, when you answer &quot;Yes&quot; to
-                &quot;Detonate?&quot; The bomb will explode without warning.</p>
-        </div>
-        <div class="page">
-            <h3>Needy Capacitator (a.k.a. &quot;Lever&quot;)</h3>
-            <p>Pull the lever to drain the electricity, which will otherwise accumulate in 45 seconds.</p>
-            <p>When you neglect it too long, you will hear the module make a sound in the background. When you hear it,
-                <b>abandon what you're doing and hold down the lever immediately.</b></p>
-        </div>
-        <div id="knob" class="page">
-            <h3>Needy Knob</h3>
-            <img src="knob.png" class="fullpage" alt="" />
-        </div>
-        <div id="tips" class="page">
-            <h3>Tips for Effective Communication</h3>
-            <p>Use military communication terms and memorize the NATO Alphabet.</p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td><b>A</b>lfa</td>
-                        <td><b>B</b>ravo</td>
-                        <td><b>C</b>harlie</td>
-                        <td><b>D</b>elta</td>
-                    </tr>
-                    <tr>
-                        <td><b>E</b>cho</td>
-                        <td><b>F</b>oxtrot</td>
-                        <td><b>G</b>olf</td>
-                        <td><b>H</b>otel</td>
-                    </tr>
-                    <tr>
-                        <td><b>I</b>ndia</td>
-                        <td><b>J</b>uliett</td>
-                        <td><b>K</b>ilo</td>
-                        <td><b>L</b>ima</td>
-                    </tr>
-                    <tr>
-                        <td><b>M</b>ike</td>
-                        <td><b>N</b>ovember</td>
-                        <td><b>O</b>scar</td>
-                        <td><b>P</b>apa</td>
-                    </tr>
-                    <tr>
-                        <td><b>Q</b>uebec</td>
-                        <td><b>R</b>omeo</td>
-                        <td><b>S</b>ierra</td>
-                        <td><b>T</b>ango</td>
-                    </tr>
-                    <tr>
-                        <td><b>U</b>niform</td>
-                        <td><b>V</b>ictor</td>
-                        <td><b>W</b>hiskey</td>
-                        <td><b>X</b>-ray</td>
-                    </tr>
-                    <tr>
-                        <td><b>Y</b>ankee</td>
-                        <td><b>Z</b>ulu</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&ldquo;Yes&rdquo;:<br />
-                            <b>Affirmative.</b>
-                        </td>
-                        <td colspan="2">&ldquo;No&rdquo;:<br />
-                            <b>Negative.</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&ldquo;I understand&rdquo;:<br />
-                            <b>Roger (that).</b>
-                        </td>
-                        <td colspan="2">&ldquo;That's all; you may speak now&rdquo;:<br />
-                            <b>Over.</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&ldquo;I'll do that&rdquo;:<br />
-                            <b>Wilco.</b>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="credit" class="page">
-            <h3>Credit</h3>
-            <h4>Simplified Manual (Coding, Design) by Haley Halcyon</h4>
-            <h4>Original Manual and Game by Steel Crate Games</h4>
-            <span><a href="https://www.keeptalkinggame.com/">KTaNE Official Website</a></span>
-            <h4>Some ideas and shortcuts from Io's Simplified Manual (now unpublished)</h4>
-            <span>by <a href="https://www.reddit.com/user/diodewaal">diodewaal (Reddit)</a></span>
+        <div id="wrapper">
+            <div id="cover">
+                <h1>The Visual Bomb Defusal Manual</h1>
+                <h2>by Haley Halcyon</h2>
+                <p>Compatible with Manual Version 1<br />
+                    Verification Code: 241</p>
+            </div>
+            <div id="wires" class="page">
+                <h3>Simple Wires</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th colspan="2">
+                                Cut <b>one</b> wire. Wires are numbered from top to bottom.
+                                <br>
+                                <span class="red">Red</span> <span class="blue">Blue</span> <span class="yellow">Yellow</span> <span>White</span> <span>blacK</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>3 WIRES</h4>
+                                <ul>
+                                    <li>0 <span class="red">red</span>: <b>2nd</b></li>
+                                    <li>&gt;1 <span class="blue">blue</span>: <b>2nd blue</b></li>
+                                    <li>otherwise <b>last</b></li>
+                                </ul>
+                            </td>
+                            <td>
+                                <h4>5 WIRES</h4>
+                                <ul>
+                                    <li>last=black &amp; serial=odd: <b>4th</b></li>
+                                    <li>1 <span class="red">red</span> &amp; &gt;1 <span class="yellow">yellow</span>:
+                                        <b>1st</b></li>
+                                    <li>0 black: <b>2nd</b></li>
+                                    <li>otherwise <b>1st</b></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>4 WIRES</h4>
+                                <ul>
+                                    <li>&gt;1 <span class="red">red </span>&amp; serial=odd: <b class="red">last red</b>
+                                    </li>
+                                    <li>0 <span class="red">red</span> &amp; last=<span class="yellow">yellow</span>:
+                                        <b>1st</b></li>
+                                    <li>1 <span class="blue">blue</span>: <b>1st</b></li>
+                                    <li>&gt;2 <span class="yellow">yellow</span>: <b>last</b></li>
+                                    <li>otherwise <b>2nd</b></li>
+                                </ul>
+                            </td>
+                            <td>
+                                <h4>6 WIRES</h4>
+                                <ul>
+                                    <li>0 <span class="yellow">yellow</span> &amp; serial=odd <b>3rd</b></li>
+                                    <li>1 <span class="yellow">yellow</span> &amp;: &gt;1 white: <b>4th</b></li>
+                                    <li>0 <span class="red">red</span>: <b>last</b></li>
+                                    <li>otherwise <b>4th</b></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="button" class="page">
+                <h3>The Button</h3>
+                <img src="button.png" class="fullpage" alt="" />
+            </div>
+            <div id="glyphs" class="page">
+                <h3>Keypads</h3>
+                <p>1: Find column with all 4 symbols on keypad.</p>
+                <p>2: Push from top to bottom of column. </p>
+                <p>Highlighted symbols are unique.</p>
+                <img src="keypad.png" class="fullpage" alt="" />
+            </div>
+            <div id="simon" class="page">
+                <h3>Simon Says</h3>
+                <p>Columns: How many strikes?</p>
+                <p>Rows: Is there an A, E, I, O, or U in the serial number?</p>
+                <p>Colors are <span class="blue">↑ blue</span>, <span class="red">← red</span>, <span class="yellow">→ yellow</span>, and <span class="green">↓ green</span>.</p>
+                <img src="simon.png" class="fullpage" alt="" />
+            </div>
+            <div id="wof1" class="page">
+                <h3>Who' s On First? Page 1</h3>
+                <p>1: Word(s) on the display → position of button to <b>read</b>.</p>
+                <p>2: Text on said button → list of buttons to <b>press</b>.</p>
+                <p>3 rounds per module.</p>
+                <img src="wof.png" class="fullpage" alt="" />
+                <p>Suggestion: UR = &quot;UR letter&quot;, YOU ARE = &quot;YOU ARE words&quot;, YOUR = &quot;YOUR
+                    possessive&quot;, YOU'RE = &quot;YOU'RE contraction&quot;, etc.</p>
+            </div>
+            <div id="wof2" class="page">
+                <h3>Who's On First? Page 2</h3>
+                <table cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Button says:</th>
+                            <td>Press the first button that you see:</td>    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>BLANK</th>
+                            <td>WAIT, RIGHT, OKAY, MIDDLE, BLANK</td>
+                        </tr>
+                        <tr>
+                            <th>DONE</th>
+                            <td>SURE, UH HUH, NEXT, WHAT?, YOUR, UR, YOU'RE, HOLD, LIKE</td>
+                        </tr>
+                        <tr>
+                            <th>FIRST</th>
+                            <td>LEFT, OKAY, YES, MIDDLE, NO, RIGHT, NOTHING, UHHH, WAIT</td>
+                        </tr>
+                        <tr>
+                            <th>HOLD</th>
+                            <td>YOU ARE, U, DONE, UH UH, YOU, UR, SURE, WHAT?, YOU'RE</td>
+                        </tr>
+                        <tr>
+                            <th>LEFT</th>
+                            <td>RIGHT, LEFT</td>
+                        </tr>
+                        <tr>
+                            <th>LIKE</th>
+                            <td>YOU'RE, NEXT, U, UR, HOLD, DONE, UH UH, WHAT?, UH HUH</td>
+                        </tr>
+                        <tr>
+                            <th>MIDDLE</th>
+                            <td>BLANK, READY, OKAY, WHAT, NOTHING, PRESS, NO, WAIT, LEFT</td>
+                        </tr>
+                        <tr>
+                            <th>NEXT</th>
+                            <td>WHAT?, UH HUH, UH UH, YOUR, HOLD, SURE, NEXT</td>
+                        </tr>
+                        <tr>
+                            <th>NO</th>
+                            <td>BLANK, UHHH, WAIT, FIRST, WHAT, READY, RIGHT, YES, NOTHING</td>
+                        </tr>
+                        <tr>
+                            <th>NOTHING</th>
+                            <td>UHHH, RIGHT, OKAY, MIDDLE, YES, BLANK, NO, PRESS, LEFT</td>
+                        </tr>
+                        <tr>
+                            <th>OKAY</th>
+                            <td>MIDDLE, NO, FIRST, YES, UHHH, NOTHING, WAIT, OKAY</td>
+                        </tr>
+                        <tr>
+                            <th>PRESS</th>
+                            <td>RIGHT, MIDDLE, YES, READY, PRESS</td>
+                        </tr>
+                        <tr>
+                            <th>READY</th>
+                            <td>YES, OKAY, WHAT, MIDDLE, LEFT, PRESS, RIGHT, BLANK, READY</td>
+                        </tr>
+                        <tr>
+                            <th>RIGHT</th>
+                            <td>YES, NOTHING, READY, PRESS, NO, WAIT, WHAT, RIGHT</td>
+                        </tr>
+                        <tr>
+                            <th>SURE</th>
+                            <td>YOU ARE, DONE, LIKE, YOU'RE, YOU, HOLD, UH HUH, HR, SURE</td>
+                        </tr>
+                        <tr>
+                            <th>U</th>
+                            <td>UH HUH, SURE, NEXT, WHAT?, YOU'RE, UR, UH HUH, DONE, U</td>
+                        </tr>
+                        <tr>
+                            <th>UHHH</th>
+                            <td>READY, NOTHING, LEFT, WHAT, OKAY, YES, RIGHT, NO, PRESS</td>
+                        </tr>
+                        <tr>
+                            <th>UH HUH</th>
+                            <td>UH HUH</td>
+                        </tr>
+                        <tr>
+                            <th>UH UH</th>
+                            <td>UR, U, YOU ARE, YOU'RE, NEXT, UH UH</td>
+                        </tr>
+                        <tr>
+                            <th>UR</th>
+                            <td>DONE, U, UR</td>
+                        </tr>
+                        <tr>
+                            <th>WAIT</th>
+                            <td>UHHH, NO, BLANK, OKAY, YES, LEFT, FIRST, PRESS, WHAT</td>
+                        </tr>
+                        <tr>
+                            <th>WHAT</th>
+                            <td>UHHH, WHAT</td>
+                        </tr>
+                        <tr>
+                            <th>WHAT?</th>
+                            <td>YOU, HOLD, YOU'RE, YOUR, U, DONE, UH UH, LIKE, YOU ARE</td>
+                        </tr>
+                        <tr>
+                            <th>YES</th>
+                            <td>OKAY, RIGHT, UHHH, MIDDLE, FIRST, WHAT, PRESS, READY, NOTHING</td>
+                        </tr>
+                        <tr>
+                            <th>YOU</th>
+                            <td>SURE, YOU ARE, YOUR, YOU'RE, NEXT, UH HUH, UR, HOLD, WHAT?</td>
+                        </tr>
+                        <tr>
+                            <th>YOU'RE</th>
+                            <td>YOU, YOU'RE</td>
+                        </tr>
+                        <tr>
+                            <th>YOU ARE</th>
+                            <td>YOUR, NEXT, LIKE, UH HUH, WHAT?, DONE, UH UH, HOLD, YOU</td>
+                        </tr>
+                        <tr>
+                            <th>YOUR</th>
+                            <td>UH UH, YOU ARE, UH HUH, YOUR</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:75%;text-align:right;">Simplified &amp; Alphabetized Table by
+                                <a href="https://redd.it/3vfvti">Io</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="memory" class="page">
+                <h3>Memory</h3>
+                <table class="mem-table">
+                    <thead>
+                        <tr>
+                            <td colspan="6">Make sure to write down the label of each phase, and position of phase 1 and 2.
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>DISPLAY</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>note down</th>
+                        </tr>
+                        <tr>
+                            <th>STAGE 1</th>
+                            <td>2nd POS</td>
+                            <td>2nd POS</td>
+                            <td>3rd POS</td>
+                            <td>4th POS</td>
+                            <td>Label & POS</td>
+                        </tr>
+                        <tr>
+                            <th>STAGE 2</th>
+                            <td>Labeled &quot;4&quot;</td>
+                            <td><i>Stage 1 POS</i></td>
+                            <td>1st POS</td>
+                            <td><i>Stage 1 POS</i></td>
+                            <td>Label & POS</td>
+                        </tr>
+                        <tr>
+                            <th>STAGE 3</th>
+                            <td><i>Stage 2 LABEL</i></td>
+                            <td><i>Stage 1 LABEL</i></td>
+                            <td>3rd POS</td>
+                            <td>Labeled &quot;4&quot;</td>
+                            <td>Label</td>
+                        </tr>
+                        <tr>
+                            <th>STAGE 4</th>
+                            <td><i>Stage 1 POS</i></td>
+                            <td>1st POS</td>
+                            <td><i>Stage 2 POS</i></td>
+                            <td><i>Stage 2 POS</i></td>
+                            <td>Label</td>
+                        </tr>
+                        <tr>
+                            <th>STAGE 5</th>
+                            <td><i>Stage 1 LABEL</i></td>
+                            <td><i>Stage 2 LABEL</i></td>
+                            <td><i>Stage 4 LABEL</i></td>
+                            <td><i>Stage 3 LABEL</i></td>
+                            <td>N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="morse" class="page">
+                <h3>Morse Code</h3>
+                <div>The tran&shy;scrip&shy;tion of each word is pro&shy;vided, and sor&shy;ted in dit-dah order, spaces
+                    ig&shy;nored.<br />
+                    (e.g. IT &middot;&middot; - is sorted after V &middot;&middot;&middot;-, not before)</div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>&middot;&middot;&middot; &middot;&middot;&middot;&middot; &middot; &middot;-&middot;&middot;
+                                &middot;-&middot;&middot;</td>
+                            <td>shell</td>
+                            <td>3.505 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot;&middot; &middot;- &middot;-&middot;&middot;
+                                &middot;-&middot;&middot; &middot;&middot;&middot;</td>
+                            <td>halls</td>
+                            <td>3.515 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot; &middot;-&middot;&middot; &middot;&middot; -&middot;-&middot;
+                                -&middot;-</td>
+                            <td>slick</td>
+                            <td>3.522 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot; - &middot;&middot; -&middot; --&middot;</td>
+                            <td>sting</td>
+                            <td>3.592 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot; - &middot; &middot;- -&middot;-</td>
+                            <td>steak</td>
+                            <td>3.582 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot;- &middot; -&middot;-&middot; - --- &middot;-&middot;</td>
+                            <td>vector</td>
+                            <td>3.595 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;&middot; - &middot;-&middot; --- -&middot;&middot;&middot; &middot;</td>
+                            <td>strobe</td>
+                            <td>3.545 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;&middot;-&middot; &middot;-&middot;&middot; &middot;&middot; -&middot;-&middot;
+                                -&middot;-</td>
+                            <td>flick</td>
+                            <td>3.555 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>&middot;-&middot;&middot; &middot; &middot;- -&middot;- &middot;&middot;&middot;</td>
+                            <td>leaks</td>
+                            <td>3.542 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; &middot;&middot; &middot;&middot;&middot; - &middot;-&middot; ---
+                            </td>
+                            <td>bistro</td>
+                            <td>3.552 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; &middot; &middot;- - &middot;&middot;&middot;</td>
+                            <td>beats</td>
+                            <td>3.600 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; &middot;-&middot; &middot;&middot; -&middot;-&middot; -&middot;-
+                            </td>
+                            <td>brick</td>
+                            <td>3.575 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; &middot;-&middot; &middot; &middot;- -&middot;-</td>
+                            <td>break</td>
+                            <td>3.572 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; --- -- -&middot;&middot;&middot; &middot;&middot;&middot;</td>
+                            <td>bombs</td>
+                            <td>3.565 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>- &middot;-&middot; &middot;&middot; -&middot;-&middot; -&middot;-</td>
+                            <td>trick</td>
+                            <td>3.532 MHz</td>
+                        </tr>
+                        <tr>
+                            <td>-&middot;&middot;&middot; --- -&middot;&middot;- &middot; &middot;&middot;&middot;</td>
+                            <td>boxes</td>
+                            <td>3.535 MHz</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="cwires" class="page">
+                <h3>Complicated Wires</h3>
+                <img src="comp.png" class="fullpage" alt="" />
+                <p>A parallel port is a wide, <b>pink</b> port with <b>2 rows of connection pins</b>, 13 and 12 respectively.</p>
+                <img src="parallel_port.jpg" style="max-width: 20rem;"/>
+            </div>
+            <div id="wireseq" class="page">
+                <h3>Wire Sequences</h3>
+                <p>Note down the number of cumulative occurrences of <b>each color</b> in <i>that module</i>.</p>
+                <p>Cut if connected to a listed letter.</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <b>R</b>ed wires:
+                            </th>
+                            <th>
+                                <b>B</b>lue wires:
+                            </th>
+                            <th>
+                                blac<b>K</b> wires:
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ol>
+                                    <li>C</li>
+                                    <li>B</li>
+                                    <li>A</li>
+                                    <li>A, C</li>
+                                    <li>B</li>
+                                    <li>A, C</li>
+                                    <li>A, B, C</li>
+                                    <li>A, B</li>
+                                    <li>B</li>
+                                </ol>
+                            </td>
+                            <td>
+                                <ol>
+                                    <li>B</li>
+                                    <li>A, C</li>
+                                    <li>B</li>
+                                    <li>A</li>
+                                    <li>B</li>
+                                    <li>B, C</li>
+                                    <li>C</li>
+                                    <li>A, C</li>
+                                    <li>A</li>
+                                </ol>
+                            </td>
+                            <td>
+                                <ol>
+                                    <li>A, B, C</li>
+                                    <li>A, C</li>
+                                    <li>B</li>
+                                    <li>A, C</li>
+                                    <li>B</li>
+                                    <li>B, C</li>
+                                    <li>A, B</li>
+                                    <li>C</li>
+                                    <li>C</li>
+                                </ol>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="maze" class="page">
+                <h3>Maze</h3>
+                <img src="maze.png" class="fullpage" alt="" />
+            </div>
+            <div id="pw" class="page">
+                <h3>Passwords</h3>
+                <p>TIP: Ask for the 1st, 3rd, and 4th letter. If the first letter contains a T, ask if the 2nd letter
+                    contains an H.</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><b>A</b>G<b>AI</b>N<br />
+                                <b>A</b>B<b>OU</b>T<br />
+                                <b>A</b>F<b>TE</b>R<br />
+                                <b>B</b>E<b>LO</b>W<br />
+                                <b>C</b>O<b>UL</b>D<br />
+                                <b>E</b>V<b>ER</b>Y<br />
+                                <b>F</b>I<b>RS</b>T</td>
+                            <td><b>F</b>O<b>UN</b>D<br />
+                                <b>G</b>R<b>EA</b>T<br />
+                                <b>H</b>O<b>US</b>E<br />
+                                <b>L</b>E<b>AR</b>N<br />
+                                <b>L</b>A<b>RG</b>E<br />
+                                <b>N</b>E<b>VE</b>R<br />
+                                <b>O</b>T<b>HE</b>R</td>
+                            <td><b>P</b>L<b>AC</b>E<br />
+                                <b>P</b>L<b>AN</b>T<br />
+                                <b>P</b>O<b>IN</b>T<br />
+                                <b>R</b>I<b>GH</b>T<br />
+                                <b>S</b>M<b>AL</b>L<br />
+                                <b>S</b>P<b>EL</b>L<br />
+                                <b>S</b>T<b>IL</b>L</td>
+                            <td><b>S</b>T<b>UD</b>Y<br />
+                                <b>S</b>O<b>UN</b>D<br />
+                                <b>T</b>H<b>EI</b>R<br />
+                                <b>T</b>H<b>ER</b>E<br />
+                                <b>T</b>H<b>ES</b>E<br />
+                                <b>T</b>H<b>IN</b>G<br />
+                                <b>T</b>H<b>IN</b>K</td>
+                            <td><b>T</b>H<b>RE</b>E<br />
+                                <b>W</b>H<b>ER</b>E<br />
+                                <b>W</b>H<b>IC</b>H<br />
+                                <b>W</b>R<b>IT</b>E<br />
+                                <b>W</b>O<b>RL</b>D<br />
+                                <b>W</b>A<b>TE</b>R<br />
+                                <b>W</b>O<b>UL</b>D</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="needys" class="page">
+                <h3>Needy Dialog</h3>
+                <p>The question can be &quot;Vent gas?&quot; or &quot;Detonate?&quot;</p>
+                <p>To be sure, press &quot;No&quot; first. When the question is &quot;Vent gas?&quot; the module will remind
+                    you that &quot;Venting prevents explosions&quot;. However, when you answer &quot;Yes&quot; to
+                    &quot;Detonate?&quot; The bomb will explode without warning.</p>
+            </div>
+            <div class="page">
+                <h3>Needy Capacitator (a.k.a. &quot;Lever&quot;)</h3>
+                <p>Pull the lever to drain the electricity, which will otherwise accumulate in 45 seconds.</p>
+                <p>When you neglect it too long, you will hear the module make a sound in the background. When you hear it,
+                    <b>abandon what you're doing and hold down the lever immediately.</b></p>
+            </div>
+            <div id="knob" class="page">
+                <h3>Needy Knob</h3>
+                <img src="knob.png" class="fullpage" alt="" />
+            </div>
+            <div id="tips" class="page">
+                <h3>Tips for Effective Communication</h3>
+                <p>Use military communication terms and memorize the NATO Alphabet.</p>
+                <table id="jargon">
+                    <tbody>
+                        <tr>
+                            <td><b>A</b>lfa</td>
+                            <td><b>B</b>ravo</td>
+                            <td><b>C</b>harlie</td>
+                            <td><b>D</b>elta</td>
+                        </tr>
+                        <tr>
+                            <td><b>E</b>cho</td>
+                            <td><b>F</b>oxtrot</td>
+                            <td><b>G</b>olf</td>
+                            <td><b>H</b>otel</td>
+                        </tr>
+                        <tr>
+                            <td><b>I</b>ndia</td>
+                            <td><b>J</b>uliett</td>
+                            <td><b>K</b>ilo</td>
+                            <td><b>L</b>ima</td>
+                        </tr>
+                        <tr>
+                            <td><b>M</b>ike</td>
+                            <td><b>N</b>ovember</td>
+                            <td><b>O</b>scar</td>
+                            <td><b>P</b>apa</td>
+                        </tr>
+                        <tr>
+                            <td><b>Q</b>uebec</td>
+                            <td><b>R</b>omeo</td>
+                            <td><b>S</b>ierra</td>
+                            <td><b>T</b>ango</td>
+                        </tr>
+                        <tr>
+                            <td><b>U</b>niform</td>
+                            <td><b>V</b>ictor</td>
+                            <td><b>W</b>hiskey</td>
+                            <td><b>X</b>-ray</td>
+                        </tr>
+                        <tr>
+                            <td><b>Y</b>ankee</td>
+                            <td><b>Z</b>ulu</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&ldquo;Yes&rdquo;:<br />
+                                <b>Affirmative.</b>
+                            </td>
+                            <td colspan="2">&ldquo;No&rdquo;:<br />
+                                <b>Negative.</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&ldquo;I understand&rdquo;:<br />
+                                <b>Roger (that).</b>
+                            </td>
+                            <td colspan="2">&ldquo;That's all; you may speak now&rdquo;:<br />
+                                <b>Over.</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&ldquo;I'll do that&rdquo;:<br />
+                                <b>Wilco.</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="credit" class="page">
+                <h3>Credit</h3>
+                <h4>Simplified Manual (Coding, Design) by Haley Halcyon</h4>
+                <h4>Original Manual and Game by Steel Crate Games</h4>
+                <span><a href="https://www.keeptalkinggame.com/">KTaNE Official Website</a></span>
+                <h4>Some ideas and shortcuts from Io's Simplified Manual (now unpublished)</h4>
+                <span>by <a href="https://www.reddit.com/user/diodewaal">diodewaal (Reddit)</a></span>
+            </div>
         </div>
     </div>
 </body>
