@@ -58,13 +58,14 @@ html.darkmode body {
 
 header {
   box-sizing: border-box;
-  margin: 0 8px 8px;
+  margin: 0 auto 8px;
   background-color: var(--pink-light);
   border: 8px solid var(--pink-dark);
   border-top-width: 0;
   border-radius: 0px 0px 24px 24px;
   color: var(--pink-dark);
   text-shadow: 0px 0px 2px var(--white);
+  max-width: 720px;
 }
 
 img.header {
@@ -219,7 +220,7 @@ a {
   transition: 100ms ease-out;
 }
 
-a.ext::after {
+a:not([href^="#"]):not([href^="https://2gd4.me"]):not([href^="https://haitouch.ga"])::after {
   display: inline-block;
   content: "";
   width: 1em;
