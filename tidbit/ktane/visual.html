@@ -115,24 +115,26 @@
 
         #wireseq table {
             width: 100%;
+            text-align: center;
         }
 
-        #wireseq th {
+        #wireseq tr:first-child th {
             text-align: left;
             font-weight: normal;
+            background: rgb(54, 54, 54);
             color: white;
             padding: 1rem;
         }
 
-        #wireseq th:first-child {
+        #wireseq tr:first-child th.red {
             background: var(--wire-red);
         }
 
-        #wireseq th:nth-child(2) {
+        #wireseq tr:first-child th.blue {
             background: var(--wire-blue);
         }
 
-        #wireseq th:last-child {
+        #wireseq tr:first-child th.black {
             background: black;
         }
 
@@ -558,55 +560,95 @@
                     <tbody>
                         <tr>
                             <th>
+                                #
+                            </th>
+                            <th colspan="3" class="red">
                                 <b>R</b>ed wires:
                             </th>
                             <th>
+                                #
+                            </th>
+                            <th colspan="3" class="blue">
                                 <b>B</b>lue wires:
                             </th>
                             <th>
+                                #
+                            </th>
+                            <th colspan="3" class="black">
                                 blac<b>K</b> wires:
                             </th>
                         </tr>
                         <tr>
-                            <td>
-                                <ol>
-                                    <li>C</li>
-                                    <li>B</li>
-                                    <li>A</li>
-                                    <li>A, C</li>
-                                    <li>B</li>
-                                    <li>A, C</li>
-                                    <li>A, B, C</li>
-                                    <li>A, B</li>
-                                    <li>B</li>
-                                </ol>
-                            </td>
-                            <td>
-                                <ol>
-                                    <li>B</li>
-                                    <li>A, C</li>
-                                    <li>B</li>
-                                    <li>A</li>
-                                    <li>B</li>
-                                    <li>B, C</li>
-                                    <li>C</li>
-                                    <li>A, C</li>
-                                    <li>A</li>
-                                </ol>
-                            </td>
-                            <td>
-                                <ol>
-                                    <li>A, B, C</li>
-                                    <li>A, C</li>
-                                    <li>B</li>
-                                    <li>A, C</li>
-                                    <li>B</li>
-                                    <li>B, C</li>
-                                    <li>A, B</li>
-                                    <li>C</li>
-                                    <li>C</li>
-                                </ol>
-                            </td>
+                            <th>1</th>
+                            <td></td><td></td><td>C</td>
+                            <th>1</th>
+                            <td></td><td>B</td><td></td>
+                            <th>1</th>
+                            <td>A</td><td>B</td><td>C</td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td></td><td>B</td><td></td>
+                            <th>2</th>
+                            <td>A</td><td></td><td>C</td>
+                            <th>2</th>
+                            <td>A</td><td></td><td>C</td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td>A</td><td></td><td></td>
+                            <th>3</th>
+                            <td></td><td>B</td><td></td>
+                            <th>3</th>
+                            <td></td><td>B</td><td></td>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td>A</td><td></td><td>C</td>
+                            <th>4</th>
+                            <td>A</td><td></td><td></td>
+                            <th>4</th>
+                            <td>A</td><td></td><td>C</td>
+                        </tr>
+                        <tr>
+                            <th>5</th>
+                            <td></td><td>B</td><td></td>
+                            <th>5</th>
+                            <td></td><td>B</td><td></td>
+                            <th>5</th>
+                            <td></td><td>B</td><td></td>
+                        </tr>
+                        <tr>
+                            <th>6</th>
+                            <td>A</td><td></td><td>C</td>
+                            <th>6</th>
+                            <td></td><td>B</td><td>C</td>
+                            <th>6</th>
+                            <td></td><td>B</td><td>C</td>
+                        </tr>
+                        <tr>
+                            <th>7</th>
+                            <td>A</td><td>B</td><td>C</td>
+                            <th>7</th>
+                            <td></td><td></td><td>C</td>
+                            <th>7</th>
+                            <td>A</td><td>B</td><td></td>
+                        </tr>
+                        <tr>
+                            <th>8</th>
+                            <td>A</td><td>B</td><td></td>
+                            <th>8</th>
+                            <td>A</td><td></td><td>C</td>
+                            <th>8</th>
+                            <td></td><td></td><td>C</td>
+                        </tr>
+                        <tr>
+                            <th>9</th>
+                            <td></td><td>B</td><td></td>
+                            <th>9</th>
+                            <td>A</td><td></td><td></td>
+                            <th>9</th>
+                            <td></td><td></td><td>C</td>
                         </tr>
                     </tbody>
                 </table>
