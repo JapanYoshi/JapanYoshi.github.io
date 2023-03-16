@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="Shift_JIS">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&display=swap" rel="stylesheet">
+  <style>
+    
+  html {
+    scroll-behavior: smooth;
+    font-size: 1.25em;
+  --pink-dark: #FF4080;
+  --pink-med: #FF79B2;
+  --pink-light: #FFB0F0;
+  --aqua-dark: #40B0FF;
+  --aqua-med: #68CFFF;
+  --aqua-light: #B0F0FF;
+  --black: #4C4C4C;
+  --gray: #9B969D;
+  --white: #F3F3F3;
+  --pink-dim: #ffc7df;
+  }
+
+  body {
+    color: var(--black);
+    margin: 0;
+    padding: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 500;
+    background-image: url("../resource/bg.png");
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* ルビの上下位置調整
+  https://stackoverflow.com/questions/38680695/adjust-the-vertical-positioning-of-ruby-text */
+  ruby {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    text-align-last: justify;
+    text-justify: inter-character;
+  }
+  
+  rb, rt {
+    display: inline;
+    line-height: 1;
+    text-align-last: center;
+  }
+
+  a {
+    color: var(--black);
+    text-shadow: 0px 0px 2px var(--aqua-light), 0px 0px 2px var(--aqua-light);
+    display: inline;
+    text-decoration: underline;
+    transition: 100ms ease-out;
+  }
+
+  a:hover {
+    color: var(--white);
+    text-shadow: 0px 0px 2px var(--pink-dark), 0px 0px 2px var(--pink-dark);
+    transition: 100ms ease-out;
+  }
+
+  a:not([href^="#"]):not([href^="https://2gd4.me"]):not([href^="https://haitouch.ga"])::after {
+    display: inline-block;
+    content: "";
+    width: 1em;
+    height: 1em;
+    position: relative;
+    vertical-align: middle;
+    background-image: url('../resource/external.svg');
+    background-size: contain;
+  }
+
+  header {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../resource/bg2.png");
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header img.header {
+    max-width: 50vw;
+    max-height: 50vh;
+    object-fit: contain;
+  }
+
+  header .header_content {
+    max-width: 30rem;
+    align-self: center;
+    padding: 0.5rem;
+    text-shadow: 0px 1px 8px var(--aqua-light),
+    0px 1px 12px var(--aqua-light),
+    0px 1px 16px var(--aqua-light);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 100%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 100%;
+  }
+
+  div#top {
+    position: sticky;
+    top: calc(100dvh - 4rem);
+    width: 100%;
+    height: 0;
+    text-align: center;
+    z-index: 32;
+  }
+
+  div#top a {
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+    margin: 0.5rem;
+    margin-left: auto;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--pink-dark);
+    color: white;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 3rem;
+    box-shadow: 0px 0.125rem 0.25rem var(--black);
+  }
+
+  div#top a:hover {
+    box-shadow: 0px 0.5rem 2rem var(--black);
+  }
+
+  header .links a {
+    text-decoration: none;
+    display: inline-block;
+    background: var(--aqua-light);
+    border: 0.25rem solid var(--aqua-dark);
+    margin: 0.5rem 0 0;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .divider {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  header + .divider {
+    background-image: url("../resource/bg2.png");
+    background-attachment: fixed;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  header + .divider svg {
+    transform: translateY(1px);
+  }
+
+  header + .divider svg path {
+    fill: var(--pink-dim);
+  }
+  
+  .list_page {
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: start;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  
+  #biglist {
+    background-color: var(--pink-dim);
+  }
+
+  .list_page .about {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+
+  #biglist .item {
+    flex: 1 0 400px;
+    max-width: 540px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 8px;
+    margin: 0;
+  }
+  
+  #biglist .item_box {
+    margin: 8px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    background: var(--white);
+    border: 8px solid var(--black);
+    padding: 8px;
+  }
+
+  .list_page .item_title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 100%;
+  }
+  
+  .list_page .item_images {
+    margin: 8px 0;
+    display: flex;
+    padding: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+  }
+
+  /* 1920 x 1080 */
+  #biglist .desktop {
+    margin-right: 8px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    vertical-align: bottom;
+    width: calc((100% - 8px) / (1920/1080 + 1080/2004) * 1920/1080);
+  }
+  
+  /* 1080 x 2004 */
+  #biglist .mobile {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    vertical-align: bottom;
+    width: calc((100% - 8px) / (1920/1080 + 1080/2004) * 1080/2004);
+  }
+
+  #biglist + .divider {
+    background-image: url("../resource/bg1.png");
+    background-position: 0% 100%;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background-color: var(--aqua-light);
+  }
+  
+  #biglist + .divider svg {
+    transform: translateY(0px);
+  }
+
+  #biglist + .divider svg path {
+    fill: var(--pink-dim);
+  }
+
+  #graphicdesign {
+    background-color: var(--aqua-light);
+  }
+
+  #graphicdesign + .divider {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  #graphicdesign + .divider svg {
+    transform: translateY(0px);
+  }
+
+  #graphicdesign + .divider svg path {
+    fill: var(--aqua-light);
+  }
+
+  #graphicdesign .item_box {
+    background-color: var(--black);
+    color: white;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    max-width: 40rem;
+  }
+
+  #graphicdesign .item_images {
+    width: 100%;
+  }
+
+  #graphicdesign .item_images img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: calc(100vh - 2rem);
+  }
+
+  #graphicdesign .item_desc {
+    display: block;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background: var(--white);
+    color: var(--black);
+  }
+
+  #about_me {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  #about_me .background,
+  #about_me .content {
+    width: 100%;
+    position: absolute;
+  }
+  
+  #about_me .background img {
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    object-fit: contain;
+    object-position: top right;
+    filter: hue-rotate(50deg) brightness(120%) saturate(200%) sepia(80%) hue-rotate(-50deg) drop-shadow(0px 0px 16px white) opacity(0.9);
+  }
+
+  #about_me .content {
+    z-index: 2;
+    max-height: 100vh;
+    bottom: 0;
+    left: 0;
+    right: 1rem;
+    overflow-y: auto;
+    color: white;
+    text-shadow: 0px 1px 8px var(--pink-dark),
+    0px 1px 12px var(--pink-dark),
+    0px 1px 16px var(--pink-dark);
+  }
+
+  #about_me .content h1,
+  #about_me .content h2,
+  #about_me .content h3
+  {
+    padding-left: 1rem;
+    padding-right: 3rem;
+  }
+  #about_me .content ul {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  #bottom {
+    text-align: center;
+  }
+
+  #bottom .big_bottom_link {
+    display: inline-block;
+    margin: 4rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 0.25rem solid var(--aqua-dark);
+    background: var(--aqua-light);
+  }
+
+  @media screen and (max-width: 800px) {
+    header {
+      flex-direction: column;
+    }
+
+    header .header_content {
+      text-align: center;
+    }
+  }
+
+  </style>
+</head>
+<body>
+  <header id="header">
+    <img class="header" src="../resource/profilepic.png" alt="Profile Pic">
+    <div class="header_content">
+      <h1><ruby>若松<rp>(</rp><rt>わかまつ</rt><rp>)</rp></ruby> <ruby>春希<rp>(</rp><rt>はるき</rt><rp>)</rp></ruby></h1>
+      <h2>Haruki (Haley) Wakamatsu</h2>
+      <div>こんにちは！ ウェブデザイナー志望の春希です。HTML歴はかれこれ10年以上。これまでに作ってきたHTML・CSS・Javascriptのプロジェクトを紹介します。</div>
+      <div class="links">
+        <a href="#biglist">Webデザイン</a>
+        <a href="#graphicdesign">グラフィックデザイン</a>
+        <a href="#about_me">プロフィール</a>
+      </div>
+    </div>
+  </header><div class="divider">
+    <svg style="display: block;"
+    viewBox="0 0 1200 120"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m 878.61,63.56 c -58,10.79 -114.16,30.13 -172,41.86 -82.39,16.72 -168.19,17.73 -250.45,0.39 C 376.22,89 293.33,48 214.34,27.17 144.29,8.69 67.81,1.08 0,24.17 V 120 H 1200 V 92.65 A 600.21,600.21 0 0 0 878.61,63.56 Z"/>
+    </svg>
+  </div><div id="top">
+    <a href="#header">↑</a>
+  </div><div id="biglist" class="list_page">
+    <div class="about">
+      <h1>
+        過去作: Webデザイン
+      </h1>
+      <p>
+        これらの画像をクリックすると、新しいタブで拡大表示されます。
+      </p>
+    </div>
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>hai<rp>(</rp><rt>はい</rt><rp>)</rp></ruby>!<ruby>touch<rp>(</rp><rt>タッチ</rt><rp>)</rp></ruby> <ruby>Gate<rp>(</rp><rt>ゲート</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline">オンラインゲームコントローラー（2022年制作）</div>
+        <div class="item_images">
+          <img class="desktop" src="./portfolio/haitouchgate_desktop.png">
+          <img class="mobile" src="./portfolio/haitouchgate_mobile.png">
+        </div>
+        <span class="item_desc">
+          <p>hai!touch Gate は、Godotエンジン駆動のオンライン雑学ゲーム「乱雑学」（の英語版）を操作するためのウェブアプリです。</p>
+          <p>ゲームと通信するために、Firebaseのリアルタイムデータベースと繋がります。</p>
+          <p>このシステムは、<a href="https://jackbox.tv"><ruby>Jackbox<rp> (</rp><rt>ジャックボックス</rt><rp>)</rp></ruby> <ruby>Games<rp> (</rp><rt>ゲームズ</rt><rp>)</rp></ruby></a>のシステムを参考にして作られました。</p>
+          <ul>
+            <li><a href="https://haitouch.ga/te">hai!touch Gate</a></li>
+            <li><a href="https://haitouch.itch.io/salty-trivia">ゲーム本編のitch.ioページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>hai<rp>(</rp><rt>はい</rt><rp>)</rp></ruby>!<ruby>touch<rp>(</rp><rt>タッチ</rt><rp>)</rp></ruby> <ruby>Studios<rp>(</rp><rt>スタジオ</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline">ゲームスタジオのホームページ（2021年制作）</div>
+        <div class="item_images">
+          <img class="desktop" src="./portfolio/haitouchgames_desktop.png">
+          <img class="mobile" src="./portfolio/haitouchgames_mobile.png">
+        </div>
+        <span class="item_desc">
+          <p>hai!touch Studios は、私の個人開発ゲームに使っている名義です。発表されたゲームのリストや紹介を公開しています。</p>
+          <ul>
+            <li><a href="https://haitouch.ga/mes">hai!touch Studios のホームページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>2GD4ME<rp>(</rp><rt>トゥーグッドフォーミー</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline">個人ホームページ（2019年制作）</div>
+        <div class="item_images">
+          <img class="desktop" src="./portfolio/2gd4me_desktop.png">
+          <img class="mobile" src="./portfolio/2gd4me_mobile.png">
+        </div>
+        <span class="item_desc">
+          <p>2GD4MEは、趣味で書いたHTML・CSS・JSのウェブアプリなどを公開しているホームページです。</p>
+          <ul>
+            <li><a href="https://2gd4.me/tidbit/8bitdolite">8BitDo Lite のレビュー記事</a></li>
+            <li><a href="https://2gd4.me/otoge.html">音ゲー関連のホームページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>Nicethetic<rp>(</rp><rt>ナイスセティック</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline"><ruby>Tumblr<rp>(</rp><rt>タンブラー</rt><rp>)</rp></ruby> テーマ（2017年制作）</div>
+        <div class="item_images">
+          <img class="desktop" src="./portfolio/nicethetic_desktop.png">
+          <img class="mobile" src="./portfolio/nicethetic_mobile.png">
+        </div>
+        <span class="item_desc">
+          <p>Nicetheticは、マイクロブログサイト「Tumblr」の着せ替えとしてプログラムしたテーマです。高校時代に公開したものを、Tumblrの更新に対応するためにアップデートしました。</p>
+          <p>このテーマの特徴は、罫線、角丸、配色などのカスタマイズ性と、シンプルで機能的なレイアウトです。背景画像と角に表示するサイド画像も指定できます。</p>
+          <p>ほかのTumblrテーマにない機能として、指定されたタグの投稿をデフォルトで最小化して表示できます。（プレビュー画像では「off topic」）2023-03-16時点ではアクティブインストールは778件です。</p>
+          <ul>
+            <li><a href="https://nicethetic-theme.tumblr.com/">テーマのプレビュー</a></li>
+            <li><a href="https://www.tumblr.com/theme/40811">インストールページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>neoTERMINAL<rp>(</rp><rt>ネオターミナル</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline"><ruby>Tumblr<rp>(</rp><rt>タンブラー</rt><rp>)</rp></ruby> テーマ（2015年制作、2023年改修）</div>
+        <div class="item_images">
+          <img class="desktop" src="./portfolio/neoterminal_desktop.png">
+          <img class="mobile" src="./portfolio/neoterminal_mobile.png">
+        </div>
+        <span class="item_desc">
+          <p>neoTERMINALは、マイクロブログサイト「Tumblr」の着せ替えとしてプログラムしたテーマです。高校時代に公開したものを、Tumblrの更新に対応するためにアップデートしました。</p>
+          <p>このテーマの特徴は、2色だけの配色と等幅フォントです。昔のモノクロコンピューターをモチーフにしました。もちろんレスポンシブです。2023-03-16時点ではアクティブインストールは815件です。</p>
+          <ul>
+            <li><a href="https://neo-terminal.tumblr.com">テーマのプレビュー</a></li>
+            <li><a href="https://www.tumblr.com/theme/39797">インストールページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="end_items"></div>
+  </div>
+  <div class="divider">
+    <svg style="display: block;"
+      viewBox="0 0 1200 120"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m 321.39,56.44 c 58,-10.79 114.16,-30.13 172,-41.86 C 575.78,-2.14 661.58,-3.15 743.84,14.19 823.78,31 906.67,72 985.66,92.829996 c 70.05,18.480004 146.53,26.090004 214.34,3 V 0 H 0 v 27.35 a 600.21,600.21 0 0 0 321.39,29.09 z"/>
+    </svg>
+  </div>
+  <div id="graphicdesign" class="list_page">
+    <div class="about">
+      <h1>
+        過去作: グラフィックデザイン
+      </h1>
+      <p>
+        これらの画像をクリックすると、新しいタブで拡大表示されます。
+      </p>
+    </div>
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title">はるるちゃん／<ruby>Haley<rp>(</rp><rt>ヘイリー</rt><rp>)</rp></ruby> <ruby>Halcyon<rp>(</rp><rt>ハルシオン</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline">個人ブランド（2019年制作）</div>
+        <div class="item_images">
+          <img src="./portfolio/haleyhalcyon.svg">
+        </div>
+        <span class="item_desc">
+          <p>
+            ホームページやソーシャルメディアなどでの自分のブランドです。
+          </p><p>
+            一時期、Twitchでのストリーミングや、Android用アプリアイコンパックのためにも応用しました。
+          </p>
+          <ul>
+            <li><a href="https://2gd4.me">2GD4ME ホームページ</a></li>
+            <li><a href="https://www.youtube.com/@haleyhalcyon">YouTube チャンネル</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>乱雑学<rp>(</rp><rt>らんざつがく</rt><rp>)</rp></ruby> (Salty Trivia with Candy Barre)</div>
+        <div class="item_tagline">オンラインゲーム（2022年制作）</div>
+        <div class="item_images">
+          <img src="./portfolio/saltytrivia.svg">
+        </div>
+        <span class="item_desc">
+          <p>
+            Godotエンジン駆動のオンライン雑学ゲーム「乱雑学」のデザインです。背景は、ゲーム中何も起きていない時間でも問題ないことを示すために、フラクタルノイズのアニメーションを表示します。小さい画面でも見えやすいように、小さい文字はゴシック体に制限しました。
+          </p>
+          <ul>
+            <li><a href="https://haitouch.ga/me/salty">Salty Trivia 紹介ページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item_box">
+        <div class="item_title"><ruby>OscilloSCAPE<rp>(</rp><rt>オシロスケープ</rt><rp>)</rp></ruby></div>
+        <div class="item_tagline">オンラインゲーム用着せ替え（2016年制作）</div>
+        <div class="item_images">
+          <img src="./portfolio/oscilloscape.svg">
+        </div>
+        <span class="item_desc">
+          <p>
+            音楽ゲーム「osu!」用のSF風着せ替え（スキン）です。メカスーツの操縦を題材とし、45度回転させた正方形と蛍光色の青緑をベースにデザインしました。
+          </p>
+          <ul>
+            <li><a href="https://osu.ppy.sh/community/forums/topics/482070">OscilloSCAPE 紹介ページ</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+    <div class="end_items"></div>
+  </div>
+  <div class="divider">
+    <svg style="display: block;"
+      viewBox="0 0 1200 120"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m 321.39,56.44 c 58,-10.79 114.16,-30.13 172,-41.86 C 575.78,-2.14 661.58,-3.15 743.84,14.19 823.78,31 906.67,72 985.66,92.829996 c 70.05,18.480004 146.53,26.090004 214.34,3 V 0 H 0 v 27.35 a 600.21,600.21 0 0 0 321.39,29.09 z"/>
+    </svg>
+  </div>
+  <div id="about_me">
+    <div class="background">
+      <img src="./portfolio/portrait.png">
+    </div>
+    <div class="content">
+      <div class="profile">
+        <h1><ruby>若松<rp>(</rp><rt>わかまつ</rt><rp>)</rp></ruby> <ruby>春希<rp>(</rp><rt>はるき</rt><rp>)</rp></ruby></h1>
+        <h2>Haruki (Haley) Wakamatsu</h2>
+        <h3>プロフィール</h3>
+        <ul>
+          <li id="age">
+            1999年2月5日生まれ（満{age}歳）
+            <script>
+              const bday = new Date(1999, 1, 5);
+              const offset = bday - new Date(1999, 0, 1);
+              const age = new Date(new Date() - offset).getFullYear() - bday.getFullYear();
+              document.querySelector("#age").innerText = document.querySelector("#age").innerText.replace("{age}", age);
+            </script>
+          </li>
+          <li>苫小牧生まれ、札幌育ち</li>
+          <li>英語ネイティブスピーカー同等</li>
+          <li>グリフィス大学コンピューターサイエンス科卒業（2022年卒）</li>
+        </ul>
+        <h3>スキル</h3>
+        <ul>
+          <li>HTML・CSS・JS 経験10年以上</li>
+          <li>グラフィックデザイン・UIデザイン・ロゴデザイン経験</li>
+          <li>ラスター・ベクター画像制作・編集両方経験あり</li>
+          <li>PythonやC++も経験あり</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="bottom">
+    <a class="big_bottom_link" href="https://www.linkedin.com/in/haley-wakamatsu-573a53240">
+      LinkedIn
+    </a>
+  </div>
+  <script>
+// make art images clickable
+Array.from(document.querySelectorAll(".item img")).forEach(
+  el => {
+    let url = new URL(el.src, document.documentURI.split("#")[0]).href;
+    el.addEventListener("click", (el) => {
+      window.open(url, "_blank");
+    })
+  }
+)
+  </script>
+</body>
+
+</html>

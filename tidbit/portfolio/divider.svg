@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1200 120"
+   version="1.1"
+   id="svg1050"
+   sodipodi:docname="divider.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1054" />
+  <sodipodi:namedview
+     id="namedview1052"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="1.0275"
+     inkscape:cx="594.6472"
+     inkscape:cy="60.340633"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1050" />
+  <path
+     d="m 878.61,63.56 c -58,10.79 -114.16,30.13 -172,41.86 -82.39,16.72 -168.19,17.73 -250.45,0.39 C 376.22,89 293.33,48 214.34,27.17 144.29,8.69 67.81,1.08 0,24.17 V 120 H 1200 V 92.65 A 600.21,600.21 0 0 0 878.61,63.56 Z"
+     id="path1048" />
+</svg>
