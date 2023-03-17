@@ -11,6 +11,22 @@ body {
     </style>
 </head>
 <body>
-    <iframe style="width: 1px; height: 1px; position: fixed; top: 0; left: 0; opacity: 0.02" src="http://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay"></iframe>
-    <h1>2gd4.me Link Shortener</h1>
-    <p>Redirecting...</p>
+<audio id="f">
+  <source src="https://zenius-i-vanisher.com/simfiles/Ace%20Of%20Arrows%20Vol.%2016%20-%20Full%20Circle/Never%20Gonna%20Give%20You%20Up/Never%20Gonna%20Give%20You%20Up.ogg" type="audio/ogg"/>
+</audio>
+<h1>2gd4.me Link Shortener</h1>
+<button id="b" type="button" disabled>Loading...</button>
+<script>
+const a = document.querySelector("#f");
+a.addEventListener('canplaythrough', function() { 
+  const b = document.querySelector("#b");
+  b.innerText = "Redirect me!";
+  b.addEventListener("click", ()=>{
+    b.disabled = true;
+    setTimeout(() => {
+      a.play();
+    }, 1400);
+  });
+  b.disabled = false;
+}, false);
+</script>
