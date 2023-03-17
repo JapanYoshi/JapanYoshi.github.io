@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>2gd4.me Link Shortener</title>
+    <meta name="description" content="Shorten long links for sharing!">
+    <meta property="og:description" content="Shorten long links for sharing!">
+    <meta name="twitter:description" content="Shorten long links for sharing!">
+    <style>
+body {
+    font-family: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+}
+    </style>
+</head>
+<body>
+    <iframe style="position: fixed; top: 100vh; opacity: 0.01" src="http://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay"></iframe>
+    <h1>2gd4.me Link Shortener</h1>
+    <p>Redirecting...</p>
