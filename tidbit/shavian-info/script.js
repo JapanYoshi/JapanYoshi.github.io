@@ -453,7 +453,7 @@ const DATA = [
       "“a” in “comma”"
     ],
     notes: [
-      "This letter is never stressed; see 𐑳 for the “u” in “strut” and 𐑻 for the “ur” in “nurse”."
+      "Although many native speakers pronounce 𐑩 and 𐑳 the same, they are distinguished in standard British English and Australian English. 𐑩 is never stressed, while 𐑳 has primary or secondary stress."
     ]
   },
   {
@@ -629,7 +629,7 @@ const DATA = [
       "“u” in “strut”"
     ],
     notes: [
-      "This letter is always stressed (Exceptions apply for compound words like “someone” «𐑕𐑳𐑥𐑢𐑳𐑯»); see 𐑩 for the “a” in “comma” and 𐑼 for the “er” in “letter”.",
+      "Although many native speakers pronounce 𐑩 and 𐑳 the same, they are distinguished in standard British English and Australian English. 𐑩 is never stressed, while 𐑳 has primary or secondary stress.",
       "The “ur” in “hurry” is spelled «𐑳𐑮», as opposed to “jury” «𐑫𐑼» or “blurry” «𐑻»."
     ]
   },
