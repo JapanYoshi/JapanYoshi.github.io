@@ -145,7 +145,13 @@
         #queerText > span > span.a_9 {color: blue;   animation-delay:  -100ms}
         #queerText > span > span.a_a {color: purple; animation-delay:     0ms}
         
-        
+        #why {
+            font-family: sans-serif;
+            background: black;
+            color: white;
+            padding: 1em;
+            margin: -1em;
+        }
     </style>
 </head>
 
@@ -165,22 +171,24 @@
         <h3>Pride Month Date</h3>
         <div id="queerText"></div>
         <p id="lessQueerText"></p>
-        <a href="../index.html">Coded with spite by Haley Halcyon</a>
+        <div id="why">
+          <h3>Why this exists</h3>
+          <p>I’m bisexual and trans. I got sick and tired of Discord servers keeping their Pride Flag icons in August 2023. Pride Month has been over for a fucking month. At that point, even LGBT people have got to feel like it overstays its welcome.</p>
+          <p>So this is my passive-aggressive way of saying that Pride Month is over. It’s not June anymore. Bring your ugly-ass server icons to the current month.</p>
+          <p>I could go on about what I hate about Pride Month. May I go on a rant about that? I will go on a rant about that. Here are some things that I hate about Pride Month:</p>
+          <ul>
+            <li>It’s noisy and in your face. Even Christmas decorations go down by January. Why should anyone expect or accept Pride Month decorations to stay up in August? Besides, some of us don’t like Pride Month because it’s so loud and arrogant and overcommercialized. It tokenizes us LGBT people as just our sexuality and gender identity. It doesn’t make me feel proud of who I am. It just forces me to act like I am.</li>
+            <li>Rainbow flags with black, brown, white, pink, and aqua added onto it (the so-called “progress” flag). They look fugly. It’s not a pleasant color scheme to look at. And besides, LGBT POC and trans people were always included in the rainbow flag! They always have, and by symbolizing those people twice, it makes it seem like you’re elevating them over other LGBT people and discriminating against the others for not being q**** enough.</li>
+            <li>Everyone keeps calling all of us the Q-slur. I fucking hate that word. That slur from long ago as well as right now, which has been used as a homophobic slur in the media I grew up in, and been co-opted by cishet grifters and Gen-Z TikTokers who wouldn’t know dysphoria if it shattered a mirror upside their head. I will never be q****. I am not abnormal. I am not an unabashed, bald-faced degenerate. I am a normal person who happens to be bisexual and transgender. Being LGBT does not and should not give me pride nor shame.</li>
+            <li>Nobody is allowed to even remotely criticize anyone who says they’re LGBT or some extended initialism. Criticizing parts of your group that you disagree with is neither a sin nor a display of “homophobia”. It’s a healthy sign that you care about what your group stands for.</li>
+          </ul>
+          <p>So this is my message. Stop fucking keeping your Pride Month icons past mid-July so that normal LGBT people can live in peace.</p>
+          <p style="text-align:right">With regards,<br/>—Haley Halcyon</p>
+          <p style="text-align:center"><a href="../index.html" style="color:cyan">Coded with spite by Haley Halcyon</a></p>
+        </div>
     </div>
     <script>
 const DAY = 1000*60*60*24;
-const taglines = [
-    "Happy Pride Month and punch a TERF!",
-    "Happy Pride Month to all the queers out there!",
-    "Happy Pride Month because trans kids are sexy!",
-    "We’re here, we’re queer, and we’re coming for your children!",
-    "Be gay, do crime!",
-    "Everyone who says they’re trans is trans, fuckheads!",
-    "Happy Pride Month to the cishets who WILL be replaced by us!",
-    "Happy Pride Month and remember to trans your kids!",
-    "Is it gay in here or is it just us?",
-    "Kink is welcome at Pride!",
-];
 // create html for obnoxious animated text
 function obnoxiousText(content) {
     let output = "<span>"
@@ -227,7 +235,7 @@ function setPrideDay() {
     const day = (date - prideMonthStart) / DAY;
     console.log("last Pride Month started", prideMonthStart);
     console.log("It has been", day, "days");
-    let html = "It’s June " + suffix(day) + " of Pride Month " + prideMonthStart.getFullYear() + "! " + taglines[Math.floor(taglines.length * Math.random())];
+    let html = "It’s June " + suffix(day) + " of Pride Month " + prideMonthStart.getFullYear() + "!!! PRIDE MONTH FOREVER!!! SUCK IT, CISHETS!!! IT’S OUR MONTH ALL YEAR ROUND NOW!!!!!";
     document.querySelector("#lessQueerText").innerText = "Transcript: " + html;
     html = obnoxiousText(html);
     document.querySelector("#queerText").innerHTML = html;
