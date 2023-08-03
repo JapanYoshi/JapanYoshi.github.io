@@ -168,6 +168,7 @@
         <a href="../index.html">Coded with spite by Haley Halcyon</a>
     </div>
     <script>
+const DAY = 1000*60*60*24;
 const taglines = [
     "Happy Pride Month and punch a TERF!",
     "Happy Pride Month to all the queers out there!",
@@ -218,11 +219,12 @@ function setPrideDay() {
     const date = document.querySelector("#inputDate").valueAsDate;
     const prideMonthStart = new Date(date.getFullYear(), 5, 1);
     prideMonthStart.setUTCHours(0,0,0,0);
-    if (prideMonthStart > date) {
+    console.log(+date, +prideMonthStart);
+    if (prideMonthStart >= date) {
         // before June, so turn back one year
         prideMonthStart.setFullYear(prideMonthStart.getFullYear() - 1);
     }
-    const day = (date - prideMonthStart) / 1000 / 60 / 60 / 24;
+    const day = (date - prideMonthStart) / DAY;
     console.log("last Pride Month started", prideMonthStart);
     console.log("It has been", day, "days");
     let html = "It’s June " + suffix(day) + " of Pride Month " + prideMonthStart.getFullYear() + "! " + taglines[Math.floor(taglines.length * Math.random())];
