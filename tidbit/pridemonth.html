@@ -56,13 +56,13 @@
               purple 91.667%,
               purple 100%
             );
-            background-size: 100% 30rem;
-            animation: scrollBG 5s linear infinite;
+            background-size: 100% 20rem;
+            animation: scrollBG 2s linear infinite;
         }
         
         @keyframes scrollBG {
             from {background-position: 0 0rem;}
-            to {background-position: 0 30rem;}
+            to {background-position: 0 20rem;}
         }
 
         body {
@@ -80,7 +80,8 @@
             /* galaxy brain absolute centering code */
             left: max(16px, calc(50vw - 280px));
             right: max(16px, calc(50vw - 280px));
-            overflow: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
             padding: 1rem;
         }
 
