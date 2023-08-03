@@ -1,0 +1,245 @@
+<head>
+    <title>Pride Month Date Checker</title>
+    <meta property="og:title" value="Pride Month Date Checker">
+    <meta name="twitter:title" value="Pride Month Date Checker">
+    <!-- boilerplate -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="2GD4ME by Haley Halcyon">
+    <meta name="twitter:site" content="@ItsSpelledHALEY">
+    <meta name="twitter:creator" content="@ItsSpelledHALEY">
+    <link rel="icon" href="/favicon.png">
+    <!-- page metadata -->
+    <meta name="description"
+        content="What day of June is today? A webapp for those who don't ever want Pride Month to end.">
+    <meta property="og:description"
+        content="What day of June is today? A webapp for those who don't ever want Pride Month to end.">
+    <meta name="twitter:description"
+        content="What day of June is today? A webapp for those who don't ever want Pride Month to end.">
+    <meta name="keywords" content="pride month,lgbt,lgbtq,lgbtq+,lgbtqia+,2slgbtqia+,queerbaiting,pinkwashing">
+    <meta name="author" content="Haley Wakamatsu">
+    <!-- sharable image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="http://japanyoshi.github.io/tidbit/pridemonth.png">
+    <meta name="twitter:image" content="http://japanyoshi.github.io/tidbit/pridemonth.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Shrikhand&display=swap&subset=latin');
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            background: linear-gradient(180deg,
+              yellow 0%,
+              yellow 8.333%,
+              white  8.334%,
+              white  16.666%,
+              pink   16.667%,
+              pink   24.999%,
+              cyan   25%,
+              cyan   33.333%,
+              brown  33.334%,
+              brown  41.666%,
+              black  41.667%,
+              black  49.999%,
+              red    50%,
+              red    58.333%,
+              orange 58.334%,
+              orange 66.666%,
+              yellow 66.667%,
+              yellow 74.999%,
+              green  75%,
+              green  83.333%,
+              blue   83.334%,
+              blue   91.666%,
+              purple 91.667%,
+              purple 100%
+            );
+            background-size: 100% 30rem;
+            animation: scrollBG 5s linear infinite;
+        }
+        
+        @keyframes scrollBG {
+            from {background-position: 0 0rem;}
+            to {background-position: 0 30rem;}
+        }
+
+        body {
+            font-family: "Shrikhand", sans-serif;
+            font-size: 20px;
+            line-height: 24px;
+            overflow: hidden;
+        }
+
+        #wrapper {
+            background: #fff;
+            position: absolute;
+            top: 16px;
+            bottom: 16px;
+            /* galaxy brain absolute centering code */
+            left: max(16px, calc(50vw - 280px));
+            right: max(16px, calc(50vw - 280px));
+            overflow: auto;
+            padding: 1rem;
+        }
+
+        h3 {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid black;
+            font-weight: 900;
+        }
+
+        hr {
+            border: 1px solid black;
+        }
+
+        input,
+        button {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        
+        #queerText {
+            text-align: center;
+            padding: 5rem 1rem;
+            font-size: 2rem;
+            line-height: 150%;
+            text-shadow: 1px 1px 2px black;
+        }
+        
+        #queerText > span {
+            display: inline-block;
+        }
+        #queerText > span > span {
+            display: inline-block;
+            will-change: transform;
+            animation-name: wavy;
+            animation-duration: 1100ms;
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes wavy {
+            0% {
+                transform: translateY(0rem);
+            }
+            50% {
+                transform: translateY(1rem);
+            }
+            100% {
+                transform: translateY(0rem);
+            }
+        }
+        
+        #queerText > span > span.a_0 {color: white;  animation-delay: -1000ms}
+        #queerText > span > span.a_1 {color: pink;   animation-delay:  -900ms}
+        #queerText > span > span.a_2 {color: cyan;   animation-delay:  -800ms}
+        #queerText > span > span.a_3 {color: brown;  animation-delay:  -700ms}
+        #queerText > span > span.a_4 {color: #222;   animation-delay:  -600ms}
+        #queerText > span > span.a_5 {color: red;    animation-delay:  -500ms}
+        #queerText > span > span.a_6 {color: orange; animation-delay:  -400ms}
+        #queerText > span > span.a_7 {color: yellow; animation-delay:  -300ms}
+        #queerText > span > span.a_8 {color: green;  animation-delay:  -200ms}
+        #queerText > span > span.a_9 {color: blue;   animation-delay:  -100ms}
+        #queerText > span > span.a_a {color: purple; animation-delay:     0ms}
+        
+        
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <form>
+            <h3>Date</h3>
+            <button type="button"
+                 id="buttonToday">Today</button>
+            <input
+                 type="date"
+                 id="inputDate"
+                 pattern="\d{4}-\d{2}-\d{2}"
+                 required />
+        </form>
+        <hr>
+        <h3>Pride Month Date</h3>
+        <div id="queerText"></div>
+        <p id="lessQueerText"></p>
+        <a href="../index.html">Coded with spite by Haley Halcyon</a>
+    </div>
+    <script>
+const taglines = [
+    "Happy Pride Month and punch a TERF!",
+    "Happy Pride Month to all the queers out there!",
+    "Happy Pride Month because trans kids are sexy!",
+    "We’re here, we’re queer, and we’re coming for your children!",
+    "Be gay, do crime!",
+    "Everyone who says they’re trans is trans, fuckheads!",
+    "Happy Pride Month to the cishets who WILL be replaced by us!",
+    "Happy Pride Month and remember to trans your kids!",
+    "Is it gay in here or is it just us?",
+    "Kink is welcome at Pride!",
+];
+// create html for obnoxious animated text
+function obnoxiousText(content) {
+    let output = "<span>"
+    let counter = 0
+    content.split("").forEach((letter) => {
+        if (letter == " ") {
+            output += "</span> <span>";
+        } else {
+            output += `<span class=a_${counter.toString(16)}>${letter}</span>`;
+           counter = (counter + 1) % 11;
+       }
+    });
+    return output + "</span>";
+}
+// suffix ordinal
+function suffix(number) {
+    const lower2 = number % 100;
+    if (11 <= lower2 && lower2 <= 20) {
+        return number + "th";
+    }
+    const lowest = lower2 % 10;
+    if (lowest == 1) {
+        return number + "st";
+    }
+    if (lowest == 2) {
+        return number + "nd";
+    }
+    if (lowest == 3) {
+        return number + "rd";
+    }
+    return number + "th";
+}
+// calculate pride month day
+function setPrideDay() {
+    // calculate previous pride month
+    const date = document.querySelector("#inputDate").valueAsDate;
+    const prideMonthStart = new Date(date.getFullYear(), 5, 1);
+    prideMonthStart.setUTCHours(0,0,0,0);
+    if (prideMonthStart > date) {
+        // before June, so turn back one year
+        prideMonthStart.setFullYear(prideMonthStart.getFullYear() - 1);
+    }
+    const day = (date - prideMonthStart) / 1000 / 60 / 60 / 24;
+    console.log("last Pride Month started", prideMonthStart);
+    console.log("It has been", day, "days");
+    let html = "It’s June " + suffix(day) + " of Pride Month " + prideMonthStart.getFullYear() + "! " + taglines[Math.floor(taglines.length * Math.random())];
+    document.querySelector("#lessQueerText").innerText = "Transcript: " + html;
+    html = obnoxiousText(html);
+    document.querySelector("#queerText").innerHTML = html;
+}
+document.querySelector("#inputDate").addEventListener("change", setPrideDay);
+// reset date to today
+function setToday() {
+    const d = new Date();
+    d.setUTCHours(0,0,0,0);
+    document.querySelector("#inputDate").valueAsDate = d;
+    
+}
+document.querySelector("#buttonToday").addEventListener("click", setToday);
+setToday();
+setPrideDay();
+    </script>
+</body>
