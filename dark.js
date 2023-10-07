@@ -1,30 +1,34 @@
 if (typeof(Storage) !== "undefined") {
-    if (localStorage.getItem("darkmode")) {
-        document.documentElement.classList.add("darkmode");
+    if (localStorage.getItem("darkmode") !== null) {
+        const usingDarkMode = localStorage.getItem("darkmode")
+        document.documentElement.classList.add(usingDarkMode ? "darkmode" : "lightmode");
     }
     document.addEventListener("DOMContentLoaded", function(){
-        var boop = document.createElement("div");
+        const boop = document.createElement("div");
         boop.classList.add("darkSwitch");
 
-        var boopBox = document.createElement("div");
+        const boopBox = document.createElement("div");
         boop.appendChild(boopBox);
         
-        var darkDayBox = document.createElement("div");
+        const darkDayBox = document.createElement("div");
         darkDayBox.classList="darkDayBox";
         boopBox.appendChild(darkDayBox);
         
-        var darkNightBox = document.createElement("div");
+        const darkNightBox = document.createElement("div");
         darkNightBox.classList="darkNightBox";
         boopBox.appendChild(darkNightBox);
 
         boop.addEventListener("click", function(){
-            if (document.documentElement.classList.contains("darkmode")) {
-                document.documentElement.classList.remove("darkmode");
-                localStorage.clear("darkmode");
-            } else {
-                localStorage.setItem("darkmode", 1);
-                document.documentElement.classList.add("darkmode");
+            let isDarkMode = document.documentElement.classList.contains("darkmode");
+            let isLightMode = document.documentElement.classList.contains("lightmode");
+            if (!isDarkMode && !isLightMode) {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    isDarkMode = true
+                }
             }
+            document.documentElement.classList.add(isDarkMode ? "lightmode" : "darkmode");
+            document.documentElement.classList.remove(isDarkMode ? "darkmode" : "lightmode");
+            localStorage.setItem("darkmode", !isDarkMode);
         })
         document.body.appendChild(boop);
         var stl = document.createElement("style");
