@@ -46,9 +46,14 @@
     @font-face {
       font-family: "_born2bsporty";
       font-display: swap;
-      src: url("shavian-fonts/born2bsporty-fs.ttf");
+      src: url("shavian-fonts/born2bsporty-fs.otf");
     }
-    .born2bsporty {font-family: _born2bsporty, serif;}
+    .born2bsporty {
+      font-family: _born2bsporty, serif;
+      font-smooth: never;
+      -webkit-font-smoothing: none; /* WebKit MacOS */
+      /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
+    }
     @font-face {
       font-family: "_consistency";
       font-display: swap;
