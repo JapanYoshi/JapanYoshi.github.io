@@ -12,29 +12,73 @@
     <meta name="twitter:image" content="http://japanyoshi.github.io/IMG_20230318_013155.png">
     <style>
 body {
-    background: #960045;
-    color: white;
-    font-family: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100svh;
+  background: #960045;
+  color: white;
+  font-family: ui-rounded, "Hiragino Maru Gothic ProN", Quicksand, Comfortaa,
+    Manjari, "Arial Rounded MT Bold", Calibri, source-sans-pro, sans-serif;
+  padding: 0.5rem;
 }
-    </style>
+h1 {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+h3 {
+  margin: 0;
+}
+#c {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 32rem;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
+  background: white;
+  color: #423;
+}
+#d {
+  height: 5rem;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+}   </style>
 </head>
 <body>
 <audio id="f">
   <source src="https://zenius-i-vanisher.com/simfiles/Ace%20Of%20Arrows%20Vol.%2016%20-%20Full%20Circle/Never%20Gonna%20Give%20You%20Up/Never%20Gonna%20Give%20You%20Up.ogg" type="audio/ogg"/>
 </audio>
 <h1>2gd4.me Link Shortener</h1>
-<button id="b" type="button" disabled>Loading...</button>
-<script>
+<div id="c">
+  <h3>Checking your browser...</h3>
+  <p>This keeps us safe from bots.</p>
+  <div id="d">
+    <div id="e">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#6f6" d="M12,19C14.21,19 16.17,18 17.45,16.38L20.05,17.91C18.23,20.39 15.3,22 12,22C6.47,22 2,17.5 2,12C2,6.81 5.94,2.55 11,2.05V5.08C7.61,5.57 5,8.47 5,12A7,7 0 0,0 12,19M12,6A6,6 0 0,1 18,12C18,14.97 15.84,17.44 13,17.92V14.83C14.17,14.42 15,13.31 15,12A3,3 0 0,0 12,9L11.45,9.05L9.91,6.38C10.56,6.13 11.26,6 12,6" /></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#66f" d="M12,19C14.21,19 16.17,18 17.45,16.38L20.05,17.91C18.23,20.39 15.3,22 12,22C6.47,22 2,17.5 2,12C2,6.81 5.94,2.55 11,2.05V5.08C7.61,5.57 5,8.47 5,12A7,7 0 0,0 12,19M12,6A6,6 0 0,1 18,12C18,14.97 15.84,17.44 13,17.92V14.83C14.17,14.42 15,13.31 15,12A3,3 0 0,0 12,9L11.45,9.05L9.91,6.38C10.56,6.13 11.26,6 12,6" /></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#f66"  d="M12,19C14.21,19 16.17,18 17.45,16.38L20.05,17.91C18.23,20.39 15.3,22 12,22C6.47,22 2,17.5 2,12C2,6.81 5.94,2.55 11,2.05V5.08C7.61,5.57 5,8.47 5,12A7,7 0 0,0 12,19M12,6A6,6 0 0,1 18,12C18,14.97 15.84,17.44 13,17.92V14.83C14.17,14.42 15,13.31 15,12A3,3 0 0,0 12,9L11.45,9.05L9.91,6.38C10.56,6.13 11.26,6 12,6" /></svg>
+    </div>
+    <button id="b" type="button" style="display:none;"></button>
+  </div>
+</div><script>
 const a = document.querySelector("#f");
-a.addEventListener('canplaythrough', function() { 
-  const b = document.querySelector("#b");
-  b.innerText = "Redirect me!";
-  b.addEventListener("click", ()=>{
-    b.disabled = true;
-    setTimeout(() => {
-      a.play();
-    }, 1400);
+a.addEventListener('canplaythrough', function() {
+  const b = document.querySelector("#b");
+  b.innerText = "Redirect me!";
+  b.addEventListener("click", ()=>{
+    b.disabled = true;
+    b.innerText = "Redirecting...";
+    setTimeout(() => {
+      a.play();
+    }, 1200);
   });
-  b.disabled = false;
+  b.style.display="block";
+  document.querySelector("#e").style.display="none";
 }, false);
 </script>
