@@ -1,23 +1,3 @@
-@font-face {
-  font-family: "Mikado_";
-  font-weight: bold;
-  src:
-  /*local("Mikado Black"),*/
-  url("/resource/Font700.ttf") format("truetype"),
-  url("2gd4.me/resource/Font700.ttf") format("truetype"),
-  url("japanyoshi.github.io/resource/Font700.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Mikado_";
-  font-weight: 500;
-  src:
-  /*local("Mikado Medium"),*/
-  url("/resource/Font400.ttf") format("truetype"),
-  url("2gd4.me/resource/Font400.ttf") format("truetype"),
-  url("japanyoshi.github.io/resource/Font400.ttf") format("truetype");
-}
-
 html {
   font-size: 1.25em;
   --pink-dark: #FF4080;
@@ -33,7 +13,8 @@ html {
 
 body {
   margin: 0;
-  font-family: "Mikado_", "Mikado", "FOT-RodinWanpaku Pro", "けいふぉんと", "りいポップ角", "Yu Gothic", sans-serif;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-stretch: normal;
   font-weight: 500;
   background-image: url("resource/bg2.png");
   font-size: 1rem;
@@ -61,8 +42,9 @@ header {
 h1 {
   font-size: 1.5em;
   line-height: 100%;
-  font-weight: bold;
+  font-weight: 900;
   color: var(--black);
+  font-stretch: condensed;
 }
 
 h2 {
@@ -70,6 +52,8 @@ h2 {
   line-height: 100%;
   font-style: italic;
   color: var(--aqua-dark);
+  font-weight: 900;
+  font-stretch: condensed;
 }
 
 #body>.section {
@@ -100,6 +84,8 @@ h2 {
   border-radius: 8px;
   background: var(--pink-light);
   color: var(--black);
+  font-weight: 900;
+  font-stretch: condensed;
 }
 
 .section h4 {
@@ -189,6 +175,8 @@ a.biglink {
   font-size: 150%;
   border-radius: 8px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  font-weight: 900;
+  font-stretch: condensed;
 }
 
 a.biglink:hover {
