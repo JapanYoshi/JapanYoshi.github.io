@@ -25,6 +25,17 @@
   <script src="../dark.js"></script>
   <style>
     @font-face {
+      font-family: "_stampatello";
+      font-weight: bold;
+      font-display: swap;
+      src: url("shavian-fonts/stampatello-faceto.otf");
+    }
+    .stampatello {
+      font-family: _stampatello, serif;
+      font-feature-settings: 'onum' on;
+      line-height: 150%;
+    }
+    @font-face {
       font-family: "_spacemono";
       font-weight: bold;
       font-display: swap;
@@ -38,7 +49,6 @@
     }
     .spacemono {
       font-family: _spacemono, serif;
-      font-feature-settings: 'onum' on;
     }
     @font-face {
       font-family: "_audionugget";
@@ -124,6 +134,9 @@
     }
     .sixfour {font-family: _sixfour, serif;}
     
+    .section {
+      line-height: 125%;
+    }
     h3.preview {font-weight: normal;}
     
     .italic {
@@ -145,15 +158,15 @@
     }
     .showcase .big {
       font-size: 36pt;
-      line-height: 120%;
+      line-height: 125%;
     }
     .showcase .medium {
       font-size: 20pt;
-      line-height: 120%;
+      line-height: 125%;
     }
     .showcase .small {
       font-size: 16pt;
-      line-height: 120%;
+      line-height: 125%;
     }
     .testdrive {
       box-sizing: border-box;
@@ -276,6 +289,38 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <p>Read added crossbars on the stems to signify how many rule lines the letter was to cross. He also had looped letters, which went unused in the final Shavian alphabet.</p>
       <p>Based on those, <span class="shavian">𐑐</span> and <span class="shavian">𐑚</span> gained loops to resemble the Latin “P” and “b”, while <span class="shavian">𐑓</span> and <span class="shavian">𐑝</span> gained crossbars to resemble “f”.</p>
+    </div>
+    <div class="section">
+      <h3 class="preview stampatello">𐑕𐑑𐑨𐑥𐑐𐑩𐑑𐑧𐑤𐑴 𐑓𐑩𐑗𐑧𐑑𐑴 / Stampatello Faceto</h3>
+      <div class="date">2023-11-10</div>
+      <h4>Description</h4>
+      <p>
+        Stampatello Faceto is an <a href="https://github.com/JapanYoshi/stampatello-faceto">open-source</a> block-script handwriting font based on my own handwriting on a Stabilo 7mm felt tip pen. It
+        supports ligatures for <span class="shavian">𐑩𐑯</span>, <span class="shavian">𐑾𐑯</span>, and <span class="shavian">𐑦𐑙</span> for a more natural feel.
+      </p>
+      <p>
+        “Stampatello faceto” is Italian for “facetious block script”; I chose the Italian term because Italian block script
+        writes the lowercase “a” in its 2-storey form like I do!
+      </p>
+      <p>
+        It also supports Cyrillic, polytonic Ancient Greek, and (most) IPA.
+      </p>
+      <h4>Showcase</h4>
+      <div class="showcase">
+        <div class="big stampatello">
+          «𐑲 𐑯𐑴 𐑞𐑨𐑑 𐑲 𐑯𐑴 𐑯𐑳𐑔𐑦𐑙.»
+        </div>
+        <div class="medium stampatello">
+          𐑲 𐑯𐑧𐑝𐑼 𐑕𐑐𐑰𐑒 𐑦𐑯 𐑐𐑳𐑚𐑤𐑦𐑒, 𐑦𐑒𐑕𐑧𐑐𐑑 𐑪𐑯 𐑝𐑧𐑮𐑦 𐑒𐑪𐑯𐑑𐑮𐑩𐑝𐑻𐑖𐑩𐑤 𐑑𐑪𐑐𐑦𐑒𐑕, 𐑦𐑯 𐑩 𐑝𐑧𐑮𐑦 𐑒𐑪𐑯𐑑𐑮𐑩𐑝𐑻𐑖𐑩𐑤 𐑢𐑱. — ·𐑡. 𐑚. 𐑗𐑷
+        </div>
+        <div class="small stampatello">
+          ·𐑒𐑳𐑯𐑦𐑙𐑩𐑥𐑟 𐑤𐑷 𐑐𐑪𐑟𐑦𐑑𐑕 𐑞𐑨𐑑 𐑭𐑕𐑒𐑦𐑙 𐑩 𐑒𐑢𐑧𐑕𐑗𐑩𐑯 𐑦𐑟 𐑤𐑧𐑕 𐑦𐑓𐑧𐑒𐑑𐑦𐑝 𐑞𐑨𐑯 𐑐𐑴𐑕𐑑𐑦𐑙 𐑞 𐑮𐑪𐑙 𐑨𐑯𐑕𐑼. 𐑦𐑑 𐑕𐑹𐑑𐑩 𐑢𐑻𐑒𐑑 𐑓 𐑕𐑲𐑒𐑪𐑤𐑩𐑡𐑦 𐑢𐑧𐑯 ·𐑕𐑦𐑜𐑥𐑩𐑯𐑛 𐑓𐑮𐑶𐑛 𐑡𐑳𐑕𐑑 𐑕𐑑𐑸𐑑𐑩𐑛 𐑥𐑱𐑒𐑦𐑙 𐑖𐑦𐑑 𐑳𐑐 𐑤𐑧𐑓𐑑 𐑯 𐑮𐑲𐑑.
+        </div>
+      </div>
+      <h4>Test Drive</h4>
+      <button type="button" class="btn-smaller" value="test-stampatello">Smaller</button><button type="button" class="btn-larger" value="test-stampatello">Larger</button><button type="button" class="btn-reset" value="test-stampatello">Reset contents</button>
+      <textarea class="testdrive stampatello" id="test-stampatello"></textarea>
+      <a class="download" href="shavian-fonts/stampatello-faceto.otf">Download</a>
     </div>
     <div class="section">
       <h3 class="preview spacemono">𐑕𐑐𐑱𐑕 𐑥𐑪𐑯𐑴 / Space Mono Shavian</h3>
