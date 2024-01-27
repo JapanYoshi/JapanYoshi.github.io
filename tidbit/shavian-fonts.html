@@ -25,6 +25,15 @@
   <script src="../dark.js"></script>
   <style>
     @font-face {
+      font-family: "_allstars";
+      font-display: swap;
+      src: url("shavian-fonts/allstars-shavian.ttf");
+    }
+    .allstars {
+      font-family: _allstars, serif;
+      font-feature-settings: 'onum' on;
+    }
+    @font-face {
       font-family: "_stampatello";
       font-weight: bold;
       font-display: swap;
@@ -225,8 +234,9 @@ function resetContents(thisEl){
   let el = document.getElementById(thisEl.value);
   el.value = `𐑣𐑽𐑦𐑙 𐑥𐑰 𐑚𐑴, 𐑞 𐑨𐑠𐑼 𐑔𐑮𐑳𐑖 𐑒𐑷𐑟.
 𐑺 𐑘𐑹 𐑡𐑶𐑓𐑩𐑤 𐑸𐑾, 𐑲 𐑝𐑬: «𐑿 𐑢𐑪𐑯𐑑 𐑜𐑫𐑛 𐑗𐑭? 𐑧𐑕𐑱 ·𐑐𐑵-𐑻!»
-MR. JOCK, “TV QUIZ PH.D.”, BAGS FEW LYNX.
-pack my box with five dozen liquor jugs.`;
+NEW JOB: FIX MR. GLUCK’S “HAZY TV”, PDQ!
+pack my box with five dozen liquor jugs.
+0123456789`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -289,6 +299,33 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <p>Read added crossbars on the stems to signify how many rule lines the letter was to cross. He also had looped letters, which went unused in the final Shavian alphabet.</p>
       <p>Based on those, <span class="shavian">𐑐</span> and <span class="shavian">𐑚</span> gained loops to resemble the Latin “P” and “b”, while <span class="shavian">𐑓</span> and <span class="shavian">𐑝</span> gained crossbars to resemble “f”.</p>
+    </div>
+    <div class="section">
+      <h3 class="preview allstars">𐑷𐑤𐑕𐑑𐑸𐑟 / Allstars Shavian</h3>
+      <div class="date">2024-01-27</div>
+      <h4>Description</h4>
+      <p>
+        Allstars Shavian is a sentence-case Shavian 8x8 pixel font. Its uppercase Latin portion was based on the text from Super Mario All-Stars.
+      </p>
+      <p>
+        Since 
+      </p>
+      <h4>Showcase</h4>
+      <div class="showcase">
+        <div class="big allstars">
+          𐑔𐑨𐑙𐑒 𐑿, ·𐑥𐑸𐑦𐑴!
+        </div>
+        <div class="medium allstars">
+          𐑚𐑳𐑑 𐑬𐑼 𐑐𐑮𐑦𐑯𐑕𐑧𐑕 𐑦𐑟 𐑦𐑯 𐑩𐑯𐑳𐑞𐑼 𐑒𐑭𐑕𐑩𐑤!
+        </div>
+        <div class="small allstars">
+          ·𐑕𐑵𐑐𐑼 𐑥𐑸𐑦𐑴 𐑷𐑤-𐑕𐑑𐑸𐑟 𐑦𐑟 𐑩 𐑜𐑱𐑥 𐑒𐑪𐑥𐑐𐑦𐑤𐑱𐑖𐑩𐑯 𐑓 𐑞 SNES. 𐑦𐑑 𐑒𐑩𐑯𐑑𐑱𐑯𐑟 𐑦𐑯𐑣𐑭𐑯𐑕𐑑 𐑐𐑹𐑑𐑕 𐑝 4 ·𐑕𐑵𐑐𐑼 𐑥𐑸𐑦𐑴 𐑚𐑮𐑳𐑞𐑼𐑟 𐑜𐑱𐑥𐑟 𐑐𐑮𐑰𐑓𐑾𐑕𐑤𐑦 𐑮𐑦𐑤𐑰𐑕𐑑 𐑓 𐑞 NES: SMB, SMB2, SMB3, 𐑯 𐑞 𐑡𐑩𐑐𐑨𐑯-𐑦𐑒𐑕𐑒𐑤𐑵𐑕𐑦𐑝 SMB: 𐑞 𐑤𐑪𐑕𐑑 𐑤𐑧𐑝𐑩𐑤𐑟, 𐑢𐑦𐑗 𐑢𐑪𐑟 𐑞 «𐑑𐑮𐑵» SMB2 𐑦𐑯 ·𐑯𐑦𐑯𐑑𐑧𐑯𐑛𐑴𐑟 𐑥𐑳𐑞𐑼𐑤𐑨𐑯𐑛.
+        </div>
+      </div>
+      <h4>Test Drive</h4>
+      <button type="button" class="btn-smaller" value="test-allstars">Smaller</button><button type="button" class="btn-larger" value="test-allstars">Larger</button><button type="button" class="btn-reset" value="test-allstars">Reset contents</button>
+      <textarea class="testdrive allstars" id="test-allstars"></textarea>
+      <a class="download" href="shavian-fonts/allstars-shavian.ttf">Download</a>
     </div>
     <div class="section">
       <h3 class="preview stampatello">𐑕𐑑𐑨𐑥𐑐𐑩𐑑𐑧𐑤𐑴 𐑓𐑩𐑗𐑧𐑑𐑴 / Stampatello Faceto</h3>
