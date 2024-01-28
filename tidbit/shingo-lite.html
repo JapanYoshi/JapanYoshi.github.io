@@ -295,7 +295,7 @@
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv", false);
       xmlHttp.send(null);
-      return xmlHttp.responseText;
+      return xmlHttp;
     }
 
     function initDict() {
@@ -303,52 +303,55 @@
       let dictAge = +localStorage.getItem("dictAge");
       // TEST: force invalidate cache
       //dictAge = 0;
-
       if (dictAge == null || dictAge + 2000000 < now) {
         setStatus("downloading dictionary");
         // set a timeout so I can actually show the status
         setTimeout(() => {
-          const dict = getDict();
-          if (dict.startsWith("<!DOCTYPE html>")) {
-            // failed with 404
-            setStatus("Could not load dictionary.");
-            return;
-          }
-          const shavianCache = {askable: {4:[], 5:[], 6:[], 7:[]}, guessable: {4:[], 5:[], 6:[], 7:[]}};
-          for (const line of dict.trim().split("\n")) {
-            const words = line.split("\t");
-            //console.log(words);
-            // words[0]: Latin
-            // words[1]: Shavian
-            // words[2]: part of speech (NP0 is proper noun)
-            // words[3]: IPA (not used)
-            // words[4]: frequency data (askable threshold is 50)
-            if (words[2] == "NP0") continue; // skip proper nouns
-            if (
-              words[1].includes(" ") ||
-              words[1].includes("-") ||
-              words[1].includes("'") ||
-              words[1].includes("·") ||
-              words[1].includes("⸰")
-            ) continue;
-            const shavianChars = [...words[1]]; // split into letters properly
-            if (shavianChars.length < 4 || shavianChars.length > 7) continue;
-            if (shavianCache.askable[charCount].includes(words[1])) {
-              continue; // already fully there, skip dupe
-            } else {
-              if (!shavianCache.guessable[charCount].includes(words[1])) {
-                guessable[shavianChars.length].push([words[0], words[1]]);
-                shavianCache.guessable[charCount].push(words[1]);
-                if (words[4] >= 50 && !censored_words.includes(words[0]) && !banned_words.includes(words[0])) {
-                  askable[shavianChars.length].push([words[0], words[1]]);
-                  shavianCache.askable[charCount].push(words[1]);
+          const http = getDict();
+          http.onload = () => {
+            if (http.readyState !== http.DONE) return;
+            dict = http.responseText;
+            if (dict.startsWith("<!DOCTYPE html>")) {
+              // failed with 404
+              setStatus("Could not load dictionary.");
+              return;
+            }
+            const shavianCache = {askable: {4:[], 5:[], 6:[], 7:[]}, guessable: {4:[], 5:[], 6:[], 7:[]}};
+            for (const line of dict.trim().split("\n")) {
+              const words = line.split("\t");
+              //console.log(words);
+              // words[0]: Latin
+              // words[1]: Shavian
+              // words[2]: part of speech (NP0 is proper noun)
+              // words[3]: IPA (not used)
+              // words[4]: frequency data (askable threshold is 50)
+              if (words[2] == "NP0") continue; // skip proper nouns
+              if (
+                words[1].includes(" ") ||
+                words[1].includes("-") ||
+                words[1].includes("'") ||
+                words[1].includes("·") ||
+                words[1].includes("⸰")
+              ) continue;
+              const shavianChars = [...words[1]]; // split into letters properly
+              if (shavianChars.length < 4 || shavianChars.length > 7) continue;
+              if (shavianCache.askable[charCount].includes(words[1])) {
+                continue; // already fully there, skip dupe
+              } else {
+                if (!shavianCache.guessable[charCount].includes(words[1])) {
+                  guessable[shavianChars.length].push([words[0], words[1]]);
+                  shavianCache.guessable[charCount].push(words[1]);
+                  if (words[4] >= 50 && !censored_words.includes(words[0]) && !banned_words.includes(words[0])) {
+                    askable[shavianChars.length].push([words[0], words[1]]);
+                    shavianCache.askable[charCount].push(words[1]);
+                  }
                 }
               }
             }
+            localStorage.setItem("dictAge", "" + now);
+            localStorage.setItem("askable", JSON.stringify(askable));
+            localStorage.setItem("guessable", JSON.stringify(guessable));
           }
-          localStorage.setItem("dictAge", "" + now);
-          localStorage.setItem("askable", JSON.stringify(askable));
-          localStorage.setItem("guessable", JSON.stringify(guessable));
         }, 1);
       }
       else {
