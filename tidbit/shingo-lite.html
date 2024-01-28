@@ -95,6 +95,10 @@
           justify-content: flex-start;
           align-items: center;
         }
+
+        #keyboard, #keyboardGrid {
+          width: 100%;
+        }
       }
 
       #title {
@@ -172,12 +176,12 @@
       }
 
       #keyboardGrid {
-        max-width: 20rem;
         display: grid;
         grid-template-columns: repeat(10, 1fr);
       }
 
       #keyboardGrid button {
+        min-width: 2rem;
         height: 3rem;
         font-family: inherit;
         font-size: 1rem;
@@ -281,7 +285,7 @@
         "ow",
         "uw",
         "oy",
-        "aw",
+        "au",
         "ar",
         "or",
         "er",
