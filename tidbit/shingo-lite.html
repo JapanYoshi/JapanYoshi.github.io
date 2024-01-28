@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @font-face {
-        font-family: "_born2b";
+        font-family: "_born2bsporty";
         font-display: swap;
-        src: url("shavian-fonts/born2bsporty-fs.ttf");
+        src: url("shavian-fonts/born2bsporty-fs.otf");
       }
 
       @media screen {
@@ -18,7 +18,11 @@
       }
 
       :root {
-        font-family: "_born2b";
+        font-family: "_born2bsporty", serif;
+        font-smooth: never;
+        -webkit-font-smoothing: none; /* WebKit MacOS */
+        /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
+    
         --col-dim-bg: rgb(35, 35, 39);
         --col-dim: rgb(72, 72, 80);
         --col-accent: rgb(83, 250, 178);
