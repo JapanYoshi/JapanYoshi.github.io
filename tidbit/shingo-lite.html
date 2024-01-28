@@ -24,7 +24,7 @@
         /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
     
         --col-dim-bg: rgb(35, 35, 39);
-        --col-dim: rgb(72, 72, 80);
+        --col-dim: rgb(108, 108, 120);
         --col-accent: rgb(83, 250, 178);
         --col-miss-dark: #363636;
         --col-miss-light: #555555;
@@ -638,9 +638,7 @@
               tiles[i].classList.add(guessText);
               playSound(guessText);
               const guessIndex = guessMap.indexOf(chars[i]);
-              if (guessMap[guessIndex] >= clues[i]) {
-                styleKey(keyMap.indexOf(chars[i]));
-              }
+              styleKey(keyMap.indexOf(chars[i]));
             }
           }, 50 + 200 * i);
         }
