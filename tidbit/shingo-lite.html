@@ -635,12 +635,7 @@
               playSound(guessText);
               const guessIndex = guessMap.indexOf(chars[i]);
               if (guessMap[guessIndex] >= clues[i]) {
-                const keyEl =
-                  document.getElementById("keyboardGrid").children[
-                    keyMap.indexOf(chars[i])
-                  ];
-                keyEl.classList.remove("hit", "graze", "miss");
-                keyEl.classList.add(guessText);
+                styleKey(keyMap.indexOf(chars[i]));
               }
             }
           }, 50 + 200 * i);
