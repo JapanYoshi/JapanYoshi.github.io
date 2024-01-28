@@ -291,11 +291,14 @@
       }
     }
 
-    function getDict() {
+    function getDict(handler) {
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv", false);
+      xmlHttp.open("GET", "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv", true);
       xmlHttp.send(null);
-      return xmlHttp;
+      http.onload = () => {
+        if (http.readyState !== http.DONE) return;
+        handler(http.responseText);
+      };
     }
 
     function initDict() {
@@ -307,10 +310,7 @@
         setStatus("downloading dictionary");
         // set a timeout so I can actually show the status
         setTimeout(() => {
-          const http = getDict();
-          http.onload = () => {
-            if (http.readyState !== http.DONE) return;
-            dict = http.responseText;
+          getDict((dict) => {
             if (dict.startsWith("<!DOCTYPE html>")) {
               // failed with 404
               setStatus("Could not load dictionary.");
@@ -351,7 +351,7 @@
             localStorage.setItem("dictAge", "" + now);
             localStorage.setItem("askable", JSON.stringify(askable));
             localStorage.setItem("guessable", JSON.stringify(guessable));
-          }
+          });
         }, 1);
       }
       else {
