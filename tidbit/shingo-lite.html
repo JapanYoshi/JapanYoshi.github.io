@@ -301,7 +301,7 @@
       };
     }
 
-    function initDict() {
+    function initDict(callback) {
       let now = +(new Date()) / 1000;
       let dictAge = +localStorage.getItem("dictAge");
       const newAskable = JSON.parse(localStorage.getItem("askable"));
@@ -356,6 +356,7 @@
             localStorage.setItem("guessable", JSON.stringify(guessable));
             console.log(askable, guessable);
             setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
+            callback();
           });
         }, 1);
       }
@@ -366,6 +367,7 @@
         }
         console.log(askable, guessable);
         setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
+        callback();
       }
     }
 
@@ -534,46 +536,46 @@
       document.querySelector("#startGame").style.display = "none";
       setStatus("Loading...");
 
-      initDict();
-
-      currentRow = 0;
-      secret = askable[charCount][Math.floor(Math.random() * askable[charCount].length)];
-      secret = [secret[0], secret[1], [...secret[1]]];
-      console.log("secret", secret);
-      bestGuess = Array.from(Array(charCount), _ => ".");
-      bestGuess[0] = secret[2][0];
-
-      for (let col of clues) {
-        col = Array.from(Array(charCount), _ => NONE);
-      }
-      keyboard = Array.from(Array(50), _ => NONE);
-
-      for (let col of document.querySelectorAll("#grid > .gridLine")) {
-        col.replaceChildren();
-        for (let i = 0; i < charCount; i++) {
-          const el = document.createElement("div");
-          el.classList.add("gridTile");
-          col.appendChild(el);
-        }
-      }
-      for (let tile of document.querySelectorAll("#grid .gridLine:first-child .gridTile")) {
-        console.log("tile", tile);
-        if (tile.parentNode.firstChild == tile) {
-          tile.innerText = secret[2][0];
-        } else {
-          tile.innerText = ".";
-        }
-      }
-      for (let key of document.getElementById("keyboardGrid").children) {
-        key.classList.remove("hit", "graze", "miss");
-      }
-
-
-      document.querySelector("#textInput").value = "";
-
-      document.querySelector("#grid").style.display = "";
-      document.querySelector("#keyboard").style.display = "";
-      blockingInput = false;
+      initDict(() => {
+              currentRow = 0;
+              secret = askable[charCount][Math.floor(Math.random() * askable[charCount].length)];
+              secret = [secret[0], secret[1], [...secret[1]]];
+              console.log("secret", secret);
+              bestGuess = Array.from(Array(charCount), _ => ".");
+              bestGuess[0] = secret[2][0];
+        
+              for (let col of clues) {
+                col = Array.from(Array(charCount), _ => NONE);
+              }
+              keyboard = Array.from(Array(50), _ => NONE);
+        
+              for (let col of document.querySelectorAll("#grid > .gridLine")) {
+                col.replaceChildren();
+                for (let i = 0; i < charCount; i++) {
+                  const el = document.createElement("div");
+                  el.classList.add("gridTile");
+                  col.appendChild(el);
+                }
+              }
+              for (let tile of document.querySelectorAll("#grid .gridLine:first-child .gridTile")) {
+                console.log("tile", tile);
+                if (tile.parentNode.firstChild == tile) {
+                  tile.innerText = secret[2][0];
+                } else {
+                  tile.innerText = ".";
+                }
+              }
+              for (let key of document.getElementById("keyboardGrid").children) {
+                key.classList.remove("hit", "graze", "miss");
+              }
+        
+        
+              document.querySelector("#textInput").value = "";
+        
+              document.querySelector("#grid").style.display = "";
+              document.querySelector("#keyboard").style.display = "";
+              blockingInput = false;
+      });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
