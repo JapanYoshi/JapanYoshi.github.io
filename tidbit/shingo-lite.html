@@ -349,9 +349,10 @@
         );
         xmlHttp.send(null);
         xmlHttp.onload = () => {
-          if (xmlHttp.readyState !== xmlHttp.DONE) return;
-          console.log("xmlHttp loaded");
-          handler(xmlHttp.responseText);
+          if (xmlHttp.readyState === xmlHttp.DONE) {
+            console.log("xmlHttp loaded");
+            handler(xmlHttp.responseText);
+          }
         };
       }
 
