@@ -214,8 +214,11 @@
       function playSound(id) {
         if (!soundOn) return;
         const player = document.getElementById("sound_" + id);
-        player.fastSeek(0);
-        player.play();
+        if (player.paused) {
+          player.play();
+        } else {
+          player.currentTime = 0;
+        }
       }
 
       let blockingInput = false;
