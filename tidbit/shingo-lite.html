@@ -99,7 +99,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
     }
 
     .gridLine {
@@ -107,7 +107,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
     }
 
     .gridTile {
@@ -195,6 +195,19 @@
     }
   </style>
   <script>
+    let soundOn = true;
+    function soundToggled(event) {
+      console.log(event);
+      soundOn = event.target.checked;
+    }
+
+    function playSound(id) {
+      if (!soundOn) return;
+      const player = document.getElementById("sound_" + id);
+      player.fastSeek(0);
+      player.play()
+    }
+
     let blockingInput = false;
 
     let input; // document.getElementById("textInput");
@@ -215,6 +228,7 @@
     let currentRow = 0;
     let guessMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿"];
     let guessStatus = [];
+    let soundMap = ["p", "t", "k", "f", "th", "s", "sh", "ch", "y", "ng", "b", "d", "g", "v", "dh", "z", "zh", "jh", "w", "h", "l", "m", "ih", "eh", "ae", "ax", "ao", "uh", "aw", "aa", "r", "n", "iy", "ey", "ay", "ah", "ow", "uw", "oy", "aw", "ar", "or", "er", "yr", "rr", "ir", "ia", "yu"];
     let keyMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷_𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿_"];
     keyMap[40] = "delete";
     keyMap[49] = "submit";
@@ -378,8 +392,10 @@
         input.value = val.join("");
         input.selectionStart = val.slice(0, cursorStart - 1).join().length;
         updateGrid(input.value);
+        playSound("delete");
       }
       else if (event.target.dataset.button == "submit") {
+        playSound("click");
         submitWord(val)
       }
       else {
@@ -387,6 +403,7 @@
           val.splice(cursorStart, cursorEnd - cursorStart, event.target.dataset.button);
           input.value = val.join("");
           input.selectionStart = val.slice(0, cursorStart + 1).join().length
+          playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
           updateGrid(input.value);
         }
       }
@@ -427,6 +444,7 @@
               document.getElementById("keyboard").style.display = "none";
               document.getElementById("startGame").style.display = "";
               blockingInput = false;
+              playSound("win");
               return
             }
             currentRow++;
@@ -435,6 +453,7 @@
               document.getElementById("keyboard").style.display = "none";
               document.getElementById("startGame").style.display = "";
               blockingInput = false;
+              playSound("lose");
               return
             }
             lines[currentRow].classList.remove("inactive");
@@ -443,11 +462,20 @@
             }
             blockingInput = false;
           } else {
-            tiles[i].classList.add(
+            const guessText = 
               result.clues[i] == MISS ? "miss"
               : result.clues[i] == GRAZE ? "graze"
-              : result.clues[i] == HIT ? "hit" : "error"
-            );
+              : result.clues[i] == HIT ? "hit" : "error";
+            tiles[i].classList.add(guessText);
+            playSound(guessText);
+            const guessIndex = guessMap.indexOf(chars[i])
+            if (guessMap[guessIndex] >= clues[i]) {
+              const keyEl = document.getElementById("keyboardGrid").children[
+                keyMap.indexOf(chars[i])
+              ];
+              keyEl.classList.remove("hit", "graze", "miss");
+              keyEl.classList.add(guessText);
+            }
           }
         }, 50 + 200 * i);
       }
@@ -492,6 +520,7 @@
     function onGameStartButtonClick(event) {
       if (blockingInput) return;
       blockingInput = true;
+      playSound("click");
       charCount = +(event.target.dataset.chars);
       document.querySelector("#title").style.display = "none";
       document.querySelector("#startGame").style.display = "none";
@@ -527,9 +556,12 @@
           tile.innerText = ".";
         }
       }
-      document.querySelector("#textInput").value = "";
+      for (let key of document.getElementById("keyboardGrid").children) {
+        key.classList.remove("hit", "graze", "miss");
+      }
 
-      for ()
+
+      document.querySelector("#textInput").value = "";
 
       document.querySelector("#grid").style.display = "";
       document.querySelector("#keyboard").style.display = "";
@@ -553,6 +585,7 @@
       for (const el of document.querySelectorAll("#startGame button")) {
         el.addEventListener("click", onGameStartButtonClick);
       }
+      document.getElementById("toggleSound").addEventListener("change", soundToggled);
       setStatus("Welcome to Shingo Lite!");
     })
   </script>
@@ -560,7 +593,11 @@
 
 <body style="background:black;color:white;">
   <nav>
-    <button>Toggle sound</button>
+    <ul>
+      <li>
+        <input type="checkbox" id="toggleSound" /><label for="toggleSound">Sound</label>
+      </li>
+    </ul>
   </nav>
   <div id="status"></div>
   <div id="title" class="page-top">
@@ -678,6 +715,68 @@
       <button type="button" data-button="𐑿">𐑿</button>
       <button type="button" data-button="submit">✔</button>
     </div>
+  </div>
+  <div id="sound">
+    <audio id="sound_p" src="./shavian-info/p.wav"></audio>
+    <audio id="sound_t" src="./shavian-info/t.wav"></audio>
+    <audio id="sound_k" src="./shavian-info/k.wav"></audio>
+    <audio id="sound_f" src="./shavian-info/f.wav"></audio>
+    <audio id="sound_th" src="./shavian-info/th.wav"></audio>
+    <audio id="sound_s" src="./shavian-info/s.wav"></audio>
+    <audio id="sound_sh" src="./shavian-info/sh.wav"></audio>
+    <audio id="sound_ch" src="./shavian-info/ch.wav"></audio>
+    <audio id="sound_y" src="./shavian-info/y.wav"></audio>
+    <audio id="sound_ng" src="./shavian-info/ng.wav"></audio>
+
+    <audio id="sound_b" src="./shavian-info/b.wav"></audio>
+    <audio id="sound_d" src="./shavian-info/d.wav"></audio>
+    <audio id="sound_g" src="./shavian-info/g.wav"></audio>
+    <audio id="sound_v" src="./shavian-info/v.wav"></audio>
+    <audio id="sound_dh" src="./shavian-info/dh.wav"></audio>
+    <audio id="sound_z" src="./shavian-info/z.wav"></audio>
+    <audio id="sound_zh" src="./shavian-info/zh.wav"></audio>
+    <audio id="sound_jh" src="./shavian-info/jh.wav"></audio>
+    <audio id="sound_w" src="./shavian-info/w.wav"></audio>
+    <audio id="sound_h" src="./shavian-info/h.wav"></audio>
+
+    <audio id="sound_l" src="./shavian-info/l.wav"></audio>
+    <audio id="sound_m" src="./shavian-info/m.wav"></audio>
+    <audio id="sound_ih" src="./shavian-info/ih.wav"></audio>
+    <audio id="sound_eh" src="./shavian-info/eh.wav"></audio>
+    <audio id="sound_ae" src="./shavian-info/ae.wav"></audio>
+    <audio id="sound_ax" src="./shavian-info/ax.wav"></audio>
+    <audio id="sound_ao" src="./shavian-info/ao.wav"></audio>
+    <audio id="sound_uh" src="./shavian-info/uh.wav"></audio>
+    <audio id="sound_aw" src="./shavian-info/aw.wav"></audio>
+    <audio id="sound_aa" src="./shavian-info/aa.wav"></audio>
+    
+    <audio id="sound_r" src="./shavian-info/r.wav"></audio>
+    <audio id="sound_n" src="./shavian-info/n.wav"></audio>
+    <audio id="sound_iy" src="./shavian-info/iy.wav"></audio>
+    <audio id="sound_ey" src="./shavian-info/ey.wav"></audio>
+    <audio id="sound_ay" src="./shavian-info/ay.wav"></audio>
+    <audio id="sound_ah" src="./shavian-info/ah.wav"></audio>
+    <audio id="sound_ow" src="./shavian-info/ow.wav"></audio>
+    <audio id="sound_uw" src="./shavian-info/uw.wav"></audio>
+    <audio id="sound_oy" src="./shavian-info/oy.wav"></audio>
+    <audio id="sound_au" src="./shavian-info/au.wav"></audio>
+    
+    <audio id="sound_ar" src="./shavian-info/ar.wav"></audio>
+    <audio id="sound_or" src="./shavian-info/or.wav"></audio>
+    <audio id="sound_er" src="./shavian-info/er.wav"></audio>
+    <audio id="sound_yr" src="./shavian-info/yr.wav"></audio>
+    <audio id="sound_rr" src="./shavian-info/rr.wav"></audio>
+    <audio id="sound_ir" src="./shavian-info/ir.wav"></audio>
+    <audio id="sound_ia" src="./shavian-info/ia.wav"></audio>
+    <audio id="sound_yu" src="./shavian-info/yu.wav"></audio>
+    
+    <audio id="sound_click" src="./shingo_click.wav"></audio>
+    <audio id="sound_delete" src="./shingo_delete.wav"></audio>
+    <audio id="sound_hit" src="./shingo_hit.wav"></audio>
+    <audio id="sound_graze" src="./shingo_graze.wav"></audio>
+    <audio id="sound_miss" src="./shingo_miss.wav"></audio>
+    <audio id="sound_win" src="./shingo_win.wav"></audio>
+    <audio id="sound_lose" src="./shingo_lose.wav"></audio>
   </div>
 </body>
 
