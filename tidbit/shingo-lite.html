@@ -304,9 +304,12 @@
     function initDict() {
       let now = +(new Date()) / 1000;
       let dictAge = +localStorage.getItem("dictAge");
+      const newAskable = JSON.parse(localStorage.getItem("askable"));
+      const newGuessable = JSON.parse(localStorage.getItem("guessable"));
+      
       // TEST: force invalidate cache
       //dictAge = 0;
-      if (dictAge == null || dictAge + 2000000 < now) {
+      if (dictAge == null || dictAge + 2000000 < now || newAskable[4].length == 0) {
         setStatus("downloading dictionary");
         // set a timeout so I can actually show the status
         setTimeout(() => {
@@ -355,8 +358,6 @@
         }, 1);
       }
       else {
-        const newAskable = JSON.parse(localStorage.getItem("askable"));
-        const newGuessable = JSON.parse(localStorage.getItem("guessable"));
         for (const i of [4, 5, 6, 7]) {
           askable[i] = newAskable[i];
           guessable[i] = newGuessable[i];
