@@ -374,7 +374,7 @@
           dictAge + 2000000 < now ||
           newAskable[4].length == 0
         ) {
-          setStatus("downloading dictionary");
+          setStatus("Downloading dictionary...");
           // set a timeout so I can actually show the status
           setTimeout(() => {
             getDict((dict) => {
@@ -383,11 +383,11 @@
                 setStatus("Could not load dictionary.");
                 return;
               }
-              console.log("dictionary download callback");
               const shavianCache = {
                 askable: { 4: [], 5: [], 6: [], 7: [] },
                 guessable: { 4: [], 5: [], 6: [], 7: [] },
               };
+              setStatus("Building dictionary...");
               for (const line of dict.split("\n")) {
                 const words = line.split("\t");
                 //console.log(words);
