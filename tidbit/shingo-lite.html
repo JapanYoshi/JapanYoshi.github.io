@@ -388,61 +388,63 @@
                 guessable: { 4: [], 5: [], 6: [], 7: [] },
               };
               setStatus("Building dictionary...");
-              for (const line of dict.split("\n")) {
-                const words = line.split("\t");
-                //console.log(words);
-                // words[0]: Latin
-                // words[1]: Shavian
-                // words[2]: part of speech (NP0 is proper noun)
-                // words[3]: IPA (not used)
-                // words[4]: frequency data (askable threshold is 50)
-                if (words[2] == "NP0") continue; // skip proper nouns
-                if (
-                  words[1].includes(" ") ||
-                  words[1].includes("-") ||
-                  words[1].includes("'") ||
-                  words[1].includes("·") ||
-                  words[1].includes("⸰")
-                )
-                  continue;
-                const shavianChars = [...words[1]]; // split into letters properly
-                if (shavianChars.length < 4 || shavianChars.length > 7)
-                  continue;
-                if (shavianCache.askable[charCount].includes(words[1])) {
-                  continue; // already fully there, skip dupe
-                } else {
-                  if (!shavianCache.guessable[charCount].includes(words[1])) {
-                    guessable[shavianChars.length].push([words[0], words[1]]);
-                    shavianCache.guessable[charCount].push(words[1]);
-                    if (
-                      words[4] >= 50 &&
-                      !censored_words.includes(words[0]) &&
-                      !banned_words.includes(words[0])
-                    ) {
-                      askable[shavianChars.length].push([words[0], words[1]]);
-                      shavianCache.askable[charCount].push(words[1]);
+              setTimeout(() => {
+                for (const line of dict.split("\n")) {
+                  const words = line.split("\t");
+                  //console.log(words);
+                  // words[0]: Latin
+                  // words[1]: Shavian
+                  // words[2]: part of speech (NP0 is proper noun)
+                  // words[3]: IPA (not used)
+                  // words[4]: frequency data (askable threshold is 50)
+                  if (words[2] == "NP0") continue; // skip proper nouns
+                  if (
+                    words[1].includes(" ") ||
+                    words[1].includes("-") ||
+                    words[1].includes("'") ||
+                    words[1].includes("·") ||
+                    words[1].includes("⸰")
+                  )
+                    continue;
+                  const shavianChars = [...words[1]]; // split into letters properly
+                  if (shavianChars.length < 4 || shavianChars.length > 7)
+                    continue;
+                  if (shavianCache.askable[charCount].includes(words[1])) {
+                    continue; // already fully there, skip dupe
+                  } else {
+                    if (!shavianCache.guessable[charCount].includes(words[1])) {
+                      guessable[shavianChars.length].push([words[0], words[1]]);
+                      shavianCache.guessable[charCount].push(words[1]);
+                      if (
+                        words[4] >= 50 &&
+                        !censored_words.includes(words[0]) &&
+                        !banned_words.includes(words[0])
+                      ) {
+                        askable[shavianChars.length].push([words[0], words[1]]);
+                        shavianCache.askable[charCount].push(words[1]);
+                      }
                     }
                   }
                 }
-              }
-              localStorage.setItem("dictAge", "" + now);
-              localStorage.setItem("askable", JSON.stringify(askable));
-              localStorage.setItem("guessable", JSON.stringify(guessable));
-              console.log(askable, guessable);
-              setStatus(
-                `Loaded dictionary! Total words: ${
-                  askable[4].length +
-                  askable[5].length +
-                  askable[6].length +
-                  askable[7].length
-                } / ${
-                  (guessable[4].length,
-                  guessable[5].length,
-                  guessable[6].length,
-                  guessable[7].length)
-                }`
-              );
-              callback();
+                localStorage.setItem("dictAge", "" + now);
+                localStorage.setItem("askable", JSON.stringify(askable));
+                localStorage.setItem("guessable", JSON.stringify(guessable));
+                console.log(askable, guessable);
+                setStatus(
+                  `Loaded dictionary! Total words: ${
+                    askable[4].length +
+                    askable[5].length +
+                    askable[6].length +
+                    askable[7].length
+                  } / ${
+                    (guessable[4].length,
+                    guessable[5].length,
+                    guessable[6].length,
+                    guessable[7].length)
+                  }`
+                );
+                callback();
+              }, 1);
             });
           }, 1);
         } else {
