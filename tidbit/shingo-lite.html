@@ -645,6 +645,7 @@
               tiles[i].classList.add(guessText);
               playSound(guessText);
               const guessIndex = guessMap.indexOf(chars[i]);
+              guessStatus[guessIndex] = Math.max(guessStatus[guessIndex], result.clues[i]);
               styleKey(keyMap.indexOf(chars[i]));
             }
           }, 50 + 200 * i);
@@ -661,7 +662,6 @@
             bestGuess[i] = secretCopy[i];
             secretCopy[i] = "_";
             clues[i] = HIT;
-            guessStatus[guessMap.indexOf(chars[i])] = HIT;
           } else {
             clues[i] = MISS;
             correct = false;
@@ -676,10 +676,7 @@
               if (clues[i] == MISS && chars[i] == secretCopy[j]) {
                 clues[i] = GRAZE;
                 secretCopy[j] = "_";
-                guessStatus[guessMap.indexOf(chars[i])] = Math.max(
-                  guessStatus[guessMap.indexOf(chars[i])],
-                  GRAZE
-                );
+                
                 break;
               }
             }
