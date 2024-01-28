@@ -393,7 +393,8 @@
               let batches = Math.ceil(lines.length / BATCHSIZE);
               let completion = Array.from(Array(batches), () => false);
               for (let page = 0; page < batches; page++) {
-                setTimeout((batch) => {
+                setTimeout(() => {
+                  const batch = lines.slice(page * BATCHSIZE, (page + 1) * BATCHSIZE);
                   for (const line of batch) {
                     const words = line.split("\t");
                     //console.log(words);
