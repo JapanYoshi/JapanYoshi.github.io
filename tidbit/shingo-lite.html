@@ -722,6 +722,7 @@
               tile.innerText = ".";
             }
           }
+          guessStatus = Array.from(Array(48), () => NONE);
           for (let key of document.getElementById("keyboardGrid").children) {
             key.classList.remove("hit", "graze", "miss");
           }
