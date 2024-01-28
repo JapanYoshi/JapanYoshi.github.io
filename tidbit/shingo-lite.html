@@ -388,13 +388,24 @@
                 guessable: { 4: [], 5: [], 6: [], 7: [] },
               };
               const lines = dict.split("\n");
-              setStatus("Building dictionary...");
-              const BATCHSIZE = 1024
+              const BATCHSIZE = 1024;
               let batches = Math.ceil(lines.length / BATCHSIZE);
               let completion = Array.from(Array(batches), () => false);
+              setStatus(
+                "Building dictionary... (" +
+                  completion.reduce((lastVal, thisVal) =>
+                    thisVal === true ? lastVal + 1 : lastVal + 0
+                  ) +
+                  " of " +
+                  batches +
+                  " batches)"
+              );
               for (let page = 0; page < batches; page++) {
                 setTimeout(() => {
-                  const batch = lines.slice(page * BATCHSIZE, (page + 1) * BATCHSIZE);
+                  const batch = lines.slice(
+                    page * BATCHSIZE,
+                    (page + 1) * BATCHSIZE
+                  );
                   for (const line of batch) {
                     const words = line.split("\t");
                     //console.log(words);
@@ -418,25 +429,45 @@
                     if (shavianCache.askable[charCount].includes(words[1])) {
                       continue; // already fully there, skip dupe
                     } else {
-                      if (!shavianCache.guessable[charCount].includes(words[1])) {
-                        guessable[shavianChars.length].push([words[0], words[1]]);
+                      if (
+                        !shavianCache.guessable[charCount].includes(words[1])
+                      ) {
+                        guessable[shavianChars.length].push([
+                          words[0],
+                          words[1],
+                        ]);
                         shavianCache.guessable[charCount].push(words[1]);
                         if (
                           words[4] >= 50 &&
                           !censored_words.includes(words[0]) &&
                           !banned_words.includes(words[0])
                         ) {
-                          askable[shavianChars.length].push([words[0], words[1]]);
+                          askable[shavianChars.length].push([
+                            words[0],
+                            words[1],
+                          ]);
                           shavianCache.askable[charCount].push(words[1]);
                         }
                       }
                     }
                   }
                   completion[page] = true;
+                  setStatus(
+                    "Building dictionary... (" +
+                      completion.reduce((lastVal, thisVal) =>
+                        thisVal === true ? lastVal + 1 : lastVal + 0
+                      ) +
+                      " of " +
+                      batches +
+                      " batches)"
+                  );
                   if (completion.every((value) => value === true)) {
                     localStorage.setItem("dictAge", "" + now);
                     localStorage.setItem("askable", JSON.stringify(askable));
-                    localStorage.setItem("guessable", JSON.stringify(guessable));
+                    localStorage.setItem(
+                      "guessable",
+                      JSON.stringify(guessable)
+                    );
                     console.log(askable, guessable);
                     setStatus(
                       `Loaded dictionary! Total words: ${
@@ -453,7 +484,7 @@
                     );
                     callback();
                   }
-                }, 10 * page);
+                }, 100 * page);
               }
             });
           }, 1);
