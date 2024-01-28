@@ -1,794 +1,912 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @font-face {
+        font-family: "_allstars";
+        font-display: swap;
+        src: url("shavian-fonts/allstars-shavian.ttf");
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    @font-face {
-      font-family: "_allstars";
-      font-display: swap;
-      src: url("shavian-fonts/allstars-shavian.ttf");
-    }
+      @media screen {
+        :root {
+          background: black;
+          color: white;
+        }
+      }
 
-    @media screen {
       :root {
-        background: black;
-        color: white;
+        font-family: "_allstars";
+        --col-dim-bg: rgb(35, 35, 39);
+        --col-dim: rgb(72, 72, 80);
+        --col-accent: rgb(83, 250, 178);
+        --col-miss-dark: #363636;
+        --col-miss-light: #555555;
+        --col-graze-dark: #aa7200;
+        --col-graze-light: #ffed47;
+        --col-hit-dark: #14b832;
+        --col-hit-light: #a8ff88;
       }
-    }
 
-    :root {
-      font-family: "_allstars";
-      --col-dim-bg: rgb(35, 35, 39);
-      --col-dim: rgb(72, 72, 80);
-      --col-accent: rgb(83, 250, 178);
-      --col-miss-dark: #363636;
-      --col-miss-light: #555555;
-      --col-graze-dark: #aa7200;
-      --col-graze-light: #ffed47;
-      --col-hit-dark: #14b832;
-      --col-hit-light: #a8ff88;
-    }
+      input,
+      button {
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        background: inherit;
+        border: 2px solid var(--col-accent);
+      }
 
-    input,
-    button {
-      font-family: inherit;
-      font-size: inherit;
-      color: inherit;
-      background: inherit;
-      border: 2px solid var(--col-accent);
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100svh;
-      overflow: hidden;
-    }
-
-    @media screen and (min-width: 480px) {
       body {
-        display: grid;
-        grid-template-columns: 12rem 1fr;
-        grid-template-rows: 2rem 3fr 2fr;
-        grid-template-areas:
-          "status status"
-          "nav top"
-          "nav bottom";
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100svh;
+        overflow: hidden;
       }
 
-      .page-top {
-        grid-area: top;
-      }
+      @media screen and (min-width: 480px) {
+        body {
+          display: grid;
+          grid-template-columns: 12rem 1fr;
+          grid-template-rows: 2rem 3fr 2fr;
+          grid-template-areas:
+            "status status"
+            "nav top"
+            "nav bottom";
+        }
 
-      .page-bottom {
-        grid-area: bottom;
-      }
+        .page-top {
+          grid-area: top;
+        }
 
-      nav {
-        grid-area: nav;
+        .page-bottom {
+          grid-area: bottom;
+        }
+
+        nav {
+          grid-area: nav;
+        }
+
+        #status {
+          grid-area: status;
+        }
       }
 
       #status {
-        grid-area: status;
+        background: var(--col-dim-bg);
+        text-align: center;
       }
-    }
-    
-    #status {
-      background: var(--col-dim-bg);
-      text-align: center;
-    }
 
-    @media screen and (max-width: 479.999px) {
-      body {
+      @media screen and (max-width: 479.999px) {
+        body {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+      }
+
+      #title {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
+        text-align: center;
+      }
+
+      #grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .gridLine {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .gridTile {
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        box-shadow: 2px 2px 0px var(--col-dim);
+        background: black;
+        color: var(--col-dim);
+      }
+
+      .gridTile.filled {
+        color: white;
+      }
+
+      .gridLine.inactive .gridTile {
+        background: var(--col-dim-bg);
+      }
+
+      .gridLine .gridTile.miss {
+        background: var(--col-miss-dark);
+        border-color: var(--col-miss-light);
+      }
+
+      .gridLine .gridTile.graze {
+        background: var(--col-graze-dark);
+        border-color: var(--col-graze-light);
+      }
+
+      .gridLine .gridTile.hit {
+        background: var(--col-hit-dark);
+        border-color: var(--col-hit-light);
+      }
+
+      #keyboard {
+        display: flex;
+        flex-direction: column;
         align-items: center;
       }
-    }
 
-    #title {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-
-    #grid {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .gridLine {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .gridTile {
-      width: 2rem;
-      height: 2rem;
-      text-align: center;
-      line-height: 2rem;
-      box-shadow: 2px 2px 0px var(--col-dim);
-      background: black;
-      color: var(--col-dim);
-    }
-
-    .gridTile.filled {
-      color: white;
-    }
-
-    .gridLine.inactive .gridTile {
-      background: var(--col-dim-bg);
-    }
-    
-    .gridLine .gridTile.miss {
-      background: var(--col-miss-dark);
-      border-color: var(--col-miss-light);
-    }
-
-    .gridLine .gridTile.graze {
-      background: var(--col-graze-dark);
-      border-color: var(--col-graze-light);
-    }
-
-    .gridLine .gridTile.hit {
-      background: var(--col-hit-dark);
-      border-color: var(--col-hit-light);
-    }
-
-    #keyboard {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #keyboard input {
-      background: black;
-      color: white;
-      border: 1px solid var(--col-accent);
-      font-family: inherit;
-      font-size: 1.5rem;
-      width: 100%;
-      max-width: 20rem;
-      text-align: center;
-      margin: 0 auto;
-    }
-
-    #keyboardGrid {
-      max-width: 20rem;
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-    }
-
-    #keyboardGrid button {
-      height: 3rem;
-      font-family: inherit;
-      font-size: 1rem;
-      background: black;
-      color: white;
-      border: 1px solid var(--col-dim);
-    }
-
-    #keyboardGrid button.miss {
-      background: var(--col-miss-dark);
-      color: var(--col-miss-light);
-      border-color: var(--col-miss-light);
-    }
-
-    #keyboardGrid button.graze {
-      background: var(--col-graze-dark);
-      color: var(--col-graze-light);
-      border-color: var(--col-graze-light);
-    }
-
-    #keyboardGrid button.hit {
-      background: var(--col-hit-dark);
-      color: var(--col-hit-light);
-      border-color: var(--col-hit-light);
-    }
-  </style>
-  <script>
-    let soundOn = true;
-    function soundToggled(event) {
-      console.log(event);
-      soundOn = event.target.checked;
-    }
-
-    function playSound(id) {
-      if (!soundOn) return;
-      const player = document.getElementById("sound_" + id);
-      player.fastSeek(0);
-      player.play()
-    }
-
-    let blockingInput = false;
-
-    let input; // document.getElementById("textInput");
-
-    const NONE = 0;
-    const MISS = 1;
-    const GRAZE = 2;
-    const HIT = 3;
-    const INVALID_WORD = 4;
-    const NOT_CHECKED = 5;
-
-    const MAX_ROWS = 7;
-
-    let charCount = 0;
-    let secret = [];
-    let bestGuess = [];
-    let clues = [[], [], [], [], [], [], []];
-    let currentRow = 0;
-    let guessMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿"];
-    let guessStatus = [];
-    let soundMap = ["p", "t", "k", "f", "th", "s", "sh", "ch", "y", "ng", "b", "d", "g", "v", "dh", "z", "zh", "jh", "w", "h", "l", "m", "ih", "eh", "ae", "ax", "ao", "uh", "aw", "aa", "r", "n", "iy", "ey", "ay", "ah", "ow", "uw", "oy", "aw", "ar", "or", "er", "yr", "rr", "ir", "ia", "yu"];
-    let keyMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷_𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿_"];
-    keyMap[40] = "delete";
-    keyMap[49] = "submit";
-    // swear words should not be asked
-    const censored_words = [
-      "bitched",
-      "bitches",
-      "bitching",
-      "fifi",
-      "fucked",
-      "fucking",
-      "fucks",
-      "pissed",
-      "pissing",
-      "shits",
-      "shitting",
-    ];
-
-    // if I find unsuitable words, I add them here
-    const banned_words = [
-      "cm",
-      "colonnade",
-      "divan",
-      "overawed",
-    ]
-
-    const askable = {
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-    }
-    const guessable = {
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-    }
-    function setStatus(status) {
-      const el = document.getElementById("status");
-      if (el) { el.innerHTML = status; } else {
-        console.log("setStatus: " + status);
+      #keyboard input {
+        background: black;
+        color: white;
+        border: 1px solid var(--col-accent);
+        font-family: inherit;
+        font-size: 1.5rem;
+        width: 100%;
+        max-width: 20rem;
+        text-align: center;
+        margin: 0 auto;
       }
-    }
 
-    function styleKey(index) {
-      const key = document.getElementById("keyboardGrid").children[index >= 40 ? index + 1 : index];
-      key.classList.remove("hit", "graze", "miss");
-      switch (guessStatus[index]) {
-        case HIT:
-          key.classList.add("hit");
-          break;
-        case GRAZE:
-          key.classList.add("graze");
-          break;
-        case MISS:
-          key.classList.add("miss");
+      #keyboardGrid {
+        max-width: 20rem;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
       }
-    }
 
-    function getDict(handler) {
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv", true);
-      xmlHttp.send(null);
-      xmlHttp.onload = () => {
-        if (xmlHttp.readyState !== xmlHttp.DONE) return;
-        handler(xmlHttp.responseText);
+      #keyboardGrid button {
+        height: 3rem;
+        font-family: inherit;
+        font-size: 1rem;
+        background: black;
+        color: white;
+        border: 1px solid var(--col-dim);
+      }
+
+      #keyboardGrid button.miss {
+        background: var(--col-miss-dark);
+        color: var(--col-miss-light);
+        border-color: var(--col-miss-light);
+      }
+
+      #keyboardGrid button.graze {
+        background: var(--col-graze-dark);
+        color: var(--col-graze-light);
+        border-color: var(--col-graze-light);
+      }
+
+      #keyboardGrid button.hit {
+        background: var(--col-hit-dark);
+        color: var(--col-hit-light);
+        border-color: var(--col-hit-light);
+      }
+    </style>
+    <script>
+      let soundOn = true;
+      function soundToggled(event) {
+        console.log(event);
+        soundOn = event.target.checked;
+      }
+
+      function playSound(id) {
+        if (!soundOn) return;
+        const player = document.getElementById("sound_" + id);
+        player.fastSeek(0);
+        player.play();
+      }
+
+      let blockingInput = false;
+
+      let input; // document.getElementById("textInput");
+
+      const NONE = 0;
+      const MISS = 1;
+      const GRAZE = 2;
+      const HIT = 3;
+      const INVALID_WORD = 4;
+      const NOT_CHECKED = 5;
+
+      const MAX_ROWS = 7;
+
+      let charCount = 0;
+      let secret = [];
+      let bestGuess = [];
+      let clues = [[], [], [], [], [], [], []];
+      let currentRow = 0;
+      let guessMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿"];
+      let guessStatus = [];
+      let soundMap = [
+        "p",
+        "t",
+        "k",
+        "f",
+        "th",
+        "s",
+        "sh",
+        "ch",
+        "y",
+        "ng",
+        "b",
+        "d",
+        "g",
+        "v",
+        "dh",
+        "z",
+        "zh",
+        "jh",
+        "w",
+        "h",
+        "l",
+        "m",
+        "ih",
+        "eh",
+        "ae",
+        "ax",
+        "ao",
+        "uh",
+        "aw",
+        "aa",
+        "r",
+        "n",
+        "iy",
+        "ey",
+        "ay",
+        "ah",
+        "ow",
+        "uw",
+        "oy",
+        "aw",
+        "ar",
+        "or",
+        "er",
+        "yr",
+        "rr",
+        "ir",
+        "ia",
+        "yu",
+      ];
+      let keyMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷_𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿_"];
+      keyMap[40] = "delete";
+      keyMap[49] = "submit";
+      // swear words should not be asked
+      const censored_words = [
+        "bitched",
+        "bitches",
+        "bitching",
+        "fifi",
+        "fucked",
+        "fucking",
+        "fucks",
+        "pissed",
+        "pissing",
+        "shits",
+        "shitting",
+      ];
+
+      // if I find unsuitable words, I add them here
+      const banned_words = ["cm", "colonnade", "divan", "overawed"];
+
+      const askable = {
+        4: [],
+        5: [],
+        6: [],
+        7: [],
       };
-    }
+      const guessable = {
+        4: [],
+        5: [],
+        6: [],
+        7: [],
+      };
+      function setStatus(status) {
+        const el = document.getElementById("status");
+        if (el) {
+          el.innerHTML = status;
+        } else {
+          console.log("setStatus: " + status);
+        }
+      }
 
-    function initDict(callback) {
-      let now = +(new Date()) / 1000;
-      let dictAge = +localStorage.getItem("dictAge");
-      const newAskable = JSON.parse(localStorage.getItem("askable"));
-      const newGuessable = JSON.parse(localStorage.getItem("guessable"));
-      console.log("dict test:", now, dictAge, newAskable ? newAskable[4].length : -1);
-      // TEST: force invalidate cache
-      //dictAge = 0;
-      if (dictAge == null || dictAge + 2000000 < now || newAskable[4].length == 0) {
-        setStatus("downloading dictionary");
-        // set a timeout so I can actually show the status
-        setTimeout(() => {
-          getDict((dict) => {
-            if (dict.startsWith("<!DOCTYPE html>")) {
-              // failed with 404
-              setStatus("Could not load dictionary.");
-              return;
-            }
-            const shavianCache = {askable: {4:[], 5:[], 6:[], 7:[]}, guessable: {4:[], 5:[], 6:[], 7:[]}};
-            for (const line of dict.trim().split("\n")) {
-              const words = line.split("\t");
-              //console.log(words);
-              // words[0]: Latin
-              // words[1]: Shavian
-              // words[2]: part of speech (NP0 is proper noun)
-              // words[3]: IPA (not used)
-              // words[4]: frequency data (askable threshold is 50)
-              if (words[2] == "NP0") continue; // skip proper nouns
-              if (
-                words[1].includes(" ") ||
-                words[1].includes("-") ||
-                words[1].includes("'") ||
-                words[1].includes("·") ||
-                words[1].includes("⸰")
-              ) continue;
-              const shavianChars = [...words[1]]; // split into letters properly
-              if (shavianChars.length < 4 || shavianChars.length > 7) continue;
-              if (shavianCache.askable[charCount].includes(words[1])) {
-                continue; // already fully there, skip dupe
-              } else {
-                if (!shavianCache.guessable[charCount].includes(words[1])) {
-                  guessable[shavianChars.length].push([words[0], words[1]]);
-                  shavianCache.guessable[charCount].push(words[1]);
-                  if (words[4] >= 50 && !censored_words.includes(words[0]) && !banned_words.includes(words[0])) {
-                    askable[shavianChars.length].push([words[0], words[1]]);
-                    shavianCache.askable[charCount].push(words[1]);
+      function styleKey(index) {
+        const key =
+          document.getElementById("keyboardGrid").children[
+            index >= 40 ? index + 1 : index
+          ];
+        key.classList.remove("hit", "graze", "miss");
+        switch (guessStatus[index]) {
+          case HIT:
+            key.classList.add("hit");
+            break;
+          case GRAZE:
+            key.classList.add("graze");
+            break;
+          case MISS:
+            key.classList.add("miss");
+        }
+      }
+
+      function getDict(handler) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open(
+          "GET",
+          "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv",
+          true
+        );
+        xmlHttp.send(null);
+        xmlHttp.onload = () => {
+          if (xmlHttp.readyState !== xmlHttp.DONE) return;
+          console.log("xmlHttp loaded");
+          handler(xmlHttp.responseText);
+        };
+      }
+
+      function initDict(callback) {
+        let now = +new Date() / 1000;
+        let dictAge = +localStorage.getItem("dictAge");
+        const newAskable = JSON.parse(localStorage.getItem("askable"));
+        const newGuessable = JSON.parse(localStorage.getItem("guessable"));
+        console.log(
+          "dict test:",
+          now,
+          dictAge,
+          newAskable ? newAskable[4].length : -1
+        );
+        // TEST: force invalidate cache
+        //dictAge = 0;
+        if (
+          dictAge == null ||
+          dictAge + 2000000 < now ||
+          newAskable[4].length == 0
+        ) {
+          setStatus("downloading dictionary");
+          // set a timeout so I can actually show the status
+          setTimeout(() => {
+            getDict((dict) => {
+              if (dict.startsWith("<!DOCTYPE html>")) {
+                // failed with 404
+                setStatus("Could not load dictionary.");
+                return;
+              }
+              const shavianCache = {
+                askable: { 4: [], 5: [], 6: [], 7: [] },
+                guessable: { 4: [], 5: [], 6: [], 7: [] },
+              };
+              for (const line of dict.trim().split("\n")) {
+                const words = line.split("\t");
+                //console.log(words);
+                // words[0]: Latin
+                // words[1]: Shavian
+                // words[2]: part of speech (NP0 is proper noun)
+                // words[3]: IPA (not used)
+                // words[4]: frequency data (askable threshold is 50)
+                if (words[2] == "NP0") continue; // skip proper nouns
+                if (
+                  words[1].includes(" ") ||
+                  words[1].includes("-") ||
+                  words[1].includes("'") ||
+                  words[1].includes("·") ||
+                  words[1].includes("⸰")
+                )
+                  continue;
+                const shavianChars = [...words[1]]; // split into letters properly
+                if (shavianChars.length < 4 || shavianChars.length > 7)
+                  continue;
+                if (shavianCache.askable[charCount].includes(words[1])) {
+                  continue; // already fully there, skip dupe
+                } else {
+                  if (!shavianCache.guessable[charCount].includes(words[1])) {
+                    guessable[shavianChars.length].push([words[0], words[1]]);
+                    shavianCache.guessable[charCount].push(words[1]);
+                    if (
+                      words[4] >= 50 &&
+                      !censored_words.includes(words[0]) &&
+                      !banned_words.includes(words[0])
+                    ) {
+                      askable[shavianChars.length].push([words[0], words[1]]);
+                      shavianCache.askable[charCount].push(words[1]);
+                    }
                   }
                 }
               }
-            }
-            localStorage.setItem("dictAge", "" + now);
-            localStorage.setItem("askable", JSON.stringify(askable));
-            localStorage.setItem("guessable", JSON.stringify(guessable));
-            console.log(askable, guessable);
-            setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
-            callback();
-          });
-        }, 1);
-      }
-      else {
-        for (const i of [4, 5, 6, 7]) {
-          askable[i] = newAskable[i];
-          guessable[i] = newGuessable[i];
-        }
-        console.log(askable, guessable);
-        setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
-        callback();
-      }
-    }
-
-    function updateGrid(newValue) {
-      if (blockingInput) return;
-      let val = [...newValue];
-      let els = document.querySelectorAll(`.gridLine:nth-child(${currentRow + 1}) .gridTile`);
-      for (let i = 0; i < charCount; i++) {
-        els[i].innerHTML = val[i] || bestGuess[i];
-        if (val.length > i) {
-          els[i].classList.add("filled");
+              localStorage.setItem("dictAge", "" + now);
+              localStorage.setItem("askable", JSON.stringify(askable));
+              localStorage.setItem("guessable", JSON.stringify(guessable));
+              console.log(askable, guessable);
+              setStatus(
+                `Loaded dictionary! Total words: ${
+                  askable[4].length +
+                  askable[5].length +
+                  askable[6].length +
+                  askable[7].length
+                } / ${
+                  (guessable[4].length,
+                  guessable[5].length,
+                  guessable[6].length,
+                  guessable[7].length)
+                }`
+              );
+              callback();
+            });
+          }, 1);
         } else {
-          els[i].classList.remove("filled");
+          for (const i of [4, 5, 6, 7]) {
+            askable[i] = newAskable[i];
+            guessable[i] = newGuessable[i];
+          }
+          console.log(askable, guessable);
+          setStatus(
+            `Loaded dictionary! Total words: ${
+              askable[4].length +
+              askable[5].length +
+              askable[6].length +
+              askable[7].length
+            } / ${
+              (guessable[4].length,
+              guessable[5].length,
+              guessable[6].length,
+              guessable[7].length)
+            }`
+          );
+          callback();
         }
       }
-    }
 
-    function onVirtualButtonClick(event) {
-      if (blockingInput) return;
-      console.log("clicked button", event.target.dataset.button);
-      let val = [...input.value];
-      let cursorStart = [...input.value.substring(0, input.selectionStart)].length;
-      let cursorEnd = [...input.value.substring(0, input.selectionEnd)].length;
-      console.log(cursorStart, cursorEnd);
-      if (event.target.dataset.button == "delete") {
-        if (cursorStart == cursorEnd) {
-          val.splice(cursorStart - 1, 1);
+      function updateGrid(newValue) {
+        if (blockingInput) return;
+        let val = [...newValue];
+        let els = document.querySelectorAll(
+          `.gridLine:nth-child(${currentRow + 1}) .gridTile`
+        );
+        for (let i = 0; i < charCount; i++) {
+          els[i].innerHTML = val[i] || bestGuess[i];
+          if (val.length > i) {
+            els[i].classList.add("filled");
+          } else {
+            els[i].classList.remove("filled");
+          }
         }
-        else {
-          val.splice(cursorStart, cursorEnd - cursorStart);
-        }
-        input.value = val.join("");
-        input.selectionStart = val.slice(0, cursorStart - 1).join().length;
-        updateGrid(input.value);
-        playSound("delete");
       }
-      else if (event.target.dataset.button == "submit") {
-        playSound("click");
-        submitWord(val)
-      }
-      else {
-        if (val.length < charCount) {
-          val.splice(cursorStart, cursorEnd - cursorStart, event.target.dataset.button);
+
+      function onVirtualButtonClick(event) {
+        if (blockingInput) return;
+        console.log("clicked button", event.target.dataset.button);
+        let val = [...input.value];
+        let cursorStart = [...input.value.substring(0, input.selectionStart)]
+          .length;
+        let cursorEnd = [...input.value.substring(0, input.selectionEnd)]
+          .length;
+        console.log(cursorStart, cursorEnd);
+        if (event.target.dataset.button == "delete") {
+          if (cursorStart == cursorEnd) {
+            val.splice(cursorStart - 1, 1);
+          } else {
+            val.splice(cursorStart, cursorEnd - cursorStart);
+          }
           input.value = val.join("");
-          input.selectionStart = val.slice(0, cursorStart + 1).join().length
-          playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
+          input.selectionStart = val.slice(0, cursorStart - 1).join().length;
           updateGrid(input.value);
+          playSound("delete");
+        } else if (event.target.dataset.button == "submit") {
+          playSound("click");
+          submitWord(val);
+        } else {
+          if (val.length < charCount) {
+            val.splice(
+              cursorStart,
+              cursorEnd - cursorStart,
+              event.target.dataset.button
+            );
+            input.value = val.join("");
+            input.selectionStart = val.slice(0, cursorStart + 1).join().length;
+            playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
+            updateGrid(input.value);
+          }
         }
       }
-    }
 
-    function submitWord(chars) {
-      if (blockingInput) return;
-      if (chars.length < charCount) {
-        setStatus("Please enter more characters.");
-        return;
-      }
-      const guess = chars.join("");
-      // search for word
-      for (let i = 0; i < guessable[charCount].length; i++) {
-        if (guessable[charCount][i][1] == guess) {
-          setStatus(`Guessing «${guessable[charCount][i][1]}» (${guessable[charCount][i][0]})...`);
-          guessWord(chars);
+      function submitWord(chars) {
+        if (blockingInput) return;
+        if (chars.length < charCount) {
+          setStatus("Please enter more characters.");
           return;
         }
-      }
-      setStatus(`Could not find «${guess}» in the dictionary.`);
-    }
-
-    function guessWord(chars) {
-      blockingInput = true;
-      input.value = "";
-      let result = calculateClues(chars);
-      console.log(result.clues, result.correct);
-      // animate result
-      const tiles = document.querySelectorAll(`.gridLine:nth-child(${currentRow + 1}) .gridTile`)
-      for (let i = 0; i < charCount + 1; i++) {
-        setTimeout(() => {
-          if (i == charCount) {
-            const lines = document.querySelectorAll('.gridLine');
-            lines[currentRow].classList.add("inactive");
-            if (result.correct) {
-              setStatus("You win!");
-              document.getElementById("keyboard").style.display = "none";
-              document.getElementById("startGame").style.display = "";
-              blockingInput = false;
-              playSound("win");
-              return
-            }
-            currentRow++;
-            if (currentRow == MAX_ROWS) {
-              setStatus(`You lose! The word was «${secret[1]}» (${secret[0]}).`);
-              document.getElementById("keyboard").style.display = "none";
-              document.getElementById("startGame").style.display = "";
-              blockingInput = false;
-              playSound("lose");
-              return
-            }
-            lines[currentRow].classList.remove("inactive");
-            for (let j = 0; j < charCount; j++) {
-              lines[currentRow].children[j].innerText = bestGuess[j];
-            }
-            blockingInput = false;
-          } else {
-            const guessText = 
-              result.clues[i] == MISS ? "miss"
-              : result.clues[i] == GRAZE ? "graze"
-              : result.clues[i] == HIT ? "hit" : "error";
-            tiles[i].classList.add(guessText);
-            playSound(guessText);
-            const guessIndex = guessMap.indexOf(chars[i])
-            if (guessMap[guessIndex] >= clues[i]) {
-              const keyEl = document.getElementById("keyboardGrid").children[
-                keyMap.indexOf(chars[i])
-              ];
-              keyEl.classList.remove("hit", "graze", "miss");
-              keyEl.classList.add(guessText);
-            }
+        const guess = chars.join("");
+        // search for word
+        for (let i = 0; i < guessable[charCount].length; i++) {
+          if (guessable[charCount][i][1] == guess) {
+            setStatus(
+              `Guessing «${guessable[charCount][i][1]}» (${guessable[charCount][i][0]})...`
+            );
+            guessWord(chars);
+            return;
           }
-        }, 50 + 200 * i);
+        }
+        setStatus(`Could not find «${guess}» in the dictionary.`);
       }
-    }
 
-    function calculateClues(chars) {
-      let secretCopy = Array.from(secret[2]);
-      let clues = Array.from(Array(charCount), _ => NONE);
-      let correct = true;
-      // find green tiles
-      for (let i = 0; i < charCount; i++) {
-        if (secretCopy[i] == chars[i]) {
-          bestGuess[i] = secretCopy[i];
-          secretCopy[i] = "_";
-          clues[i] = HIT;
-          guessStatus[guessMap.indexOf(chars[i])] = HIT;
-        } else {
-          clues[i] = MISS;
-          correct = false
+      function guessWord(chars) {
+        blockingInput = true;
+        input.value = "";
+        let result = calculateClues(chars);
+        console.log(result.clues, result.correct);
+        // animate result
+        const tiles = document.querySelectorAll(
+          `.gridLine:nth-child(${currentRow + 1}) .gridTile`
+        );
+        for (let i = 0; i < charCount + 1; i++) {
+          setTimeout(() => {
+            if (i == charCount) {
+              const lines = document.querySelectorAll(".gridLine");
+              lines[currentRow].classList.add("inactive");
+              if (result.correct) {
+                setStatus("You win!");
+                document.getElementById("keyboard").style.display = "none";
+                document.getElementById("startGame").style.display = "";
+                blockingInput = false;
+                playSound("win");
+                return;
+              }
+              currentRow++;
+              if (currentRow == MAX_ROWS) {
+                setStatus(
+                  `You lose! The word was «${secret[1]}» (${secret[0]}).`
+                );
+                document.getElementById("keyboard").style.display = "none";
+                document.getElementById("startGame").style.display = "";
+                blockingInput = false;
+                playSound("lose");
+                return;
+              }
+              lines[currentRow].classList.remove("inactive");
+              for (let j = 0; j < charCount; j++) {
+                lines[currentRow].children[j].innerText = bestGuess[j];
+              }
+              blockingInput = false;
+            } else {
+              const guessText =
+                result.clues[i] == MISS
+                  ? "miss"
+                  : result.clues[i] == GRAZE
+                  ? "graze"
+                  : result.clues[i] == HIT
+                  ? "hit"
+                  : "error";
+              tiles[i].classList.add(guessText);
+              playSound(guessText);
+              const guessIndex = guessMap.indexOf(chars[i]);
+              if (guessMap[guessIndex] >= clues[i]) {
+                const keyEl =
+                  document.getElementById("keyboardGrid").children[
+                    keyMap.indexOf(chars[i])
+                  ];
+                keyEl.classList.remove("hit", "graze", "miss");
+                keyEl.classList.add(guessText);
+              }
+            }
+          }, 50 + 200 * i);
         }
       }
-      // find yellow tiles
-      // (O(n^2) but since n is fixed and below 7 it's fine)
-      if (!correct) {
+
+      function calculateClues(chars) {
+        let secretCopy = Array.from(secret[2]);
+        let clues = Array.from(Array(charCount), (_) => NONE);
+        let correct = true;
+        // find green tiles
         for (let i = 0; i < charCount; i++) {
-          for (let j = 0; j < charCount; j++) {
-            if (i == j) continue;
-            if (clues[i] == MISS && chars[i] == secretCopy[j]) {
-              clues[i] = GRAZE;
-              secretCopy[j] = "_";
-              guessStatus[guessMap.indexOf(chars[i])] = Math.max(
-                guessStatus[guessMap.indexOf(chars[i])], GRAZE
-              );
-              break;
+          if (secretCopy[i] == chars[i]) {
+            bestGuess[i] = secretCopy[i];
+            secretCopy[i] = "_";
+            clues[i] = HIT;
+            guessStatus[guessMap.indexOf(chars[i])] = HIT;
+          } else {
+            clues[i] = MISS;
+            correct = false;
+          }
+        }
+        // find yellow tiles
+        // (O(n^2) but since n is fixed and below 7 it's fine)
+        if (!correct) {
+          for (let i = 0; i < charCount; i++) {
+            for (let j = 0; j < charCount; j++) {
+              if (i == j) continue;
+              if (clues[i] == MISS && chars[i] == secretCopy[j]) {
+                clues[i] = GRAZE;
+                secretCopy[j] = "_";
+                guessStatus[guessMap.indexOf(chars[i])] = Math.max(
+                  guessStatus[guessMap.indexOf(chars[i])],
+                  GRAZE
+                );
+                break;
+              }
             }
           }
         }
+        return { correct, clues };
       }
-      return {correct, clues};
-    }
 
-    function onGameStartButtonClick(event) {
-      if (blockingInput) return;
-      blockingInput = true;
-      playSound("click");
-      charCount = +(event.target.dataset.chars);
-      document.querySelector("#title").style.display = "none";
-      document.querySelector("#startGame").style.display = "none";
-      setStatus("Loading...");
+      function onGameStartButtonClick(event) {
+        if (blockingInput) return;
+        blockingInput = true;
+        playSound("click");
+        charCount = +event.target.dataset.chars;
+        document.querySelector("#title").style.display = "none";
+        document.querySelector("#startGame").style.display = "none";
+        setStatus("Loading...");
 
-      initDict(() => {
-              currentRow = 0;
-              secret = askable[charCount][Math.floor(Math.random() * askable[charCount].length)];
-              secret = [secret[0], secret[1], [...secret[1]]];
-              console.log("secret", secret);
-              bestGuess = Array.from(Array(charCount), _ => ".");
-              bestGuess[0] = secret[2][0];
-        
-              for (let col of clues) {
-                col = Array.from(Array(charCount), _ => NONE);
-              }
-              keyboard = Array.from(Array(50), _ => NONE);
-        
-              for (let col of document.querySelectorAll("#grid > .gridLine")) {
-                col.replaceChildren();
-                for (let i = 0; i < charCount; i++) {
-                  const el = document.createElement("div");
-                  el.classList.add("gridTile");
-                  col.appendChild(el);
-                }
-              }
-              for (let tile of document.querySelectorAll("#grid .gridLine:first-child .gridTile")) {
-                console.log("tile", tile);
-                if (tile.parentNode.firstChild == tile) {
-                  tile.innerText = secret[2][0];
-                } else {
-                  tile.innerText = ".";
-                }
-              }
-              for (let key of document.getElementById("keyboardGrid").children) {
-                key.classList.remove("hit", "graze", "miss");
-              }
-        
-        
-              document.querySelector("#textInput").value = "";
-        
-              document.querySelector("#grid").style.display = "";
-              document.querySelector("#keyboard").style.display = "";
-              blockingInput = false;
-      });
-    }
+        initDict(() => {
+          currentRow = 0;
+          secret =
+            askable[charCount][
+              Math.floor(Math.random() * askable[charCount].length)
+            ];
+          secret = [secret[0], secret[1], [...secret[1]]];
+          console.log("secret", secret);
+          bestGuess = Array.from(Array(charCount), (_) => ".");
+          bestGuess[0] = secret[2][0];
 
-    document.addEventListener("DOMContentLoaded", () => {
-      input = document.getElementById("textInput");
-      for (const el of document.querySelectorAll("#keyboardGrid button")) {
-        el.addEventListener("click", onVirtualButtonClick);
+          for (let col of clues) {
+            col = Array.from(Array(charCount), (_) => NONE);
+          }
+          keyboard = Array.from(Array(50), (_) => NONE);
+
+          for (let col of document.querySelectorAll("#grid > .gridLine")) {
+            col.replaceChildren();
+            for (let i = 0; i < charCount; i++) {
+              const el = document.createElement("div");
+              el.classList.add("gridTile");
+              col.appendChild(el);
+            }
+          }
+          for (let tile of document.querySelectorAll(
+            "#grid .gridLine:first-child .gridTile"
+          )) {
+            console.log("tile", tile);
+            if (tile.parentNode.firstChild == tile) {
+              tile.innerText = secret[2][0];
+            } else {
+              tile.innerText = ".";
+            }
+          }
+          for (let key of document.getElementById("keyboardGrid").children) {
+            key.classList.remove("hit", "graze", "miss");
+          }
+
+          document.querySelector("#textInput").value = "";
+
+          document.querySelector("#grid").style.display = "";
+          document.querySelector("#keyboard").style.display = "";
+          blockingInput = false;
+        });
       }
-      input.addEventListener("keyup", (event) => {
-        if (event.key == "Enter") {
-          console.log("Enter is pressed");
-          submitWord([...input.value]);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        input = document.getElementById("textInput");
+        for (const el of document.querySelectorAll("#keyboardGrid button")) {
+          el.addEventListener("click", onVirtualButtonClick);
         }
+        input.addEventListener("keyup", (event) => {
+          if (event.key == "Enter") {
+            console.log("Enter is pressed");
+            submitWord([...input.value]);
+          }
+        });
+        input.addEventListener("input", (event) => {
+          updateGrid(input.value);
+        });
+        for (const el of document.querySelectorAll("#startGame button")) {
+          el.addEventListener("click", onGameStartButtonClick);
+        }
+        document
+          .getElementById("toggleSound")
+          .addEventListener("change", soundToggled);
+        setStatus("Welcome to Shingo Lite!");
       });
-      input.addEventListener("input", (event) => {
-        updateGrid(input.value);
-      })
-      for (const el of document.querySelectorAll("#startGame button")) {
-        el.addEventListener("click", onGameStartButtonClick);
-      }
-      document.getElementById("toggleSound").addEventListener("change", soundToggled);
-      setStatus("Welcome to Shingo Lite!");
-    })
-  </script>
-</head>
+    </script>
+  </head>
 
-<body style="background:black;color:white;">
-  <nav>
-    <ul>
-      <li>
-        <input type="checkbox" id="toggleSound" /><label for="toggleSound">Sound</label>
-      </li>
-    </ul>
-  </nav>
-  <div id="status"></div>
-  <div id="title" class="page-top">
-    <h1>𐑖𐑦𐑙𐑜𐑴! 𐑤𐑲𐑑</h1>
-  </div>
-  <div id="grid" class="page-top" style="display: none;">
-    <div class="gridLine">
-      <div class="gridTile">𐑟</div>
-      <div class="gridTile">.</div>
-      <div class="gridTile">.</div>
-      <div class="gridTile">.</div>
-      <div class="gridTile">.</div>
+  <body style="background: black; color: white">
+    <nav>
+      <ul>
+        <li>
+          <input type="checkbox" id="toggleSound" /><label for="toggleSound"
+            >Sound</label
+          >
+        </li>
+      </ul>
+    </nav>
+    <div id="status"></div>
+    <div id="title" class="page-top">
+      <h1>𐑖𐑦𐑙𐑜𐑴! 𐑤𐑲𐑑</h1>
     </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
+    <div id="grid" class="page-top" style="display: none">
+      <div class="gridLine">
+        <div class="gridTile">𐑟</div>
+        <div class="gridTile">.</div>
+        <div class="gridTile">.</div>
+        <div class="gridTile">.</div>
+        <div class="gridTile">.</div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+        <div class="gridTile"></div>
+      </div>
     </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
+    <div id="startGame" class="page-bottom">
+      <p>Choose a character count:</p>
+      <button type="button" data-chars="4">4</button>
+      <button type="button" data-chars="5">5</button>
+      <button type="button" data-chars="6">6</button>
+      <button type="button" data-chars="7">7</button>
     </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
+    <div id="keyboard" class="page-bottom" style="display: none">
+      <input id="textInput" />
+      <div id="keyboardGrid">
+        <button type="button" data-button="𐑐">𐑐</button>
+        <button type="button" data-button="𐑑">𐑑</button>
+        <button type="button" data-button="𐑒">𐑒</button>
+        <button type="button" data-button="𐑓">𐑓</button>
+        <button type="button" data-button="𐑔">𐑔</button>
+        <button type="button" data-button="𐑕">𐑕</button>
+        <button type="button" data-button="𐑖">𐑖</button>
+        <button type="button" data-button="𐑗">𐑗</button>
+        <button type="button" data-button="𐑘">𐑘</button>
+        <button type="button" data-button="𐑙">𐑙</button>
+        <button type="button" data-button="𐑚">𐑚</button>
+        <button type="button" data-button="𐑛">𐑛</button>
+        <button type="button" data-button="𐑜">𐑜</button>
+        <button type="button" data-button="𐑝">𐑝</button>
+        <button type="button" data-button="𐑞">𐑞</button>
+        <button type="button" data-button="𐑟">𐑟</button>
+        <button type="button" data-button="𐑠">𐑠</button>
+        <button type="button" data-button="𐑡">𐑡</button>
+        <button type="button" data-button="𐑢">𐑢</button>
+        <button type="button" data-button="𐑣">𐑣</button>
+        <button type="button" data-button="𐑤">𐑤</button>
+        <button type="button" data-button="𐑥">𐑥</button>
+        <button type="button" data-button="𐑦">𐑦</button>
+        <button type="button" data-button="𐑧">𐑧</button>
+        <button type="button" data-button="𐑨">𐑨</button>
+        <button type="button" data-button="𐑩">𐑩</button>
+        <button type="button" data-button="𐑪">𐑪</button>
+        <button type="button" data-button="𐑫">𐑫</button>
+        <button type="button" data-button="𐑬">𐑬</button>
+        <button type="button" data-button="𐑭">𐑭</button>
+        <button type="button" data-button="𐑮">𐑮</button>
+        <button type="button" data-button="𐑯">𐑯</button>
+        <button type="button" data-button="𐑰">𐑰</button>
+        <button type="button" data-button="𐑱">𐑱</button>
+        <button type="button" data-button="𐑲">𐑲</button>
+        <button type="button" data-button="𐑳">𐑳</button>
+        <button type="button" data-button="𐑴">𐑴</button>
+        <button type="button" data-button="𐑵">𐑵</button>
+        <button type="button" data-button="𐑶">𐑶</button>
+        <button type="button" data-button="𐑷">𐑷</button>
+        <button type="button" data-button="delete">⌫</button>
+        <button type="button" data-button="𐑸">𐑸</button>
+        <button type="button" data-button="𐑹">𐑹</button>
+        <button type="button" data-button="𐑺">𐑺</button>
+        <button type="button" data-button="𐑻">𐑻</button>
+        <button type="button" data-button="𐑼">𐑼</button>
+        <button type="button" data-button="𐑽">𐑽</button>
+        <button type="button" data-button="𐑾">𐑾</button>
+        <button type="button" data-button="𐑿">𐑿</button>
+        <button type="button" data-button="submit">✔</button>
+      </div>
     </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-    </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-    </div>
-    <div class="gridLine inactive">
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-      <div class="gridTile"></div>
-    </div>
-  </div>
-  <div id="startGame" class="page-bottom">
-    <p>Choose a character count:</p>
-    <button type="button" data-chars="4">4</button>
-    <button type="button" data-chars="5">5</button>
-    <button type="button" data-chars="6">6</button>
-    <button type="button" data-chars="7">7</button>
-  </div>
-  <div id="keyboard" class="page-bottom" style="display:none;">
-    <input id="textInput" />
-    <div id="keyboardGrid">
-      <button type="button" data-button="𐑐">𐑐</button>
-      <button type="button" data-button="𐑑">𐑑</button>
-      <button type="button" data-button="𐑒">𐑒</button>
-      <button type="button" data-button="𐑓">𐑓</button>
-      <button type="button" data-button="𐑔">𐑔</button>
-      <button type="button" data-button="𐑕">𐑕</button>
-      <button type="button" data-button="𐑖">𐑖</button>
-      <button type="button" data-button="𐑗">𐑗</button>
-      <button type="button" data-button="𐑘">𐑘</button>
-      <button type="button" data-button="𐑙">𐑙</button>
-      <button type="button" data-button="𐑚">𐑚</button>
-      <button type="button" data-button="𐑛">𐑛</button>
-      <button type="button" data-button="𐑜">𐑜</button>
-      <button type="button" data-button="𐑝">𐑝</button>
-      <button type="button" data-button="𐑞">𐑞</button>
-      <button type="button" data-button="𐑟">𐑟</button>
-      <button type="button" data-button="𐑠">𐑠</button>
-      <button type="button" data-button="𐑡">𐑡</button>
-      <button type="button" data-button="𐑢">𐑢</button>
-      <button type="button" data-button="𐑣">𐑣</button>
-      <button type="button" data-button="𐑤">𐑤</button>
-      <button type="button" data-button="𐑥">𐑥</button>
-      <button type="button" data-button="𐑦">𐑦</button>
-      <button type="button" data-button="𐑧">𐑧</button>
-      <button type="button" data-button="𐑨">𐑨</button>
-      <button type="button" data-button="𐑩">𐑩</button>
-      <button type="button" data-button="𐑪">𐑪</button>
-      <button type="button" data-button="𐑫">𐑫</button>
-      <button type="button" data-button="𐑬">𐑬</button>
-      <button type="button" data-button="𐑭">𐑭</button>
-      <button type="button" data-button="𐑮">𐑮</button>
-      <button type="button" data-button="𐑯">𐑯</button>
-      <button type="button" data-button="𐑰">𐑰</button>
-      <button type="button" data-button="𐑱">𐑱</button>
-      <button type="button" data-button="𐑲">𐑲</button>
-      <button type="button" data-button="𐑳">𐑳</button>
-      <button type="button" data-button="𐑴">𐑴</button>
-      <button type="button" data-button="𐑵">𐑵</button>
-      <button type="button" data-button="𐑶">𐑶</button>
-      <button type="button" data-button="𐑷">𐑷</button>
-      <button type="button" data-button="delete">⌫</button>
-      <button type="button" data-button="𐑸">𐑸</button>
-      <button type="button" data-button="𐑹">𐑹</button>
-      <button type="button" data-button="𐑺">𐑺</button>
-      <button type="button" data-button="𐑻">𐑻</button>
-      <button type="button" data-button="𐑼">𐑼</button>
-      <button type="button" data-button="𐑽">𐑽</button>
-      <button type="button" data-button="𐑾">𐑾</button>
-      <button type="button" data-button="𐑿">𐑿</button>
-      <button type="button" data-button="submit">✔</button>
-    </div>
-  </div>
-  <div id="sound">
-    <audio id="sound_p" src="./shavian-info/p.wav"></audio>
-    <audio id="sound_t" src="./shavian-info/t.wav"></audio>
-    <audio id="sound_k" src="./shavian-info/k.wav"></audio>
-    <audio id="sound_f" src="./shavian-info/f.wav"></audio>
-    <audio id="sound_th" src="./shavian-info/th.wav"></audio>
-    <audio id="sound_s" src="./shavian-info/s.wav"></audio>
-    <audio id="sound_sh" src="./shavian-info/sh.wav"></audio>
-    <audio id="sound_ch" src="./shavian-info/ch.wav"></audio>
-    <audio id="sound_y" src="./shavian-info/y.wav"></audio>
-    <audio id="sound_ng" src="./shavian-info/ng.wav"></audio>
+    <div id="sound">
+      <audio id="sound_p" src="./shavian-info/p.wav"></audio>
+      <audio id="sound_t" src="./shavian-info/t.wav"></audio>
+      <audio id="sound_k" src="./shavian-info/k.wav"></audio>
+      <audio id="sound_f" src="./shavian-info/f.wav"></audio>
+      <audio id="sound_th" src="./shavian-info/th.wav"></audio>
+      <audio id="sound_s" src="./shavian-info/s.wav"></audio>
+      <audio id="sound_sh" src="./shavian-info/sh.wav"></audio>
+      <audio id="sound_ch" src="./shavian-info/ch.wav"></audio>
+      <audio id="sound_y" src="./shavian-info/y.wav"></audio>
+      <audio id="sound_ng" src="./shavian-info/ng.wav"></audio>
 
-    <audio id="sound_b" src="./shavian-info/b.wav"></audio>
-    <audio id="sound_d" src="./shavian-info/d.wav"></audio>
-    <audio id="sound_g" src="./shavian-info/g.wav"></audio>
-    <audio id="sound_v" src="./shavian-info/v.wav"></audio>
-    <audio id="sound_dh" src="./shavian-info/dh.wav"></audio>
-    <audio id="sound_z" src="./shavian-info/z.wav"></audio>
-    <audio id="sound_zh" src="./shavian-info/zh.wav"></audio>
-    <audio id="sound_jh" src="./shavian-info/jh.wav"></audio>
-    <audio id="sound_w" src="./shavian-info/w.wav"></audio>
-    <audio id="sound_h" src="./shavian-info/h.wav"></audio>
+      <audio id="sound_b" src="./shavian-info/b.wav"></audio>
+      <audio id="sound_d" src="./shavian-info/d.wav"></audio>
+      <audio id="sound_g" src="./shavian-info/g.wav"></audio>
+      <audio id="sound_v" src="./shavian-info/v.wav"></audio>
+      <audio id="sound_dh" src="./shavian-info/dh.wav"></audio>
+      <audio id="sound_z" src="./shavian-info/z.wav"></audio>
+      <audio id="sound_zh" src="./shavian-info/zh.wav"></audio>
+      <audio id="sound_jh" src="./shavian-info/jh.wav"></audio>
+      <audio id="sound_w" src="./shavian-info/w.wav"></audio>
+      <audio id="sound_h" src="./shavian-info/h.wav"></audio>
 
-    <audio id="sound_l" src="./shavian-info/l.wav"></audio>
-    <audio id="sound_m" src="./shavian-info/m.wav"></audio>
-    <audio id="sound_ih" src="./shavian-info/ih.wav"></audio>
-    <audio id="sound_eh" src="./shavian-info/eh.wav"></audio>
-    <audio id="sound_ae" src="./shavian-info/ae.wav"></audio>
-    <audio id="sound_ax" src="./shavian-info/ax.wav"></audio>
-    <audio id="sound_ao" src="./shavian-info/ao.wav"></audio>
-    <audio id="sound_uh" src="./shavian-info/uh.wav"></audio>
-    <audio id="sound_aw" src="./shavian-info/aw.wav"></audio>
-    <audio id="sound_aa" src="./shavian-info/aa.wav"></audio>
-    
-    <audio id="sound_r" src="./shavian-info/r.wav"></audio>
-    <audio id="sound_n" src="./shavian-info/n.wav"></audio>
-    <audio id="sound_iy" src="./shavian-info/iy.wav"></audio>
-    <audio id="sound_ey" src="./shavian-info/ey.wav"></audio>
-    <audio id="sound_ay" src="./shavian-info/ay.wav"></audio>
-    <audio id="sound_ah" src="./shavian-info/ah.wav"></audio>
-    <audio id="sound_ow" src="./shavian-info/ow.wav"></audio>
-    <audio id="sound_uw" src="./shavian-info/uw.wav"></audio>
-    <audio id="sound_oy" src="./shavian-info/oy.wav"></audio>
-    <audio id="sound_au" src="./shavian-info/au.wav"></audio>
-    
-    <audio id="sound_ar" src="./shavian-info/ar.wav"></audio>
-    <audio id="sound_or" src="./shavian-info/or.wav"></audio>
-    <audio id="sound_er" src="./shavian-info/er.wav"></audio>
-    <audio id="sound_yr" src="./shavian-info/yr.wav"></audio>
-    <audio id="sound_rr" src="./shavian-info/rr.wav"></audio>
-    <audio id="sound_ir" src="./shavian-info/ir.wav"></audio>
-    <audio id="sound_ia" src="./shavian-info/ia.wav"></audio>
-    <audio id="sound_yu" src="./shavian-info/yu.wav"></audio>
-    
-    <audio id="sound_click" src="./shingo_click.wav"></audio>
-    <audio id="sound_delete" src="./shingo_delete.wav"></audio>
-    <audio id="sound_hit" src="./shingo_hit.wav"></audio>
-    <audio id="sound_graze" src="./shingo_graze.wav"></audio>
-    <audio id="sound_miss" src="./shingo_miss.wav"></audio>
-    <audio id="sound_win" src="./shingo_win.wav"></audio>
-    <audio id="sound_lose" src="./shingo_lose.wav"></audio>
-  </div>
-</body>
+      <audio id="sound_l" src="./shavian-info/l.wav"></audio>
+      <audio id="sound_m" src="./shavian-info/m.wav"></audio>
+      <audio id="sound_ih" src="./shavian-info/ih.wav"></audio>
+      <audio id="sound_eh" src="./shavian-info/eh.wav"></audio>
+      <audio id="sound_ae" src="./shavian-info/ae.wav"></audio>
+      <audio id="sound_ax" src="./shavian-info/ax.wav"></audio>
+      <audio id="sound_ao" src="./shavian-info/ao.wav"></audio>
+      <audio id="sound_uh" src="./shavian-info/uh.wav"></audio>
+      <audio id="sound_aw" src="./shavian-info/aw.wav"></audio>
+      <audio id="sound_aa" src="./shavian-info/aa.wav"></audio>
 
+      <audio id="sound_r" src="./shavian-info/r.wav"></audio>
+      <audio id="sound_n" src="./shavian-info/n.wav"></audio>
+      <audio id="sound_iy" src="./shavian-info/iy.wav"></audio>
+      <audio id="sound_ey" src="./shavian-info/ey.wav"></audio>
+      <audio id="sound_ay" src="./shavian-info/ay.wav"></audio>
+      <audio id="sound_ah" src="./shavian-info/ah.wav"></audio>
+      <audio id="sound_ow" src="./shavian-info/ow.wav"></audio>
+      <audio id="sound_uw" src="./shavian-info/uw.wav"></audio>
+      <audio id="sound_oy" src="./shavian-info/oy.wav"></audio>
+      <audio id="sound_au" src="./shavian-info/au.wav"></audio>
+
+      <audio id="sound_ar" src="./shavian-info/ar.wav"></audio>
+      <audio id="sound_or" src="./shavian-info/or.wav"></audio>
+      <audio id="sound_er" src="./shavian-info/er.wav"></audio>
+      <audio id="sound_yr" src="./shavian-info/yr.wav"></audio>
+      <audio id="sound_rr" src="./shavian-info/rr.wav"></audio>
+      <audio id="sound_ir" src="./shavian-info/ir.wav"></audio>
+      <audio id="sound_ia" src="./shavian-info/ia.wav"></audio>
+      <audio id="sound_yu" src="./shavian-info/yu.wav"></audio>
+
+      <audio id="sound_click" src="./shingo_click.wav"></audio>
+      <audio id="sound_delete" src="./shingo_delete.wav"></audio>
+      <audio id="sound_hit" src="./shingo_hit.wav"></audio>
+      <audio id="sound_graze" src="./shingo_graze.wav"></audio>
+      <audio id="sound_miss" src="./shingo_miss.wav"></audio>
+      <audio id="sound_win" src="./shingo_win.wav"></audio>
+      <audio id="sound_lose" src="./shingo_lose.wav"></audio>
+    </div>
+  </body>
 </html>
