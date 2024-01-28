@@ -354,6 +354,8 @@
             localStorage.setItem("dictAge", "" + now);
             localStorage.setItem("askable", JSON.stringify(askable));
             localStorage.setItem("guessable", JSON.stringify(guessable));
+            console.log(askable, guessable);
+            setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
           });
         }, 1);
       }
@@ -362,9 +364,9 @@
           askable[i] = newAskable[i];
           guessable[i] = newGuessable[i];
         }
+        console.log(askable, guessable);
+        setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
       }
-      console.log(askable, guessable);
-      setStatus(`Loaded dictionary! Total words: ${askable[4].length + askable[5].length + askable[6].length + askable[7].length} / ${guessable[4].length, guessable[5].length, guessable[6].length, guessable[7].length}`)
     }
 
     function updateGrid(newValue) {
