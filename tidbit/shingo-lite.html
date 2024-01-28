@@ -335,9 +335,7 @@
 
       function styleKey(index) {
         const key =
-          document.getElementById("keyboardGrid").children[
-            index >= 40 ? index + 1 : index
-          ];
+          document.getElementById("keyboardGrid").children[index];
         key.classList.remove("hit", "graze", "miss");
         switch (guessStatus[index]) {
           case HIT:
