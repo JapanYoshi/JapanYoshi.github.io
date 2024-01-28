@@ -296,7 +296,7 @@
       xmlHttp.open("GET", "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv", true);
       xmlHttp.send(null);
       xmlHttp.onload = () => {
-        if (xmlHttp.readyState !== http.DONE) return;
+        if (xmlHttp.readyState !== xmlHttp.DONE) return;
         handler(xmlHttp.responseText);
       };
     }
