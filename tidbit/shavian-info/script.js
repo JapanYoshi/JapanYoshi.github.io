@@ -14,7 +14,8 @@ const DATA = [
     ],
     notes: [
       "Shavian does not distinguish aspiration; it is also the “p” in “spy”."
-    ]
+    ],
+    audio: "p"
   },
   {
     codePoint: 0x10451,
@@ -33,7 +34,8 @@ const DATA = [
       "The word “to” is written with just this one letter, as opposed to “two” or “too”.",
       "Shavian does not distinguish aspiration; it is also the “t” in “sty”.",
       "The suffix “-ed” uses either «𐑑» or «𐑛» depending on the voicing of the last sound. Compare “backed” «𐑚𐑨𐑒𐑑» and “bagged” «𐑚𐑨𐑜𐑛»."
-    ]
+    ],
+    audio: "t"
   },
   {
     codePoint: 0x10452,
@@ -51,7 +53,8 @@ const DATA = [
     notes: [
       "Shavian does not distinguish aspiration; it is also the “c” in “scream”.",
       "The “ch” in “loch” and “Bach” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑒\ufe00»"
-    ]
+    ],
+    audio: "k"
   },
   {
     codePoint: 0x10453,
@@ -68,7 +71,8 @@ const DATA = [
     ],
     notes: [
       "The word “for” is written with just this one letter, as opposed to “four” or “fore”.",
-    ]
+    ],
+    audio: "f"
   },
   {
     codePoint: 0x10454,
@@ -85,7 +89,8 @@ const DATA = [
     ],
     notes: [
       "For the “th” in “they”, use «𐑞».",
-    ]
+    ],
+    audio: "th"
   },
   {
     codePoint: 0x10455,
@@ -102,7 +107,8 @@ const DATA = [
     ],
     notes: [
       "The plural/third-person “-s” or possessive “-’s” uses either 𐑕 or 𐑟 depending on the voicing of the last sound. Compare “leaks” «𐑤𐑰𐑒𐑕» and “leagues” «𐑤𐑰𐑜𐑟»."
-    ]
+    ],
+    audio: "s"
   },
   {
     codePoint: 0x10456,
@@ -119,7 +125,8 @@ const DATA = [
     ],
     notes: [
       "The sound in the middle of “consume” is spelled «𐑕𐑘» (s + y)."
-    ]
+    ],
+    audio: "sh"
   },
   {
     codePoint: 0x10457,
@@ -136,7 +143,8 @@ const DATA = [
     ],
     notes: [
       "The sound at the start of “tune” is spelled «𐑑𐑘» (t + y)."
-    ]
+    ],
+    audio: "ch"
   },
   {
     codePoint: 0x10458,
@@ -155,7 +163,8 @@ const DATA = [
       "If <a href='https://en.wikipedia.org/wiki/Phonological_history_of_English_consonant_clusters#Yod-dropping'>you say “due” exactly like “do”</a>, God help you.",
       "As an exception to the general rule, this tall letter is voiced.",
       "If followed by 𐑵, use the compound letter 𐑿."
-    ]
+    ],
+    audio: "y"
   },
   {
     codePoint: 0x10459,
@@ -173,7 +182,8 @@ const DATA = [
     notes: [
       "Usually seen as the suffix «-𐑦𐑙» (-ing), in the sequence «𐑙𐑒» (the “nk” in “ink”), or less commonly, «𐑙𐑜» (“ng” in “finger”).",
       "As an exception to the general rule, this tall letter is voiced."
-    ]
+    ],
+    audio: "ng"
   },
   {
     codePoint: 0x1045A,
@@ -188,7 +198,8 @@ const DATA = [
       "b",
       "“b” in “buy”"
     ],
-    notes: []
+    notes: [],
+    audio: "b"
   },
   {
     codePoint: 0x1045B,
@@ -205,7 +216,8 @@ const DATA = [
     ],
     notes: [
       "The suffix “-ed” uses either «𐑑» or «𐑛» depending on the voicing of the last sound. Compare “backed” «𐑚𐑨𐑒𐑑» and “bagged” «𐑚𐑨𐑜𐑛»."
-    ]
+    ],
+    audio: "d"
   },
   {
     codePoint: 0x1045C,
@@ -223,7 +235,8 @@ const DATA = [
     notes: [
       "For the “soft G” as in “gym” and “GIF”, use «𐑡».",
       "The “g” in “Gogh” (Dutch) is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑜\ufe00»"
-    ]
+    ],
+    audio: "g"
   },
   {
     codePoint: 0x1045D,
@@ -240,7 +253,8 @@ const DATA = [
     ],
     notes: [
       "The word “of” is written with just this one letter."
-    ]
+    ],
+    audio: "v"
   },
   {
     codePoint: 0x1045E,
@@ -258,7 +272,8 @@ const DATA = [
     notes: [
       "The word “the” is written with just this one letter.",
       "For the “th” in “thousand”, use «𐑔».",
-    ]
+    ],
+    audio: "dh"
   },
   {
     codePoint: 0x1045F,
@@ -276,7 +291,8 @@ const DATA = [
     notes: [
       "The plural/third-person “-s” or possessive “-’s” uses either 𐑕 or 𐑟 depending on the voicing of the last sound. Compare “leaks” «𐑤𐑰𐑒𐑕» and “leagues” «𐑤𐑰𐑜𐑟».",
       "The suffix “-es” or “-’s” is spelled «-𐑩𐑟»; compare “Rose’s” «𐑮𐑴𐑟𐑩𐑟» with “Rosie’s” «𐑮𐑴𐑟𐑦𐑟».",
-    ]
+    ],
+    audio: "z"
   },
   {
     codePoint: 0x10460,
@@ -293,7 +309,8 @@ const DATA = [
     ],
     notes: [
       "Not to be confused with «𐑡», which is the “j” and “ge” in “judge”.",
-    ]
+    ],
+    audio: "zh"
   },
   {
     codePoint: 0x10461,
@@ -310,7 +327,8 @@ const DATA = [
     ],
     notes: [
       "The sound at the start of “duel” is spelled «𐑛𐑘» (d + y)."
-    ]
+    ],
+    audio: "jh"
   },
   {
     codePoint: 0x10462,
@@ -327,7 +345,8 @@ const DATA = [
     ],
     notes: [
       "This is also the “w” in “whine”. Kingley Read recommended spelling it «𐑣𐑢» if necessary. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑢\ufe00»"
-    ]
+    ],
+    audio: "w"
   },
   {
     codePoint: 0x10463,
@@ -345,7 +364,8 @@ const DATA = [
     notes: [
       "Beware: The letter H in Latin does NOT always correspond to this letter.",
       "As an exception to the general rule, this deep letter is voiceless."
-    ]
+    ],
+    audio: "h"
   },
   {
     codePoint: 0x10464,
@@ -365,7 +385,8 @@ const DATA = [
       "When it is a syllabic consonant, as in “bottle”, it is preceded by a schwa: «𐑚𐑪𐑑𐑩𐑤».",
       "To remember which is L and which is R, hold your hands towards each other in a C-shape. Your left hand makes the 𐑤 shape.",
       "The “ll” in “llan” is usually written with this letter. There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑤\ufe00»."
-    ]
+    ],
+    audio: "l"
   },
   {
     codePoint: 0x10465,
@@ -382,7 +403,8 @@ const DATA = [
     ],
     notes: [
       "When it is a syllabic consonant, as in “rhythm”, it is preceded by a schwa: «𐑮𐑦𐑞𐑩𐑥»."
-    ]
+    ],
+    audio: "m"
   },
   {
     codePoint: 0x10466,
@@ -400,7 +422,8 @@ const DATA = [
     notes: [
       "This is also the unstressed vowel in “bizarre” and the final vowel in “happy”.",
       "The suffix “-es” or “-’s” is spelled with “𐑩” instead; compare «𐑮𐑴𐑟𐑩𐑟» “Rose’s” with «𐑮𐑴𐑟𐑦𐑟» “Rosie’s”."
-    ]
+    ],
+    audio: "ih"
   },
   {
     codePoint: 0x10467,
@@ -419,7 +442,8 @@ const DATA = [
       "The vowel in “merry” is spelled «𐑧𐑮» (as opposed to “Mary” or “marry”).",
       "“again” is spelled «𐑩𐑜𐑱𐑯».",
       "The “eah” in “yeah” is usually spelled «𐑧𐑩». There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑺\ufe00»."
-    ]
+    ],
+    audio: "eh"
   },
   {
     codePoint: 0x10468,
@@ -437,7 +461,8 @@ const DATA = [
     notes: [
       "The vowel in “marry” is spelled «𐑨𐑮» (as opposed to “Mary” or “merry”).",
       "The vowel in “bath” is spelled «𐑭», <a href='https://en.wikipedia.org/wiki/Trap%E2%80%93bath_split#In_Received_Pronunciation'>as it is pronounced in the South of England.</a>"
-    ]
+    ],
+    audio: "ae"
   },
   {
     codePoint: 0x10469,
@@ -454,7 +479,8 @@ const DATA = [
     ],
     notes: [
       "Although many native speakers pronounce 𐑩 and 𐑳 the same, they are distinguished in standard British English and Australian English. 𐑩 is never stressed, while 𐑳 has primary or secondary stress."
-    ]
+    ],
+    audio: "ax"
   },
   {
     codePoint: 0x1046A,
@@ -472,7 +498,8 @@ const DATA = [
     notes: [
       "This is the “o” in “cot”. <a href='https://en.wikipedia.org/wiki/Cot%E2%80%93caught_merger'>If you say “cot” exactly like “caught”</a>, God help you.",
       "This is the “o” in “bother, as opposed to the “a” in “father” (𐑭)."
-    ]
+    ],
+    audio: "ao"
   },
   {
     codePoint: 0x1046B,
@@ -489,7 +516,8 @@ const DATA = [
     ],
     notes: [
       "The “ur” in “jury” is spelled «𐑫𐑼», as opposed to “hurry” «𐑳𐑮» or “blurry” «𐑻»."
-    ]
+    ],
+    audio: "uh"
   },
   {
     codePoint: 0x1046C,
@@ -506,7 +534,8 @@ const DATA = [
     ],
     notes: [
       "To remember which is “ow” and which is “oy”, spell the words “out” and “toy”; the open end will point towards the 𐑑. (𐑬𐑑, 𐑑𐑶)"
-    ]
+    ],
+    audio: "aw"
   },
   {
     codePoint: 0x1046D,
@@ -524,7 +553,8 @@ const DATA = [
     notes: [
       "This is the “a” in “father”, as opposed to the “o” in “bother” (𐑪).",
       "This is also the “a” in “bath”, <a href='https://en.wikipedia.org/wiki/Trap%E2%80%93bath_split#In_Received_Pronunciation'>as it’s pronounced in the South of England.</a>"
-    ]
+    ],
+    audio: "aa"
   },
   {
     codePoint: 0x1046E,
@@ -542,7 +572,8 @@ const DATA = [
     notes: [
       "When right after many vowels, one of the compound letters is used; compare «𐑮𐑱» “ray” with «𐑼𐑱» “array”.",
       "To remember which is L and which is R, hold your hands towards each other in a C-shape. Your right hand makes the 𐑮 shape."
-    ]
+    ],
+    audio: "r"
   },
   {
     codePoint: 0x1046F,
@@ -562,7 +593,8 @@ const DATA = [
       "When it is a syllabic consonant, as in “button”, it is preceded by a schwa: «𐑚𐑳𐑑𐑩𐑯».",
       "The sound at the start of “news” (as opposed to “gnus”) is spelled «𐑯𐑘» (n + y).",
       "If it’s spelled “ng” or “nk” in the Latin script, chances are it’s 𐑙 instead."
-    ]
+    ],
+    audio: "n"
   },
   {
     codePoint: 0x10470,
@@ -579,7 +611,8 @@ const DATA = [
     ],
     notes: [
       "For the unstressed vowel (the “y” in “happy”, use «𐑦».)"
-    ]
+    ],
+    audio: "iy"
   },
   {
     codePoint: 0x10471,
@@ -596,7 +629,8 @@ const DATA = [
     ],
     notes: [
       "The “ank” in “thank” is spelled with «𐑨»."
-    ]
+    ],
+    audio: "ey"
   },
   {
     codePoint: 0x10472,
@@ -613,7 +647,8 @@ const DATA = [
     ],
     notes: [
       "The word “I” is spelled with this one letter, as expected."
-    ]
+    ],
+    audio: "ay"
   },
   {
     codePoint: 0x10473,
@@ -631,7 +666,8 @@ const DATA = [
     notes: [
       "Although many native speakers pronounce 𐑩 and 𐑳 the same, they are distinguished in standard British English and Australian English. 𐑩 is never stressed, while 𐑳 has primary or secondary stress.",
       "The “ur” in “hurry” is spelled «𐑳𐑮», as opposed to “jury” «𐑫𐑼» or “blurry” «𐑻»."
-    ]
+    ],
+    audio: "ah"
   },
   {
     codePoint: 0x10474,
@@ -648,7 +684,8 @@ const DATA = [
     ],
     notes: [
       "In some Shavian fonts (especially those based on the font used in <i>Androcles and the Lion</i>), the top of the 𐑴 may be narrower, or even pointed."
-    ]
+    ],
+    audio: "ow"
   },
   {
     codePoint: 0x10475,
@@ -665,7 +702,8 @@ const DATA = [
     ],
     notes: [
       "When preceded by 𐑘, use the compound letter 𐑿."
-    ]
+    ],
+    audio: "uw"
   },
   {
     codePoint: 0x10476,
@@ -682,7 +720,8 @@ const DATA = [
     ],
     notes: [
       "To remember which is “ow” and which is “oy”, spell the words “out” and “toy”; the open end will point towards the 𐑑. (𐑬𐑑, 𐑑𐑶)"
-    ]
+    ],
+    audio: "oy"
   },
   {
     codePoint: 0x10477,
@@ -699,7 +738,8 @@ const DATA = [
     ],
     notes: [
       "This is the “augh” in “caught”. <a href='https://en.wikipedia.org/wiki/Cot%E2%80%93caught_merger'>If you say “cot” exactly like “caught”</a>, God help you."
-    ]
+    ],
+    audio: "au"
   },
   {
     codePoint: 0x10478,
@@ -717,7 +757,8 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑭 + 𐑮.",
       "The vowel in “moral”, “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
-    ]
+    ],
+    audio: "ar"
   },
   {
     codePoint: 0x10479,
@@ -736,7 +777,8 @@ const DATA = [
       "This letter is a combination of 𐑷 + 𐑮.",
       "This is also the “or” in “force”, which derives from 𐑴 + 𐑮.",
       "The vowel in “coral” (not “choral”), “sorry”, and “origin”, which may sound like this in some dialects, is spelled «𐑪𐑮»."
-    ]
+    ],
+    audio: "or"
   },
   {
     codePoint: 0x1047A,
@@ -754,7 +796,8 @@ const DATA = [
     notes: [
       "This letter is a combination of an obsolete letter (𐑺\ufe00) + 𐑮, and pronounced as 𐑱 + 𐑮.",
       "The vowel in “Mary” is spelled «𐑺» (as opposed to “merry” or “marry”)."
-    ]
+    ],
+    audio: "er"
   },
   {
     codePoint: 0x1047B,
@@ -774,7 +817,8 @@ const DATA = [
       "This letter is always stressed (Exceptions apply for compound words like “earthworm” «𐑻𐑔𐑢𐑻𐑥»); see 𐑩 for the “a” in “comma” and 𐑼 for the “er” in “letter”.",
       "The “ur” in “blurry” is spelled «𐑻», as opposed to “hurry” «𐑳𐑮» or “jury” «𐑫𐑼».",
       "The “oe” in “Goethe” is usually spelled «𐑻». There is also <a href='https://github.com/Shavian-info/interalia'>an Extended Shavian character</a> for this: «𐑻\ufe00»."
-    ]
+    ],
+    audio: "yr"
   },
   {
     codePoint: 0x1047C,
@@ -792,7 +836,8 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑩 + 𐑮.",
       "This letter is never stressed; see 𐑳 for the “u” in “strut” and 𐑻 for the “ur” in “nurse”.",
-    ]
+    ],
+    audio: "rr"
   },
   {
     codePoint: 0x1047D,
@@ -810,7 +855,8 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑦 + 𐑩 + 𐑮.",
       "This may be stressed (pronounced as one syllable) or unstressed (pronounced as two), as both the “er” and “ior” in “superior” «𐑕𐑵𐑐𐑽𐑽»."
-    ]
+    ],
+    audio: "ir"
   },
   {
     codePoint: 0x1047E,
@@ -828,7 +874,8 @@ const DATA = [
     notes: [
       "This letter is a combination of 𐑦 + 𐑩, and usually found in suffixes like “-ial”, “-ian”, or “-ious”.",
       "This may be stressed (as in “Korea”) or unstressed (most of the time)."
-    ]
+    ],
+    audio: "ia"
   },
   {
     codePoint: 0x1047F,
@@ -845,7 +892,8 @@ const DATA = [
     ],
     notes: [
       "This letter is a combination of 𐑘 + 𐑵."
-    ]
+    ],
+    audio: "yu"
   },
   {
     codePoint: 0xB7,
@@ -863,7 +911,8 @@ const DATA = [
     notes: [
       "A namer dot precedes proper names that the reader is expected to be unfamiliar with. (e.g. “America” is not dotted, while “Jackson” is.)",
       "Only the first word of the name is dotted, although this may cause confusion (“the Doctor Who shows” vs. “the Doctor who shows”)."
-    ]
+    ],
+    audio: "namer_dot"
   },
   {
     codePoint: 0x2E30,
@@ -880,7 +929,8 @@ const DATA = [
     ],
     notes: [
       "An acroring precedes acronyms. Shavian acronyms are spelled based on what the words stand for. (e.g. USA = ⸰𐑿𐑕𐑩)"
-    ]
+    ],
+    audio: "acroring"
   },
   {
     codePoint: 0x10452,
@@ -899,7 +949,8 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑒»."
-    ]
+    ],
+    audio: "kh"
   },
   {
     codePoint: 0x1045C,
@@ -918,7 +969,8 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑜»."
-    ]
+    ],
+    audio: "gh"
   },
   {
     codePoint: 0x10462,
@@ -937,7 +989,8 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑢»."
-    ]
+    ],
+    audio: "wh"
   },
   {
     codePoint: 0x10464,
@@ -956,7 +1009,8 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑤»."
-    ]
+    ],
+    audio: "ll"
   },
   {
     codePoint: 0x1047a,
@@ -975,7 +1029,8 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑧𐑩»."
-    ]
+    ],
+    audio: "eah"
   },
   {
     codePoint: 0x1047b,
@@ -994,13 +1049,20 @@ const DATA = [
     notes: [
       "This is not encoded in Unicode, and is only available in select fonts.",
       "This sound is usually spelled «𐑻»."
-    ]
+    ],
+    audio: "euh"
   },
 ]
 
+let currentIndex = -1; // set by showInfo(i)
 
+function playLetter() {
+  if (currentIndex == -1) {return}
+  document.getElementById("sound_" + DATA[currentIndex].audio).play();
+}
 
 function showInfo(i) {
+  currentIndex = i;
   // construct character
   var character = "";
   if (DATA[i].codePoint >= 0x10000) {
@@ -1035,6 +1097,7 @@ function showInfo(i) {
     item.innerHTML = DATA[i].notes[j];
     notesList.appendChild(item);
   }
+  playLetter();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

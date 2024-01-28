@@ -91,7 +91,7 @@ body {
   min-width: 12rem;
   font-size: 8rem;
   line-height: 8rem;
-  height: 10rem;
+  height: 12rem;
   position: relative;
 }
 
@@ -115,7 +115,16 @@ body {
   position: absolute;
   font-size: 1rem;
   line-height: 1rem;
-  right: 0; bottom: 0; left: 0; top: auto;
+  right: 0; bottom: 2rem; left: 0; top: auto;
+}
+
+#detailsSound {
+  font-family: inherit;
+  font-size: 1rem;
+
+  width: 100%;
+  position: absolute;
+  inset: 0; top: auto;
 }
 
 #detailsInfo {
