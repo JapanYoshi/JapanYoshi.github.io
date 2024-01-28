@@ -306,7 +306,7 @@
       let dictAge = +localStorage.getItem("dictAge");
       const newAskable = JSON.parse(localStorage.getItem("askable"));
       const newGuessable = JSON.parse(localStorage.getItem("guessable"));
-      console.log("dict test:", now, dictAge, 4 in newAskable ? newAskable[4].length : -1);
+      console.log("dict test:", now, dictAge, newAskable ? newAskable[4].length : -1);
       // TEST: force invalidate cache
       //dictAge = 0;
       if (dictAge == null || dictAge + 2000000 < now || newAskable[4].length == 0) {
