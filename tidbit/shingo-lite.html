@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @font-face {
-        font-family: "_born2bsporty";
-        font-display: swap;
-        src: url("shavian-fonts/born2bsporty-fs.otf");
+        font-family: "_font";
+        src: url("./shavian-fonts/Ormin-Regular.otf");
       }
 
       @media screen {
@@ -18,7 +17,7 @@
       }
 
       :root {
-        font-family: "_born2bsporty", serif;
+        font-family: "_font", serif;
         font-smooth: never;
         -webkit-font-smoothing: none; /* WebKit MacOS */
         /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
@@ -32,6 +31,15 @@
         --col-graze-light: #ffed47;
         --col-hit-dark: #14b832;
         --col-hit-light: #a8ff88;
+        font-size: 16px;
+      }
+
+      a {
+        color: var(--col-accent);
+      }
+
+      a:visited {
+        color: var(--col-accent);
       }
 
       input,
@@ -52,8 +60,8 @@
         margin: 0;
         padding: 0;
         width: 100vw;
-        height: 100svh;
-        overflow: hidden;
+        min-height: 100svh;
+        overflow-x: hidden;
       }
 
       @media screen and (min-width: 480px) {
@@ -63,16 +71,12 @@
           grid-template-rows: 2rem 3fr 2fr;
           grid-template-areas:
             "status status"
-            "nav top"
-            "nav bottom";
+            "nav game"
+            "nav game";
         }
 
-        .page-top {
-          grid-area: top;
-        }
-
-        .page-bottom {
-          grid-area: bottom;
+        .page-game {
+          grid-area: game;
         }
 
         nav {
@@ -89,6 +93,26 @@
         }
       }
 
+      .full-page {
+        z-index: 16;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        inset: 0;
+        background: rgba(32, 32, 32, 0.5);
+      }
+
+      .modal-bg {
+        padding: 1rem;
+        background: black;
+        border: 2px solid var(--col-dim);
+        width: 24rem;
+        max-width: calc(100vw - 1rem);
+        max-height: calc(100svh - 1rem);
+      }
+
       #status {
         width: 100%;
         background: var(--col-dim-bg);
@@ -98,7 +122,7 @@
         justify-content: center;
       }
 
-      #startGame {
+      #startGame, #anotherGame {
         text-align: center;
       }
 
@@ -123,7 +147,19 @@
       }
 
       h1 {
+        margin: 0;
+        font-size: 32px;
         font-weight: normal;
+      }
+      
+      h3 {
+        font-size: 16px;
+        color: var(--col-accent);
+        font-weight: normal;
+      }
+
+      h3::before {
+        content: "››› ";
       }
 
       #grid {
@@ -132,6 +168,7 @@
         justify-content: center;
         align-items: center;
         gap: 4px;
+        margin-block: 1rem;
       }
 
       .gridLine {
@@ -340,6 +377,7 @@
         "pissed",
         "pissing",
         "shits",
+        "shithead",
         "shitting",
       ];
 
@@ -403,13 +441,12 @@
       }
 
       function initDict(callback) {
-        let now = +new Date() / 1000;
+        const lastDictUpdate = +new Date(2024, 0, 29);
         let dictAge = +localStorage.getItem("dictAge");
         const newAskable = JSON.parse(localStorage.getItem("askable"));
         const newGuessable = JSON.parse(localStorage.getItem("guessable"));
         console.log(
           "dict test:",
-          now,
           dictAge,
           newAskable ? newAskable[4].length : -1
         );
@@ -417,10 +454,10 @@
         //dictAge = 0;
         if (
           dictAge == null ||
-          dictAge + 2000000 < now ||
+          dictAge < lastDictUpdate ||
           newAskable[4].length == 0
         ) {
-          setStatus("Downloading dictionary...");
+          setStatus("Downloading dictionary... (This may take a while, but it will only happen once.)");
           // set a timeout so I can actually show the status
           setTimeout(() => {
             getDict((dict) => {
@@ -434,18 +471,9 @@
                 guessable: { 4: [], 5: [], 6: [], 7: [] },
               };
               const lines = dict.split("\n");
-              const BATCHSIZE = 1024;
+              const BATCHSIZE = 2048;
               let batches = Math.ceil(lines.length / BATCHSIZE);
               let completion = Array.from(Array(batches), () => false);
-              setStatus(
-                "Building dictionary... (" +
-                  completion.reduce((lastVal, thisVal) =>
-                    thisVal === true ? lastVal + 1 : lastVal + 0
-                  ) +
-                  " of " +
-                  batches +
-                  " batches)"
-              );
               for (let page = 0; page < batches; page++) {
                 setTimeout(() => {
                   const batch = lines.slice(
@@ -457,7 +485,7 @@
                     //console.log(words);
                     // words[0]: Latin
                     // words[1]: Shavian
-                    // words[2]: part of speech (NP0 is proper noun)
+                    // words[2]: part of speech
                     // words[3]: IPA (not used)
                     // words[4]: frequency data (askable threshold is 50)
                     if (words[2] == "NP0") continue; // skip proper nouns
@@ -487,6 +515,8 @@
                           words[4] >= 50 &&
                           !censored_words.includes(words[0]) &&
                           !banned_words.includes(words[0])
+                          // complaints about plurals, gerunds, and 3PS verbs being valid answers
+                          //&& !(["NN2", "VVD", "VVG", "VVZ"].includes(words[2]))
                         ) {
                           askable[shavianChars.length].push([
                             words[0],
@@ -499,16 +529,16 @@
                   }
                   completion[page] = true;
                   setStatus(
-                    "Building dictionary... (" +
+                    "Building dictionary... (This may take a while, but it will only happen once.)\n" +
                       completion.reduce((lastVal, thisVal) =>
                         thisVal === true ? lastVal + 1 : lastVal + 0
                       ) +
                       " of " +
                       batches +
-                      " batches)"
+                      " batches"
                   );
                   if (completion.every((value) => value === true)) {
-                    localStorage.setItem("dictAge", "" + now);
+                    localStorage.setItem("dictAge", "" + (+new Date()));
                     localStorage.setItem("askable", JSON.stringify(askable));
                     localStorage.setItem(
                       "guessable",
@@ -647,7 +677,7 @@
               if (result.correct) {
                 setStatus("You win!");
                 document.getElementById("keyboard").style.display = "none";
-                document.getElementById("startGame").style.display = "";
+                document.getElementById("anotherGame").style.display = "";
                 blockingInput = false;
                 playSound("win");
                 return;
@@ -658,7 +688,7 @@
                   `You lose! The word was «${secret[1]}» (${secret[0]}).`
                 );
                 document.getElementById("keyboard").style.display = "none";
-                document.getElementById("startGame").style.display = "";
+                document.getElementById("anotherGame").style.display = "";
                 blockingInput = false;
                 for (let j = 0; j <= charCount; j++) {
                   setTimeout(() => {
@@ -733,8 +763,8 @@
         blockingInput = true;
         playSound("click");
         charCount = +event.target.dataset.chars;
-        document.querySelector("#title").style.display = "none";
-        document.querySelector("#startGame").style.display = "none";
+        document.querySelector("#titleScreen").style.display = "none";
+        document.getElementById("anotherGame").style.display = "none";
         setStatus("Loading...");
 
         initDict(() => {
@@ -775,11 +805,12 @@
           for (let key of document.getElementById("keyboardGrid").children) {
             key.classList.remove("hit", "graze", "miss");
           }
+          
+          document.getElementById("keyboard").style.display = "";
 
           document.querySelector("#textInput").value = "";
 
-          document.querySelector("#grid").style.display = "";
-          document.querySelector("#keyboard").style.display = "";
+          document.querySelector("#gameScreen").style.display = "";
           blockingInput = false;
         });
       }
@@ -798,7 +829,7 @@
         input.addEventListener("input", (event) => {
           updateGrid(input.value);
         });
-        for (const el of document.querySelectorAll("#startGame button")) {
+        for (const el of document.querySelectorAll("#startGame button, #anotherGame button")) {
           el.addEventListener("click", onGameStartButtonClick);
         }
         document
@@ -807,6 +838,16 @@
         soundToggled();
         setStatus("Welcome to Shingo Lite!");
       });
+
+      function onNavLinkClick(event) {
+        playSound("click");
+        document.querySelector(event.target.hash).style.display = "";
+      }
+
+      function onCloseLinkClick(event) {
+        playSound("delete");
+        document.querySelector(event.target.hash).style.display = "none";
+      }
     </script>
   </head>
 
@@ -876,123 +917,212 @@
             >Sound</label
           >
         </li>
+        <li><a href="#rules" onclick="onNavLinkClick(event)">Rules</a></li>
+        <li><a href="#credits" onclick="onNavLinkClick(event)">Credits</a></li>
       </ul>
     </nav>
     <div id="status"><span id="statusText">...</span></div>
-    <div id="title" class="page-top">
-      <h1>𐑖𐑦𐑙𐑜𐑴! 𐑤𐑲𐑑</h1>
-    </div>
-    <div id="grid" class="page-top" style="display: none">
-      <div class="gridLine">
-        <div class="gridTile">𐑟</div>
-        <div class="gridTile">.</div>
-        <div class="gridTile">.</div>
-        <div class="gridTile">.</div>
-        <div class="gridTile">.</div>
+    <div id="titleScreen" class="page-game">
+      <div id="title">
+        <h1>𐑖𐑦𐑙𐑜𐑴! 𐑤𐑲𐑑</h1>
       </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-      </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-      </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-      </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-      </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-      </div>
-      <div class="gridLine inactive">
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
-        <div class="gridTile"></div>
+      <div id="startGame">
+        <p>Choose a character count:</p>
+        <button type="button" data-chars="4">4</button>
+        <button type="button" data-chars="5">5</button>
+        <button type="button" data-chars="6">6</button>
+        <button type="button" data-chars="7">7</button>
       </div>
     </div>
-    <div id="startGame" class="page-bottom">
-      <p>Choose a character count:</p>
-      <button type="button" data-chars="4">4</button>
-      <button type="button" data-chars="5">5</button>
-      <button type="button" data-chars="6">6</button>
-      <button type="button" data-chars="7">7</button>
+    <div id="gameScreen" class="page-game" style="display: none">
+      <div id="grid">
+        <div class="gridLine">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+        <div class="gridLine inactive">
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+          <div class="gridTile"></div>
+        </div>
+      </div>
+      <div id="keyboard" class="page-bottom">
+        <input id="textInput" />
+        <div id="keyboardGrid">
+          <button type="button" data-button="𐑐">𐑐</button>
+          <button type="button" data-button="𐑑">𐑑</button>
+          <button type="button" data-button="𐑒">𐑒</button>
+          <button type="button" data-button="𐑓">𐑓</button>
+          <button type="button" data-button="𐑔">𐑔</button>
+          <button type="button" data-button="𐑕">𐑕</button>
+          <button type="button" data-button="𐑖">𐑖</button>
+          <button type="button" data-button="𐑗">𐑗</button>
+          <button type="button" data-button="𐑘">𐑘</button>
+          <button type="button" data-button="𐑙">𐑙</button>
+          <button type="button" data-button="𐑚">𐑚</button>
+          <button type="button" data-button="𐑛">𐑛</button>
+          <button type="button" data-button="𐑜">𐑜</button>
+          <button type="button" data-button="𐑝">𐑝</button>
+          <button type="button" data-button="𐑞">𐑞</button>
+          <button type="button" data-button="𐑟">𐑟</button>
+          <button type="button" data-button="𐑠">𐑠</button>
+          <button type="button" data-button="𐑡">𐑡</button>
+          <button type="button" data-button="𐑢">𐑢</button>
+          <button type="button" data-button="𐑣">𐑣</button>
+          <button type="button" data-button="𐑤">𐑤</button>
+          <button type="button" data-button="𐑥">𐑥</button>
+          <button type="button" data-button="𐑦">𐑦</button>
+          <button type="button" data-button="𐑧">𐑧</button>
+          <button type="button" data-button="𐑨">𐑨</button>
+          <button type="button" data-button="𐑩">𐑩</button>
+          <button type="button" data-button="𐑪">𐑪</button>
+          <button type="button" data-button="𐑫">𐑫</button>
+          <button type="button" data-button="𐑬">𐑬</button>
+          <button type="button" data-button="𐑭">𐑭</button>
+          <button type="button" data-button="𐑮">𐑮</button>
+          <button type="button" data-button="𐑯">𐑯</button>
+          <button type="button" data-button="𐑰">𐑰</button>
+          <button type="button" data-button="𐑱">𐑱</button>
+          <button type="button" data-button="𐑲">𐑲</button>
+          <button type="button" data-button="𐑳">𐑳</button>
+          <button type="button" data-button="𐑴">𐑴</button>
+          <button type="button" data-button="𐑵">𐑵</button>
+          <button type="button" data-button="𐑶">𐑶</button>
+          <button type="button" data-button="𐑷">𐑷</button>
+          <button type="button" data-button="delete">⌫</button>
+          <button type="button" data-button="𐑸">𐑸</button>
+          <button type="button" data-button="𐑹">𐑹</button>
+          <button type="button" data-button="𐑺">𐑺</button>
+          <button type="button" data-button="𐑻">𐑻</button>
+          <button type="button" data-button="𐑼">𐑼</button>
+          <button type="button" data-button="𐑽">𐑽</button>
+          <button type="button" data-button="𐑾">𐑾</button>
+          <button type="button" data-button="𐑿">𐑿</button>
+          <button type="button" data-button="submit">✔</button>
+        </div>
+      </div>
+      <div id="anotherGame">
+        <p>Play another game?</p>
+        <button type="button" data-chars="4">4</button>
+        <button type="button" data-chars="5">5</button>
+        <button type="button" data-chars="6">6</button>
+        <button type="button" data-chars="7">7</button>
+      </div>
     </div>
-    <div id="keyboard" class="page-bottom" style="display: none">
-      <input id="textInput" />
-      <div id="keyboardGrid">
-        <button type="button" data-button="𐑐">𐑐</button>
-        <button type="button" data-button="𐑑">𐑑</button>
-        <button type="button" data-button="𐑒">𐑒</button>
-        <button type="button" data-button="𐑓">𐑓</button>
-        <button type="button" data-button="𐑔">𐑔</button>
-        <button type="button" data-button="𐑕">𐑕</button>
-        <button type="button" data-button="𐑖">𐑖</button>
-        <button type="button" data-button="𐑗">𐑗</button>
-        <button type="button" data-button="𐑘">𐑘</button>
-        <button type="button" data-button="𐑙">𐑙</button>
-        <button type="button" data-button="𐑚">𐑚</button>
-        <button type="button" data-button="𐑛">𐑛</button>
-        <button type="button" data-button="𐑜">𐑜</button>
-        <button type="button" data-button="𐑝">𐑝</button>
-        <button type="button" data-button="𐑞">𐑞</button>
-        <button type="button" data-button="𐑟">𐑟</button>
-        <button type="button" data-button="𐑠">𐑠</button>
-        <button type="button" data-button="𐑡">𐑡</button>
-        <button type="button" data-button="𐑢">𐑢</button>
-        <button type="button" data-button="𐑣">𐑣</button>
-        <button type="button" data-button="𐑤">𐑤</button>
-        <button type="button" data-button="𐑥">𐑥</button>
-        <button type="button" data-button="𐑦">𐑦</button>
-        <button type="button" data-button="𐑧">𐑧</button>
-        <button type="button" data-button="𐑨">𐑨</button>
-        <button type="button" data-button="𐑩">𐑩</button>
-        <button type="button" data-button="𐑪">𐑪</button>
-        <button type="button" data-button="𐑫">𐑫</button>
-        <button type="button" data-button="𐑬">𐑬</button>
-        <button type="button" data-button="𐑭">𐑭</button>
-        <button type="button" data-button="𐑮">𐑮</button>
-        <button type="button" data-button="𐑯">𐑯</button>
-        <button type="button" data-button="𐑰">𐑰</button>
-        <button type="button" data-button="𐑱">𐑱</button>
-        <button type="button" data-button="𐑲">𐑲</button>
-        <button type="button" data-button="𐑳">𐑳</button>
-        <button type="button" data-button="𐑴">𐑴</button>
-        <button type="button" data-button="𐑵">𐑵</button>
-        <button type="button" data-button="𐑶">𐑶</button>
-        <button type="button" data-button="𐑷">𐑷</button>
-        <button type="button" data-button="delete">⌫</button>
-        <button type="button" data-button="𐑸">𐑸</button>
-        <button type="button" data-button="𐑹">𐑹</button>
-        <button type="button" data-button="𐑺">𐑺</button>
-        <button type="button" data-button="𐑻">𐑻</button>
-        <button type="button" data-button="𐑼">𐑼</button>
-        <button type="button" data-button="𐑽">𐑽</button>
-        <button type="button" data-button="𐑾">𐑾</button>
-        <button type="button" data-button="𐑿">𐑿</button>
-        <button type="button" data-button="submit">✔</button>
+    <div id="rules" class="full-page" style="display: none">
+      <div class="modal-bg">
+        <h1>Rules</h1>
+        <h3>Gameplay</h3>
+        <div class="gridLine inactive">
+          <div class="gridTile">𐑚</div>
+          <div class="gridTile">.</div>
+          <div class="gridTile">.</div>
+          <div class="gridTile">.</div>
+          <div class="gridTile">.</div>
+        </div>
+        <p>You have 7 guesses to guess an Engish word written in Shavian. After each guess, each letter will be colored according to how close you were.</p>
+        <div class="gridLine">
+          <div class="gridTile filled miss">𐑕</div>
+          <div class="gridTile filled miss">𐑥</div>
+          <div class="gridTile filled miss">𐑸</div>
+          <div class="gridTile filled miss">𐑑</div>
+          <div class="gridTile filled miss">𐑼</div>
+        </div>
+        <p>Gray letters are <b>misses</b>—the secret word does not contain that letter anywhere.</p>
+        <div class="gridLine">
+          <div class="gridTile filled miss">𐑐</div>
+          <div class="gridTile filled miss">𐑨</div>
+          <div class="gridTile filled miss">𐑛</div>
+          <div class="gridTile filled graze">𐑦</div>
+          <div class="gridTile filled graze">𐑙</div>
+        </div>
+        <p>Yellow letters are <b>grazes</b>—the secret word contains that letter, but not there.</p>
+        <div class="gridLine">
+          <div class="gridTile filled hit">𐑚</div>
+          <div class="gridTile filled miss">𐑮</div>
+          <div class="gridTile filled graze">𐑦</div>
+          <div class="gridTile filled graze">𐑙</div>
+          <div class="gridTile filled miss">𐑟</div>
+        </div>
+        <p>Green letters are <b>hits</b>—the secret word contains that letter there.</p>
+        <div class="gridLine">
+          <div class="gridTile filled hit">𐑚</div>
+          <div class="gridTile filled hit">𐑦</div>
+          <div class="gridTile filled hit">𐑙</div>
+          <div class="gridTile filled hit">𐑜</div>
+          <div class="gridTile filled hit">𐑴</div>
+        </div>
+        <p>𐑚𐑦𐑙𐑜𐑴 (Bingo)! When the letters are all green, you know you've won.</p>
+        <h3>Word inclusion criteria</h3>
+        <p>Valid guesses are any English word that are not proper nouns, whose Shavian spelling does not contain: spaces, hyphens, apostrophe, namer dots, or acrorings.</p>
+        <p>Valid answers are any valid guess with at least a frequency rating of 50 according to <a href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>.</p>
+        <a href="#rules" onclick="onCloseLinkClick(event)">dismiss</a>
+      </div>
+    </div>
+    <div id="credits" class="full-page" style="display: none">
+      <div class="modal-bg">
+        <h1>Credits</h1>
+        <ul>
+          <li>
+            Ported from <a href="https://haitouch.itch.io/shingo">Shingo!</a> by hai!touch Studios
+          </li>
+          <li>
+            Word list from <a href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>
+          </li>
+          <li>
+            Programming by Haley Wakamatsu
+          </li>
+          <li>
+            <a href="https://2gd4.me/shavian-fonts">“Ormin” font</a> by Shavian.info (Latin portion from <a href="https://fonts.google.com/specimen/Gentium+Plus">“Gentium” font</a>)
+          </li>
+          <li>
+            Gameplay based on <a href="https://en.wikipedia.org/wiki/Wordle">Wordle</a> and <a href="https://en.wikipedia.org/wiki/Lingo_(American_game_show)">Lingo</a>
+          </li>
+          <li>
+            SFX and voice samples by Haley Wakamatsu
+          </li>
+        </ul>
+        <a href="#credits" onclick="onCloseLinkClick(event)">dismiss</a>
       </div>
     </div>
   </body>
