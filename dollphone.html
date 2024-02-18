@@ -84,6 +84,7 @@
   <script>
     const urlDrawable = "https://raw.githubusercontent.com/JapanYoshi/dollphone-foss/main/app/src/main/res/xml/drawable.xml";
     const urlImage = "https://raw.githubusercontent.com/JapanYoshi/dollphone-foss/main/app/src/main/res/drawable-nodpi/{}.png";
+    const urlImageLink = "https://github.com/JapanYoshi/dollphone-foss/blob/main/app/src/main/res/drawable-nodpi/{}.png";
     const drawableList = {};
 
     async function searchIcon() {
@@ -121,7 +122,10 @@
         elImage.src = urlImage.replace("{}", drawableList[result]);
         el.appendChild(elImage);
         const elText = document.createElement("span");
-        elText.innerText = result;
+        const elLink = document.createElement("a");
+        elLink.innerText = result;
+        elLink.href = urlImageLink.replace("{}", drawableList[result]);
+        elText.append(elLink);
         el.appendChild(elText);
         searchList.appendChild(el);
       }
