@@ -1,0 +1,266 @@
+<head>
+  <meta charset="UTF-8" />
+  <title>Dollphone アイコンパック</title>
+  <meta property="og:title" value="Dollphone アイコンパック" />
+  <meta name="twitter:title" value="Dollphone アイコンパック" />
+  <!-- boilerplate -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:site_name" content="2GD4ME by Haley Halcyon" />
+  <meta name="twitter:site" content="@haruruchandesu" />
+  <meta name="twitter:creator" content="@haruruchandesu" />
+  <link rel="icon" href="/favicon.png" />
+  <!-- page metadata -->
+  <meta
+    name="description"
+    content="Android用ゆるかわアイコンパック。"
+  />
+  <meta
+    property="og:description"
+    content="Android用ゆるかわアイコンパック。"
+  />
+  <meta
+    name="twitter:description"
+    content="Android用ゆるかわアイコンパック。"
+  />
+  <meta name="author" content="若松 春希" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12,75,800;12,100,500;12,100,800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="haley.css" />
+  <script src="dark.js"></script>
+  <script src="abangelist.js"></script>
+  <style>
+    #header-fullwidth {
+      width: 100%;
+      overflow: hidden;
+      background: #ff4080;
+      border-radius: 0 0 4vw 4vw;
+      position: relative;
+    }
+
+    #header-image {
+      display: block;
+      width: 100%;
+      max-width: 1024px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    #header-text {
+      position: absolute;
+      font-size: min(2.5rem, 10vw);
+      text-align: right;
+      bottom: 1rem;
+      right: 1rem;
+      font-weight: 800;
+      font-stretch: 75%;
+      color: white;
+      text-shadow: 0px 0px 4px black;
+    }
+
+    #search-module {
+      margin: 8px;
+    }
+
+    .horizontal {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .horizontal input {
+      flex: 1 1 auto;
+    }
+
+    #search-result-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 0;
+    }
+
+    #search-result-list li {
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #search-result-list li img {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+  </style>
+  <script>
+    const urlDrawable =
+      "https://raw.githubusercontent.com/JapanYoshi/dollphone-foss/main/app/src/main/res/xml/drawable.xml";
+    const urlImage =
+      "https://raw.githubusercontent.com/JapanYoshi/dollphone-foss/main/app/src/main/res/drawable-nodpi/{}.png";
+    const urlImageLink =
+      "https://github.com/JapanYoshi/dollphone-foss/blob/main/app/src/main/res/drawable-nodpi/{}.png";
+    const drawableList = {};
+
+    async function searchIcon() {
+      const status = document.getElementById("search-count");
+      if (Object.keys(drawableList).length == 0) {
+        status.innerText = "アイコンリストをダウンロード中...";
+        const response = await fetch(urlDrawable);
+        if (!response.ok) {
+          status.innerText = "アイコンリストのダウンロードが失敗しました。 (´；ω；｀)";
+          return;
+        }
+        const xml = await response.text();
+        // I know I shouldn't use XML without a parser, but I know exactly which lines I want and that I can ignore the rest, so I'm doing it anyway
+        for (let line of xml.split("\n")) {
+          line = line.trim();
+          if (!line.startsWith('<item drawable="') || !line.endsWith('" />'))
+            continue;
+          let id = line.substring(
+            '<item drawable="'.length,
+            line.length - '" />'.length
+          );
+          drawableList[id.replace("a__", "").replaceAll("_", " ")] = id;
+        }
+        console.log(drawableList);
+      }
+      const searchTerm = document.getElementById("icon-search").value;
+      if (searchTerm.length < 2) {
+        status.innerText = "検索語句が短すぎます。";
+        return;
+      }
+      const results = Object.keys(drawableList).filter((value) =>
+        value.includes(searchTerm)
+      );
+      status.innerText = `結果${results.length}件`;
+      console.log(results);
+      const searchList = document.getElementById("search-result-list");
+      searchList.textContent = ""; // removes all children
+      for (const result of results) {
+        const el = document.createElement("li");
+        const elImage = document.createElement("img");
+        elImage.src = urlImage.replace("{}", drawableList[result]);
+        el.appendChild(elImage);
+        const elText = document.createElement("span");
+        const elLink = document.createElement("a");
+        elLink.innerText = result;
+        elLink.href = urlImageLink.replace("{}", drawableList[result]);
+        elText.append(elLink);
+        el.appendChild(elText);
+        searchList.appendChild(el);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="header-fullwidth">
+    <img
+      id="header-image"
+      src="https://raw.githubusercontent.com/JapanYoshi/dollphone-foss/main/fastlane/metadata/android/en-US/images/featureGraphic.png"
+    />
+    <div id="header-text">Dollphone アイコンパック</div>
+  </div>
+  <div id="body">
+    <div class="section">
+      <h3>About</h3>
+
+      <p>
+        Dollphone は、かわいいけど元気すぎないアイコンパックです。極彩色や暗い色を避けて、外側に近づくにつれ少しずつ線を膨らませることによって、ぬいぐるみのようなふわっとした触感を演出しています。
+      </p>
+      
+      <p>
+        Dollphone アイコンパックは、何年もまたいだ『ゆるかわ』への情熱の結晶です。
+      </p>
+
+      <p>
+        100%フリーウェア（<a href="https://www.apache.org/licenses/LICENSE-2.0"
+          >Apache License 2.0</a
+        >）かつ<a href="https://github.com/JapanYoshi/dollphone-foss">オープンソース</a>（すなわち FOSS）で、次の場所からダウンロードできます。
+      </p>
+      <ul id="download-location" class="bullet">
+        <li>
+          <a href="https://github.com/JapanYoshi/dollphone-foss/releases"
+          >GitHub <img
+          alt="GitHub"
+          src="https://img.shields.io/github/release/JapanYoshi/dollphone-foss.svg?logo=github
+          "
+          /></a>
+          確実に最新版！
+        </li>
+        <li>
+          <a href="https://f-droid.org/packages/me.x2gd4.dollphone"
+          >F-Droid <img
+          alt="F-droid"
+          src="https://img.shields.io/f-droid/v/me.x2gd4.dollphone.svg?logo=F-Droid"
+          /></a>
+          アップデートに最大6日かかりますが、F-Droidアプリを使えば自動でアップデートをチェックできます。
+        </li>
+        <li>
+          <a href="#">Google Play Store</a>（まだ公開できていません。承認プロセスがよくわかりません。）
+        </li>
+      </ul>
+      <p><a href="https://discord.gg/G4KBHz8ux6">公式Discordサーバー</a></p>
+    </div>
+    <div class="section">
+      <h3>アイコンリクエスト</h3>
+      <p>
+        使いたいアイコンがアプリになければ、アプリ内の「リクエスト」機能を使って、1回に最大12個までリクエストできます。リクエストしたいアプリを選択して、生成されたメールを送信してください。
+      </p>
+      <p>
+        <a href="https://2gd4.me/dollphone-foss/requests"
+          >今までに何回リクエストされていますか？</a
+        >
+        自由時間にも限りがあるので、リクエストされた回数が多いものから取り掛かっていきます。
+      </p>
+      <h3>アイコンコミッション（有料リクエスト）</h3>
+      <p>
+        待っていられませんか？ <b>有料リクエスト</b>もできます！
+        追加に料金を払えば、リクエスト待ちを飛び越えて、次のバージョンでの収録を保証できます。
+      </p>
+      <h4>料金設定</h4>
+      <ul class="bullet">
+        <li>
+          新アイコン1つ： 複雑さに応じて、米ドル$10～$20（<a
+            href="https://www.glassdoor.com/Salaries/vector-illustrator-salary-SRCH_KO0,18.htm"
+            >Glassdoor</a
+          >によると、アメリカのベクターイラストレーターの時給は平均20ドルほどだそうです。）
+        </li>
+        <li>
+          既存アイコンの別バージョン： $5（色違い、バッジ追加、文字差し替えなど）
+        </li>
+        <li>アイコン5つ同時に注文： 1割引</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>検索</h3>
+
+      <p>
+        あなたのお気に入りのアプリにはもう対応していますか？ 検索結果があればアイコンがここに表示されます。なければ、<a href="https://2gd4.me/dollphone-foss/requests"
+          >ここですでにリクエストされているかチェックできます</a
+        >！
+      </p>
+
+      <div id="search-module">
+        <div class="horizontal">
+          <input
+            id="icon-search"
+            placeholder="半角英数で検索"
+          />
+          <button type="button" onclick="searchIcon()">search</button>
+        </div>
+        <hr />
+        <div id="search-results">
+          <div id="search-count">検索結果0件</div>
+          <ul id="search-result-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="fullwidth">
+    <a class="biglink" href="https://ko-fi.com/itsspelledhaley">Donations</a
+    ><br />
+    <a class="biglink" href="../">Back</a><br />
+    <span>coded with &hearts; by Haley Halcyon</span>
+  </div>
+</body>
