@@ -11,14 +11,8 @@
   <meta name="twitter:creator" content="@haruruchandesu" />
   <link rel="icon" href="/favicon.png" />
   <!-- page metadata -->
-  <meta
-    name="description"
-    content="Android用ゆるかわアイコンパック。"
-  />
-  <meta
-    property="og:description"
-    content="Android用ゆるかわアイコンパック。"
-  />
+  <meta name="description" content="Android用ゆるかわアイコンパック。" />
+  <meta property="og:description" content="Android用ゆるかわアイコンパック。" />
   <meta
     name="twitter:description"
     content="Android用ゆるかわアイコンパック。"
@@ -108,7 +102,8 @@
         status.innerText = "アイコンリストをダウンロード中...";
         const response = await fetch(urlDrawable);
         if (!response.ok) {
-          status.innerText = "アイコンリストのダウンロードが失敗しました。 (´；ω；｀)";
+          status.innerText =
+            "アイコンリストのダウンロードが失敗しました。 (´；ω；｀)";
           return;
         }
         const xml = await response.text();
@@ -153,6 +148,7 @@
     }
   </script>
 </head>
+
 <body>
   <div id="header-fullwidth">
     <img
@@ -163,44 +159,55 @@
   </div>
   <div id="body">
     <div class="section">
-      <h3>About</h3>
-
+      <h3>言語</h3>
+      <ul>
+        <li><a href="dollphone">英語 / English</a></li>
+        <li><a href="dollphone_ja">日本語</a></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>概要</h3>
       <p>
-        Dollphone は、かわいいけど元気すぎないアイコンパックです。極彩色や暗い色を避けて、外側に近づくにつれ少しずつ線を膨らませることによって、ぬいぐるみのようなふわっとした触感を演出しています。
+        Dollphone&thinsp;は、かわいいけど元気すぎないアイコンパックです。極彩色や暗い色を避けて、外側に近づくにつれ少しずつ線を膨らませることによって、ぬいぐるみのようなふわっとした触感を演出しています。
       </p>
-      
+
+      <p><a href="https://discord.gg/G4KBHz8ux6">公式Discordサーバー</a></p>
       <p>
-        Dollphone アイコンパックは、何年もまたいだ『ゆるかわ』への情熱の結晶です。
+        Dollphone&thinsp;アイコンパックは、何年もまたいだ『ゆるかわ』への情熱の結晶です。
       </p>
 
       <p>
         100%フリーウェア（<a href="https://www.apache.org/licenses/LICENSE-2.0"
           >Apache License 2.0</a
-        >）かつ<a href="https://github.com/JapanYoshi/dollphone-foss">オープンソース</a>（すなわち FOSS）で、次の場所からダウンロードできます。
+        >）かつ<a href="https://github.com/JapanYoshi/dollphone-foss"
+          >オープンソース</a
+        >（すなわち FOSS）で、次の場所からダウンロードできます。
       </p>
       <ul id="download-location" class="bullet">
         <li>
           <a href="https://github.com/JapanYoshi/dollphone-foss/releases"
-          >GitHub <img
-          alt="GitHub"
-          src="https://img.shields.io/github/release/JapanYoshi/dollphone-foss.svg?logo=github
+            >GitHub
+            <img
+              alt="GitHub"
+              src="https://img.shields.io/github/release/JapanYoshi/dollphone-foss.svg?logo=github
           "
           /></a>
           確実に最新版！
         </li>
         <li>
           <a href="https://f-droid.org/packages/me.x2gd4.dollphone"
-          >F-Droid <img
-          alt="F-droid"
-          src="https://img.shields.io/f-droid/v/me.x2gd4.dollphone.svg?logo=F-Droid"
+            >F-Droid
+            <img
+              alt="F-droid"
+              src="https://img.shields.io/f-droid/v/me.x2gd4.dollphone.svg?logo=F-Droid"
           /></a>
           アップデートに最大6日かかりますが、F-Droidアプリを使えば自動でアップデートをチェックできます。
         </li>
         <li>
-          <a href="#">Google Play Store</a>（まだ公開できていません。承認プロセスがよくわかりません。）
+          <a href="#">Google Play Store</a
+          >（まだ公開できていません。承認プロセスがよくわかりません。）
         </li>
       </ul>
-      <p><a href="https://discord.gg/G4KBHz8ux6">公式Discordサーバー</a></p>
     </div>
     <div class="section">
       <h3>アイコンリクエスト</h3>
@@ -210,43 +217,40 @@
       <p>
         <a href="https://2gd4.me/dollphone-foss/requests"
           >今までに何回リクエストされていますか？</a
-        >
-        自由時間にも限りがあるので、リクエストされた回数が多いものから取り掛かっていきます。
+        >&thinsp;自由時間にも限りがあるので、リクエストされた回数が多いものから取り掛かっていきます。
       </p>
       <h3>アイコンコミッション（有料リクエスト）</h3>
       <p>
-        待っていられませんか？ <b>有料リクエスト</b>もできます！
+        待っていられませんか？&thinsp;<b>有料リクエスト</b>もできます！&thinsp;
         追加に料金を払えば、リクエスト待ちを飛び越えて、次のバージョンでの収録を保証できます。
       </p>
       <h4>料金設定</h4>
       <ul class="bullet">
         <li>
-          新アイコン1つ： 複雑さに応じて、米ドル$10～$20（<a
+          新アイコン1つ：&thinsp;複雑さに応じて、米ドル$10～$20（<a
             href="https://www.glassdoor.com/Salaries/vector-illustrator-salary-SRCH_KO0,18.htm"
             >Glassdoor</a
           >によると、アメリカのベクターイラストレーターの時給は平均20ドルほどだそうです。）
         </li>
         <li>
-          既存アイコンの別バージョン： $5（色違い、バッジ追加、文字差し替えなど）
+          既存アイコンの別バージョン：&thinsp;$5（色違い、バッジ追加、文字差し替えなど）
         </li>
-        <li>アイコン5つ同時に注文： 1割引</li>
+        <li>アイコン5つ同時に注文：&thinsp;1割引</li>
       </ul>
     </div>
     <div class="section">
       <h3>検索</h3>
 
       <p>
-        あなたのお気に入りのアプリにはもう対応していますか？ 検索結果があればアイコンがここに表示されます。なければ、<a href="https://2gd4.me/dollphone-foss/requests"
+        あなたのお気に入りのアプリにはもう対応していますか？&thinsp;検索結果があればアイコンがここに表示されます。なければ、<a
+          href="https://2gd4.me/dollphone-foss/requests"
           >ここですでにリクエストされているかチェックできます</a
         >！
       </p>
 
       <div id="search-module">
         <div class="horizontal">
-          <input
-            id="icon-search"
-            placeholder="半角英数で検索"
-          />
+          <input id="icon-search" placeholder="半角英数で検索" />
           <button type="button" onclick="searchIcon()">search</button>
         </div>
         <hr />
