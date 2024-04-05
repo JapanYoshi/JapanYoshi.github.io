@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @font-face {
+      font-family: "_font";
+      src: url("./shavian-fonts/space-mono-shavian-r.otf");
+    }
+    @font-face {
+      font-family: "_font";
+      src: url("./shavian-fonts/space-mono-shavian-b.otf");
+      font-weight: bold;
+    }
+
+    @media screen {
+      :root {
+        background: black;
+        color: white;
+      }
+    }
+
+    :root {
+      font-family: "_font", "Space Mono", monospace;
+      font-smooth: never;
+      -webkit-font-smoothing: none;
+      /* WebKit MacOS */
+      /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
+
+      --col-dim-bg: rgb(35, 35, 39);
+      --col-dim: rgb(108, 108, 120);
+      font-size: 16px;
+      --col-accent: rgb(240, 192, 33);
+    }
+
+    a {
+      color: var(--col-accent);
+    }
+
+    a:visited {
+      color: var(--col-accent);
+    }
+
+    input,
+    button {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background: inherit;
+      border: 2px solid var(--col-accent);
+    }
+
+    button {
+      min-width: 2rem;
+      min-height: 2rem;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-height: 100svh;
+      overflow-x: hidden;
+    }
+
+    @media screen and (min-width: 480px) {
+      body {
+        display: grid;
+        grid-template-columns: 12rem 1fr;
+        grid-template-rows: 2rem 3fr 2fr;
+        grid-template-areas:
+          "status status"
+          "nav game"
+          "nav game";
+      }
+
+      .page-game {
+        grid-area: game;
+      }
+
+      nav {
+        grid-area: nav;
+      }
+
+      #status {
+        grid-area: status;
+      }
+
+      #keyboardGrid {
+        width: 100%;
+        max-width: 25rem;
+      }
+    }
+
+    .full-page {
+      z-index: 16;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      inset: 0;
+      background: rgba(32, 32, 32, 0.5);
+      min-height: 0;
+    }
+
+    .modal-bg {
+      padding: 1rem;
+      background: black;
+      border: 2px solid var(--col-dim);
+      width: 24rem;
+      max-width: calc(100vw - 1rem);
+      max-height: calc(100svh - 1rem);
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    #status {
+      width: 100%;
+      background: var(--col-dim-bg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #startGame,
+    #anotherGame {
+      text-align: center;
+    }
+
+    @media screen and (max-width: 479.999px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      #keyboard,
+      #keyboardGrid {
+        width: 100%;
+      }
+    }
+
+    #title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: var(--col-accent);
+      font-weight: normal;
+    }
+
+    h3::before {
+      content: "››› ";
+    }
+
+    #grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin-block: 1rem;
+    }
+
+    .gridLine {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gridWord,
+    .gridRarity,
+    .gridScore,
+    .gridCumScore {
+      text-align: center;
+      line-height: 2rem;
+      box-shadow: 2px 2px 0px var(--col-dim);
+      background: black;
+      color: var(--col-dim);
+      height: 2rem;
+    }
+
+    .gridWord {
+      width: 12rem;
+    }
+
+    .gridRarity {
+      width: 2rem;
+    }
+
+    .gridScore,
+    .gridCumScore {
+      width: 3rem;
+      text-align: right;
+    }
+
+    .gridLine.inactive .gridWord,
+    .gridLine.inactive .gridRarity,
+    .gridLine.inactive .gridScore,
+    .gridLine.inactive .gridCumScore {
+      background: var(--col-dim-bg);
+    }
+
+    #keyboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #keyboard input {
+      background: black;
+      color: white;
+      border: 1px solid var(--col-accent);
+      font-family: inherit;
+      font-size: 1.5rem;
+      width: 100%;
+      max-width: 20rem;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #keyboardGrid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    #keyboardGrid button {
+      min-width: 2rem;
+      height: 3rem;
+      font-family: inherit;
+      font-size: 2rem;
+      background: black;
+      color: white;
+      border: 1px solid var(--col-dim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #keyboardGrid button .buttonLabel {
+      position: absolute;
+      inset: 0;
+      height: 3rem;
+      line-height: 3rem;
+      font-size: 2rem;
+      transform: translateY(-0.25rem);
+    }
+
+    #sound {
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+  </style>
+  <script>
+    const MIN_CHARS = 3;
+    const MAX_GUESSES = 5;
+    let soundOn = false;
+    function soundToggled(event) {
+      if (event) {
+        soundOn = event.target.checked;
+      } else {
+        document.getElementById("toggleSound").checked = false;
+      }
+      if (soundOn) {
+        document.getElementById("sound_dummy").play();
+      } else {
+        document.getElementById("sound_dummy").pause();
+      }
+    }
+
+    function playSound(id) {
+      if (!soundOn) return;
+      const player = document.getElementById("sound_" + id);
+      if (player.paused) {
+        player.play();
+      } else {
+        player.currentTime = 0;
+      }
+    }
+
+    function mulberry32(a) {
+      return function () {
+        let t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      }
+    }
+    const prng = mulberry32(Date.now());
+    function randRange(vMax) {
+      return Math.floor(prng() * vMax);
+    }
+
+    let blockingInput = false;
+
+    let input; // document.getElementById("textInput");
+
+    let guesses = [];
+    let score = 0;
+    let maxScore = 0;
+    let keys = [];
+    let charMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿"];
+    let soundMap = [
+      "p", "t", "k", "f", "th", "s", "sh", "ch", "y", "ng", "b", "d", "g", "v", "dh", "z", "zh", "jh", "w", "h", "l", "m", "ih", "eh", "ae", "ax", "ao", "uh", "aw", "aa", "r", "n", "iy", "ey", "ay", "ah", "ow", "uw", "oy", "au", "ar", "or", "er", "yr", "rr", "ir", "ia", "yu",
+    ];
+
+    // swear words should not be asked
+    const censored_words = [
+      "bitched",
+      "bitches",
+      "bitching",
+      "fifi",
+      "fucked",
+      "fucking",
+      "fucks",
+      "pissed",
+      "pissing",
+      "shits",
+      "shithead",
+      "shitting",
+    ];
+
+    // if I find unsuitable words, I add them here
+    const banned_words = ["cm", "colonnade", "divan", "overawed"];
+
+    let wordListCommon = [];
+    let wordListRare = [];
+    let solutionsCommon = [];
+    let solutionsRare = [];
+
+    function setStatus(status) {
+      const el = document.getElementById("statusText");
+      if (el) {
+        el.innerHTML = status;
+      } else {
+        console.log("setStatus: " + status);
+      }
+    }
+
+    function getDict(handler) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open(
+        "GET",
+        "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv",
+        true
+      );
+      xmlHttp.send(null);
+      xmlHttp.onload = () => {
+        if (xmlHttp.readyState === xmlHttp.DONE) {
+          console.log("xmlHttp loaded");
+          handler(xmlHttp.responseText.trim());
+        }
+      };
+    }
+
+    function generateGame() {
+      guesses = [];
+      score = 0;
+      document.querySelectorAll(".gridWord, .gridRarity, .gridScore, .gridCumScore").forEach(el => {
+        el.innerText = "";
+      })
+      // pick 6 letters that aren't 𐑦 𐑩 𐑼
+      const CONSONANTS = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑮𐑯"];
+      const VOWELS_1 = [..."𐑧𐑨𐑪𐑫𐑬𐑭𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷"]
+      const VOWELS_2 = [..."𐑸𐑹𐑺𐑻𐑽𐑾𐑿"];
+      keys = [];
+
+      for (let i = 0; i < 5; i++) {
+        const j = randRange(CONSONANTS.length);
+        keys.push(CONSONANTS[j]);
+        CONSONANTS.splice(j, 1);
+      }
+      for (let i = 0; i < 3; i++) {
+        const j = randRange(VOWELS_1.length);
+        keys.push(VOWELS_1[j]);
+        VOWELS_1.splice(j, 1);
+      }
+      const j = randRange(VOWELS_2.length);
+      keys.push(VOWELS_2[j]);
+      VOWELS_2.splice(j, 1);
+      keys.push("𐑦", "𐑩", "𐑼");
+      console.log(keys);
+      const keyElements = document.querySelectorAll(
+        "#keyboardGrid > button:not(.buttonFunction)"
+      );
+      for (let i = 0; i < 12; i++) {
+        keyElements[i].querySelector(".buttonLabel").innerText = keys[i];
+      }
+      console.log("wordListCommon is", wordListCommon);
+      // find the possible answers
+      solutionsCommon = [];
+      for (let i = 0; i < wordListCommon.length; i++) {
+        const letters = [...wordListCommon[i][1]];
+        if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
+          solutionsCommon.push([wordListCommon[i], letters.length]);
+        }
+      }
+      // sort by score
+      solutionsCommon.sort((a, b) => b[1] - a[1]);
+      solutionsRare = [];
+      for (let i = 0; i < wordListRare.length; i++) {
+        const letters = [...wordListRare[i][1]];
+        if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
+          if (solutionsCommon.some((solution) => wordListRare[i][1] == solution[1])) { continue; }
+          solutionsRare.push([wordListRare[i], letters.length + 3]);
+        }
+      }
+      // sort by score
+      solutionsRare.sort((a, b) => b[1] - a[1]);
+      console.log(solutionsCommon, solutionsRare);
+      // calculate max score
+      maxScore = 0;
+      let iCommon = 0;
+      let iRare = 0;
+      for (let i = 0; i < MAX_GUESSES; i++) {
+        if (solutionsCommon[iCommon][1] > solutionsRare[iRare][1]) {
+          maxScore += solutionsCommon[iCommon][1];
+          iCommon++;
+        } else {
+          maxScore += solutionsRare[iRare][1];
+          iRare++;
+        }
+      }
+      document.querySelector("#grid .gridScoreBar").innerText = `${solutionsCommon.length} common, ${solutionsRare.length} rare words; Max possible score ${maxScore}`
+    }
+
+    function initDict(callback) {
+      const lastDictUpdate = +new Date(2024, 0, 29);
+      let dictAge = +localStorage.getItem("dictAge");
+      const newAskable = JSON.parse(localStorage.getItem("askable"));
+      const newGuessable = JSON.parse(localStorage.getItem("guessable"));
+      console.log(
+        "dict test:",
+        dictAge,
+        newAskable ? newAskable[4].length : -1
+      );
+      // TEST: force invalidate cache
+      //dictAge = 0;
+      if (
+        dictAge == null ||
+        dictAge < lastDictUpdate ||
+        newAskable[4].length == 0
+      ) {
+        setStatus("Downloading dictionary... (This may take a while, but it will only happen once.)");
+        // set a timeout so I can actually show the status
+        setTimeout(() => {
+          getDict((dict) => {
+            if (dict.startsWith("<!DOCTYPE html>")) {
+              // failed with 404
+              setStatus("Could not load dictionary.");
+              return;
+            }
+            const shavianCache = {
+              common: [],
+              rare: [],
+            };
+            const lines = dict.split("\n");
+            const BATCHSIZE = 2048;
+            let batches = Math.ceil(lines.length / BATCHSIZE);
+            let completion = Array.from(Array(batches), () => false);
+            for (let page = 0; page < batches; page++) {
+              setTimeout(() => {
+                const batch = lines.slice(
+                  page * BATCHSIZE,
+                  (page + 1) * BATCHSIZE
+                );
+                for (const line of batch) {
+                  const words = line.split("\t");
+                  //console.log(words);
+                  // words[0]: Latin
+                  // words[1]: Shavian
+                  // words[2]: part of speech
+                  // words[3]: IPA (not used)
+                  // words[4]: frequency data (askable threshold is 50)
+                  if (words[2] == "NP0") continue; // skip proper nouns
+                  if (
+                    words[1].includes(" ") ||
+                    words[1].includes("-") ||
+                    words[1].includes("'") ||
+                    words[1].includes("·") ||
+                    words[1].includes("⸰")
+                  )
+                    continue;
+                  const shavianChars = [...words[1]]; // split into letters properly
+                  if (shavianChars.length < MIN_CHARS)
+                    continue;
+                  if (shavianCache.common.includes(words[1])) {
+                    continue; // already fully there, skip dupe
+                  } else {
+                    if (
+                      !shavianCache.rare.includes(words[1])
+                    ) {
+                      if (
+                        words[4] >= 50 &&
+                        !censored_words.includes(words[0]) &&
+                        !banned_words.includes(words[0])
+                        // complaints about plurals, gerunds, and 3PS verbs being valid answers
+                        //&& !(["NN2", "VVD", "VVG", "VVZ"].includes(words[2]))
+                      ) {
+                        wordListCommon.push([
+                          words[0],
+                          words[1],
+                        ]);
+                        shavianCache.common.push(words[1]);
+                      } else {
+                        wordListRare.push([
+                          words[0],
+                          words[1],
+                        ]);
+                        shavianCache.rare.push(words[1]);
+                      }
+                    }
+                  }
+                }
+                completion[page] = true;
+                setStatus(
+                  "Building dictionary... (This may take a while, but it will only happen once.)\n" +
+                  completion.reduce((lastVal, thisVal) =>
+                    thisVal === true ? lastVal + 1 : lastVal + 0
+                  ) +
+                  " of " +
+                  batches +
+                  " batches"
+                );
+                if (completion.every((value) => value === true)) {
+                  localStorage.setItem("dictAge", "" + (+new Date()));
+                  localStorage.setItem("askable", JSON.stringify(wordListCommon));
+                  localStorage.setItem(
+                    "guessable",
+                    JSON.stringify(wordListRare)
+                  );
+                  console.log(wordListCommon, wordListRare);
+                  setStatus(
+                    `Loaded dictionary! Word count: ${wordListCommon.length
+                    } common + ${wordListRare.length
+                    } rare`
+                  );
+                  callback();
+                }
+              }, 100 * page);
+            }
+          });
+        }, 1);
+      } else {
+        wordListCommon = newAskable;
+        wordListRare = newGuessable;
+
+        console.log(wordListCommon, wordListRare);
+        setStatus(
+          `Loaded dictionary! Word count: ${wordListCommon.length
+          } common + ${wordListRare.length
+          } rare`
+        );
+        callback();
+      }
+    }
+
+    function onVirtualButtonClick(event) {
+      if (blockingInput) return;
+      console.log("clicked button", event.currentTarget.dataset.button);
+      let val = [...input.value];
+      let cursorStart = [...input.value.substring(0, input.selectionStart)]
+        .length;
+      let cursorEnd = [...input.value.substring(0, input.selectionEnd)]
+        .length;
+      // console.log(cursorStart, cursorEnd);
+      if (event.currentTarget.dataset.button == "delete") {
+        if (cursorStart == cursorEnd) {
+          val.splice(cursorStart - 1, 1);
+        } else {
+          val.splice(cursorStart, cursorEnd - cursorStart);
+        }
+        input.value = val.join("");
+        input.selectionStart = val.slice(0, cursorStart - 1).join().length;
+        playSound("delete");
+      } else if (event.currentTarget.dataset.button == "giveup") {
+        playSound("click");
+        if (window.confirm("Are you sure you want to give up?")) {
+          onGameOver();
+        }
+        return
+      } else if (event.currentTarget.dataset.button == "submit") {
+        playSound("click");
+        submitWord(val);
+      } else {
+        console.log("Entering", keys[event.currentTarget.dataset.button]);
+        val.splice(
+          cursorStart,
+          cursorEnd - cursorStart,
+          keys[event.currentTarget.dataset.button]
+        );
+        input.value = val.join("");
+        input.selectionStart = val.slice(0, cursorStart + 1).join().length;
+        playSound(soundMap[charMap.indexOf(
+          keys[event.currentTarget.dataset.button]
+        )]);
+      }
+    }
+
+    function submitWord(chars) {
+      if (blockingInput) return;
+      if (chars.length < MIN_CHARS) {
+        setStatus("Please enter more characters.");
+        return;
+      }
+      const guess = chars.join("");
+      if (guesses.includes(guess)) {
+        setStatus("You’ve already guessed that word.");
+        return;
+      }
+      // search for word
+      for (let i = 0; i < solutionsCommon.length; i++) {
+        if (solutionsCommon[i][0][1] == guess) {
+          setStatus(
+            `«${guess}» (${solutionsCommon[i][0][0]}) is worth ${solutionsCommon[i][1]} points!`
+          );
+          score += solutionsCommon[i][1];
+          advanceRow(guess, false, solutionsCommon[i][1]);
+          guesses.push(guess);
+          input.value = "";
+          return;
+        }
+      }
+      for (let i = 0; i < solutionsRare.length; i++) {
+        if (solutionsRare[i][0][1] == guess) {
+          setStatus(
+            `Rare guess! «${guess}» (${solutionsRare[i][0][0]}) is worth ${solutionsRare[i][1]} points!`
+          );
+          score += solutionsRare[i][1];
+          advanceRow(guess, true, solutionsRare[i][1]);
+          guesses.push(guess);
+          input.value = "";
+          return;
+        }
+      }
+      setStatus(`Could not find «${guess}» in the dictionary.`);
+    }
+
+    function advanceRow(guess, isRare, wordScore) {
+      const gridLinesEl = document.querySelectorAll("#grid .gridLine");
+      const thisLineEl = gridLinesEl[guesses.length];
+      thisLineEl.querySelector(".gridWord").innerText = guess;
+      thisLineEl.querySelector(".gridRarity").innerText = isRare ? "★" : "-";
+      thisLineEl.querySelector(".gridScore").innerText = wordScore;
+      if (thisLineEl.querySelector(".gridCumScore")) {
+        thisLineEl.querySelector(".gridCumScore").innerText = score;
+      }
+      thisLineEl.classList.add("inactive");
+      if (guesses.length + 1 < MAX_GUESSES) {
+        gridLinesEl[guesses.length + 1].classList.remove("inactive");
+      } else {
+        onGameOver();
+      }
+    }
+
+    function onGameOver() {
+      document.getElementById("gameOverScore").innerText = score;
+      document.getElementById("gameOverMaxScore").innerText = maxScore;
+      document.getElementById("gameOverWordList").replaceChildren([]);
+      const allSolutions = Array.from(solutionsRare, (v => { v.push(true); return v })).concat(Array.from(solutionsCommon, (v => { v.push(false); return v })));
+      allSolutions.sort((a, b) => b[1] - a[1]);
+      for (let i = 0; i < allSolutions.length; i++) {
+        const el = document.createElement("li");
+        el.innerHTML = `<b>${allSolutions[i][0][1]}</b> (${allSolutions[i][0][0]}) ${allSolutions[i][2] ? "★" : "-"} ${allSolutions[i][1]} points`;
+        document.getElementById("gameOverWordList").appendChild(el);
+      }
+      document.getElementById("keyboard").style.display = "none";
+      document.getElementById("anotherGame").style.display = "";
+      document.getElementById("gameOver").style.display = "";
+    }
+
+    function onGameStartButtonClick(event) {
+      if (blockingInput) return;
+      blockingInput = true;
+      playSound("click");
+      document.querySelector("#titleScreen").style.display = "none";
+      document.getElementById("anotherGame").style.display = "none";
+      setStatus("Loading...");
+
+      initDict(() => {
+        generateGame();
+
+        document.getElementById("keyboard").style.display = "";
+
+        document.querySelector("#textInput").value = "";
+
+        document.querySelector("#gameScreen").style.display = "";
+        blockingInput = false;
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      input = document.getElementById("textInput");
+      for (const el of document.querySelectorAll("#keyboardGrid button")) {
+        el.addEventListener("click", onVirtualButtonClick);
+      }
+      input.addEventListener("keyup", (event) => {
+        if (event.key == "Enter") {
+          console.log("Enter is pressed");
+          submitWord(input.value);
+        }
+      });
+      input.addEventListener("input", (event) => {
+        receiveInput(event);
+      });
+      for (const el of document.querySelectorAll("#startGame button, #anotherGame button")) {
+        el.addEventListener("click", onGameStartButtonClick);
+      }
+      document
+        .getElementById("toggleSound")
+        .addEventListener("change", soundToggled);
+      soundToggled();
+      setStatus("Welcome to Spellbound!");
+    });
+
+    function onNavLinkClick(event) {
+      playSound("click");
+      document.querySelector(event.currentTarget.hash).style.display = "";
+    }
+
+    function onCloseLinkClick(event) {
+      playSound("delete");
+      document.querySelector(event.currentTarget.hash).style.display = "none";
+    }
+  </script>
+</head>
+
+<body style="background: black; color: white">
+  <div id="sound">
+    <audio id="sound_p" src="./shavian-info/p.wav"></audio>
+    <audio id="sound_t" src="./shavian-info/t.wav"></audio>
+    <audio id="sound_k" src="./shavian-info/k.wav"></audio>
+    <audio id="sound_f" src="./shavian-info/f.wav"></audio>
+    <audio id="sound_th" src="./shavian-info/th.wav"></audio>
+    <audio id="sound_s" src="./shavian-info/s.wav"></audio>
+    <audio id="sound_sh" src="./shavian-info/sh.wav"></audio>
+    <audio id="sound_ch" src="./shavian-info/ch.wav"></audio>
+    <audio id="sound_y" src="./shavian-info/y.wav"></audio>
+    <audio id="sound_ng" src="./shavian-info/ng.wav"></audio>
+    <audio id="sound_b" src="./shavian-info/b.wav"></audio>
+    <audio id="sound_d" src="./shavian-info/d.wav"></audio>
+    <audio id="sound_g" src="./shavian-info/g.wav"></audio>
+    <audio id="sound_v" src="./shavian-info/v.wav"></audio>
+    <audio id="sound_dh" src="./shavian-info/dh.wav"></audio>
+    <audio id="sound_z" src="./shavian-info/z.wav"></audio>
+    <audio id="sound_zh" src="./shavian-info/zh.wav"></audio>
+    <audio id="sound_jh" src="./shavian-info/jh.wav"></audio>
+    <audio id="sound_w" src="./shavian-info/w.wav"></audio>
+    <audio id="sound_h" src="./shavian-info/h.wav"></audio>
+    <audio id="sound_l" src="./shavian-info/l.wav"></audio>
+    <audio id="sound_m" src="./shavian-info/m.wav"></audio>
+    <audio id="sound_ih" src="./shavian-info/ih.wav"></audio>
+    <audio id="sound_eh" src="./shavian-info/eh.wav"></audio>
+    <audio id="sound_ae" src="./shavian-info/ae.wav"></audio>
+    <audio id="sound_ax" src="./shavian-info/ax.wav"></audio>
+    <audio id="sound_ao" src="./shavian-info/ao.wav"></audio>
+    <audio id="sound_uh" src="./shavian-info/uh.wav"></audio>
+    <audio id="sound_aw" src="./shavian-info/aw.wav"></audio>
+    <audio id="sound_aa" src="./shavian-info/aa.wav"></audio>
+    <audio id="sound_r" src="./shavian-info/r.wav"></audio>
+    <audio id="sound_n" src="./shavian-info/n.wav"></audio>
+    <audio id="sound_iy" src="./shavian-info/iy.wav"></audio>
+    <audio id="sound_ey" src="./shavian-info/ey.wav"></audio>
+    <audio id="sound_ay" src="./shavian-info/ay.wav"></audio>
+    <audio id="sound_ah" src="./shavian-info/ah.wav"></audio>
+    <audio id="sound_ow" src="./shavian-info/ow.wav"></audio>
+    <audio id="sound_uw" src="./shavian-info/uw.wav"></audio>
+    <audio id="sound_oy" src="./shavian-info/oy.wav"></audio>
+    <audio id="sound_au" src="./shavian-info/au.wav"></audio>
+    <audio id="sound_ar" src="./shavian-info/ar.wav"></audio>
+    <audio id="sound_or" src="./shavian-info/or.wav"></audio>
+    <audio id="sound_er" src="./shavian-info/er.wav"></audio>
+    <audio id="sound_yr" src="./shavian-info/yr.wav"></audio>
+    <audio id="sound_rr" src="./shavian-info/rr.wav"></audio>
+    <audio id="sound_ir" src="./shavian-info/ir.wav"></audio>
+    <audio id="sound_ia" src="./shavian-info/ia.wav"></audio>
+    <audio id="sound_yu" src="./shavian-info/yu.wav"></audio>
+    <audio id="sound_click" src="./shingo_click.wav"></audio>
+    <audio id="sound_delete" src="./shingo_delete.wav"></audio>
+    <audio id="sound_hit" src="./shingo_hit.wav"></audio>
+    <audio id="sound_graze" src="./shingo_graze.wav"></audio>
+    <audio id="sound_miss" src="./shingo_miss.wav"></audio>
+    <audio id="sound_win" src="./shingo_win.wav"></audio>
+    <audio id="sound_lose" src="./shingo_lose.wav"></audio>
+    <audio id="sound_dummy" src="./dummy.mp3" loop></audio>
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <input type="checkbox" id="toggleSound" /><label for="toggleSound">Sound</label>
+      </li>
+      <li><a href="#rules" onclick="onNavLinkClick(event)">Rules</a></li>
+      <li><a href="#credits" onclick="onNavLinkClick(event)">Credits</a></li>
+      <li><a href="https://discord.gg/xzrbvJ86fB">Shavian Game Room Discord</a></li>
+    </ul>
+  </nav>
+  <div id="status"><span id="statusText">...</span></div>
+  <div id="titleScreen" class="page-game">
+    <div id="title">
+      <h1>𐑕𐑐𐑧𐑤𐑚𐑬𐑯𐑛</h1>
+    </div>
+    <div id="startGame">
+      <button type="button">Start</button>
+    </div>
+  </div>
+  <div id="gameScreen" class="page-game" style="display: none">
+    <div id="grid">
+      <div class="gridScores">
+        <div class="gridScoreBar">Score: 0; Max possible score: 0</div>
+      </div>
+      <div class="gridLine">
+        <div class="gridWord"></div>
+        <div class="gridRarity"></div>
+        <div class="gridScore"></div>
+        <div class="gridCumScore" style="opacity: 0;"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridWord"></div>
+        <div class="gridRarity"></div>
+        <div class="gridScore"></div>
+        <div class="gridCumScore"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridWord"></div>
+        <div class="gridRarity"></div>
+        <div class="gridScore"></div>
+        <div class="gridCumScore"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridWord"></div>
+        <div class="gridRarity"></div>
+        <div class="gridScore"></div>
+        <div class="gridCumScore"></div>
+      </div>
+      <div class="gridLine inactive">
+        <div class="gridWord"></div>
+        <div class="gridRarity"></div>
+        <div class="gridScore"></div>
+        <div class="gridCumScore"></div>
+      </div>
+    </div>
+    <div id="keyboard" class="page-bottom">
+      <input id="textInput" />
+      <div id="keyboardGrid">
+        <button type="button" data-button="0">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="1">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="2">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="3">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" class="buttonFunction" data-button="delete">⌫</button>
+
+        <button type="button" data-button="4">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="5">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="6">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="7">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" class="buttonFunction" data-button="giveup"><svg xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24" style="max-width: 100%;max-height: 100%;">
+            <title>human-handsup</title>
+            <path fill="currentColor"
+              d="M5,1C5,3.7 6.56,6.16 9,7.32V22H11V15H13V22H15V7.31C17.44,6.16 19,3.7 19,1H17A5,5 0 0,1 12,6A5,5 0 0,1 7,1M12,1C10.89,1 10,1.89 10,3C10,4.11 10.89,5 12,5C13.11,5 14,4.11 14,3C14,1.89 13.11,1 12,1Z" />
+          </svg></button>
+
+        <button type="button" data-button="8">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="9">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="10">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" data-button="11">
+          <div class="buttonLabel">𐑐</div>
+        </button>
+        <button type="button" class="buttonFunction" data-button="submit">✔</button>
+      </div>
+    </div>
+    <div id="anotherGame">
+      <p>Play another game?</p>
+      <button type="button">Start</button>
+    </div>
+  </div>
+  <div id="rules" class="full-page" style="display: none">
+    <div class="modal-bg">
+      <h1>Rules</h1>
+      <h3>Gameplay</h3>
+      <p>You are randomly given a set of 12 letters: 5 random consonants, 4 random vowels, and 3 guaranteed letters: 𐑦,
+        𐑩, and 𐑼.</p>
+      <p>Your task is to think of as many long, rare words that only contain those 12 letters as you can!</p>
+      <h3>Scoring</h3>
+      <p><b>Tournament Score:</b> Your first 5 <i>valid</i> guesses are scored. You can keep playing after that, but
+        they won’t count towards your Tournament Score. You can submit as many invalid words as you want, and they won’t affect your score.</p>
+      <p>Your score is the number of characters your word contains, plus a bonus of 3 if it’s a rare word.</p>
+      <h3>Word inclusion criteria</h3>
+      <p>Valid answers are any word that is at least 3 letters long, is not a proper noun, and is not spelled using an
+        apostrophe, hyphen, or a space.</p>
+      <p>“Common” words are any valid answer with at least a frequency rating of 50 according to <a
+          href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>.</p>
+      <p>“Rare” words are any other valid answer.</p>
+      <a href="#rules" onclick="onCloseLinkClick(event)">dismiss</a>
+    </div>
+  </div>
+  <div id="gameOver" class="full-page" style="display: none">
+    <div class="modal-bg">
+      <h1>Game over!</h1>
+      <h3>Your score</h3>
+      <p>You scored <span id="gameOverScore">0</span> out of a possible <span id="gameOverMaxScore">0</span> points.</p>
+      <h3>All possible words</h3>
+      <ul id="gameOverWordList"></ul>
+      <a href="#gameOver" onclick="onCloseLinkClick(event)">dismiss</a>
+    </div>
+  </div>
+  <div id="credits" class="full-page" style="display: none">
+    <div class="modal-bg">
+      <h1>Credits</h1>
+      <ul>
+        <li>
+          Gameplay inspired by <a href="https://www.nytimes.com/puzzles/spelling-bee">Spelling Bee</a> published by the New York Times
+        </li>
+        <li>
+          Word list from <a href="https://github.com/Shavian-info/readlex">the Read Lexicon</a>
+        </li>
+        <li>
+          Programming by Haley Wakamatsu
+        </li>
+        <li>
+          <a href="https://2gd4.me/shavian-fonts">Space Mono font</a> by Haley Wakamatsu (Latin portion from <a
+            href="https://fonts.google.com/specimen/Space+Mono">“Space Mono” font</a>)
+        </li>
+        <li>
+          SFX and voice samples by Haley Wakamatsu
+        </li>
+      </ul>
+      <a href="#credits" onclick="onCloseLinkClick(event)">dismiss</a>
+    </div>
+  </div>
+</body>
+
+</html>
