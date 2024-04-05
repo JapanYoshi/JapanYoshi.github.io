@@ -268,6 +268,11 @@
       transform: translateY(-0.25rem);
     }
 
+    #screenBottomWordListBox {
+      max-height: 8rem;
+      overflow-y: scroll;
+    }
+
     #sound {
       width: 1px;
       height: 1px;
@@ -687,6 +692,12 @@
         el.innerHTML = `<b>${allSolutions[i][0][1]}</b> (${allSolutions[i][0][0]}) ${allSolutions[i][2] ? "★" : "-"} ${allSolutions[i][1]} points`;
         document.getElementById("gameOverWordList").appendChild(el);
       }
+      const listCopy = Array.from(
+        document.getElementById("gameOverWordList").children,
+        v => {return v.cloneNode(true);}
+      );
+      console.log("listCopy", listCopy);
+      document.getElementById("screenBottomWordListBox").querySelector("ul").replaceChildren(...listCopy);
       document.getElementById("keyboard").style.display = "none";
       document.getElementById("anotherGame").style.display = "";
       document.getElementById("gameOver").style.display = "";
@@ -914,6 +925,9 @@
       </div>
     </div>
     <div id="anotherGame">
+      <div id="screenBottomWordListBox">
+        <ul></ul>
+      </div>
       <p>Play another game?</p>
       <button type="button">Start</button>
     </div>
