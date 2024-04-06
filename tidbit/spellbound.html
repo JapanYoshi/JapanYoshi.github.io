@@ -3,10 +3,13 @@
 
 <head>
   <title>Spellbound 𐑕𐑐𐑧𐑤𐑚𐑬𐑯𐑛 - Shavian word game</title>
-  <meta name="description" content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
-  <meta property="og:description" content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
-  <meta name="twitter:description" content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
-    
+  <meta name="description"
+    content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
+  <meta property="og:description"
+    content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
+  <meta name="twitter:description"
+    content="Given a randomly generated set of letters, think of as many long, rare words as you can!">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
@@ -14,6 +17,7 @@
       font-family: "_font";
       src: url("./shavian-fonts/space-mono-shavian-r.otf");
     }
+
     @font-face {
       font-family: "_font";
       src: url("./shavian-fonts/space-mono-shavian-b.otf");
@@ -282,6 +286,7 @@
   <script>
     const MIN_CHARS = 3;
     const MAX_GUESSES = 5;
+
     let soundOn = false;
     function soundToggled(event) {
       if (event) {
@@ -306,6 +311,35 @@
       }
     }
 
+    function freqToBonus(rarity) {
+      return (
+        0 + (
+          rarity <= 100
+        ) + (
+          rarity <= 50
+        ) + (
+          rarity <= 25
+        ) + (
+          rarity <= 10
+        ) + (
+          rarity == 0
+        )
+      );
+    }
+
+    class Word {
+      latin;
+      shavian;
+      freqBonus;
+      score;
+      constructor(latin, shavian, frequency) {
+        this.latin = latin;
+        this.shavian = shavian;
+        this.freqBonus = freqToBonus(frequency);
+        this.score = [...shavian].length + this.freqBonus;
+      }
+    }
+
     function mulberry32(a) {
       return function () {
         let t = a += 0x6D2B79F5;
@@ -326,6 +360,29 @@
     let guesses = [];
     let score = 0;
     let maxScore = 0;
+    let par = 0;
+    let achievement = 0;
+    let rating = "";
+    const clamp = (a) => Math.min(1, Math.max(a, 0));
+    const invLerp = (lo, hi, a) => clamp((a - lo) / (hi - lo));
+    function calculateRating() {
+      achievement = invLerp(0, par, score) + invLerp(par, maxScore, score);
+      if (achievement == 2) {
+        rating = "★";
+      } else if (achievement >= 1) {
+        rating = "S";
+      } else if (achievement >= 0.8) {
+        rating = "A";
+      } else if (achievement >= 0.6) {
+        rating = "B";
+      } else if (achievement >= 0.3) {
+        rating = "C";
+      } else {
+        rating = "D";
+      }
+    }
+
+
     let keys = [];
     let charMap = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿"];
     let soundMap = [
@@ -351,10 +408,8 @@
     // if I find unsuitable words, I add them here
     const banned_words = ["cm", "colonnade", "divan", "overawed"];
 
-    let wordListCommon = [];
-    let wordListRare = [];
-    let solutionsCommon = [];
-    let solutionsRare = [];
+    let wordList = [];
+    let solutions = [];
 
     function setStatus(status) {
       const el = document.getElementById("statusText");
@@ -414,60 +469,59 @@
       for (let i = 0; i < 12; i++) {
         keyElements[i].querySelector(".buttonLabel").innerText = keys[i];
       }
-      console.log("wordListCommon is", wordListCommon);
+      console.log("wordList is", wordList);
       // find the possible answers
-      solutionsCommon = [];
-      for (let i = 0; i < wordListCommon.length; i++) {
-        const letters = [...wordListCommon[i][1]];
+      solutions = [];
+      for (let i = 0; i < wordList.length; i++) {
+        const letters = [...wordList[i].shavian];
         if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
-          solutionsCommon.push([wordListCommon[i], letters.length]);
+          solutions.push(wordList[i]);
         }
       }
       // sort by score
-      solutionsCommon.sort((a, b) => b[1] - a[1]);
-      solutionsRare = [];
-      for (let i = 0; i < wordListRare.length; i++) {
-        const letters = [...wordListRare[i][1]];
-        if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
-          if (solutionsCommon.some((solution) => wordListRare[i][1] == solution[1])) { continue; }
-          solutionsRare.push([wordListRare[i], letters.length + 3]);
-        }
-      }
-      // sort by score
-      solutionsRare.sort((a, b) => b[1] - a[1]);
-      console.log(solutionsCommon, solutionsRare);
+      solutions.sort((a, b) => b.score - a.score);
+      console.log(solutions);
       // calculate max score
       maxScore = 0;
-      let iCommon = 0;
-      let iRare = 0;
-      for (let i = 0; i < MAX_GUESSES; i++) {
-        if (solutionsCommon[iCommon][1] > solutionsRare[iRare][1]) {
-          maxScore += solutionsCommon[iCommon][1];
-          iCommon++;
-        } else {
-          maxScore += solutionsRare[iRare][1];
-          iRare++;
+      let maxCounter = MAX_GUESSES;
+      par = 0;
+      let parCounter = MAX_GUESSES;
+      for (let i = 0; i < solutions.length; i++) {
+        if (maxCounter > 0) {
+          maxCounter--;
+          maxScore += solutions[i].score;
         }
+        if (parCounter > 0 && solutions[i].freqBonus <= 1) {
+          par += solutions[i].score;
+          parCounter--;
+        }
+        if (!maxCounter && !parCounter) break;
       }
-      document.querySelector("#grid .gridScoreBar").innerText = `${solutionsCommon.length} common, ${solutionsRare.length} rare words; Max possible score ${maxScore}`
+      if (par > maxScore * 0.6) {
+        par = Math.floor(maxScore * 0.6);
+      }
+      calculateRating();
+      document.querySelector("#grid .wordCount").innerText = solutions.length;
+      document.querySelector("#grid .scoreBenchmarks").innerText = `par ${par}; max ${maxScore}`
+      document.querySelector("#grid .liveRank").innerText = rating;
     }
 
     function initDict(callback) {
-      const lastDictUpdate = +new Date(2024, 0, 29);
+      const lastDictUpdate =  "" + (+new Date(2024, 1, 3));
       let dictAge = +localStorage.getItem("dictAge");
-      const newAskable = JSON.parse(localStorage.getItem("askable"));
-      const newGuessable = JSON.parse(localStorage.getItem("guessable"));
+      const savedDict = JSON.parse(localStorage.getItem("dict"));
       console.log(
         "dict test:",
+        lastDictUpdate,
         dictAge,
-        newAskable ? newAskable[4].length : -1
+        savedDict ? savedDict.length : -1
       );
       // TEST: force invalidate cache
       //dictAge = 0;
       if (
         dictAge == null ||
-        dictAge < lastDictUpdate ||
-        newAskable[4].length == 0
+        dictAge != lastDictUpdate ||
+        savedDict.length <= 0
       ) {
         setStatus("Downloading dictionary... (This may take a while, but it will only happen once.)");
         // set a timeout so I can actually show the status
@@ -478,10 +532,7 @@
               setStatus("Could not load dictionary.");
               return;
             }
-            const shavianCache = {
-              common: [],
-              rare: [],
-            };
+            const shavianCache = [];
             const lines = dict.split("\n");
             const BATCHSIZE = 2048;
             let batches = Math.ceil(lines.length / BATCHSIZE);
@@ -509,34 +560,27 @@
                     words[1].includes("⸰")
                   )
                     continue;
+                  words[4] = parseInt(words[4], 10);
                   const shavianChars = [...words[1]]; // split into letters properly
                   if (shavianChars.length < MIN_CHARS)
                     continue;
-                  if (shavianCache.common.includes(words[1])) {
-                    continue; // already fully there, skip dupe
+                  if (shavianCache.includes(words[1])) {
+                    // already there, replace or not?
+                    const alreadyIndex = wordList.findIndex(v => v.shavian == words[1]);
+                    if (wordList[alreadyIndex].frequency < words[4]) {
+                      wordList[alreadyIndex] = new Word(
+                        words[0], words[1], words[4]
+                      )
+                    }
                   } else {
                     if (
-                      !shavianCache.rare.includes(words[1])
+                      !censored_words.includes(words[0]) &&
+                      !banned_words.includes(words[0])
                     ) {
-                      if (
-                        words[4] >= 50 &&
-                        !censored_words.includes(words[0]) &&
-                        !banned_words.includes(words[0])
-                        // complaints about plurals, gerunds, and 3PS verbs being valid answers
-                        //&& !(["NN2", "VVD", "VVG", "VVZ"].includes(words[2]))
-                      ) {
-                        wordListCommon.push([
-                          words[0],
-                          words[1],
-                        ]);
-                        shavianCache.common.push(words[1]);
-                      } else {
-                        wordListRare.push([
-                          words[0],
-                          words[1],
-                        ]);
-                        shavianCache.rare.push(words[1]);
-                      }
+                      shavianCache.push(words[1]);
+                      wordList.push(
+                        new Word(words[0], words[1], words[4])
+                      );
                     }
                   }
                 }
@@ -551,17 +595,12 @@
                   " batches"
                 );
                 if (completion.every((value) => value === true)) {
-                  localStorage.setItem("dictAge", "" + (+new Date()));
-                  localStorage.setItem("askable", JSON.stringify(wordListCommon));
-                  localStorage.setItem(
-                    "guessable",
-                    JSON.stringify(wordListRare)
-                  );
-                  console.log(wordListCommon, wordListRare);
+                  localStorage.setItem("dictAge", lastDictUpdate);
+                  localStorage.setItem("dict", JSON.stringify(wordList));
+
+                  console.log(wordList);
                   setStatus(
-                    `Loaded dictionary! Word count: ${wordListCommon.length
-                    } common + ${wordListRare.length
-                    } rare`
+                    `Loaded dictionary! Word count: ${wordList.length}`
                   );
                   callback();
                 }
@@ -570,14 +609,11 @@
           });
         }, 1);
       } else {
-        wordListCommon = newAskable;
-        wordListRare = newGuessable;
+        wordList = savedDict;
 
-        console.log(wordListCommon, wordListRare);
+        console.log(wordList);
         setStatus(
-          `Loaded dictionary! Word count: ${wordListCommon.length
-          } common + ${wordListRare.length
-          } rare`
+          `Loaded dictionary! Word count: ${wordList.length}`
         );
         callback();
       }
@@ -604,6 +640,7 @@
       } else if (event.currentTarget.dataset.button == "giveup") {
         playSound("click");
         if (window.confirm("Are you sure you want to give up?")) {
+          playSound("lose");
           onGameOver();
         }
         return
@@ -637,64 +674,71 @@
         return;
       }
       // search for word
-      for (let i = 0; i < solutionsCommon.length; i++) {
-        if (solutionsCommon[i][0][1] == guess) {
+      for (let i = 0; i < solutions.length; i++) {
+        if (solutions[i].shavian == guess) {
           setStatus(
-            `«${guess}» (${solutionsCommon[i][0][0]}) is worth ${solutionsCommon[i][1]} points!`
+            `«${guess}» (${solutions[i].latin}) is worth ${solutions[i].score} points! (${solutions[i].freqBonus} rarity bonus)`
           );
-          score += solutionsCommon[i][1];
-          advanceRow(guess, false, solutionsCommon[i][1]);
+          score += solutions[i].score;
+          advanceRow(solutions[i]);
           guesses.push(guess);
           input.value = "";
+          if (solutions[i].score <= 5) {
+            playSound("miss");
+          } else if (solutions[i].score <= 7) {
+            playSound("graze");
+          } else {
+            playSound("hit");
+          }
+          calculateRating();
+          document.querySelector("#grid .liveRank").innerText = rating;
           return;
         }
       }
-      for (let i = 0; i < solutionsRare.length; i++) {
-        if (solutionsRare[i][0][1] == guess) {
-          setStatus(
-            `Rare guess! «${guess}» (${solutionsRare[i][0][0]}) is worth ${solutionsRare[i][1]} points!`
-          );
-          score += solutionsRare[i][1];
-          advanceRow(guess, true, solutionsRare[i][1]);
-          guesses.push(guess);
-          input.value = "";
-          return;
-        }
-      }
-      setStatus(`Could not find «${guess}» in the dictionary.`);
+      setStatus(`«${guess}» is not a valid guess.`);
     }
 
-    function advanceRow(guess, isRare, wordScore) {
+    function advanceRow(guessObj) {
+      blockingInput = true;
       const gridLinesEl = document.querySelectorAll("#grid .gridLine");
       const thisLineEl = gridLinesEl[guesses.length];
-      thisLineEl.querySelector(".gridWord").innerText = guess;
-      thisLineEl.querySelector(".gridRarity").innerText = isRare ? "★" : "-";
-      thisLineEl.querySelector(".gridScore").innerText = wordScore;
-      if (thisLineEl.querySelector(".gridCumScore")) {
-        thisLineEl.querySelector(".gridCumScore").innerText = score;
-      }
+      thisLineEl.querySelector(".gridWord").innerText = guessObj.shavian;
+      thisLineEl.querySelector(".gridRarity").innerText = guessObj.freqBonus;
+      thisLineEl.querySelector(".gridScore").innerText = guessObj.score;
+      thisLineEl.querySelector(".gridCumScore").innerText = score;
       thisLineEl.classList.add("inactive");
       if (guesses.length + 1 < MAX_GUESSES) {
         gridLinesEl[guesses.length + 1].classList.remove("inactive");
+        blockingInput = false;
       } else {
-        onGameOver();
+        setTimeout(() => {
+          playSound("win");
+          onGameOver();
+        }, 1000);
       }
     }
 
     function onGameOver() {
       document.getElementById("gameOverScore").innerText = score;
+      document.querySelector("#screenBottomSummary .bottomScore").innerText = score;
+      document.getElementById("gameOverRating").innerText = `Rank ${rating} (${Math.floor(achievement * 100)}% achievement)`;
+      document.querySelector("#screenBottomSummary .bottomRating").innerText = rating;
+      document.querySelector("#screenBottomSummary .bottomAchievement").innerText = `${Math.floor(achievement * 100)}`;
       document.getElementById("gameOverMaxScore").innerText = maxScore;
+      document.querySelector("#screenBottomSummary .bottomMax").innerText = document.getElementById("gameOverMaxScore").innerText;
+      document.getElementById("gameOverParScore").innerText = par;
+      document.querySelector("#screenBottomSummary .bottomPar").innerText = document.getElementById("gameOverParScore").innerText;
       document.getElementById("gameOverWordList").replaceChildren([]);
-      const allSolutions = Array.from(solutionsRare, (v => { v.push(true); return v })).concat(Array.from(solutionsCommon, (v => { v.push(false); return v })));
-      allSolutions.sort((a, b) => b[1] - a[1]);
-      for (let i = 0; i < allSolutions.length; i++) {
+      
+      for (let i = 0; i < solutions.length; i++) {
         const el = document.createElement("li");
-        el.innerHTML = `<b>${allSolutions[i][0][1]}</b> (${allSolutions[i][0][0]}) ${allSolutions[i][2] ? "★" : "-"} ${allSolutions[i][1]} points`;
+        el.innerHTML = `<b>${solutions[i].shavian}</b> (${solutions[i].latin}) [+${solutions[i].freqBonus}] ${solutions[i].score} points`;
         document.getElementById("gameOverWordList").appendChild(el);
+        blockingInput = false;
       }
       const listCopy = Array.from(
         document.getElementById("gameOverWordList").children,
-        v => {return v.cloneNode(true);}
+        v => { return v.cloneNode(true); }
       );
       console.log("listCopy", listCopy);
       document.getElementById("screenBottomWordListBox").querySelector("ul").replaceChildren(...listCopy);
@@ -840,7 +884,7 @@
   <div id="gameScreen" class="page-game" style="display: none">
     <div id="grid">
       <div class="gridScores">
-        <div class="gridScoreBar">Score: 0; Max possible score: 0</div>
+        <div class="gridScoreBar"><span class="wordCount">0</span> possible words<br><span class="scoreBenchmarks">par 0, max 0</span>; Rank <span class="liveRank"></span></div>
       </div>
       <div class="gridLine">
         <div class="gridWord"></div>
@@ -926,6 +970,19 @@
       </div>
     </div>
     <div id="anotherGame">
+      <table id="screenBottomSummary" style="width:100%;max-width:20rem;table-layout: fixed;">
+        <tbody>
+          <tr>
+            <td>Score: <b class="bottomScore">0</b></td>
+            <td>Par: <b class="bottomPar">0</b></td>
+            <td>Max: <b class="bottomMax">0</b></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="font-size:150%;">Rank: <b class="bottomRating">D</b></td>
+            <td>Achievement: <b class="bottomAchievement">0</b>%</td>
+          </tr>
+        </tbody>
+      </table>
       <div id="screenBottomWordListBox">
         <ul></ul>
       </div>
@@ -941,15 +998,26 @@
         𐑩, and 𐑼.</p>
       <p>Your task is to think of as many long, rare words that only contain those 12 letters as you can!</p>
       <h3>Scoring</h3>
-      <p><b>Tournament Score:</b> Your first 5 <i>valid</i> guesses are scored. You can keep playing after that, but
-        they won’t count towards your Tournament Score. You can submit as many invalid words as you want, and they won’t affect your score.</p>
-      <p>Your score is the number of characters your word contains, plus a bonus of 3 if it’s a rare word.</p>
+      <p><b>Score:</b> Your first 5 <i>valid</i> guesses are scored. You can submit as many invalid words as you want,
+        and they won’t affect
+        your score.</p>
+      <p><b>Rarity bonus:</b> Your score is the number of characters your word contains, plus a bonus of up to 5 points
+        depending on how rare it is (Cutoffs are a frequency at or under 100, 50, 25, 10, and 0).</p>
+      <p><b>Par:</b> The par is the maximum possible score only using words with a frequency of 50 or above, or 60% of
+        the maximum possible score, whichever is lower.</p>
+      <p><b>Rank:</b> Your score is graded on a curve based on the par and max score, and given a letter grade.</p>
+      <ul>
+        <li>Max score: ★ rank</li>
+        <li>Par score or above: S rank</li>
+        <li>80% par score or above: A rank</li>
+        <li>60% par score or above: B rank</li>
+        <li>40% par score or above: C rank</li>
+        <li>lower: D rank</li>
+      </ul>
       <h3>Word inclusion criteria</h3>
       <p>Valid answers are any word that is at least 3 letters long, is not a proper noun, and is not spelled using an
-        apostrophe, hyphen, or a space.</p>
-      <p>“Common” words are any valid answer with at least a frequency rating of 50 according to <a
-          href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>.</p>
-      <p>“Rare” words are any other valid answer.</p>
+        apostrophe, hyphen, or a space. The words have been taken from <a
+          href="https://github.com/Shavian-info/readlex">the Read Lexicon</a>.</p>
       <a href="#rules" onclick="onCloseLinkClick(event)">dismiss</a>
     </div>
   </div>
@@ -957,10 +1025,14 @@
     <div class="modal-bg">
       <h1>Game over!</h1>
       <h3>Your score</h3>
-      <p>You scored <span id="gameOverScore">0</span> out of a possible <span id="gameOverMaxScore">0</span> points.</p>
-      <h3>All possible words</h3>
-      <ul id="gameOverWordList"></ul>
-      <a href="#gameOver" onclick="onCloseLinkClick(event)">dismiss</a>
+      <ul id="performance">
+        <li>Max score: <b id="gameOverMaxScore">0</b></li>
+        <li>Par score: <b id="gameOverParScore">0</b></li>
+        <li>Your score: <b id="gameOverScore">0</b></li>
+        <li>Your rank: <b id="gameOverRating">D</b></li>
+        <h3>All possible words</h3>
+        <ul id="gameOverWordList"></ul>
+        <a href="#gameOver" onclick="onCloseLinkClick(event)">dismiss</a>
     </div>
   </div>
   <div id="credits" class="full-page" style="display: none">
@@ -968,7 +1040,8 @@
       <h1>Credits</h1>
       <ul>
         <li>
-          Gameplay inspired by <a href="https://www.nytimes.com/puzzles/spelling-bee">Spelling Bee</a> published by the New York Times
+          Gameplay inspired by <a href="https://www.nytimes.com/puzzles/spelling-bee">Spelling Bee</a> published by the
+          New York Times
         </li>
         <li>
           Word list from <a href="https://github.com/Shavian-info/readlex">the Read Lexicon</a>
