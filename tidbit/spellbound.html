@@ -326,19 +326,17 @@
         )
       );
     }
-
-    class Word {
-      latin;
-      shavian;
-      freqBonus;
-      score;
-      constructor(latin, shavian, frequency) {
-        this.latin = latin;
-        this.shavian = shavian;
-        this.freqBonus = freqToBonus(frequency);
-        this.score = [...shavian].length + this.freqBonus;
-      }
-    }
+    const constructWord = (latin, shavian, frequency) => [
+      latin,
+      shavian,
+      [...shavian].length * 2 + freqToBonus(frequency),
+      frequency
+    ];
+    const wordLatin = (x) => x[0];
+    const wordShavian = (x) => x[1];
+    const wordScore = (x) => x[2];
+    const wordFrequency = (x) => x[3];
+    const wordFreqBonus = (x) => freqToBonus(x[3]);
 
     function mulberry32(a) {
       return function () {
@@ -436,76 +434,6 @@
       };
     }
 
-    function generateGame() {
-      guesses = [];
-      score = 0;
-      document.querySelectorAll(".gridWord, .gridRarity, .gridScore, .gridCumScore").forEach(el => {
-        el.innerText = "";
-      })
-      // pick 6 letters that aren't 𐑦 𐑩 𐑼
-      const CONSONANTS = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑮𐑯"];
-      const VOWELS_1 = [..."𐑧𐑨𐑪𐑫𐑬𐑭𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷"]
-      const VOWELS_2 = [..."𐑸𐑹𐑺𐑻𐑽𐑾𐑿"];
-      keys = [];
-
-      for (let i = 0; i < 5; i++) {
-        const j = randRange(CONSONANTS.length);
-        keys.push(CONSONANTS[j]);
-        CONSONANTS.splice(j, 1);
-      }
-      for (let i = 0; i < 3; i++) {
-        const j = randRange(VOWELS_1.length);
-        keys.push(VOWELS_1[j]);
-        VOWELS_1.splice(j, 1);
-      }
-      const j = randRange(VOWELS_2.length);
-      keys.push(VOWELS_2[j]);
-      VOWELS_2.splice(j, 1);
-      keys.push("𐑦", "𐑩", "𐑼");
-      console.log(keys);
-      const keyElements = document.querySelectorAll(
-        "#keyboardGrid > button:not(.buttonFunction)"
-      );
-      for (let i = 0; i < 12; i++) {
-        keyElements[i].querySelector(".buttonLabel").innerText = keys[i];
-      }
-      console.log("wordList is", wordList);
-      // find the possible answers
-      solutions = [];
-      for (let i = 0; i < wordList.length; i++) {
-        const letters = [...wordList[i].shavian];
-        if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
-          solutions.push(wordList[i]);
-        }
-      }
-      // sort by score
-      solutions.sort((a, b) => b.score - a.score);
-      console.log(solutions);
-      // calculate max score
-      maxScore = 0;
-      let maxCounter = MAX_GUESSES;
-      par = 0;
-      let parCounter = MAX_GUESSES;
-      for (let i = 0; i < solutions.length; i++) {
-        if (maxCounter > 0) {
-          maxCounter--;
-          maxScore += solutions[i].score;
-        }
-        if (parCounter > 0 && solutions[i].freqBonus <= 1) {
-          par += solutions[i].score;
-          parCounter--;
-        }
-        if (!maxCounter && !parCounter) break;
-      }
-      if (par > maxScore * 0.6) {
-        par = Math.floor(maxScore * 0.6);
-      }
-      calculateRating();
-      document.querySelector("#grid .wordCount").innerText = solutions.length;
-      document.querySelector("#grid .scoreBenchmarks").innerText = `par ${par}; max ${maxScore}`
-      document.querySelector("#grid .liveRank").innerText = rating;
-    }
-
     function initDict(callback) {
       const lastDictUpdate =  "" + (+new Date(2024, 1, 3));
       let dictAge = +localStorage.getItem("dictAge");
@@ -534,7 +462,7 @@
             }
             const shavianCache = [];
             const lines = dict.split("\n");
-            const BATCHSIZE = 2048;
+            const BATCHSIZE = 1024;
             let batches = Math.ceil(lines.length / BATCHSIZE);
             let completion = Array.from(Array(batches), () => false);
             for (let page = 0; page < batches; page++) {
@@ -566,9 +494,9 @@
                     continue;
                   if (shavianCache.includes(words[1])) {
                     // already there, replace or not?
-                    const alreadyIndex = wordList.findIndex(v => v.shavian == words[1]);
-                    if (wordList[alreadyIndex].frequency < words[4]) {
-                      wordList[alreadyIndex] = new Word(
+                    const alreadyIndex = wordList.findIndex(v => wordShavian(v) == words[1]);
+                    if (wordFrequency(wordList[alreadyIndex]) < words[4]) {
+                      wordList[alreadyIndex] = constructWord(
                         words[0], words[1], words[4]
                       )
                     }
@@ -579,7 +507,7 @@
                     ) {
                       shavianCache.push(words[1]);
                       wordList.push(
-                        new Word(words[0], words[1], words[4])
+                        constructWord(words[0], words[1], words[4])
                       );
                     }
                   }
@@ -617,6 +545,76 @@
         );
         callback();
       }
+    }
+
+    function generateGame() {
+      guesses = [];
+      score = 0;
+      document.querySelectorAll(".gridWord, .gridRarity, .gridScore, .gridCumScore").forEach(el => {
+        el.innerText = "";
+      })
+      // pick 6 letters that aren't 𐑦 𐑩 𐑼
+      const CONSONANTS = [..."𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑮𐑯"];
+      const VOWELS_1 = [..."𐑧𐑨𐑪𐑫𐑬𐑭𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷"]
+      const VOWELS_2 = [..."𐑸𐑹𐑺𐑻𐑽𐑾𐑿"];
+      keys = [];
+
+      for (let i = 0; i < 5; i++) {
+        const j = randRange(CONSONANTS.length);
+        keys.push(CONSONANTS[j]);
+        CONSONANTS.splice(j, 1);
+      }
+      for (let i = 0; i < 3; i++) {
+        const j = randRange(VOWELS_1.length);
+        keys.push(VOWELS_1[j]);
+        VOWELS_1.splice(j, 1);
+      }
+      const j = randRange(VOWELS_2.length);
+      keys.push(VOWELS_2[j]);
+      VOWELS_2.splice(j, 1);
+      keys.push("𐑦", "𐑩", "𐑼");
+      console.log(keys);
+      const keyElements = document.querySelectorAll(
+        "#keyboardGrid > button:not(.buttonFunction)"
+      );
+      for (let i = 0; i < 12; i++) {
+        keyElements[i].querySelector(".buttonLabel").innerText = keys[i];
+      }
+      console.log("wordList is", wordList);
+      // find the possible answers
+      solutions = [];
+      for (let i = 0; i < wordList.length; i++) {
+        const letters = [...wordShavian(wordList[i])];
+        if (letters.every((thisLetter) => { return keys.includes(thisLetter) })) {
+          solutions.push(wordList[i]);
+        }
+      }
+      // sort by score
+      solutions.sort((a, b) => wordScore(b) - wordScore(a));
+      console.log(solutions);
+      // calculate max score
+      maxScore = 0;
+      let maxCounter = MAX_GUESSES;
+      par = 0;
+      let parCounter = MAX_GUESSES;
+      for (let i = 0; i < solutions.length; i++) {
+        if (maxCounter > 0) {
+          maxCounter--;
+          maxScore += wordScore(solutions[i]);
+        }
+        if (parCounter > 0 && wordFreqBonus(solutions[i]) <= 2) {
+          par += wordScore(solutions[i]);
+          parCounter--;
+        }
+        if (!maxCounter && !parCounter) break;
+      }
+      if (par > maxScore * 0.6) {
+        par = Math.floor(maxScore * 0.6);
+      }
+      calculateRating();
+      document.querySelector("#grid .wordCount").innerText = solutions.length;
+      document.querySelector("#grid .scoreBenchmarks").innerText = `par ${par}; max ${maxScore}`
+      document.querySelector("#grid .liveRank").innerText = rating;
     }
 
     function onVirtualButtonClick(event) {
@@ -675,17 +673,17 @@
       }
       // search for word
       for (let i = 0; i < solutions.length; i++) {
-        if (solutions[i].shavian == guess) {
+        if (wordShavian(solutions[i]) == guess) {
           setStatus(
-            `«${guess}» (${solutions[i].latin}) is worth ${solutions[i].score} points! (${solutions[i].freqBonus} rarity bonus)`
+            `«${guess}» (${wordLatin(solutions[i])}) is worth ${wordScore(solutions[i])} points! (${wordFreqBonus(solutions[i])} rarity bonus)`
           );
-          score += solutions[i].score;
+          score += wordScore(solutions[i]);
           advanceRow(solutions[i]);
           guesses.push(guess);
           input.value = "";
-          if (solutions[i].score <= 5) {
+          if (wordScore(solutions[i]) <= 5) {
             playSound("miss");
-          } else if (solutions[i].score <= 7) {
+          } else if (wordScore(solutions[i]) <= 7) {
             playSound("graze");
           } else {
             playSound("hit");
@@ -702,9 +700,9 @@
       blockingInput = true;
       const gridLinesEl = document.querySelectorAll("#grid .gridLine");
       const thisLineEl = gridLinesEl[guesses.length];
-      thisLineEl.querySelector(".gridWord").innerText = guessObj.shavian;
-      thisLineEl.querySelector(".gridRarity").innerText = guessObj.freqBonus;
-      thisLineEl.querySelector(".gridScore").innerText = guessObj.score;
+      thisLineEl.querySelector(".gridWord").innerText = wordShavian(guessObj);
+      thisLineEl.querySelector(".gridRarity").innerText = wordFreqBonus(guessObj);
+      thisLineEl.querySelector(".gridScore").innerText = wordScore(guessObj);
       thisLineEl.querySelector(".gridCumScore").innerText = score;
       thisLineEl.classList.add("inactive");
       if (guesses.length + 1 < MAX_GUESSES) {
@@ -732,7 +730,7 @@
       
       for (let i = 0; i < solutions.length; i++) {
         const el = document.createElement("li");
-        el.innerHTML = `<b>${solutions[i].shavian}</b> (${solutions[i].latin}) [+${solutions[i].freqBonus}] ${solutions[i].score} points`;
+        el.innerHTML = `<b>${wordShavian(solutions[i])}</b> (${wordLatin(solutions[i])}) [+${wordFreqBonus(solutions[i])}] ${wordScore(solutions[i])} points`;
         document.getElementById("gameOverWordList").appendChild(el);
         blockingInput = false;
       }
@@ -1001,9 +999,9 @@
       <p><b>Score:</b> Your first 5 <i>valid</i> guesses are scored. You can submit as many invalid words as you want,
         and they won’t affect
         your score.</p>
-      <p><b>Rarity bonus:</b> Your score is the number of characters your word contains, plus a bonus of up to 5 points
+      <p><b>Rarity bonus:</b> Your score is 2 × the number of characters your word contains, plus a bonus of up to 5 points
         depending on how rare it is (Cutoffs are a frequency at or under 100, 50, 25, 10, and 0).</p>
-      <p><b>Par:</b> The par is the maximum possible score only using words with a frequency of 50 or above, or 60% of
+      <p><b>Par:</b> The par is the maximum possible score only using words with a frequency bonus of 2 or below, or 60% of
         the maximum possible score, whichever is lower.</p>
       <p><b>Rank:</b> Your score is graded on a curve based on the par and max score, and given a letter grade.</p>
       <ul>
