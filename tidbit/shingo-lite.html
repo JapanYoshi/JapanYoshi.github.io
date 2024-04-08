@@ -432,7 +432,7 @@
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open(
           "GET",
-          "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv",
+          "https://2gd4.me/tidbit/readlex_shingo.json",
           true
         );
         xmlHttp.send(null);
@@ -447,19 +447,9 @@
       function initDict(callback) {
         const lastDictUpdate = +new Date(2024, 0, 29);
         let dictAge = +localStorage.getItem("dictAge");
-        const newAskable = JSON.parse(localStorage.getItem("askable"));
-        const newGuessable = JSON.parse(localStorage.getItem("guessable"));
-        console.log(
-          "dict test:",
-          dictAge,
-          newAskable ? newAskable[4].length : -1
-        );
-        // TEST: force invalidate cache
-        //dictAge = 0;
         if (
           dictAge == null ||
-          dictAge < lastDictUpdate ||
-          newAskable[4].length == 0
+          dictAge < lastDictUpdate
         ) {
           setStatus("Downloading dictionary... (This may take a while, but it will only happen once.)");
           // set a timeout so I can actually show the status
@@ -470,105 +460,33 @@
                 setStatus("Could not load dictionary.");
                 return;
               }
-              const shavianCache = {
-                askable: { 4: [], 5: [], 6: [], 7: [] },
-                guessable: { 4: [], 5: [], 6: [], 7: [] },
-              };
-              const lines = dict.split("\n");
-              const BATCHSIZE = 2048;
-              let batches = Math.ceil(lines.length / BATCHSIZE);
-              let completion = Array.from(Array(batches), () => false);
-              for (let page = 0; page < batches; page++) {
-                setTimeout(() => {
-                  const batch = lines.slice(
-                    page * BATCHSIZE,
-                    (page + 1) * BATCHSIZE
-                  );
-                  for (const line of batch) {
-                    const words = line.split("\t");
-                    //console.log(words);
-                    // words[0]: Latin
-                    // words[1]: Shavian
-                    // words[2]: part of speech
-                    // words[3]: IPA (not used)
-                    // words[4]: frequency data (askable threshold is 50)
-                    if (words[2] == "NP0") continue; // skip proper nouns
-                    if (
-                      words[1].includes(" ") ||
-                      words[1].includes("-") ||
-                      words[1].includes("'") ||
-                      words[1].includes("·") ||
-                      words[1].includes("⸰")
-                    )
-                      continue;
-                    const shavianChars = [...words[1]]; // split into letters properly
-                    if (shavianChars.length < 4 || shavianChars.length > 7)
-                      continue;
-                    if (shavianCache.askable[charCount].includes(words[1])) {
-                      continue; // already fully there, skip dupe
-                    } else {
-                      if (
-                        !shavianCache.guessable[charCount].includes(words[1])
-                      ) {
-                        guessable[shavianChars.length].push([
-                          words[0],
-                          words[1],
-                        ]);
-                        shavianCache.guessable[charCount].push(words[1]);
-                        if (
-                          words[4] >= 50 &&
-                          !censored_words.includes(words[0]) &&
-                          !banned_words.includes(words[0])
-                          // complaints about plurals, gerunds, and 3PS verbs being valid answers
-                          //&& !(["NN2", "VVD", "VVG", "VVZ"].includes(words[2]))
-                        ) {
-                          askable[shavianChars.length].push([
-                            words[0],
-                            words[1],
-                          ]);
-                          shavianCache.askable[charCount].push(words[1]);
-                        }
-                      }
-                    }
-                  }
-                  completion[page] = true;
-                  setStatus(
-                    "Building dictionary... (This may take a while, but it will only happen once.)\n" +
-                      completion.reduce((lastVal, thisVal) =>
-                        thisVal === true ? lastVal + 1 : lastVal + 0
-                      ) +
-                      " of " +
-                      batches +
-                      " batches"
-                  );
-                  if (completion.every((value) => value === true)) {
-                    localStorage.setItem("dictAge", "" + (+new Date()));
-                    localStorage.setItem("askable", JSON.stringify(askable));
-                    localStorage.setItem(
-                      "guessable",
-                      JSON.stringify(guessable)
-                    );
-                    console.log(askable, guessable);
-                    setStatus(
-                      `Loaded dictionary! Total words: ${
-                        askable[4].length +
-                        askable[5].length +
-                        askable[6].length +
-                        askable[7].length
-                      } / ${
-                        (guessable[4].length,
-                        guessable[5].length,
-                        guessable[6].length,
-                        guessable[7].length)
-                      }`
-                    );
-                    callback();
-                  }
-                }, 100 * page);
+              const parsed = JSON.parse(dict);
+              for (const i of [4, 5, 6, 7]) {
+                askable[i] = parsed.askable[i];
+                guessable[i] = parsed.guessable[i];
               }
+              localStorage.setItem("dictAge", "" + (+new Date()));
+              localStorage.setItem("askable", JSON.stringify(parsed.askable));
+              localStorage.setItem("guessable", JSON.stringify(parsed.guessable));
+              setStatus(
+                `Loaded dictionary! Total words: ${
+                  askable[4].length +
+                  askable[5].length +
+                  askable[6].length +
+                  askable[7].length
+                } / ${
+                  (guessable[4].length,
+                  guessable[5].length,
+                  guessable[6].length,
+                  guessable[7].length)
+                }`
+              );
+              callback();
             });
           }, 1);
         } else {
+          const newAskable = JSON.parse(localStorage.getItem("askable"));
+          const newGuessable = JSON.parse(localStorage.getItem("guessable"));
           for (const i of [4, 5, 6, 7]) {
             askable[i] = newAskable[i];
             guessable[i] = newGuessable[i];

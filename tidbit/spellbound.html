@@ -422,7 +422,7 @@
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open(
         "GET",
-        "https://2gd4.me/tidbit/shavian-info/kingsleyreadlexicon.tsv",
+        "https://2gd4.me/tidbit/readlex_spellbound.json",
         true
       );
       xmlHttp.send(null);
@@ -460,85 +460,19 @@
               setStatus("Could not load dictionary.");
               return;
             }
-            const shavianCache = [];
-            const lines = dict.split("\n");
-            const BATCHSIZE = 1024;
-            let batches = Math.ceil(lines.length / BATCHSIZE);
-            let completion = Array.from(Array(batches), () => false);
-            for (let page = 0; page < batches; page++) {
-              setTimeout(() => {
-                const batch = lines.slice(
-                  page * BATCHSIZE,
-                  (page + 1) * BATCHSIZE
-                );
-                for (const line of batch) {
-                  const words = line.split("\t");
-                  //console.log(words);
-                  // words[0]: Latin
-                  // words[1]: Shavian
-                  // words[2]: part of speech
-                  // words[3]: IPA (not used)
-                  // words[4]: frequency data (askable threshold is 50)
-                  if (words[2] == "NP0") continue; // skip proper nouns
-                  if (
-                    words[1].includes(" ") ||
-                    words[1].includes("-") ||
-                    words[1].includes("'") ||
-                    words[1].includes("·") ||
-                    words[1].includes("⸰")
-                  )
-                    continue;
-                  words[4] = parseInt(words[4], 10);
-                  const shavianChars = [...words[1]]; // split into letters properly
-                  if (shavianChars.length < MIN_CHARS)
-                    continue;
-                  if (shavianCache.includes(words[1])) {
-                    // already there, replace or not?
-                    const alreadyIndex = wordList.findIndex(v => wordShavian(v) == words[1]);
-                    if (wordFrequency(wordList[alreadyIndex]) < words[4]) {
-                      wordList[alreadyIndex] = constructWord(
-                        words[0], words[1], words[4]
-                      )
-                    }
-                  } else {
-                    if (
-                      !censored_words.includes(words[0]) &&
-                      !banned_words.includes(words[0])
-                    ) {
-                      shavianCache.push(words[1]);
-                      wordList.push(
-                        constructWord(words[0], words[1], words[4])
-                      );
-                    }
-                  }
-                }
-                completion[page] = true;
-                setStatus(
-                  "Building dictionary... (This may take a while, but it will only happen once.)\n" +
-                  completion.reduce((lastVal, thisVal) =>
-                    thisVal === true ? lastVal + 1 : lastVal + 0
-                  ) +
-                  " of " +
-                  batches +
-                  " batches"
-                );
-                if (completion.every((value) => value === true)) {
-                  localStorage.setItem("dictAge", lastDictUpdate);
-                  localStorage.setItem("dict", JSON.stringify(wordList));
-
-                  console.log(wordList);
-                  setStatus(
-                    `Loaded dictionary! Word count: ${wordList.length}`
-                  );
-                  callback();
-                }
-              }, 100 * page);
-            }
+            const parsed = JSON.parse(dict);
+            wordList = parsed;
+            localStorage.setItem("dictAge", lastDictUpdate);
+            localStorage.setItem("dict", dict);
+            console.log(wordList);
+            setStatus(
+              `Loaded dictionary! Word count: ${wordList.length}`
+            );
+            callback();
           });
         }, 1);
       } else {
         wordList = savedDict;
-
         console.log(wordList);
         setStatus(
           `Loaded dictionary! Word count: ${wordList.length}`
