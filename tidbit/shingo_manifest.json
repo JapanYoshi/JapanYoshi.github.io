@@ -1,0 +1,12 @@
+{
+  "name": "Shingo Lite",
+  "icons": [
+    {
+      "src": "shingo_icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./shingo-lite.html",
+  "display": "fullscreen"
+}
