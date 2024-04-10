@@ -337,6 +337,16 @@
     }
   </style>
   <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(
+        './spellbound_service_worker.js'
+      ).then((registration) => {
+        console.log("PWA service worker registered");
+      }).catch((error) => {
+        console.error("PWA service worker registration failed:", error);
+      });
+    }
+
     const MIN_CHARS = 3;
     const MAX_GUESSES = 5;
 
