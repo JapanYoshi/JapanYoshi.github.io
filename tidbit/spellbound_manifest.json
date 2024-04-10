@@ -1,5 +1,9 @@
 {
-  "name": "Spellbound",
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Spellbound / 𐑕𐑐𐑧𐑤𐑚𐑬𐑯𐑛",
+  "short_name": "Spellbound",
+  "description": "Shavian spelling game",
   "icons": [
     {
       "src": "spellbound_icon.png",
@@ -8,6 +12,10 @@
       "purpose": "maskable"
     }
   ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
   "start_url": "./spellbound.html",
-  "display": "fullscreen"
+  "display": "standalone",
+  "categories": ["games", "shavian", "spelling", "education"]
 }

@@ -1,5 +1,7 @@
+const cacheName = "cacheSpellbound2gd4me";
+
 const toCache = [
-  "./",
+  "./spellbound.html",
   "./readlex_spellbound.json",
   "./shavian-fonts/space-mono-shavian-r.otf",
   "./shavian-fonts/space-mono-shavian-b.otf",
@@ -62,23 +64,47 @@ const toCache = [
 ];
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open("cacheSpellbound2gd4me").then((cache) => {
-      return cache.addAll(toCache);
-    })
+    caches
+      .open(cacheName)
+      .then((cache) =>
+        cache.addAll(toCache),
+      ),
   );
 });
+
+const putInCache = async (request, response) => {
+  const cache = await caches.open(cacheName);
+}
+
+// fallbackUrl will be fetched if the real request fails
+const fetchWithCache = async ({request, fallbackUrl}) => {
+  try {
+    const responseFromNetwork = await fetch(request);
+    // Fetched from network, clone and cache it
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+  } catch (e) {
+    // Get cached resource
+    const responseFromCache = await caches.match(request);
+    if (responseFromCache) return responseFromCache;
+    
+    // Not found in cache! Fallback...
+    const fallbackResponse = await caches.match(fallbackUrl);
+    if (fallbackResponse) return fallbackResponse;
+
+    // Can't even get fallback response, just rawdog it
+    return new Response("Network error while trying to fetch " + request.url, {
+      status: 400,
+      headers: {"Content-Type": "text/plain"},
+    });
+  }
+}
+
 self.addEventListener("fetch", event => {
   event.respondWith(
-    (async () => {
-      const r = await caches.match(event.request);
-      console.log("Service Worker: fetching resource at", event.request.url);
-      if (r) return r;
-
-      const response = await fetch(event.request);
-      const cache = await caches.open(cacheName);
-      console.log(`[Service Worker] Caching new resource: ${event.request.url}`);
-      cache.put(event.request, response.clone());
-      return response;
-    })()
+    fetchWithCache({
+      request: event.request,
+      fallbackUrl: "https://2gd4.me/404.html",
+    })
   );
 });

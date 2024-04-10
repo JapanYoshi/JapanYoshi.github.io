@@ -512,7 +512,7 @@
     }
 
     function initDict(callback) {
-      setTimeout(()=>{
+      setTimeout(() => {
         const lastDictUpdate = "" + (+new Date(2024, 1, 3));
         let dictAge = +localStorage.getItem("dictAge");
         const savedDict = JSON.parse(localStorage.getItem("dict"));
@@ -648,19 +648,39 @@
       if (blockingInput) return;
       console.log("clicked button", event.currentTarget.dataset.button);
       let val = [...input.value];
-      let cursorStart = [...input.value.substring(0, input.selectionStart)]
+      let cursorStartUTF32 = [...input.value.substring(0, input.selectionStart)]
         .length;
-      let cursorEnd = [...input.value.substring(0, input.selectionEnd)]
+      let cursorEndUTF32 = [...input.value.substring(0, input.selectionEnd)]
         .length;
-      // console.log(cursorStart, cursorEnd);
+      console.log(
+        "Cursor0",
+        input.selectionStart,
+        input.selectionEnd,
+        input.value,
+        val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+      );
       if (event.currentTarget.dataset.button == "delete") {
-        if (cursorStart == cursorEnd) {
-          val.splice(cursorStart - 1, 1);
+        if (cursorStartUTF32 == cursorEndUTF32) {
+          if (cursorStartUTF32 == 0) {return}
+          val.splice(cursorStartUTF32 - 1, 1);
         } else {
-          val.splice(cursorStart, cursorEnd - cursorStart);
+          val.splice(cursorStartUTF32, cursorEndUTF32 - cursorStartUTF32);
         }
+        cursorStartUTF32 -= 1;
+        cursorEndUTF32 = cursorStartUTF32;
         input.value = val.join("");
-        input.selectionStart = val.slice(0, cursorStart - 1).join().length;
+        input.selectionStart = val.slice(0, cursorStartUTF32).join("").length;
+        input.selectionEnd = input.selectionStart;
+
+        // cursor result preview
+        console.log(
+          "Cursor1",
+          input.selectionStart,
+          input.selectionEnd,
+          input.value,
+          val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+        );
+
         playSound("delete");
       } else if (event.currentTarget.dataset.button == "giveup") {
         playSound("click");
@@ -675,12 +695,26 @@
       } else {
         console.log("Entering", keys[event.currentTarget.dataset.button]);
         val.splice(
-          cursorStart,
-          cursorEnd - cursorStart,
+          cursorStartUTF32,
+          cursorEndUTF32 - cursorStartUTF32,
           keys[event.currentTarget.dataset.button]
         );
         input.value = val.join("");
-        input.selectionStart = val.slice(0, cursorStart + 1).join().length;
+        cursorStartUTF32 += 1;
+        cursorEndUTF32 = cursorStartUTF32;
+        input.selectionStart = val.splice(0, cursorStartUTF32).join("").length;
+        input.selectionEnd = input.selectionStart;
+        // cursor result preview
+        console.log(
+          "Cursor2",
+          input.selectionStart,
+          input.selectionEnd,
+          cursorStartUTF32,
+          cursorEndUTF32,
+          input.value,
+          val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+        );
+
         playSound(soundMap[charMap.indexOf(
           keys[event.currentTarget.dataset.button]
         )]);
@@ -906,7 +940,7 @@
       <li><a href="https://discord.gg/xzrbvJ86fB">Shavian Game Room Discord</a></li>
     </ul>
   </nav>
-  <div id="status"><span id="statusText">...</span></div>
+  <div id="status"><span id="statusText">NEW: Install the game as a PWA to play offline!</span></div>
   <div id="titleScreen" class="page-game">
     <div id="title">
       <h1>𐑕𐑐𐑧𐑤𐑚𐑬𐑯𐑛</h1>
