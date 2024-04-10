@@ -1,7 +1,7 @@
 const cacheName = "cacheShingo2gd4me";
 
 const toCache = [
-  "./shingo.html",
+  "./shingo-lite.html",
   "./readlex_shingo.json",
   "./shavian-fonts/mikadoshavianbold.otf",
   "./shavian-info/p.wav",
