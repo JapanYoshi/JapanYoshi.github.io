@@ -549,43 +549,78 @@
 
       function onVirtualButtonClick(event) {
         if (blockingInput) return;
-        console.log("clicked button", event.target.dataset.button);
+        console.log("clicked button", event.currentTarget.dataset.button);
         let val = [...input.value];
-        let selectionStart32 = [...input.value.substring(0, input.selectionStart)]
+        let cursorStartUTF32 = [...input.value.substring(0, input.selectionStart)]
           .length;
-        let selectionEnd32 = [...input.value.substring(0, input.selectionEnd)]
+        let cursorEndUTF32 = [...input.value.substring(0, input.selectionEnd)]
           .length;
-        // console.log(selectionStart32, selectionEnd32);
-        if (event.target.dataset.button == "delete") {
-          if (selectionStart32 == selectionEnd32) {
-            if (selectionStart32 == 0) return;
-            val.splice(selectionStart32 - 1, 1);
+        console.log(
+          "Cursor0",
+          input.selectionStart,
+          input.selectionEnd,
+          input.value,
+          val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+        );
+        if (event.currentTarget.dataset.button == "delete") {
+          if (cursorStartUTF32 == cursorEndUTF32) {
+            if (cursorStartUTF32 == 0) {return}
+            val.splice(cursorStartUTF32 - 1, 1);
           } else {
-            val.splice(selectionStart32, selectionEnd32 - selectionStart32);
+            val.splice(cursorStartUTF32, cursorEndUTF32 - cursorStartUTF32);
           }
-          selectionStart32--;
+          cursorStartUTF32 -= 1;
+          cursorEndUTF32 = cursorStartUTF32;
           input.value = val.join("");
-          input.selectionStart = val.slice(0, selectionStart32).join("").length;
+          input.selectionStart = val.slice(0, cursorStartUTF32).join("").length;
           input.selectionEnd = input.selectionStart;
-          updateGrid(input.value);
+
+          // cursor result preview
+          console.log(
+            "Cursor1",
+            input.selectionStart,
+            input.selectionEnd,
+            input.value,
+            val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+          );
+
           playSound("delete");
-        } else if (event.target.dataset.button == "submit") {
+        } else if (event.currentTarget.dataset.button == "giveup") {
+          playSound("click");
+          if (window.confirm("Are you sure you want to give up?")) {
+            playSound("lose");
+            onGameOver();
+          }
+          return
+        } else if (event.currentTarget.dataset.button == "submit") {
           playSound("click");
           submitWord(val);
         } else {
+          console.log("Entering", keys[event.currentTarget.dataset.button]);
           val.splice(
-            selectionStart32,
-            selectionEnd32 - selectionStart32,
-            event.target.dataset.button
+            cursorStartUTF32,
+            cursorEndUTF32 - cursorStartUTF32,
+            keys[event.currentTarget.dataset.button]
           );
-          selectionStart32++;
-          if (val.length > charCount) {
-            val = val.slice(0, charCount);
-          }
-          input.selectionStart = val.slice(0, selectionStart32).join("").length;
           input.value = val.join("");
-          updateGrid(input.value);
-          playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
+          cursorStartUTF32 += 1;
+          cursorEndUTF32 = cursorStartUTF32;
+          input.selectionStart = val.splice(0, cursorStartUTF32).join("").length;
+          input.selectionEnd = input.selectionStart;
+          // cursor result preview
+          console.log(
+            "Cursor2",
+            input.selectionStart,
+            input.selectionEnd,
+            cursorStartUTF32,
+            cursorEndUTF32,
+            input.value,
+            val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
+          );
+
+          playSound(soundMap[charMap.indexOf(
+            keys[event.currentTarget.dataset.button]
+          )]);
         }
       }
 
