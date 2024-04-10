@@ -619,14 +619,14 @@
           maxCounter--;
           maxScore += wordScore(solutions[i]);
         }
-        if (parCounter > 0 && wordFreqBonus(solutions[i]) <= 2) {
+        if (parCounter > 0 && wordFreqBonus(solutions[i]) < 2) {
           par += wordScore(solutions[i]);
           parCounter--;
         }
         if (!maxCounter && !parCounter) break;
       }
-      if (par > maxScore * 0.6) {
-        par = Math.floor(maxScore * 0.6);
+      if (par > maxScore * 0.8) {
+        par = Math.floor(maxScore * 0.8);
       }
       calculateRating();
       document.querySelector("#grid .wordCount").innerText = solutions.length;
@@ -1038,9 +1038,8 @@
       <p><b>Rarity bonus:</b> Your score is 2 × the number of characters your word contains, plus a bonus of up to 5
         points
         depending on how rare it is (Cutoffs are a frequency at or under 100, 50, 25, 10, and 0).</p>
-      <p><b>Par:</b> The par is the maximum possible score only using words with a frequency bonus of 2 or below, or 60%
-        of
-        the maximum possible score, whichever is lower.</p>
+      <p><b>Par:</b> The par is the maximum possible score only using words with a frequency bonus of 1 or 0, or 80%
+        of the maximum possible score, whichever is lower.</p>
       <p><b>Rank:</b> Your score is graded on a curve based on the par and max score, and given a letter grade.</p>
       <ul>
         <li>Max score: ★ rank</li>
