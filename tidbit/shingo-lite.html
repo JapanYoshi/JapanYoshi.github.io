@@ -3,12 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="shingo_favicon.png"/>
+    <link rel="icon" href="shingo_lite_favicon.ico" sizes="16x16" />
+    <link rel="icon" href="shingo_lite_favicon32.png" sizes="32x32" />
+    <link rel="icon" href="shingo_lite_favicon128.png" sizes="128x128" />
+    <link rel="icon" href="shingo_lite_favicon160.png" sizes="160x160" />
+    <link rel="icon" href="shingo_lite_favicon192.png" sizes="192x192" />
     <link rel="manifest" href="shingo_manifest.json" />
     <style>
       @font-face {
         font-family: "_font";
-        src: url("./shavian-fonts/Ormin-Regular.otf");
+        src: url("./shavian-fonts/born2bsporty-fs.otf");
+        font-weight: bold;
       }
 
       @media screen {
@@ -19,14 +24,15 @@
       }
 
       :root {
-        font-family: "_font", serif;
+        font-weight: bold;
+        font-family: "_font", sans-serif;
         font-smooth: never;
         -webkit-font-smoothing: none; /* WebKit MacOS */
         /* Firefox can only choose grayscale vs. ClearType, not turn off antialias altogether */
     
         --col-dim-bg: rgb(35, 35, 39);
         --col-dim: rgb(108, 108, 120);
-        --col-accent: rgb(83, 250, 178);
+        --col-accent: #bcff85;
         --col-miss-dark: #363636;
         --col-miss-light: #555555;
         --col-graze-dark: #aa7200;
@@ -276,6 +282,16 @@
       }
     </style>
     <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(
+          './shingo_service_worker.js'
+        ).then((registration) => {
+          console.log("PWA service worker registered");
+        }).catch((error) => {
+          console.error("PWA service worker registration failed:", error);
+        });
+      }
+
       let soundOn = false;
       function soundToggled(event) {
         if (event) {
@@ -531,36 +547,41 @@
         if (blockingInput) return;
         console.log("clicked button", event.target.dataset.button);
         let val = [...input.value];
-        let cursorStart = [...input.value.substring(0, input.selectionStart)]
+        let selectionStart32 = [...input.value.substring(0, input.selectionStart)]
           .length;
-        let cursorEnd = [...input.value.substring(0, input.selectionEnd)]
+        let selectionEnd32 = [...input.value.substring(0, input.selectionEnd)]
           .length;
-        // console.log(cursorStart, cursorEnd);
+        // console.log(selectionStart32, selectionEnd32);
         if (event.target.dataset.button == "delete") {
-          if (cursorStart == cursorEnd) {
-            val.splice(cursorStart - 1, 1);
+          if (selectionStart32 == selectionEnd32) {
+            if (selectionStart32 == 0) return;
+            val.splice(selectionStart32 - 1, 1);
           } else {
-            val.splice(cursorStart, cursorEnd - cursorStart);
+            val.splice(selectionStart32, selectionEnd32 - selectionStart32);
           }
+          selectionStart32--;
           input.value = val.join("");
-          input.selectionStart = val.slice(0, cursorStart - 1).join().length;
+          input.selectionStart = val.slice(0, selectionStart32).join("").length;
+          input.selectionEnd = input.selectionStart;
           updateGrid(input.value);
           playSound("delete");
         } else if (event.target.dataset.button == "submit") {
           playSound("click");
           submitWord(val);
         } else {
-          if (val.length < charCount) {
-            val.splice(
-              cursorStart,
-              cursorEnd - cursorStart,
-              event.target.dataset.button
-            );
-            input.value = val.join("");
-            input.selectionStart = val.slice(0, cursorStart + 1).join().length;
-            playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
-            updateGrid(input.value);
+          val.splice(
+            selectionStart32,
+            selectionEnd32 - selectionStart32,
+            event.target.dataset.button
+          );
+          selectionStart32++;
+          if (val.length > charCount) {
+            val = val.slice(0, charCount);
           }
+          input.selectionStart = val.slice(0, selectionStart32).join("").length;
+          input.value = val.join("");
+          updateGrid(input.value);
+          playSound(soundMap[guessMap.indexOf(event.target.dataset.button)]);
         }
       }
 
@@ -1017,10 +1038,10 @@
           <div class="gridTile filled hit">𐑜</div>
           <div class="gridTile filled hit">𐑴</div>
         </div>
-        <p>𐑚𐑦𐑙𐑜𐑴 (Bingo)! When the letters are all green, you know you've won.</p>
+        <p>𐑚𐑦𐑙𐑜𐑴 (Bingo)! When the letters are all green, you know you’ve won.</p>
         <h3>Word inclusion criteria</h3>
         <p>Valid guesses are any English word that are not proper nouns, whose Shavian spelling does not contain: spaces, hyphens, apostrophe, namer dots, or acrorings.</p>
-        <p>Valid answers are any valid guess with at least a frequency rating of 50 according to <a href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>.</p>
+        <p>Valid answers are any valid guess with at least a frequency rating of 50 according to <a href="https://github.com/Shavian-info/readlex">the Read Lexicon</a>.</p>
         <a href="#rules" onclick="onCloseLinkClick(event)">dismiss</a>
       </div>
     </div>
@@ -1032,13 +1053,13 @@
             Ported from <a href="https://haitouch.itch.io/shingo">Shingo!</a> by hai!touch Studios
           </li>
           <li>
-            Word list from <a href="https://github.com/Shavian-info/readlex">the Kingsley Read Lexicon</a>
+            Word list from <a href="https://github.com/Shavian-info/readlex">the Read Lexicon</a>
           </li>
           <li>
             Programming by Haley Wakamatsu
           </li>
           <li>
-            <a href="https://2gd4.me/shavian-fonts">“Ormin” font</a> by Shavian.info (Latin portion from <a href="https://fonts.google.com/specimen/Gentium+Plus">“Gentium” font</a>)
+            “Born2bSporty” font from <a href="https://2gd4.me/shavian-fonts">Haley Wakamatsu’s Shavian Fonts</a>
           </li>
           <li>
             Gameplay based on <a href="https://en.wikipedia.org/wiki/Wordle">Wordle</a> and <a href="https://en.wikipedia.org/wiki/Lingo_(American_game_show)">Lingo</a>

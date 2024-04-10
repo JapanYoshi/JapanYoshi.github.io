@@ -1,5 +1,9 @@
 {
-  "name": "Shingo Lite",
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Shingo! Lite / 𐑖𐑦𐑙𐑜𐑴! 𐑤𐑲𐑑",
+  "short_name": "Shingo!",
+  "description": "Shavian spelling game",
   "icons": [
     {
       "src": "shingo_icon.png",
@@ -9,5 +13,9 @@
     }
   ],
   "start_url": "./shingo-lite.html",
-  "display": "fullscreen"
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "display": "standalone",
+  "categories": ["games", "shavian", "spelling", "education"]
 }
