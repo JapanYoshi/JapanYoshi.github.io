@@ -6,7 +6,7 @@
   "description": "Shavian spelling game",
   "icons": [
     {
-      "src": "shingo_icon.png",
+      "src": "shingo_lite_icon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
