@@ -598,11 +598,11 @@
           playSound("click");
           submitWord(val);
         } else {
-          console.log("Entering", keys[event.currentTarget.dataset.button]);
+          console.log("Entering", event.currentTarget.dataset.button);
           val.splice(
             cursorStartUTF32,
             cursorEndUTF32 - cursorStartUTF32,
-            keys[event.currentTarget.dataset.button]
+            event.currentTarget.dataset.button
           );
           input.value = val.join("");
           cursorStartUTF32 += 1;
@@ -620,8 +620,8 @@
             val.slice(0, cursorStartUTF32).join("") + "]" + val.slice(cursorStartUTF32, cursorEndUTF32).join("") + "[" + val.slice(cursorEndUTF32).join("")
           );
 
-          playSound(soundMap[charMap.indexOf(
-            keys[event.currentTarget.dataset.button]
+          playSound(soundMap[guessMap.indexOf(
+            event.currentTarget.dataset.button
           )]);
         }
       }
