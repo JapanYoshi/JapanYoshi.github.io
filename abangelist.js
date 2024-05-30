@@ -1,15 +1,11 @@
 async function detect() {
   const dismissedBefore = localStorage.getItem("abangelistDismissed");
   if (dismissedBefore !== null) {return}
-  let result = -1;
   const url = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   try {
     await fetch(new Request(url))
-    result = 0
-  } catch (e) {
-    result = 1
-  }
-  if (result == 0) {
+    // If fetch fails, go to catch block. If you're still here, adblock is NOT active
+    
     // Should I use Japanese?
     const userLang = navigator.language || navigator.userLanguage || "";
     const nihongo = userLang.startsWith("ja");
@@ -98,6 +94,9 @@ async function detect() {
     dismissForever.style = "font-family: inherit; font-size: 0.8rem;";
     root.appendChild(dismissForever);
     document.body.appendChild(backdrop);
+  } catch (e) {
+    // Failed, adblock is active
+    return
   }
 }
 detect()
