@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.png">
-    <meta name="description"
-    content="The less-wordy manual for Keep Talking and Nobody Explodes.">
+    <meta name="description" content="The less-wordy manual for Keep Talking and Nobody Explodes.">
     <meta name="author" content="Haley Wakamatsu">
     <style>
         body {
@@ -20,11 +19,11 @@
 
             background: var(--navbar-color);
             color: black;
-            
+
             font-family: sans-serif;
             margin: 0;
         }
-        
+
         #main {
             margin: 0 auto;
             max-width: 50rem;
@@ -44,7 +43,7 @@
         .blue {
             color: var(--wire-blue);
         }
-        
+
         .yellow {
             color: var(--wire-yellow);
         }
@@ -78,18 +77,40 @@
             overflow-y: scroll;
             padding: 1rem;
         }
-        
+
         .page {
             box-sizing: border-box;
             border-top: 1px solid var(--navbar-color);
         }
-        
+
         img.fullpage {
             display: block;
             margin: 0 auto;
             max-width: 100%;
             max-height: calc(100vh - 4rem);
             background-color: white;
+        }
+
+        tr:nth-child(2n) {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        #keypad table tr:not(:first-child) th:first-child {
+            font-size: 150%;
+            font-weight: 400;
+        }
+
+        #keypad table td {
+            min-width: 1.25rem;
+            text-align: center;
+        }
+
+        #keypad table.uniqueSymbols tr {
+            background: rgb(255, 249, 68);
+        }
+
+        #keypad table.uniqueSymbols tr:nth-child(2n) {
+            background: rgb(255, 220, 22);
         }
 
         #wof2 table thead tr {
@@ -110,7 +131,7 @@
 
         #morse tr td:first-child {
             font-size: 2rem;
-            line-height: 1rem; 
+            line-height: 1rem;
         }
 
         #wireseq table {
@@ -138,10 +159,6 @@
             background: black;
         }
 
-        tr:nth-child(2n) {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
         table#jargon {
             width: 100%;
             table-layout: fixed;
@@ -155,6 +172,7 @@
             <a href="#cover">Back to top</a>
             <a href="#wires">Wires</a>
             <a href="#button">Button</a>
+            <a href="#keypad">Keypad (table method)</a>
             <a href="#glyphs">Keypad</a>
             <a href="#simon">Simon Says</a>
             <a href="#wof1">Who’s On First?</a>
@@ -184,7 +202,8 @@
                             <th colspan="2">
                                 Cut <b>one</b> wire. Wires are numbered from top to bottom.
                                 <br>
-                                <span class="red">Red</span> <span class="blue">Blue</span> <span class="yellow">Yellow</span> <span>White</span> <span>blacK</span>
+                                <span class="red">Red</span> <span class="blue">Blue</span> <span
+                                    class="yellow">Yellow</span> <span>White</span> <span>blacK</span>
                             </th>
                         </tr>
                         <tr>
@@ -201,7 +220,8 @@
                                 <ul>
                                     <li>last=black &amp; serial=odd: <b>4th</b></li>
                                     <li>1 <span class="red">red</span> &amp; &gt;1 <span class="yellow">yellow</span>:
-                                        <b>1st</b></li>
+                                        <b>1st</b>
+                                    </li>
                                     <li>0 black: <b>2nd</b></li>
                                     <li>otherwise <b>1st</b></li>
                                 </ul>
@@ -214,7 +234,8 @@
                                     <li>&gt;1 <span class="red">red </span>&amp; serial=odd: <b class="red">last red</b>
                                     </li>
                                     <li>0 <span class="red">red</span> &amp; last=<span class="yellow">yellow</span>:
-                                        <b>1st</b></li>
+                                        <b>1st</b>
+                                    </li>
                                     <li>1 <span class="blue">blue</span>: <b>1st</b></li>
                                     <li>&gt;2 <span class="yellow">yellow</span>: <b>last</b></li>
                                     <li>otherwise <b>2nd</b></li>
@@ -237,18 +258,296 @@
                 <h3>The Button</h3>
                 <img src="button.png" class="fullpage" alt="" />
             </div>
+            <div id="keypad" class="page">
+                <h3>Keypads (table method)</h3>
+                <p>1: Only one of these columns (A-F) has a value for all 4 symbols on the keypad. Find out which.</p>
+                <p><i>※Symbols on the left table appear in only one column.</i></p>
+                <p>2: Push from 1 to 7.</p>
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <table class="uniqueSymbols">
+                        <tbody>
+                            <tr>
+                                <th>Sym</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                            </tr>
+                            <tr>
+                                <th>Ѧ</th>
+                                <td>2</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ϟ</th>
+                                <td>4</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>©</th>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ѽ</th>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ͼ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>4</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>ѯ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>6</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>★</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>7</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>҂</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <th>æ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <th>Ҋ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <th>Ω</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Sym</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                            </tr>
+                            <tr>
+                                <th>Ϙ</th>
+                                <td>1</td>
+                                <td>2</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>ƛ</th>
+                                <td>3</td>
+                                <td></td>
+                                <td>6</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ѭ</th>
+                                <td>5</td>
+                                <td></td>
+                                <td></td>
+                                <td>4</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>ϗ</th>
+                                <td>6</td>
+                                <td>6</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ͽ</th>
+                                <td>7</td>
+                                <td>3</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ӭ</th>
+                                <td></td>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <th>Ҩ</th>
+                                <td></td>
+                                <td>4</td>
+                                <td>3</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>☆</th>
+                                <td></td>
+                                <td>5</td>
+                                <td>7</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>¿</th>
+                                <td></td>
+                                <td>7</td>
+                                <td></td>
+                                <td>6</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Җ</th>
+                                <td></td>
+                                <td></td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ԇ</th>
+                                <td></td>
+                                <td></td>
+                                <td>5</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>б</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td></td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th>¶</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td>5</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ѣ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>ټ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>7</td>
+                                <td>2</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Ψ</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div id="glyphs" class="page">
                 <h3>Keypads</h3>
-                <p>1: Find column with all 4 symbols on keypad.</p>
-                <p>2: Push from top to bottom of column. </p>
-                <p>Highlighted symbols are unique.</p>
+                <p>1: Only one of these columns has all 4 symbols on the keypad. Find out which.</p>
+                <p>2: Push from top to bottom of column.</p>
+                <p>Symbols in yellow boxes only appear in one column.</p>
                 <img src="keypad.png" class="fullpage" alt="" />
             </div>
             <div id="simon" class="page">
                 <h3>Simon Says</h3>
                 <p>Columns: How many strikes?</p>
                 <p>Rows: Is there an A, E, I, O, or U in the serial number?</p>
-                <p>Colors are <span class="blue">↑ blue</span>, <span class="red">← red</span>, <span class="yellow">→ yellow</span>, and <span class="green">↓ green</span>.</p>
+                <p>Colors are <span class="blue">↑ blue</span>, <span class="red">← red</span>, <span class="yellow">→
+                        yellow</span>, and <span class="green">↓ green</span>.</p>
                 <img src="simon.png" class="fullpage" alt="" />
             </div>
             <div id="wof1" class="page">
@@ -266,7 +565,7 @@
                     <thead>
                         <tr>
                             <th>Button says:</th>
-                            <td>Press the first button that you see:</td>    
+                            <td>Press the first button that you see:</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -383,8 +682,10 @@
                             <td>UH UH, YOU ARE, UH HUH, YOUR</td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="font-size:75%;text-align:right;">Simplified &amp; Alphabetized Table by
-                                <a href="https://redd.it/3vfvti">Io</a></td>
+                            <td colspan="2" style="font-size:75%;text-align:right;">Simplified &amp; Alphabetized Table
+                                by
+                                <a href="https://redd.it/3vfvti">Io</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -394,7 +695,8 @@
                 <table class="mem-table">
                     <thead>
                         <tr>
-                            <td colspan="6">Make sure to write down the label of each phase, and position of phase 1 and 2.
+                            <td colspan="6">Make sure to write down the label of each phase, and position of phase 1 and
+                                2.
                             </td>
                         </tr>
                     </thead>
@@ -458,7 +760,8 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td>&middot;&middot;&middot; &middot;&middot;&middot;&middot; &middot; &middot;-&middot;&middot;
+                            <td>&middot;&middot;&middot; &middot;&middot;&middot;&middot; &middot;
+                                &middot;-&middot;&middot;
                                 &middot;-&middot;&middot;</td>
                             <td>shell</td>
                             <td>3.505 MHz</td>
@@ -507,7 +810,8 @@
                             <td>3.542 MHz</td>
                         </tr>
                         <tr>
-                            <td>-&middot;&middot;&middot; &middot;&middot; &middot;&middot;&middot; - &middot;-&middot; ---
+                            <td>-&middot;&middot;&middot; &middot;&middot; &middot;&middot;&middot; - &middot;-&middot;
+                                ---
                             </td>
                             <td>bistro</td>
                             <td>3.552 MHz</td>
@@ -518,7 +822,8 @@
                             <td>3.600 MHz</td>
                         </tr>
                         <tr>
-                            <td>-&middot;&middot;&middot; &middot;-&middot; &middot;&middot; -&middot;-&middot; -&middot;-
+                            <td>-&middot;&middot;&middot; &middot;-&middot; &middot;&middot; -&middot;-&middot;
+                                -&middot;-
                             </td>
                             <td>brick</td>
                             <td>3.575 MHz</td>
@@ -549,8 +854,9 @@
             <div id="cwires" class="page">
                 <h3>Complicated Wires</h3>
                 <img src="comp.png" class="fullpage" alt="" />
-                <p>A parallel port is a wide, <b>pink</b> port with <b>2 rows of connection pins</b>, 13 and 12 respectively.</p>
-                <img src="parallel_port.jpg" style="max-width: 20rem;"/>
+                <p>A parallel port is a wide, <b>pink</b> port with <b>2 rows of connection pins</b>, 13 and 12
+                    respectively.</p>
+                <img src="parallel_port.jpg" style="max-width: 20rem;" />
             </div>
             <div id="wireseq" class="page">
                 <h3>Wire Sequences</h3>
@@ -580,75 +886,129 @@
                         </tr>
                         <tr>
                             <th>1</th>
-                            <td></td><td></td><td>C</td>
+                            <td></td>
+                            <td></td>
+                            <td>C</td>
                             <th>1</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>1</th>
-                            <td>A</td><td>B</td><td>C</td>
+                            <td>A</td>
+                            <td>B</td>
+                            <td>C</td>
                         </tr>
                         <tr>
                             <th>2</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>2</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                             <th>2</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                         </tr>
                         <tr>
                             <th>3</th>
-                            <td>A</td><td></td><td></td>
+                            <td>A</td>
+                            <td></td>
+                            <td></td>
                             <th>3</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>3</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>4</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                             <th>4</th>
-                            <td>A</td><td></td><td></td>
+                            <td>A</td>
+                            <td></td>
+                            <td></td>
                             <th>4</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                         </tr>
                         <tr>
                             <th>5</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>5</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>5</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>6</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                             <th>6</th>
-                            <td></td><td>B</td><td>C</td>
+                            <td></td>
+                            <td>B</td>
+                            <td>C</td>
                             <th>6</th>
-                            <td></td><td>B</td><td>C</td>
+                            <td></td>
+                            <td>B</td>
+                            <td>C</td>
                         </tr>
                         <tr>
                             <th>7</th>
-                            <td>A</td><td>B</td><td>C</td>
+                            <td>A</td>
+                            <td>B</td>
+                            <td>C</td>
                             <th>7</th>
-                            <td></td><td></td><td>C</td>
+                            <td></td>
+                            <td></td>
+                            <td>C</td>
                             <th>7</th>
-                            <td>A</td><td>B</td><td></td>
+                            <td>A</td>
+                            <td>B</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>8</th>
-                            <td>A</td><td>B</td><td></td>
+                            <td>A</td>
+                            <td>B</td>
+                            <td></td>
                             <th>8</th>
-                            <td>A</td><td></td><td>C</td>
+                            <td>A</td>
+                            <td></td>
+                            <td>C</td>
                             <th>8</th>
-                            <td></td><td></td><td>C</td>
+                            <td></td>
+                            <td></td>
+                            <td>C</td>
                         </tr>
                         <tr>
                             <th>9</th>
-                            <td></td><td>B</td><td></td>
+                            <td></td>
+                            <td>B</td>
+                            <td></td>
                             <th>9</th>
-                            <td>A</td><td></td><td></td>
+                            <td>A</td>
+                            <td></td>
+                            <td></td>
                             <th>9</th>
-                            <td></td><td></td><td>C</td>
+                            <td></td>
+                            <td></td>
+                            <td>C</td>
                         </tr>
                     </tbody>
                 </table>
@@ -670,35 +1030,40 @@
                                 <b>B</b>E<b>LO</b>W<br />
                                 <b>C</b>O<b>UL</b>D<br />
                                 <b>E</b>V<b>ER</b>Y<br />
-                                <b>F</b>I<b>RS</b>T</td>
+                                <b>F</b>I<b>RS</b>T
+                            </td>
                             <td><b>F</b>O<b>UN</b>D<br />
                                 <b>G</b>R<b>EA</b>T<br />
                                 <b>H</b>O<b>US</b>E<br />
                                 <b>L</b>E<b>AR</b>N<br />
                                 <b>L</b>A<b>RG</b>E<br />
                                 <b>N</b>E<b>VE</b>R<br />
-                                <b>O</b>T<b>HE</b>R</td>
+                                <b>O</b>T<b>HE</b>R
+                            </td>
                             <td><b>P</b>L<b>AC</b>E<br />
                                 <b>P</b>L<b>AN</b>T<br />
                                 <b>P</b>O<b>IN</b>T<br />
                                 <b>R</b>I<b>GH</b>T<br />
                                 <b>S</b>M<b>AL</b>L<br />
                                 <b>S</b>P<b>EL</b>L<br />
-                                <b>S</b>T<b>IL</b>L</td>
+                                <b>S</b>T<b>IL</b>L
+                            </td>
                             <td><b>S</b>T<b>UD</b>Y<br />
                                 <b>S</b>O<b>UN</b>D<br />
                                 <b>T</b>H<b>EI</b>R<br />
                                 <b>T</b>H<b>ER</b>E<br />
                                 <b>T</b>H<b>ES</b>E<br />
                                 <b>T</b>H<b>IN</b>G<br />
-                                <b>T</b>H<b>IN</b>K</td>
+                                <b>T</b>H<b>IN</b>K
+                            </td>
                             <td><b>T</b>H<b>RE</b>E<br />
                                 <b>W</b>H<b>ER</b>E<br />
                                 <b>W</b>H<b>IC</b>H<br />
                                 <b>W</b>R<b>IT</b>E<br />
                                 <b>W</b>O<b>RL</b>D<br />
                                 <b>W</b>A<b>TE</b>R<br />
-                                <b>W</b>O<b>UL</b>D</td>
+                                <b>W</b>O<b>UL</b>D
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -706,15 +1071,18 @@
             <div id="needys" class="page">
                 <h3>Needy Dialog</h3>
                 <p>The question can be &quot;Vent gas?&quot; or &quot;Detonate?&quot;</p>
-                <p>To be sure, press &quot;No&quot; first. When the question is &quot;Vent gas?&quot; the module will remind
+                <p>To be sure, press &quot;No&quot; first. When the question is &quot;Vent gas?&quot; the module will
+                    remind
                     you that &quot;Venting prevents explosions&quot;. However, when you answer &quot;Yes&quot; to
                     &quot;Detonate?&quot; The bomb will explode without warning.</p>
             </div>
             <div class="page">
                 <h3>Needy Capacitator (a.k.a. &quot;Lever&quot;)</h3>
                 <p>Pull the lever to drain the electricity, which will otherwise accumulate in 45 seconds.</p>
-                <p>When you neglect it too long, you will hear the module make a sound in the background. When you hear it,
-                    <b>abandon what you're doing and hold down the lever immediately.</b></p>
+                <p>When you neglect it too long, you will hear the module make a sound in the background. When you hear
+                    it,
+                    <b>abandon what you're doing and hold down the lever immediately.</b>
+                </p>
             </div>
             <div id="knob" class="page">
                 <h3>Needy Knob</h3>
