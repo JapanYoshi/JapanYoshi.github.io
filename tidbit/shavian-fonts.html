@@ -39,6 +39,17 @@
     html.darkmode img.showcase-image {
       filter: invert(100%);
     }
+    
+    @font-face {
+      font-family: "_americium";
+      font-display: swap;
+      src: url("shavian-fonts/americium-shavian.otf");
+    }
+    
+    .americium {
+      font-family: "_americium";
+      font-feature-settings: 'onum' on;
+    }
 
     @font-face {
       font-family: "_allstars";
@@ -128,11 +139,11 @@
       src: url("shavian-fonts/bantershaviantriline.otf");
     }
 
-    .banter {
+    .banterunicase {
       font-family: _banter_unicase, serif;
     }
 
-    .banter_triline {
+    .banter {
       font-family: _banter_triline, serif;
     }
 
@@ -232,6 +243,30 @@
     .shavian {
       font-family: Inter Alia, Henry Higgins Sans, Noto Sans Shavian, Segoe Historic, sans-serif;
       background: var(--white);
+    }
+    
+    .showTestDrive {
+      position: fixed;
+      left: -999px;
+      top: -999px;
+    }
+    
+    .showTestDrive + label {
+      display: block;
+      margin: 4px;
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 3px;
+      background: var(--pink-dark);
+      color: var(--white);
+    }
+    
+    .testDriveBox {
+      display: none;
+    }
+    
+    .showTestDrive:checked + label + .testDriveBox {
+      display: block;
     }
 
     .showcase {
@@ -403,8 +438,40 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         the Latin “P” and “b”, while <span class="shavian">𐑓</span> and <span class="shavian">𐑝</span> gained
         crossbars to resemble “f”.</p>
     </div>
+    
     <div class="section">
-      <h3 class="preview allstars">𐑷𐑤𐑕𐑑𐑸𐑟 / Allstars Shavian</h3>
+      <h3 class="preview">𐑨𐑥𐑼𐑦𐑕𐑾𐑥 / Americium</h3>
+      <div class="date">2024-06-24</div>
+      <h4>Description</h4>
+      <p>
+        Americium is a blobby retro-futuristic font
+        with two stroke thicknesses in one.
+        It is a Shavian adaptation of <a href="https://fontsinuse.com/typefaces/1138/amelia">Stan Davis’s font “Amelia”</a>
+        from 1964 (or 1965 or 1967 depending on which source you ask), 
+        and is famous for being used in the “MOON BOOT” logo and
+        the logo for the Beatles’ movie <i>“Yellow Submarine”</i>.
+      </p>
+      <p>
+        Americium is a radioactive chemical element, first synthesized in 1944
+        (but kept secret until November 1945 since it was part of the Manhattan Project).
+        This name was chosen not only due to its alphabetic proximity to “Amelia”,
+        but due to Amelia being created in the latter half of the Atomic Age (1945&ndash;’80s),
+        a synthetic, radioactive element seemed to fit the retrofuturistic aesthetic of the font.
+      </p>
+      <h4>Showcase</h4>
+      <img class="showcase-image" src="./shavian-fonts/americium.png">
+      <input id="showTestDrive-americium" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-americium">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-americium">Smaller</button><button type="button"
+          class="btn-larger" value="test-americium">Larger</button><button type="button" class="btn-reset"
+          value="test-americium">Reset contents</button>
+        <textarea class="testdrive americium" id="test-americium"></textarea>
+      </div>
+      <a class="download" href="shavian-fonts/americium-shavian.otf">Download</a>
+    </div>
+    <div class="section">
+      <h3 class="preview">𐑷𐑤𐑕𐑑𐑸𐑟 / Allstars Shavian</h3>
       <div class="date">2024-01-27</div>
       <h4>Description</h4>
       <p>
@@ -412,16 +479,19 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         from Super Mario All-Stars.
       </p>
       <h4>Showcase</h4>
-      <img class="showcase-image pixelated-image" src="./shavian-fonts/allstars-shavian.png">]
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-allstars">Smaller</button><button type="button"
-        class="btn-larger" value="test-allstars">Larger</button><button type="button" class="btn-reset"
-        value="test-allstars">Reset contents</button>
-      <textarea class="testdrive allstars" id="test-allstars"></textarea>
+      <img class="showcase-image pixelated-image" src="./shavian-fonts/allstars-shavian.png">
+      <input id="showTestDrive-allstars" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-allstars">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-allstars">Smaller</button><button type="button"
+          class="btn-larger" value="test-allstars">Larger</button><button type="button" class="btn-reset"
+          value="test-allstars">Reset contents</button>
+        <textarea class="testdrive allstars" id="test-allstars"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/allstars-shavian.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview stampatello">𐑕𐑑𐑨𐑥𐑐𐑩𐑑𐑧𐑤𐑴 𐑓𐑩𐑗𐑧𐑑𐑴 / Stampatello Faceto</h3>
+      <h3 class="preview">𐑕𐑑𐑨𐑥𐑐𐑩𐑑𐑧𐑤𐑴 𐑓𐑩𐑗𐑧𐑑𐑴 / Stampatello Faceto</h3>
       <div class="date">2023-11-10</div>
       <h4>Description</h4>
       <p>
@@ -440,15 +510,18 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
       </p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/stampatello-faceto.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-stampatello">Smaller</button><button type="button"
-        class="btn-larger" value="test-stampatello">Larger</button><button type="button" class="btn-reset"
-        value="test-stampatello">Reset contents</button>
-      <textarea class="testdrive stampatello" id="test-stampatello"></textarea>
+      <input id="showTestDrive-stampatello" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-stampatello">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-stampatello">Smaller</button><button type="button"
+          class="btn-larger" value="test-stampatello">Larger</button><button type="button" class="btn-reset"
+          value="test-stampatello">Reset contents</button>
+        <textarea class="testdrive stampatello" id="test-stampatello"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/stampatello-faceto.otf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview spacemono">𐑕𐑐𐑱𐑕 𐑥𐑪𐑯𐑴 / Space Mono Shavian</h3>
+      <h3 class="preview">𐑕𐑐𐑱𐑕 𐑥𐑪𐑯𐑴 / Space Mono Shavian</h3>
       <div class="date">2023-06-16</div>
       <h4>Description</h4>
       <p>Space Mono Shavian is a Shavian extension of <a href="https://fonts.google.com/specimen/Space+Mono">Space Mono
@@ -456,35 +529,41 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         near-parallel strokes meet.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/space-mono-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-spacemono">Smaller</button><button type="button"
-        class="btn-larger" value="test-spacemono">Larger</button><button type="button" class="btn-reset"
-        value="test-spacemono">Reset contents</button>
-      <textarea class="testdrive spacemono" id="test-spacemono"></textarea>
+      <input id="showTestDrive-spacemono" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-spacemono">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-spacemono">Smaller</button><button type="button"
+          class="btn-larger" value="test-spacemono">Larger</button><button type="button" class="btn-reset"
+          value="test-spacemono">Reset contents</button>
+        <textarea class="testdrive spacemono" id="test-spacemono"></textarea>
+        <button type="button" class="btn-smaller" value="test-spacemonobold">Smaller</button><button type="button"
+          class="btn-larger" value="test-spacemonobold">Larger</button><button type="button" class="btn-reset"
+          value="test-spacemonobold">Reset contents</button>
+        <textarea class="testdrive spacemono" id="test-spacemonobold" style="font-weight: bold"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/space-mono-shavian-r.otf">Download (regular weight)</a>
-      <button type="button" class="btn-smaller" value="test-spacemono-bold">Smaller</button><button type="button"
-        class="btn-larger" value="test-spacemono-bold">Larger</button><button type="button" class="btn-reset"
-        value="test-spacemono-bold">Reset contents</button>
-      <textarea class="testdrive spacemono" id="test-spacemono-bold" style="font-weight: bold"></textarea>
       <a class="download" href="shavian-fonts/space-mono-shavian-b.otf">Download (bold weight)</a>
     </div>
     <div class="section">
-      <h3 class="preview audionugget">𐑷𐑛𐑦𐑴 𐑯𐑳𐑜𐑦𐑑 / Audio Nugget</h3>
+      <h3 class="preview">𐑷𐑛𐑦𐑴 𐑯𐑳𐑜𐑦𐑑 / Audio Nugget</h3>
       <div class="date">2023-03-09</div>
       <h4>Description</h4>
       <p>Audio Nugget is a rounded blocky display font inspired by the Y2K aesthetic. Its name is a reference to the
         YouTube channel DankPods, who reviews music players which he calls “nuggets”.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/audio-nugget.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-audionugget">Smaller</button><button type="button"
-        class="btn-larger" value="test-audionugget">Larger</button><button type="button" class="btn-reset"
-        value="test-audionugget">Reset contents</button>
-      <textarea class="testdrive audionugget" id="test-audionugget"></textarea>
+      <input id="showTestDrive-audionugget" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-audionugget">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-audionugget">Smaller</button><button type="button"
+          class="btn-larger" value="test-audionugget">Larger</button><button type="button" class="btn-reset"
+          value="test-audionugget">Reset contents</button>
+        <textarea class="testdrive audionugget" id="test-audionugget"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/audio-nugget.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview born2bsporty">𐑚𐑹𐑯2b𐑕𐑐𐑹𐑑𐑦 FS / Born2bSporty FS</h3>
+      <h3 class="preview">𐑚𐑹𐑯2b𐑕𐑐𐑹𐑑𐑦 FS / Born2bSporty FS</h3>
       <div class="date">2023-03-09</div>
       <h4>Description</h4>
       <p>Born2bSporty FS is a pixel font with 2px strokes and a high x-height. It has expansive multilingual support
@@ -493,11 +572,14 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
       <p>It is a remake of the original Born2bSporty font.</p>
       <h4>Showcase</h4>
       <img class="showcase-image pixelated-image" src="./shavian-fonts/born2bsporty-fs.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-born2bsporty">Smaller</button><button type="button"
-        class="btn-larger" value="test-born2bsporty">Larger</button><button type="button" class="btn-reset"
-        value="test-born2bsporty">Reset contents</button>
-      <textarea class="testdrive born2bsporty" id="test-born2bsporty"></textarea>
+      <input id="showTestDrive-born2bsporty" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-born2bsporty">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-born2bsporty">Smaller</button><button type="button"
+          class="btn-larger" value="test-born2bsporty">Larger</button><button type="button" class="btn-reset"
+          value="test-born2bsporty">Reset contents</button>
+        <textarea class="testdrive born2bsporty" id="test-born2bsporty"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/born2bsporty-fs.ttf">Download</a>
     </div>
     <div class="section">
@@ -510,15 +592,18 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         Knuth as the default font for TeX.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/consistency-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-consistency">Smaller</button><button type="button"
-        class="btn-larger" value="test-consistency">Larger</button><button type="button" class="btn-reset"
-        value="test-consistency">Reset contents</button>
-      <textarea class="testdrive consistency" id="test-consistency"></textarea>
+      <input id="showTestDrive-consistency" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-consistency">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-consistency">Smaller</button><button type="button"
+          class="btn-larger" value="test-consistency">Larger</button><button type="button" class="btn-reset"
+          value="test-consistency">Reset contents</button>
+        <textarea class="testdrive consistency" id="test-consistency"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/consistency-shavian.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview banter">𐑚𐑨𐑯𐑑𐑼 / Banter</h3>
+      <h3 class="preview">𐑚𐑨𐑯𐑑𐑼 / Banter</h3>
       <div class="date">2022-04-29</div>
       <h4>Description</h4>
       <p>Banter Shavian is a comic-style display font intended for onomatopoeia and yelling. Two versions are available:
@@ -529,20 +614,23 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         countless languages.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/bantershavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-banter">Smaller</button><button type="button"
-        class="btn-larger" value="test-banter">Larger</button><button type="button" class="btn-reset"
-        value="test-banter">Reset contents</button>
-      <textarea class="testdrive banter" id="test-banter"></textarea>
-      <a class="download" href="shavian-fonts/bantershavianunicase.otf">Download</a>
-      <button type="button" class="btn-smaller" value="test-banter-triline">Smaller</button><button type="button"
-        class="btn-larger" value="test-banter-triline">Larger</button><button type="button" class="btn-reset"
-        value="test-banter-triline">Reset contents</button>
-      <textarea class="testdrive banter_triline" id="test-banter-triline"></textarea>
-      <a class="download" href="shavian-fonts/bantershaviantriline.otf">Download</a>
+      <input id="showTestDrive-banter" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-banter">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-banter">Smaller</button><button type="button"
+          class="btn-larger" value="test-banter">Larger</button><button type="button" class="btn-reset"
+          value="test-banter">Reset contents</button>
+        <textarea class="testdrive banter" id="test-banter"></textarea>
+        <button type="button" class="btn-smaller" value="test-banterunicase">Smaller</button><button type="button"
+          class="btn-larger" value="test-banterunicase">Larger</button><button type="button" class="btn-reset"
+          value="test-banterunicase">Reset contents</button>
+        <textarea class="testdrive banterunicase" id="test-banterunicase"></textarea>
+      </div>
+      <a class="download" href="shavian-fonts/bantershavianunicase.otf">Download (Unicase)</a>
+      <a class="download" href="shavian-fonts/bantershaviantriline.otf">Download (Triline)</a>
     </div>
     <div class="section">
-      <h3 class="preview mikado">𐑥𐑦𐑒𐑭𐑛𐑴 / Mikado Shavian</h3>
+      <h3 class="preview">𐑥𐑦𐑒𐑭𐑛𐑴 / Mikado Shavian</h3>
       <div class="date">2022-02-16</div>
       <h4>Description</h4>
       <p>Mikado Shavian is a playful rounded font, <a href="https://www.myfonts.com/fonts/hvdfonts/mikado/">originally
@@ -550,38 +638,42 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         Grotseque! This is an (unauthorized) extension of its Bold weight for the Shavian alphabet.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/mikadoshavianbold.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-mikado">Smaller</button><button type="button"
-        class="btn-larger" value="test-mikado">Larger</button><button type="button" class="btn-reset"
-        value="test-mikado">Reset contents</button>
-      <textarea class="testdrive mikado" id="test-mikado"></textarea>
-      <a class="download" href="shavian-fonts/mikadoshavianbold.otf">Download</a>
+      <input id="showTestDrive-mikado" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-mikado">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-mikado">Smaller</button><button type="button"
+          class="btn-larger" value="test-mikado">Larger</button><button type="button" class="btn-reset"
+          value="test-mikado">Reset contents</button>
+        <textarea class="testdrive mikado" id="test-mikado"></textarea>
+      </div><a class="download" href="shavian-fonts/mikadoshavianbold.otf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview starzoom">𐑕𐑑𐑸𐑟𐑵𐑥 / Starzoom</h3>
+      <h3 class="preview">𐑕𐑑𐑸𐑟𐑵𐑥 / Starzoom</h3>
       <div class="date">2021-11-06</div>
       <h4>Description</h4>
       <p>Starzoom Shavian is a futuristic display font. It has angular cutaways that suggest speed, and is also
         available with a slant for a bit of extra speediness.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/starzoom-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-starzoom">Smaller</button><button type="button"
-        class="btn-larger" value="test-starzoom">Larger</button><button type="button" class="btn-reset"
-        value="test-starzoom">Reset contents</button>
-      <textarea class="testdrive starzoom" id="test-starzoom"></textarea>
-      <button type="button" class="btn-smaller" value="test-starzoom-italic">Smaller</button><button type="button"
-        class="btn-larger" value="test-starzoom-italic">Larger</button><button type="button" class="btn-reset"
-        value="test-starzoom-italic">Reset contents</button>
-      <textarea class="testdrive starzoom italic" id="test-starzoom-italic"></textarea>
-      <a class="download" href="https://1drv.ms/u/s!AtCpU4CJeIG3hWMdOkwmkpBsvNb0?e=rWI7Xr">Download</a>
+      <input id="showTestDrive-starzoom" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-starzoom">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-starzoom">Smaller</button><button type="button"
+          class="btn-larger" value="test-starzoom">Larger</button><button type="button" class="btn-reset"
+          value="test-starzoom">Reset contents</button>
+        <textarea class="testdrive starzoom" id="test-starzoom"></textarea>
+        <button type="button" class="btn-smaller" value="test-starzoom-italic">Smaller</button><button type="button"
+          class="btn-larger" value="test-starzoom-italic">Larger</button><button type="button" class="btn-reset"
+          value="test-starzoom-italic">Reset contents</button>
+        <textarea class="testdrive starzoom" id="test-starzoom-italic" style="font-style: italic;"></textarea>
+      </div><a class="download" href="https://1drv.ms/u/s!AtCpU4CJeIG3hWMdOkwmkpBsvNb0?e=rWI7Xr">Download (both styles)</a>
       <h4>Bonus: Starzoom Deseret</h4>
       <p>As an overdue April Fool’s joke on 2024-04-03, I made a Deseret version of Starzoom.</p>
       <img class="showcase-image" src="./shavian-fonts/starzoom-deseret.png">
       <a class="download" href="./shavian-fonts/starzoom-deseret.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview backlog">𐑚𐑨𐑒 𐑤𐑪𐑜 / Back Log</h3>
+      <h3 class="preview">𐑚𐑨𐑒 𐑤𐑪𐑜 / Back Log</h3>
       <div class="date">2022-02-16</div>
       <h4>Description</h4>
       <p>Back Log Shavian is a comic book font based on <a
@@ -589,15 +681,17 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         non-profit or indie comics use). It is a <a href="#unicase">unicase</a> styled font.</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/backlogshavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-backlog">Smaller</button><button type="button"
-        class="btn-larger" value="test-backlog">Larger</button><button type="button" class="btn-reset"
-        value="test-backlog">Reset contents</button>
-      <textarea class="testdrive backlog" id="test-backlog"></textarea>
-      <a class="download" href="shavian-fonts/backlogshavian.otf">Download</a>
+      <input id="showTestDrive-backlog" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-backlog">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-backlog">Smaller</button><button type="button"
+          class="btn-larger" value="test-backlog">Larger</button><button type="button" class="btn-reset"
+          value="test-backlog">Reset contents</button>
+        <textarea class="testdrive backlog" id="test-backlog"></textarea>
+      </div><a class="download" href="shavian-fonts/backlogshavian.otf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview impetus">𐑦𐑥𐑐𐑦𐑑𐑩𐑕 / Impetus</h3>
+      <h3 class="preview">𐑦𐑥𐑐𐑦𐑑𐑩𐑕 / Impetus</h3>
       <div class="date">2021-11-29</div>
       <h4>Description</h4>
       <p>Impetus Shavian is a bold, industrial display font that adapts the design of <a
@@ -607,30 +701,35 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         you want to make memes in the Shavian alphabet, here's your match!</p>
       <h4>Showcase</h4>
       <img class="showcase-image" src="./shavian-fonts/impetusshavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-impetus">Smaller</button><button type="button"
-        class="btn-larger" value="test-impetus">Larger</button><button type="button" class="btn-reset"
-        value="test-impetus">Reset contents</button>
-      <textarea class="testdrive impetus" id="test-impetus"></textarea>
-      <a class="download" href="shavian-fonts/impetusshavian.ttf">Download</a>
+      <input id="showTestDrive-impetus" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-impetus">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-impetus">Smaller</button><button type="button"
+          class="btn-larger" value="test-impetus">Larger</button><button type="button" class="btn-reset"
+          value="test-impetus">Reset contents</button>
+        <textarea class="testdrive impetus" id="test-impetus"></textarea>
+      </div><a class="download" href="shavian-fonts/impetusshavian.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview minecraft">𐑥𐑲𐑯𐑒𐑮𐑨𐑓𐑑 / Minecraft</h3>
+      <h3 class="preview">𐑥𐑲𐑯𐑒𐑮𐑨𐑓𐑑 / Minecraft</h3>
       <div class="date">2021-11-29</div>
       <h4>Description</h4>
       <p>Minecraft Shavian is an 8px proportional pixel font that adapts the look of the default system font of
         Minecraft.</p>
       <h4>Showcase</h4>
       <img class="showcase-image pixelated-image" src="./shavian-fonts/minecraft-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-minecraft">Smaller</button><button type="button"
-        class="btn-larger" value="test-minecraft">Larger</button><button type="button" class="btn-reset"
-        value="test-minecraft">Reset contents</button>
-      <textarea class="testdrive minecraft" id="test-minecraft"></textarea>
+      <input id="showTestDrive-minecraft" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-minecraft">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-minecraft">Smaller</button><button type="button"
+          class="btn-larger" value="test-minecraft">Larger</button><button type="button" class="btn-reset"
+          value="test-minecraft">Reset contents</button>
+        <textarea class="testdrive minecraft" id="test-minecraft"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/minecraft-shavian.ttf">Download</a>
     </div>
     <div class="section">
-      <h3 class="preview fami">𐑓𐑨𐑥𐑦 𐑕𐑨𐑯𐑟 𐑚𐑴𐑤𐑛 / Fami Sans Bold</h3>
+      <h3 class="preview">𐑓𐑨𐑥𐑦 𐑕𐑨𐑯𐑟 𐑚𐑴𐑤𐑛 / Fami Sans Bold</h3>
       <div class="date">2021-11-29</div>
       <h4>Description</h4>
       <p>Fami Sans Bold Shavian is an 8px fixed-width pixel font that mimics the look of 8-bit video games, such as on
@@ -642,13 +741,14 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         <li>the <a href="https://fontstruct.com/fontstructions/show/1189860/fami_script">Fami Script font</a>, a cursive
           pixel font reminiscent of embroidery.</li>
       </ul>
-      <h4>Showcase</h4>
-      <img class="showcase-image pixelated-image" src="./shavian-fonts/fami-sans-bold-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-fami">Smaller</button><button type="button"
-        class="btn-larger" value="test-fami">Larger</button><button type="button" class="btn-reset"
-        value="test-fami">Reset contents</button>
-      <textarea class="testdrive fami" id="test-fami"></textarea>
+      <input id="showTestDrive-fami" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-fami">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-fami">Smaller</button><button type="button"
+          class="btn-larger" value="test-fami">Larger</button><button type="button" class="btn-reset"
+          value="test-fami">Reset contents</button>
+        <textarea class="testdrive fami" id="test-fami"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/fami-sans-bold-shavian.ttf">Download</a>
     </div>
     <div class="section">
@@ -659,11 +759,14 @@ Some earth areas have beige water. Ah, Dee and Lora are “eyeing you”? Oh joy
         a <a href="#unicase">unicase</a> styled font.</p>
       <h4>Showcase</h4>
       <img class="showcase-image pixelated-image" src="./shavian-fonts/sixfour-shavian.png">
-      <h4>Test Drive</h4>
-      <button type="button" class="btn-smaller" value="test-sixfour">Smaller</button><button type="button"
-        class="btn-larger" value="test-sixfour">Larger</button><button type="button" class="btn-reset"
-        value="test-sixfour">Reset contents</button>
-      <textarea class="testdrive sixfour" id="test-sixfour"></textarea>
+      <input id="showTestDrive-sixfour" type="checkbox" class="showTestDrive">
+      <label for="showTestDrive-sixfour">Test Drive...</label>
+      <div class="testDriveBox">
+        <button type="button" class="btn-smaller" value="test-sixfour">Smaller</button><button type="button"
+          class="btn-larger" value="test-sixfour">Larger</button><button type="button" class="btn-reset"
+          value="test-sixfour">Reset contents</button>
+        <textarea class="testdrive sixfour" id="test-sixfour"></textarea>
+      </div>
       <a class="download" href="shavian-fonts/sixfour-shavian.ttf">Download</a>
     </div>
   </div>
